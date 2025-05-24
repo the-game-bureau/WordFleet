@@ -1,0 +1,59 @@
+ENABLE Dictionary Builder Log
+Generated: 2025-05-24 02:56:10
+==================================================
+
+[2025-05-24 02:51:49] 
+ Phase 1: Download ENABLE word list
+[2025-05-24 02:51:49]  Word list already exists: dictionary\words.lst
+[2025-05-24 02:51:49]  Found 172820 existing words
+[2025-05-24 02:51:49] 
+ Phase 2: Extract short words to XML
+[2025-05-24 02:51:49]  Read 172820 words from dictionary\words.lst
+[2025-05-24 02:51:49]  Loading existing XML: dictionary\words.xml
+[2025-05-24 02:51:49]  Found 13607 existing words in XML
+[2025-05-24 02:51:49]  No new words to add - XML is up to date
+[2025-05-24 02:51:52] 
+ Phase 3: Add definitions (1000 at a time)
+[2025-05-24 02:51:52]  Definition status:
+[2025-05-24 02:51:52]     Total words: 13607
+[2025-05-24 02:51:52]     Have definitions: 745
+[2025-05-24 02:51:52]     Need definitions: 12862
+[2025-05-24 02:51:52] 
+ Testing definition API...
+[2025-05-24 02:51:52]     CAT: An animal of the family Felidae:...
+[2025-05-24 02:51:52]     DOG: A mammal, Canis familiaris or Canis lupu...
+[2025-05-24 02:51:53]     RUN: To run....
+[2025-05-24 02:51:53]     BIG: Someone or something that is large in st...
+[2025-05-24 02:51:53]     SUN: A star, especially when seen as the cent...
+[2025-05-24 02:51:54]  API test: 5/5 successful (100.0%)
+[2025-05-24 02:51:54]  Looking up definitions for 1000 words...
+[2025-05-24 02:51:54]  This will take about 1.7 minutes with rate limiting...
+[2025-05-24 02:52:18]    Progress: 10% (37 found, 63 failed)
+[2025-05-24 02:52:41]    Progress: 20% (57 found, 143 failed)
+[2025-05-24 02:53:06]    Progress: 30% (99 found, 201 failed)
+[2025-05-24 02:53:29]    Progress: 40% (126 found, 274 failed)
+[2025-05-24 02:53:57]    Progress: 50% (152 found, 348 failed)
+[2025-05-24 02:54:23]    Progress: 60% (174 found, 426 failed)
+[2025-05-24 02:54:50]    Progress: 70% (216 found, 484 failed)
+[2025-05-24 02:55:16]    Progress: 80% (259 found, 541 failed)
+[2025-05-24 02:55:42]    Progress: 90% (288 found, 612 failed)
+[2025-05-24 02:56:10]    Progress: 100% (334 found, 666 failed)
+[2025-05-24 02:56:10]  Saved updated XML to: dictionary\words.xml
+[2025-05-24 02:56:10] 
+ Batch complete!
+[2025-05-24 02:56:10]  This batch:
+[2025-05-24 02:56:10]     Processed: 1000 words
+[2025-05-24 02:56:10]     Found: 334 definitions
+[2025-05-24 02:56:10]     Failed: 666 definitions
+[2025-05-24 02:56:10]     Success rate: 33.4%
+[2025-05-24 02:56:10]  Overall status:
+[2025-05-24 02:56:10]     Total with definitions: 1079/13607
+[2025-05-24 02:56:10]     Still need definitions: 11862
+[2025-05-24 02:56:10]     Overall success rate: 7.9%
+[2025-05-24 02:56:10]  Run the script 12 more time(s) to process 11862 more words
+[2025-05-24 02:56:10] 
+ Dictionary processing complete!
+[2025-05-24 02:56:10]  Files created:
+[2025-05-24 02:56:10]     dictionary\words.lst (full word list)
+[2025-05-24 02:56:10]     dictionary\words.xml (short words + definitions)
+[2025-05-24 02:56:10]     log\log.txt (process log)

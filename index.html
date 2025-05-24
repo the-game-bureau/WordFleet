@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordFleet - Random Words</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .word-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #4facfe;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .word-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .length-header {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #4facfe;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .length-badge {
+            background: #4facfe;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-right: 15px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .words-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .word-item {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .word-item:hover {
+            border-color: #4facfe;
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.1);
+        }
+
+        .word-text {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .word-definition {
+            color: #6c757d;
+            line-height: 1.6;
+            font-size: 1em;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #6c757d;
+            font-size: 1.2em;
+        }
+
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #c33;
+            margin: 20px 0;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #4facfe;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stats {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .stats strong {
+            color: #4facfe;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .word-text {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 WordFleet</h1>
+            <p>Random Words from ENABLE Dictionary</p>
+        </div>
+        
+        <div class="content">
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                Loading words from dictionary...
+            </div>
+            
+            <div id="error" class="error" style="display: none;">
+                <strong>Error:</strong> Could not load dictionary file. Make sure dictionary/words.xml exists.
+            </div>
+            
+            <div id="stats" class="stats" style="display: none;">
+                Loaded <strong id="totalWords">0</strong> words with definitions from ENABLE dictionary
+            </div>
+            
+            <div id="wordDisplay" style="display: none;">
+                <!-- 2-letter words -->
+                <div class="word-section">
+                    <div class="length-header">
+                        <span class="length-badge">2</span>
+                        Two Letter Word
+                    </div>
+                    <div class="words-grid" id="words2"></div>
+                </div>
+                
+                <!-- 3-letter words -->
+                <div class="word-section">
+                    <div class="length-header">
+                        <span class="length-badge">3</span>
+                        Three Letter Words
+                    </div>
+                    <div class="words-grid" id="words3"></div>
+                </div>
+                
+                <!-- 4-letter words -->
+                <div class="word-section">
+                    <div class="length-header">
+                        <span class="length-badge">4</span>
+                        Four Letter Word
+                    </div>
+                    <div class="words-grid" id="words4"></div>
+                </div>
+                
+                <!-- 5-letter words -->
+                <div class="word-section">
+                    <div class="length-header">
+                        <span class="length-badge">5</span>
+                        Five Letter Word
+                    </div>
+                    <div class="words-grid" id="words5"></div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="refreshBtn" class="btn" onclick="loadRandomWords()" style="display: none;">
+                    🎲 Get New Random Words
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let wordsData = {};
+        
+        // Load and parse XML file
+        async function loadWordsXML() {
+            try {
+                const response = await fetch('dictionary/words.xml');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const xmlText = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+                
+                // Check for XML parsing errors
+                const parseError = xmlDoc.querySelector('parsererror');
+                if (parseError) {
+                    throw new Error('XML parsing failed');
+                }
+                
+                // Extract words by length
+                const lengthGroups = xmlDoc.querySelectorAll('length_group');
+                let totalWordsWithDefs = 0;
+                
+                lengthGroups.forEach(group => {
+                    const length = group.getAttribute('letters');
+                    wordsData[length] = [];
+                    
+                    const wordElements = group.querySelectorAll('word');
+                    wordElements.forEach(wordEl => {
+                        const word = wordEl.textContent.trim();
+                        const definition = wordEl.getAttribute('definition');
+                        
+                        // Only include words that have definitions (not just "[Definition not found]")
+                        if (definition && definition !== '[Definition not found]') {
+                            wordsData[length].push({
+                                word: word,
+                                definition: definition
+                            });
+                            totalWordsWithDefs++;
+                        }
+                    });
+                });
+                
+                // Update stats
+                document.getElementById('totalWords').textContent = totalWordsWithDefs;
+                document.getElementById('stats').style.display = 'block';
+                
+                console.log('Loaded words:', wordsData);
+                return true;
+                
+            } catch (error) {
+                console.error('Error loading XML:', error);
+                document.getElementById('error').style.display = 'block';
+                return false;
+            }
+        }
+        
+        // Get random words with definitions
+        function getRandomWordsWithDefinitions() {
+            const requirements = {
+                '2': 1,  // 1 two-letter word
+                '3': 2,  // 2 three-letter words  
+                '4': 1,  // 1 four-letter word
+                '5': 1   // 1 five-letter word
+            };
+            
+            const selectedWords = {};
+            
+            for (const [length, count] of Object.entries(requirements)) {
+                selectedWords[length] = [];
+                
+                if (wordsData[length] && wordsData[length].length > 0) {
+                    // Get available words with definitions
+                    const availableWords = [...wordsData[length]];
+                    
+                    // Randomly select required number of words
+                    for (let i = 0; i < count && availableWords.length > 0; i++) {
+                        const randomIndex = Math.floor(Math.random() * availableWords.length);
+                        const selectedWord = availableWords.splice(randomIndex, 1)[0];
+                        selectedWords[length].push(selectedWord);
+                    }
+                }
+            }
+            
+            return selectedWords;
+        }
+        
+        // Display words in the HTML
+        function displayWords(selectedWords) {
+            const lengths = ['2', '3', '4', '5'];
+            
+            lengths.forEach(length => {
+                const container = document.getElementById(`words${length}`);
+                container.innerHTML = '';
+                
+                if (selectedWords[length] && selectedWords[length].length > 0) {
+                    selectedWords[length].forEach(wordData => {
+                        const wordDiv = document.createElement('div');
+                        wordDiv.className = 'word-item';
+                        
+                        wordDiv.innerHTML = `
+                            <div class="word-text">${wordData.word}</div>
+                            <div class="word-definition">${wordData.definition}</div>
+                        `;
+                        
+                        container.appendChild(wordDiv);
+                    });
+                } else {
+                    container.innerHTML = `
+                        <div class="word-item">
+                            <div class="word-definition" style="color: #999; font-style: italic;">
+                                No ${length}-letter words with definitions available
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        }
+        
+        // Load random words
+        async function loadRandomWords() {
+            // Show loading state
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('wordDisplay').style.display = 'none';
+            document.getElementById('refreshBtn').style.display = 'none';
+            
+            // If words not loaded yet, load them first
+            if (Object.keys(wordsData).length === 0) {
+                const success = await loadWordsXML();
+                if (!success) {
+                    document.getElementById('loading').style.display = 'none';
+                    return;
+                }
+            }
+            
+            // Get and display random words
+            const selectedWords = getRandomWordsWithDefinitions();
+            displayWords(selectedWords);
+            
+            // Show results
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('wordDisplay').style.display = 'block';
+            document.getElementById('refreshBtn').style.display = 'inline-block';
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRandomWords();
+        });
+    </script>
+</body>
+</html>
