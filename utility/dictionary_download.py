@@ -1,27 +1,43 @@
 #!/usr/bin/env python3
 """
-Dictionary downloader for GCIDE (GNU Collaborative International Dictionary of English)
-Downloads the dictionary XML file from ibiblio.org to ../dictionary/dictionary.xml
+Enhanced Dictionary Downloader for GCIDE (GNU Collaborative International Dictionary of English)
+Downloads and processes the dictionary XML from ibiblio.org to ../dictionary/dictionary.xml
 
-CLAUDE.AI PROMPT TO RECREATE THIS FILE:
----------------------------------------
-Create a Python script that downloads the GCIDE (GNU Collaborative International Dictionary of English) 
-from https://www.ibiblio.org/webster/gcide_xml-0.53.zip and processes it into a clean XML dictionary file.
+CLAUDE.AI RECREATION PROMPT:
+===========================
+Create a Python script that downloads the GCIDE dictionary from https://www.ibiblio.org/webster/gcide_xml-0.53.zip
+and processes it into a clean XML dictionary file with the following specifications:
 
-Requirements:
-1. Download the ZIP file with a progress indicator
-2. Extract and find the XML files (gcide_a.xml through gcide_z.xml)
-3. Parse each XML file to extract dictionary entries with <hw> (headword) and <def> (definition) tags
-4. Clean up HTML entities and remove markup from definitions
-5. Filter entries to only include valid words (letters, hyphens, apostrophes only)
-6. Combine all entries into a single dictionary.xml file with <entry><word></word><definition></definition></entry> structure
-7. Remove duplicates and sort alphabetically
-8. Create backups of existing files before overwriting
-9. Include proper error handling and user prompts
-10. Store the final file in ../dictionary/dictionary.xml relative to the script location
+CORE FUNCTIONALITY:
+- Download ZIP with progress indicator using urllib
+- Extract and parse gcide_a.xml through gcide_z.xml files
+- Extract <hw> (headword) and <def> (definition) from <p> tags using regex
+- Clean HTML entities (&mdash;, &nbsp;, &amp;, Greek letters, accented chars, etc.)
+- Filter headwords: letters/hyphens/apostrophes only, length > 1, meaningful definitions > 10 chars
+- Remove duplicates (case-insensitive) and sort alphabetically
+- Output format: <dictionary><entry><word></word><definition></definition></entry></dictionary>
+- Single-line entries for compact format
 
-The script should handle XML entity replacements, progress reporting, and cleanup of temporary files.
----------------------------------------
+REQUIREMENTS:
+- Store in dictionary/dictionary.xml relative to script location (GitHub Actions compatible)
+- Log all output to log/log.txt relative to script location
+- Create automatic backup (dictionary_bu.xml) of existing files
+- Handle errors gracefully, continue processing if individual files fail
+- Clean up temporary files after processing
+- Show progress every 5000 entries, log download progress at 10% intervals (once each)
+- Use pathlib.Path for cross-platform file handling
+- Proper XML escaping for output (&, <, > characters)
+
+STRUCTURE:
+- create_directory_structure(): Setup dictionary/ folder relative to script
+- setup_logging(): Create log/ folder and log file relative to script
+- download_with_progress(): Download with percentage indicator
+- extract_zip_file(): Extract and find XML directory
+- combine_xml_files(): Main processing logic with entity replacement and filtering
+- Comprehensive error handling and user feedback throughout
+
+The script should work in any environment including CI/CD systems like GitHub Actions.
+===========================
 """
 
 import os
@@ -29,356 +45,308 @@ import sys
 import urllib.request
 import urllib.error
 import shutil
+import re
+import zipfile
 from pathlib import Path
+from datetime import datetime
 
-# GCIDE XML download URL - from ibiblio.org (current working location)
+# GCIDE download URL
 GCIDE_URL = "https://www.ibiblio.org/webster/gcide_xml-0.53.zip"
 
-def create_directory_structure():
-    """
-    Create the dictionary directory if it doesn't exist.
+# Global log file handle
+log_file = None
+
+def log_print(message, end='\n'):
+    """Print to both console and log file."""
+    print(message, end=end)
+    if log_file:
+        log_file.write(message + end)
+        log_file.flush()
+
+def setup_logging():
+    """Initialize logging to log/log.txt."""
+    global log_file
     
-    Returns:
-        Path: Path object pointing to the dictionary directory (../dictionary relative to script)
-    """
-    script_dir = Path(__file__).parent  # Get directory containing this script
-    dict_dir = script_dir.parent / "dictionary"  # Go up one level, then into dictionary folder
-    dict_dir.mkdir(exist_ok=True)  # Create directory if it doesn't exist
+    # Create log directory
+    log_dir = Path("log")
+    log_dir.mkdir(exist_ok=True)
+    
+    # Open log file
+    log_file_path = log_dir / "log.txt"
+    log_file = open(log_file_path, 'w', encoding='utf-8')
+    
+    # Write header with timestamp
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_print(f"GCIDE Dictionary Download Log - {timestamp}")
+    log_print("=" * 50)
+    
+    return log_file_path
+
+def close_logging():
+    """Close log file."""
+    global log_file
+    if log_file:
+        log_file.close()
+
+# HTML/XML entity replacements for clean text output
+ENTITY_REPLACEMENTS = {
+    '&mdash;': '—', '&nbsp;': ' ', '&amp;': '&', '&lt;': '<', '&gt;': '>',
+    '&quot;': '"', '&apos;': "'", '&deg;': '°', '&pound;': '£', '&sect;': '§',
+    '&para;': '¶', '&middot;': '·', '&times;': '×', '&divide;': '÷',
+    '&prime;': '′', '&Prime;': '″', '&radic;': '√', '&int;': '∫',
+    # Greek letters
+    '&Alpha;': 'Α', '&Beta;': 'Β', '&Gamma;': 'Γ', '&Delta;': 'Δ',
+    '&alpha;': 'α', '&beta;': 'β', '&gamma;': 'γ', '&delta;': 'δ',
+    # Accented characters
+    '&AElig;': 'Æ', '&aelig;': 'æ', '&OElig;': 'Œ', '&oelig;': 'œ',
+    '&agrave;': 'à', '&aacute;': 'á', '&acirc;': 'â', '&atilde;': 'ã',
+    '&auml;': 'ä', '&aring;': 'å', '&ccedil;': 'ç', '&egrave;': 'è',
+    '&eacute;': 'é', '&ecirc;': 'ê', '&euml;': 'ë', '&igrave;': 'ì',
+    '&iacute;': 'í', '&icirc;': 'î', '&iuml;': 'ï', '&ntilde;': 'ñ',
+    '&ograve;': 'ò', '&oacute;': 'ó', '&ocirc;': 'ô', '&ouml;': 'ö',
+    '&ugrave;': 'ù', '&uacute;': 'ú', '&ucirc;': 'û', '&uuml;': 'ü',
+    '*': '',  # Remove pronunciation markers
+}
+
+def create_directory_structure():
+    """Create ../dictionary directory relative to script location."""
+    script_dir = Path(__file__).parent
+    dict_dir = script_dir.parent / "dictionary"
+    dict_dir.mkdir(exist_ok=True)
     return dict_dir
 
 def create_backup(original_file, backup_file):
-    """
-    Create a backup copy of the original dictionary file.
-    
-    Args:
-        original_file (Path): Path to the existing dictionary.xml file
-        backup_file (Path): Path where backup should be created (dictionary_bu.xml)
-    
-    Returns:
-        bool: True if backup successful, False otherwise
-    """
+    """Create backup of existing dictionary file."""
     try:
-        print(f"Creating backup: {backup_file}")
-        # shutil.copy2 preserves timestamps and metadata
+        log_print(f"Creating backup: {backup_file.name}")
         shutil.copy2(original_file, backup_file)
-        print(f"Backup created successfully!")
+        log_print("✓ Backup created successfully")
         return True
     except Exception as e:
-        print(f"Failed to create backup: {e}")
+        log_print(f"✗ Backup failed: {e}")
         return False
 
 def download_with_progress(url, filename):
-    """
-    Download file with progress indicator.
+    """Download file with progress indicator."""
+    logged_percents = set()  # Track which percentages we've already logged
     
-    Args:
-        url (str): URL to download from
-        filename (Path): Local filename to save to
-    
-    Returns:
-        bool: True if download successful, False otherwise
-    """
     def progress_hook(block_num, block_size, total_size):
-        """Callback function to show download progress"""
         if total_size > 0:
-            # Calculate percentage completed
             percent = min(100, (block_num * block_size * 100) // total_size)
-            sys.stdout.write(f"\rDownloading: {percent}% ")
+            message = f"\rDownloading: {percent}% "
+            sys.stdout.write(message)
             sys.stdout.flush()
+            # Log progress only once per 10% milestone
+            if percent % 10 == 0 and percent > 0 and percent not in logged_percents:
+                logged_percents.add(percent)
+                if log_file:
+                    log_file.write(f"Download progress: {percent}%\n")
+                    log_file.flush()
     
     try:
-        print(f"Downloading GCIDE from {url}")
-        # urllib.request.urlretrieve downloads file and calls progress_hook for updates
+        log_print(f"Downloading GCIDE from {url}")
         urllib.request.urlretrieve(url, filename, progress_hook)
-        print("\nDownload completed!")
+        log_print("\n✓ Download completed")
         return True
     except urllib.error.URLError as e:
-        print(f"\nDownload failed: {e}")
+        log_print(f"\n✗ Download failed: {e}")
         return False
 
 def extract_zip_file(zip_file, extract_dir):
-    """
-    Extract ZIP file and find the XML directory.
-    
-    Args:
-        zip_file (Path): Path to the downloaded ZIP file
-        extract_dir (Path): Directory to extract contents to
-    
-    Returns:
-        Path or None: Path to directory containing XML files, or None if not found
-    """
+    """Extract ZIP and locate XML directory."""
     try:
-        import zipfile
-        print("Extracting XML from ZIP archive...")
-        
-        # Extract all contents of ZIP file
+        log_print("Extracting ZIP archive...")
         with zipfile.ZipFile(zip_file, 'r') as zip_ref:
             zip_ref.extractall(extract_dir)
         
-        # Search through extracted files to find XML directory
-        # GCIDE files are named gcide_a.xml, gcide_b.xml, etc.
-        xml_dir = None
+        # Find directory containing gcide_a.xml
         for root, dirs, files in os.walk(extract_dir):
-            # Look for a directory containing gcide_a.xml (first letter file)
             if 'gcide_a.xml' in files:
-                xml_dir = root
-                break
+                log_print(f"✓ Found XML files in: {Path(root).name}")
+                return Path(root)
         
-        if xml_dir:
-            print(f"Found XML files in: {xml_dir}")
-            return Path(xml_dir)
-        else:
-            print("Error: Could not find GCIDE XML files in the extracted archive")
-            return None
+        log_print("✗ GCIDE XML files not found in archive")
+        return None
         
     except Exception as e:
-        print(f"Extraction failed: {e}")
+        log_print(f"✗ Extraction failed: {e}")
         return None
 
-def combine_xml_files(source_dir, output_file):
-    """
-    Combine all GCIDE XML files into a single dictionary.xml file.
+def clean_text(text):
+    """Clean HTML entities and extra whitespace from text."""
+    for entity, replacement in ENTITY_REPLACEMENTS.items():
+        text = text.replace(entity, replacement)
+    return re.sub(r'\s+', ' ', text).strip()
+
+def is_valid_headword(word):
+    """Check if headword meets quality criteria."""
+    # Remove non-letter characters except hyphens and apostrophes
+    clean_word = re.sub(r'[^a-zA-ZÀ-ÿĀ-žΑ-ωА-я\'-]', '', word)
     
-    This function processes the individual letter XML files (gcide_a.xml through gcide_z.xml),
-    extracts dictionary entries, cleans up the text, and combines them into one organized file.
+    return (clean_word and 
+            len(clean_word) > 1 and 
+            clean_word[0].isalpha() and 
+            clean_word[-1].isalpha())
+
+def extract_entries_from_file(xml_file):
+    """Extract dictionary entries from a single XML file."""
+    entries = []
     
-    Args:
-        source_dir (Path): Directory containing the GCIDE XML files
-        output_file (Path): Path where the combined dictionary.xml should be written
-    
-    Returns:
-        bool: True if successful, False otherwise
-    """
     try:
-        import re
-        print("Parsing and combining XML files...")
+        with open(xml_file, 'r', encoding='utf-8') as f:
+            content = f.read()
         
-        # Find letter files only (skip authorities and abbreviations)
-        # Pattern matches gcide_a.xml, gcide_b.xml, etc.
-        xml_files = list(source_dir.glob("gcide_[a-z].xml"))
-        xml_files.sort()  # Process in alphabetical order (a, b, c, ...)
+        # Clean HTML entities
+        content = clean_text(content)
         
-        entry_count = 0
+        # Extract entries from <p> tags containing <hw> and <def>
+        p_pattern = r'<p[^>]*>(.*?)</p>'
+        p_matches = re.findall(p_pattern, content, re.DOTALL)
+        
+        for p_content in p_matches:
+            hw_match = re.search(r'<hw[^>]*>(.*?)</hw>', p_content, re.DOTALL)
+            def_match = re.search(r'<def[^>]*>(.*?)</def>', p_content, re.DOTALL)
+            
+            if hw_match and def_match:
+                # Clean headword and definition
+                headword = re.sub(r'<[^>]+>', '', hw_match.group(1)).strip()
+                definition = re.sub(r'<[^>]+>', ' ', def_match.group(1)).strip()
+                definition = re.sub(r'\s+', ' ', definition)
+                
+                # Apply quality filters
+                if is_valid_headword(headword) and len(definition) > 10:
+                    clean_headword = re.sub(r'[^a-zA-ZÀ-ÿĀ-žΑ-ωА-я\'-]', '', headword)
+                    entries.append({
+                        'word': clean_headword,
+                        'definition': definition
+                    })
+        
+        return entries
+        
+    except Exception as e:
+        log_print(f"  ⚠ Warning: Could not process {xml_file.name}: {e}")
+        return []
+
+def combine_xml_files(source_dir, output_file):
+    """Process all GCIDE XML files and combine into single dictionary."""
+    try:
+        log_print("Processing XML files...")
+        
+        # Find and sort letter files (gcide_a.xml through gcide_z.xml)
+        xml_files = sorted(source_dir.glob("gcide_[a-z].xml"))
+        if not xml_files:
+            log_print("✗ No GCIDE letter files found")
+            return False
+        
+        log_print(f"Found {len(xml_files)} XML files to process")
         all_entries = []
         
-        # Common HTML/XML entity replacements - converts encoded characters to Unicode
-        entity_replacements = {
-            '&mdash;': '—',     # Em dash
-            '&nbsp;': ' ',      # Non-breaking space
-            '&amp;': '&',       # Ampersand
-            '&lt;': '<',        # Less than
-            '&gt;': '>',        # Greater than
-            '&quot;': '"',      # Quote
-            '&apos;': "'",      # Apostrophe
-            '&deg;': '°',       # Degree symbol
-            '&pound;': '£',     # Pound sterling
-            '&sect;': '§',      # Section symbol
-            '&para;': '¶',      # Paragraph symbol
-            '&middot;': '·',    # Middle dot
-            '&times;': '×',     # Multiplication
-            '&divide;': '÷',    # Division
-            '&prime;': '′',     # Prime (minutes/feet)
-            '&Prime;': '″',     # Double prime (seconds/inches)
-            '&radic;': '√',     # Square root
-            '&int;': '∫',       # Integral
-            # Greek letters
-            '&Alpha;': 'Α', '&Beta;': 'Β', '&Gamma;': 'Γ', '&Delta;': 'Δ',
-            '&alpha;': 'α', '&beta;': 'β', '&gamma;': 'γ', '&delta;': 'δ',
-            # Latin characters with diacritics
-            '&AElig;': 'Æ', '&aelig;': 'æ', '&OElig;': 'Œ', '&oelig;': 'œ',
-            '&agrave;': 'à', '&aacute;': 'á', '&acirc;': 'â', '&atilde;': 'ã',
-            '&auml;': 'ä', '&aring;': 'å', '&ccedil;': 'ç', '&egrave;': 'è',
-            '&eacute;': 'é', '&ecirc;': 'ê', '&euml;': 'ë', '&igrave;': 'ì',
-            '&iacute;': 'í', '&icirc;': 'î', '&iuml;': 'ï', '&ntilde;': 'ñ',
-            '&ograve;': 'ò', '&oacute;': 'ó', '&ocirc;': 'ô', '&ouml;': 'ö',
-            '&ugrave;': 'ù', '&uacute;': 'ú', '&ucirc;': 'û', '&uuml;': 'ü',
-            # Remove formatting markers
-            '*': '',  # Remove asterisks used for pronunciation marks
-        }
-        
-        # Process each XML file (gcide_a.xml, gcide_b.xml, etc.)
-        for xml_file in xml_files:
-            print(f"Processing {xml_file.name}...")
+        # Process each XML file
+        for i, xml_file in enumerate(xml_files, 1):
+            log_print(f"  Processing {xml_file.name} ({i}/{len(xml_files)})...")
+            entries = extract_entries_from_file(xml_file)
+            all_entries.extend(entries)
+            log_print(f"    Added {len(entries)} entries (total: {len(all_entries)})")
             
-            try:
-                # Read the entire XML file as text
-                with open(xml_file, 'r', encoding='utf-8') as f:
-                    content = f.read()
-                
-                # Replace HTML/XML entities with Unicode characters
-                for entity, replacement in entity_replacements.items():
-                    content = content.replace(entity, replacement)
-                
-                # Extract dictionary entries using regex
-                # GCIDE structure: <p>...</p> tags contain dictionary entries
-                # Each entry has <hw>headword</hw> and <def>definition</def> tags
-                pattern = r'<p[^>]*>(.*?)</p>'  # Find all paragraph tags
-                p_matches = re.findall(pattern, content, re.DOTALL)  # DOTALL allows . to match newlines
-                
-                for p_content in p_matches:
-                    # Extract headword (the word being defined)
-                    hw_match = re.search(r'<hw[^>]*>(.*?)</hw>', p_content, re.DOTALL)
-                    # Extract definition (the meaning)
-                    def_match = re.search(r'<def[^>]*>(.*?)</def>', p_content, re.DOTALL)
-                    
-                    # Only process entries that have both headword and definition
-                    if hw_match and def_match:
-                        # Clean up the headword - remove any remaining HTML/XML tags
-                        headword = re.sub(r'<[^>]+>', '', hw_match.group(1)).strip()
-                        # Clean up the definition - remove HTML/XML tags but keep the text
-                        definition = re.sub(r'<[^>]+>', ' ', def_match.group(1)).strip()
-                        # Clean up extra whitespace (multiple spaces become single space)
-                        definition = re.sub(r'\s+', ' ', definition)
-                        
-                        # Filter headword to only contain valid characters
-                        # Keep: letters (including international), hyphens, apostrophes
-                        # Remove: numbers, symbols, punctuation marks
-                        clean_headword = re.sub(r'[^a-zA-ZÀ-ÿĀ-žΑ-ωА-я\'-]', '', headword)
-                        
-                        # Quality filters - only keep entries that:
-                        # 1. Have actual letters (not empty after cleaning)
-                        # 2. Are longer than 1 character (no single letters)
-                        # 3. Start and end with alphabetic characters (not punctuation)
-                        # 4. Have a meaningful definition (longer than 10 characters)
-                        if (clean_headword and 
-                            len(clean_headword) > 1 and 
-                            clean_headword[0].isalpha() and 
-                            clean_headword[-1].isalpha() and 
-                            definition and 
-                            len(definition) > 10):
-                            
-                            entry_count += 1
-                            all_entries.append({
-                                'word': clean_headword,
-                                'definition': definition
-                            })
-                            
-                            # Progress indicator - print every 5000 entries
-                            if entry_count % 5000 == 0:
-                                print(f"  Processed {entry_count} entries...")
-                                
-            except Exception as e:
-                # If one file fails, continue with the others
-                print(f"  Warning: Could not process {xml_file.name}: {e}")
-                continue
+            # Progress indicator every 5000 entries
+            if len(all_entries) % 5000 < len(entries):
+                log_print(f"    Progress: {len(all_entries)} entries processed...")
         
-        # Write the final combined XML file
-        print(f"Writing combined dictionary with {entry_count} entries...")
+        # Remove duplicates and sort
+        log_print("Removing duplicates and sorting...")
+        seen_words = set()
+        unique_entries = []
         
+        for entry in all_entries:
+            word_lower = entry['word'].lower()
+            if word_lower not in seen_words:
+                seen_words.add(word_lower)
+                unique_entries.append(entry)
+        
+        duplicates_removed = len(all_entries) - len(unique_entries)
+        log_print(f"Removed {duplicates_removed} duplicate entries")
+        
+        unique_entries.sort(key=lambda x: x['word'].lower())
+        log_print("Entries sorted alphabetically")
+        
+        # Write combined XML file
+        log_print(f"Writing dictionary with {len(unique_entries)} entries...")
         with open(output_file, 'w', encoding='utf-8') as f:
-            # Write XML header
-            f.write('<?xml version="1.0" encoding="utf-8"?>\n')
-            f.write('<dictionary>\n')
+            f.write('<?xml version="1.0" encoding="utf-8"?>\n<dictionary>\n')
             
-            # Remove duplicates based on word (case-insensitive)
-            # Keep the first occurrence of each word
-            seen_words = set()
-            unique_entries = []
-            for entry in all_entries:
-                word_lower = entry['word'].lower()
-                if word_lower not in seen_words:
-                    seen_words.add(word_lower)
-                    unique_entries.append(entry)
-            
-            # Sort entries alphabetically by word (case-insensitive)
-            unique_entries.sort(key=lambda x: x['word'].lower())
-            
-            # Write each dictionary entry
             for entry in unique_entries:
-                # Escape XML characters in word and definition to prevent XML parsing errors
+                # Escape XML characters
                 word = entry['word'].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
                 definition = entry['definition'].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
                 
-                # Write entry in clean XML format
-                f.write(f'  <entry>\n')
-                f.write(f'    <word>{word}</word>\n')
-                f.write(f'    <definition>{definition}</definition>\n')
-                f.write(f'  </entry>\n')
+                f.write(f'  <entry><word>{word}</word><definition>{definition}</definition></entry>\n')
             
-            # Close XML root tag
             f.write('</dictionary>\n')
         
-        unique_count = len(unique_entries)
-        print(f"Successfully created {output_file} with {unique_count} unique dictionary entries!")
+        log_print(f"✓ Dictionary created with {len(unique_entries)} unique entries")
         return True
         
     except Exception as e:
-        print(f"Error combining XML files: {e}")
+        log_print(f"✗ Error combining XML files: {e}")
         return False
 
 def main():
-    """
-    Main download and processing function.
+    """Main orchestration function."""
+    # Setup logging first
+    log_file_path = setup_logging()
     
-    This orchestrates the entire process:
-    1. Create directory structure
-    2. Check for existing files and create backups
-    3. Download the GCIDE ZIP file
-    4. Extract and find XML files
-    5. Process and combine into single dictionary.xml
-    6. Clean up temporary files
-    """
-    print("GCIDE Dictionary Downloader")
-    print("=" * 30)
-    
-    # Set up file paths
-    dict_dir = create_directory_structure()  # ../dictionary/ relative to script
-    temp_file = dict_dir / "gcide.zip"       # Temporary ZIP download
-    temp_extract_dir = dict_dir / "temp_extract"  # Temporary extraction directory
-    final_file = dict_dir / "dictionary.xml"      # Final output file
-    backup_file = dict_dir / "dictionary_bu.xml"  # Backup of existing file
-    
-    # Handle existing dictionary file
-    if final_file.exists():
-        print(f"Existing dictionary found at {final_file}")
+    try:
+        log_print("GCIDE Dictionary Downloader")
+        log_print("=" * 30)
         
-        # Create backup first - this is critical to prevent data loss
-        if create_backup(final_file, backup_file):
-            print("Backup created successfully!")
-        else:
-            print("Failed to create backup. Aborting to prevent data loss.")
+        # Setup paths
+        dict_dir = create_directory_structure()
+        temp_file = dict_dir / "gcide.zip"
+        temp_extract_dir = dict_dir / "temp_extract"
+        final_file = dict_dir / "dictionary.xml"
+        backup_file = dict_dir / "dictionary_bu.xml"
+        
+        log_print(f"Dictionary directory: {dict_dir}")
+        log_print(f"Output file: {final_file}")
+        log_print(f"Log file: {log_file_path}")
+        
+        # Handle existing files
+        if final_file.exists():
+            log_print(f"Existing dictionary found: {final_file.name}")
+            if not create_backup(final_file, backup_file):
+                log_print("Aborting to prevent data loss")
+                return
+        
+        # Download and process
+        if not download_with_progress(GCIDE_URL, temp_file):
+            log_print("Download failed, aborting")
             return
         
-        # Automatically proceed after backup is created
-        print("Proceeding with download...")
-    else:
-        print(f"Dictionary not found. Creating new dictionary at {final_file}")
-    
-    # Download the GCIDE ZIP file from ibiblio.org
-    if download_with_progress(GCIDE_URL, temp_file):
-        print("Download completed!")
-    else:
-        print("Download failed. Please check your internet connection.")
-        return
-    
-    # Extract ZIP file and locate XML files
-    temp_extract_dir.mkdir(exist_ok=True)  # Create extraction directory
-    xml_source_dir = extract_zip_file(temp_file, temp_extract_dir)
-    
-    if xml_source_dir:
-        # Process XML files and create combined dictionary
-        if combine_xml_files(xml_source_dir, final_file):
-            # Clean up temporary files to save disk space
-            shutil.rmtree(temp_extract_dir)  # Remove entire extraction directory
-            temp_file.unlink()               # Remove ZIP file
+        temp_extract_dir.mkdir(exist_ok=True)
+        xml_source_dir = extract_zip_file(temp_file, temp_extract_dir)
+        
+        if xml_source_dir and combine_xml_files(xml_source_dir, final_file):
+            # Cleanup
+            log_print("Cleaning up temporary files...")
+            shutil.rmtree(temp_extract_dir)
+            temp_file.unlink()
+            log_print("✓ Temporary files removed")
             
-            # Show success information
-            print(f"\nDictionary successfully created at: {final_file}")
-            print(f"File size: {final_file.stat().st_size / (1024*1024):.1f} MB")
+            # Success summary
+            size_mb = final_file.stat().st_size / (1024 * 1024)
+            log_print(f"\n✓ SUCCESS!")
+            log_print(f"Dictionary: {final_file} ({size_mb:.1f} MB)")
             if backup_file.exists():
-                print(f"Backup available at: {backup_file}")
+                log_print(f"Backup: {backup_file.name}")
+            log_print(f"Complete log saved to: {log_file_path}")
         else:
-            print("Failed to combine XML files.")
+            log_print(f"\n✗ FAILED!")
             if backup_file.exists():
-                print(f"Original dictionary backup is safe at: {backup_file}")
-    else:
-        print("Failed to extract dictionary files.")
-        if backup_file.exists():
-            print(f"Original dictionary backup is safe at: {backup_file}")
+                log_print(f"Original backup safe at: {backup_file.name}")
+    
+    finally:
+        # Always close log file
+        close_logging()
 
 if __name__ == "__main__":
-    """
-    Script entry point - only runs main() when script is executed directly,
-    not when imported as a module.
-    """
     main()

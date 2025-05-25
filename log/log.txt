@@ -1,0 +1,19 @@
+Dictionary Deck Maker - Started at 2025-05-24 23:30:14
+==================================================
+Creating initial word_decks.xml from dictionary.xml...
+✓ Initial file created successfully
+Parsing XML...
+Found 102637 total entries
+Processing entries...
+Removing filtered entries...
+Saving processed dictionary...
+
+✓ Processing complete!
+Total entries processed: 102637
+Entries kept: 10158
+Entries removed: 92479
+Words converted to UPPERCASE and deck tags added
+Output saved to: c:\Code\WordFleet\dictionary\word_decks.xml
+Log saved to: c:\Code\WordFleet\log\log.txt
+==================================================
+Dictionary Deck Maker - Completed at 2025-05-24 23:30:23

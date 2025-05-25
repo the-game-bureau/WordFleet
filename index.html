@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Fleet – Galleons and Gunpowder Edition</title>
+  <style>
+    /* General Styles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; color: #333; background-color: #f8f9fa; line-height: 1.6; }
+
+    /* Pirate Font */
+    @font-face {
+      font-family: 'Pieces of Eight';
+      src: url('./media/Pieces_of_Eight.ttf') format('truetype');
+    }
+    .pieces-font { font-family: 'Pieces of Eight', Arial, sans-serif; }
+
+    /* Header */
+    header {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 20px; text-align: center;
+      background:
+        linear-gradient(rgba(10,20,60,0.7),rgba(10,20,60,0.7)),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23083653" width="100" height="100"/><circle fill="%23164e63" cx="20" cy="20" r="3"/><circle fill="%23164e63" cx="80" cy="30" r="2"/><circle fill="%23164e63" cx="40" cy="70" r="2.5"/></svg>')
+        center/cover;
+      color: #f9e7b8; border-bottom: 4px solid #d69a00;
+      box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
+    }
+    header h1 {
+      font-size: 3.5rem; font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+      color: #d69a00; margin-bottom: 5px;
+    }
+    .byline {
+      font-size: 1.2rem; color: #d69a00;
+      margin: 5px 0 10px; text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    }
+    .byline a { color: #d69a00; text-decoration: none; }
+    .byline a:hover { text-decoration: underline; }
+
+    /* Controls */
+    .controls {
+      text-align: center; margin: 20px auto; padding: 20px;
+      background: #fff; border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 800px;
+    }
+    .btn {
+      padding: 12px 24px; background-color: #d69a00; color: #06203e;
+      border: none; border-radius: 5px; font-size: 1rem; font-weight: bold;
+      cursor: pointer; margin: 0 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: all 0.3s ease;
+    }
+    .btn:hover { background-color: #a67600; transform: scale(1.05); }
+
+    /* Layout */
+    .table-container {
+      max-width: 1200px; margin: 0 auto; padding: 20px;
+      display: flex; flex-direction: column; gap: 30px;
+    }
+    .game-layout {
+      display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 20px;
+    }
+
+    /* Grid */
+    .grid-section {
+      background: #fff; border: 3px solid #0f4c75;
+      border-radius: 12px; padding: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    #grid {
+      width: 100%; max-width: 500px; margin: 0 auto;
+      border-collapse: collapse; border: 2px solid #0f4c75;
+    }
+    #grid th, #grid td {
+      width: 40px; height: 40px; border: 1px solid #cbd5e1;
+      text-align: center; vertical-align: middle; font-weight: 600;
+    }
+    #grid th {
+      background: #0f4c75; color: #fff;
+    }
+    #grid td {
+      background: #f8fafc; cursor: pointer;
+      transition: background 0.15s ease; font-size: 18px;
+    }
+    #grid td:hover { background: #e2e8f0; }
+
+    /* Fleet */
+    .fleet-section {
+      background: #fff; border: 3px solid #7c3aed;
+      border-radius: 12px; padding: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .word-cards { display: grid; gap: 16px; margin-top: 20px; }
+    .ship-group { margin-bottom: 24px; }
+    .ship-title {
+      background: #f1f5f9; border-left: 4px solid; border-radius: 4px;
+      padding: 8px 16px; margin-bottom: 12px;
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      color: #374151; letter-spacing: 0.08em;
+    }
+    .patrol-boat .ship-title  { border-color: #dc2626; }
+    .destroyer   .ship-title  { border-color: #ea580c; }
+    .submarine   .ship-title  { border-color: #0891b2; }
+    .galleon     .ship-title  { border-color: #7c3aed; }
+    .battleship  .ship-title  { border-color: #059669; }
+    <style>
+      .word-card {
+        background: #fff; border: 2px solid #cbd5e1;
+        border-radius: 8px; padding: 16px; position: relative;
+        transition: all 0.15s ease; overflow: hidden;
+      }
+      .word-card:hover {
+        border-color: #0f4c75; transform: translateX(2px);
+      }
+      .word-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      }
+      .patrol-boat .word-card::before  { background: #dc2626; }
+      .destroyer   .word-card::before  { background: #ea580c; }
+      .submarine   .word-card::before  { background: #0891b2; }
+      .galleon     .word-card::before  { background: #7c3aed; }
+      .battleship  .word-card::before  { background: #059669; }
+
+      .word {
+        display: flex; justify-content: center; gap: 2px;
+        margin-bottom: 8px; flex-wrap: wrap;
+      }
+      .scrabble-tile {
+        width: 40px; height: 40px; display: flex;
+        align-items: center; justify-content: center;
+        background: linear-gradient(145deg,#f8f4dc,#e6ddb3);
+        border:2px solid#d4c5a9;border-radius:4px;
+        box-shadow:
+          inset 1px 1px 3px rgba(255,255,255,0.8),
+          inset -1px -1px 3px rgba(0,0,0,0.2),
+          2px 2px 4px rgba(0,0,0,0.3);
+        font-family:'Arial Black',Arial,sans-serif;
+        font-weight:900;font-size:18px;color:#2d2d2d;margin:2px;
+      }
+      .definition {
+        color: #475569; font-size: 13px; line-height: 1.4;
+        text-align: center; margin-top: 4px;
+      }
+    </style>
+
+  <body>
+    <header>…</header>
+    <div class="controls">…</div>
+    <div class="table-container">
+      <div id="content" class="game-layout">
+        <!-- loading spinner / grid + fleet will go here -->
+      </div>
+    </div>
+    <footer>…</footer>
+
+    <script>
+    let dictionaryWords = {};
+
+    async function loadDictionary() {
+      try {
+        const path = window.location.pathname;
+        const xmlPath = path.includes('/utility/')
+          ? '../dictionary/word_decks.xml'
+          : './dictionary/word_decks.xml';
+        console.log('Loading dictionary from:', xmlPath);
+
+        const res  = await fetch(xmlPath);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        const xml  = new DOMParser().parseFromString(text, 'application/xml');
+
+        const nodes = Array.from(xml.querySelectorAll('word'));
+        console.log('Found', nodes.length, '<word> nodes');
+
+        dictionaryWords = {};
+        nodes.forEach(el => {
+          const w = el.textContent.trim();
+          const len = w.length;
+          let def = el.getAttribute('definition') || '';
+          const dEl = el.querySelector('definition');
+          if (!def && dEl) def = dEl.textContent.trim();
+
+          if (!dictionaryWords[len]) dictionaryWords[len] = [];
+          dictionaryWords[len].push({ word: w, definition: def });
+        });
+        console.log('Buckets:', Object.keys(dictionaryWords));
+      } catch (err) {
+        console.error('Error loading dictionary:', err);
+        document.getElementById('content').innerHTML =
+          '<div class="error">Unable to load word list.</div>';
+      }
+    }
+
+    function getRandomWord(length) {
+      const list = dictionaryWords[length] || [];
+      return list.length
+        ? list[Math.floor(Math.random() * list.length)]
+        : { word: 'N/A', definition: 'No ships available' };
+    }
+
+    function createBattleGrid() {
+      const letters = [...'ABCDEFGHIJ'];
+      const nums = Array.from({length:10},(_,i)=>i+1);
+      let html = `<div class="grid-section"><table id="grid"><caption>🗺️ The High Seas Battle Grid</caption><thead><tr><th>☠️</th>`;
+      nums.forEach(n=> html += `<th>${n}</th>`);
+      html += `</tr></thead><tbody>`;
+      letters.forEach(l=>{
+        html += `<tr><th>${l}</th>`;
+        nums.forEach(n=> html += `<td data-coord="${l}${n}">◦</td>`);
+        html += `</tr>`;
+      });
+      html += `</tbody></table></div>`;
+      return html;
+    }
+
+    function createScrabbleTiles(w) {
+      return [...w].map(c=>`<span class="scrabble-tile">${c}</span>`).join('');
+    }
+
+    function createFleetCards() {
+      const ships = [
+        {class:'patrol-boat',title:'🚤 Cutter (2)', length:2, count:1},
+        {class:'destroyer',  title:'⛵ Sloop (3)',  length:3, count:1},
+        {class:'submarine',  title:'🚢 Brig (3)',   length:3, count:1},
+        {class:'galleon',    title:'🏴‍☠️ Frigate (4)', length:4, count:1},
+        {class:'battleship', title:'⚓ Galleon (5)', length:5, count:1},
+      ];
+      let html = `<div class="fleet-section"><caption>🚢 Yer Fleet</caption><div class="word-cards">`;
+      ships.forEach(s=>{
+        html += `<div class="ship-group ${s.class}"><div class="ship-title">${s.title}</div>`;
+        for(let i=0;i<s.count;i++){
+          const {word,definition} = getRandomWord(s.length);
+          html += `<div class="word-card">
+                     <div class="word">${createScrabbleTiles(word)}</div>
+                     <div class="definition">${definition}</div>
+                   </div>`;
+        }
+        html += `</div>`;
+      });
+      html += `</div></div>`;
+      return html;
+    }
+
+    function loadWords() {
+      const c = document.getElementById('content');
+      c.innerHTML = createBattleGrid() + createFleetCards();
+      c.querySelectorAll('#grid td[data-coord]').forEach(td=>{
+        td.onclick = ()=>{
+          const states = ['◦','💥','🌊','⚓'];
+          const idx = states.indexOf(td.textContent);
+          const nxt = (idx+1)%states.length;
+          td.textContent = states[nxt];
+          td.style.background = ['', '#fecaca','#dbeafe','#dcfce7'][nxt];
+        };
+      });
+    }
+
+    function printGrid(){/*…*/}   // (same as before)
+    function printFleet(){/*…*/}  // (same as before)
+
+    document.addEventListener('DOMContentLoaded', async ()=>{
+      await loadDictionary();
+      loadWords();
+    });
+    </script>
+  </body>
+</html>
