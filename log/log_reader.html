@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Reader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.4;
+        }
+
+        .header {
+            background: #2d2d2d;
+            padding: 20px;
+            border-bottom: 2px solid #444;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        select {
+            background: #333;
+            border: 1px solid #666;
+            color: #e0e0e0;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: inherit;
+            min-width: 200px;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .stats {
+            background: #2a2a2a;
+            padding: 15px 20px;
+            border-bottom: 1px solid #444;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-number {
+            background: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .log-entry-group {
+            margin-bottom: 24px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .timestamp-header {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .log-entries {
+            padding: 0;
+        }
+
+        .log-item {
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+
+        .log-item:last-child {
+            border-bottom: none;
+        }
+
+        .log-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .log-item.info {
+            border-left: 4px solid #2196F3;
+        }
+
+        .log-item.start {
+            border-left: 4px solid #FF9800;
+            background: rgba(255, 152, 0, 0.05);
+        }
+
+        .log-item.progress {
+            border-left: 4px solid #9C27B0;
+        }
+
+        .log-item.complete {
+            border-left: 4px solid #4CAF50;
+            background: rgba(76, 175, 80, 0.05);
+        }
+
+        .log-item.error {
+            border-left: 4px solid #F44336;
+            background: rgba(244, 67, 54, 0.05);
+        }
+
+        .log-item.warning {
+            border-left: 4px solid #FF5722;
+            background: rgba(255, 87, 34, 0.05);
+        }
+
+        .log-level {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-right: 16px;
+            min-width: 80px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .log-level.info { 
+            background: linear-gradient(45deg, #2196F3, #42A5F5);
+            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+        }
+        .log-level.start { 
+            background: linear-gradient(45deg, #FF9800, #FFB74D);
+            box-shadow: 0 2px 4px rgba(255, 152, 0, 0.3);
+        }
+        .log-level.progress { 
+            background: linear-gradient(45deg, #9C27B0, #BA68C8);
+            box-shadow: 0 2px 4px rgba(156, 39, 176, 0.3);
+        }
+        .log-level.complete { 
+            background: linear-gradient(45deg, #4CAF50, #66BB6A);
+            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+        }
+        .log-level.error { 
+            background: linear-gradient(45deg, #F44336, #EF5350);
+            box-shadow: 0 2px 4px rgba(244, 67, 54, 0.3);
+        }
+        .log-level.warning { 
+            background: linear-gradient(45deg, #FF5722, #FF7043);
+            box-shadow: 0 2px 4px rgba(255, 87, 34, 0.3);
+        }
+
+        .message {
+            color: #f0f0f0;
+            font-weight: 400;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .no-logs {
+            text-align: center;
+            color: #888;
+            padding: 40px;
+            font-size: 18px;
+        }
+
+        .error-message {
+            background: #F44336;
+            color: white;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #D32F2F;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 Log Reader</h1>
+        <div class="controls">
+            <div class="filter-group">
+                <label>Filter by Time:</label>
+                <select id="timeFilter">
+                    <option value="">All Times</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats" id="stats">
+        <div class="stat-item">
+            <span>Total Entries:</span>
+            <span class="stat-number" id="totalCount">0</span>
+        </div>
+        <div class="stat-item">
+            <span>Visible:</span>
+            <span class="stat-number" id="visibleCount">0</span>
+        </div>
+        <div class="stat-item">
+            <span>Date Range:</span>
+            <span id="dateRange">-</span>
+        </div>
+    </div>
+
+    <div class="log-container" id="logContainer">
+        <div class="no-logs">
+            Loading logs...
+        </div>
+    </div>
+
+    <script>
+        let allLogEntries = [];
+        let filteredEntries = [];
+
+        const timeFilter = document.getElementById('timeFilter');
+        const logContainer = document.getElementById('logContainer');
+        const totalCount = document.getElementById('totalCount');
+        const visibleCount = document.getElementById('visibleCount');
+        const dateRange = document.getElementById('dateRange');
+
+        timeFilter.addEventListener('change', applyFilters);
+
+        // Load the log data from external file
+        window.addEventListener('load', loadLogData);
+
+        async function loadLogData() {
+            try {
+                logContainer.innerHTML = '<div class="no-logs">Loading log.txt...</div>';
+                
+                // Fetch the log file
+                const response = await fetch('log.txt');
+                if (!response.ok) {
+                    throw new Error(`Failed to load log.txt: ${response.status} ${response.statusText}`);
+                }
+                
+                const logData = await response.text();
+                parseLogFile(logData);
+            } catch (error) {
+                showError(`Error loading log.txt: ${error.message}<br><br>Make sure log.txt is in the same directory as this HTML file.`);
+            }
+        }
+
+        function parseLogFile(content) {
+            const lines = content.split('\n').filter(line => line.trim());
+            allLogEntries = [];
+
+            lines.forEach((line, index) => {
+                const entry = parseLogLine(line, index + 1);
+                if (entry) {
+                    allLogEntries.push(entry);
+                }
+            });
+
+            if (allLogEntries.length === 0) {
+                showError('No valid log entries found');
+                return;
+            }
+
+            // Sort by timestamp (newest first)
+            allLogEntries.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            populateTimeFilter();
+            updateStats();
+            applyFilters();
+        }
+
+        function parseLogLine(line, lineNumber) {
+            // Parse format: LEVEL|TIMESTAMP|ACTUAL_LEVEL|MESSAGE
+            const parts = line.split('|');
+            if (parts.length < 4) return null;
+
+            const firstField = parts[0].trim(); // First field (usually INFO)
+            const timestamp = parts[1].trim();
+            const actualLevel = parts[2].trim(); // Third field is the actual level (START, INFO, PROGRESS, etc.)
+            const message = parts.slice(3).join('|').trim();
+
+            return {
+                level: actualLevel.toLowerCase(), // Use actual level for styling
+                displayLevel: actualLevel, // Use actual level for display
+                timestamp,
+                message,
+                originalLine: line,
+                lineNumber
+            };
+        }
+
+        function populateTimeFilter() {
+            // Get unique timestamps (full date and time)
+            const uniqueTimestamps = [...new Set(allLogEntries.map(entry => {
+                const date = new Date(entry.timestamp);
+                return date.toLocaleString(); // Full date and time
+            }))];
+            
+            // Sort timestamps newest first
+            uniqueTimestamps.sort((a, b) => new Date(b) - new Date(a));
+
+            // Clear existing options
+            timeFilter.innerHTML = '<option value="">All Timestamps</option>';
+            
+            // Add timestamp options
+            uniqueTimestamps.forEach(timestamp => {
+                const option = document.createElement('option');
+                option.value = timestamp;
+                option.textContent = timestamp;
+                timeFilter.appendChild(option);
+            });
+
+            // Auto-select most recent timestamp by default
+            if (uniqueTimestamps.length > 0) {
+                timeFilter.value = uniqueTimestamps[0];
+            }
+        }
+
+        function applyFilters() {
+            const selectedTimestamp = timeFilter.value;
+
+            filteredEntries = allLogEntries.filter(entry => {
+                if (!selectedTimestamp) return true;
+                
+                const entryTimestamp = new Date(entry.timestamp).toLocaleString();
+                return entryTimestamp === selectedTimestamp;
+            });
+
+            renderLogEntries();
+            updateVisibleCount();
+        }
+
+        function renderLogEntries() {
+            if (filteredEntries.length === 0) {
+                logContainer.innerHTML = '<div class="no-logs">No log entries match the selected timestamp</div>';
+                return;
+            }
+
+            // Group entries by timestamp
+            const groupedEntries = {};
+            filteredEntries.forEach(entry => {
+                const timestamp = entry.timestamp;
+                if (!groupedEntries[timestamp]) {
+                    groupedEntries[timestamp] = [];
+                }
+                groupedEntries[timestamp].push(entry);
+            });
+
+            // Sort timestamps (newest first)
+            const sortedTimestamps = Object.keys(groupedEntries).sort((a, b) => new Date(b) - new Date(a));
+
+            const html = sortedTimestamps.map(timestamp => {
+                const entries = groupedEntries[timestamp];
+                const formattedTimestamp = formatTimestamp(timestamp);
+                
+                const entriesHtml = entries.map(entry => `
+                    <div class="log-item ${entry.level}">
+                        <span class="log-level ${entry.level}">${entry.displayLevel}</span>
+                        <span class="message">${entry.message}</span>
+                    </div>
+                `).join('');
+
+                return `
+                    <div class="log-entry-group">
+                        <div class="timestamp-header">${formattedTimestamp}</div>
+                        <div class="log-entries">
+                            ${entriesHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            logContainer.innerHTML = html;
+        }
+
+        function formatTimestamp(timestamp) {
+            try {
+                const date = new Date(timestamp);
+                // Format with more spacing: date, time
+                return date.toLocaleString().replace(',', ' • ');
+            } catch {
+                return timestamp;
+            }
+        }
+
+        function updateStats() {
+            totalCount.textContent = allLogEntries.length;
+            
+            if (allLogEntries.length > 0) {
+                // Since entries are sorted newest first, get first and last
+                const latest = new Date(allLogEntries[0].timestamp).toLocaleDateString();
+                const earliest = new Date(allLogEntries[allLogEntries.length - 1].timestamp).toLocaleDateString();
+                dateRange.textContent = earliest === latest ? latest : `${earliest} - ${latest}`;
+            }
+        }
+
+        function updateVisibleCount() {
+            visibleCount.textContent = filteredEntries.length;
+        }
+
+        function showError(message) {
+            logContainer.innerHTML = `<div class="error-message">${message}</div>`;
+        }
+    </script>
+</body>
+</html>
