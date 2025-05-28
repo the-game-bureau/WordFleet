@@ -32,22 +32,7 @@
                 linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #2d4a5e 100%);
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="waves" x="0" y="0" width="100" height="20" patternUnits="userSpaceOnUse"><path d="M0 10 Q25 0 50 10 T100 10 V20 H0 Z" fill="%23ffffff" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23waves)"/></svg>');
-            animation: drift 20s ease-in-out infinite;
-            z-index: 1;
-        }
 
-        @keyframes drift {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(-20px); }
-        }
 
         .hero-content {
             position: relative;
@@ -120,6 +105,11 @@
             padding: 100px 20px;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            background: 
+                linear-gradient(rgba(26, 35, 50, 0.85), rgba(26, 35, 50, 0.75)),
+                url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAGQAoADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAK') center/cover;
+            background-attachment: fixed;
         }
 
         .features-grid {
@@ -127,17 +117,20 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
             margin-top: 60px;
+            position: relative;
+            z-index: 2;
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.1);
             padding: 40px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(15px);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .feature-card::before {
@@ -158,8 +151,9 @@
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 215, 0, 0.6);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .feature-icon {
@@ -187,14 +181,20 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+            position: relative;
+            z-index: 2;
         }
 
         .section-subtitle {
             text-align: center;
             font-size: 1.2rem;
-            opacity: 0.8;
+            opacity: 0.9;
             max-width: 600px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .floating-elements {
@@ -204,7 +204,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
         }
 
         .floating-letter {
@@ -212,16 +212,64 @@
             font-size: 2rem;
             font-weight: bold;
             opacity: 0.1;
-            animation: float 15s infinite linear;
             color: #ffd700;
         }
 
-        @keyframes float {
+        /* Floating up animation for some letters */
+        .float-up {
+            animation: floatUp 15s infinite linear;
+        }
+
+        @keyframes floatUp {
             0% {
                 transform: translateY(100vh) rotate(0deg);
             }
             100% {
                 transform: translateY(-100px) rotate(360deg);
+            }
+        }
+
+        /* Floating down animation for some letters */
+        .float-down {
+            animation: floatDown 18s infinite linear;
+        }
+
+        @keyframes floatDown {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(-360deg);
+            }
+        }
+
+        /* Floating diagonally for some letters */
+        .float-diagonal {
+            animation: floatDiagonal 20s infinite linear;
+        }
+
+        @keyframes floatDiagonal {
+            0% {
+                transform: translate(-100px, 100vh) rotate(0deg);
+            }
+            100% {
+                transform: translate(100vw, -100px) rotate(360deg);
+            }
+        }
+
+        /* Pulsing letters scattered across the page */
+        .pulse-letter {
+            animation: pulseFloat 8s infinite ease-in-out;
+        }
+
+        @keyframes pulseFloat {
+            0%, 100% {
+                opacity: 0.05;
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 0.15;
+                transform: scale(1.2) rotate(180deg);
             }
         }
 
@@ -270,27 +318,72 @@
 </head>
 <body>
     <div class="floating-elements">
-        <span class="floating-letter" style="left: 10%; animation-delay: 0s;">A</span>
-        <span class="floating-letter" style="left: 20%; animation-delay: 2s;">R</span>
-        <span class="floating-letter" style="left: 30%; animation-delay: 4s;">M</span>
-        <span class="floating-letter" style="left: 40%; animation-delay: 6s;">A</span>
-        <span class="floating-letter" style="left: 50%; animation-delay: 8s;">D</span>
-        <span class="floating-letter" style="left: 60%; animation-delay: 10s;">A</span>
-        <span class="floating-letter" style="left: 70%; animation-delay: 12s;">S</span>
-        <span class="floating-letter" style="left: 80%; animation-delay: 14s;">H</span>
-        <span class="floating-letter" style="left: 90%; animation-delay: 16s;">I</span>
-        <span class="floating-letter" style="left: 15%; animation-delay: 3s;">P</span>
-        <span class="floating-letter" style="left: 35%; animation-delay: 7s;">B</span>
-        <span class="floating-letter" style="left: 55%; animation-delay: 11s;">A</span>
-        <span class="floating-letter" style="left: 75%; animation-delay: 15s;">T</span>
-        <span class="floating-letter" style="left: 85%; animation-delay: 1s;">T</span>
-        <span class="floating-letter" style="left: 25%; animation-delay: 9s;">L</span>
-        <span class="floating-letter" style="left: 45%; animation-delay: 13s;">E</span>
+        <!-- Floating up letters -->
+        <span class="floating-letter float-up" style="left: 10%; animation-delay: 0s;">A</span>
+        <span class="floating-letter float-up" style="left: 30%; animation-delay: 4s;">M</span>
+        <span class="floating-letter float-up" style="left: 50%; animation-delay: 8s;">D</span>
+        <span class="floating-letter float-up" style="left: 70%; animation-delay: 12s;">S</span>
+        <span class="floating-letter float-up" style="left: 90%; animation-delay: 16s;">I</span>
+        
+        <!-- Floating down letters -->
+        <span class="floating-letter float-down" style="left: 20%; animation-delay: 2s;">R</span>
+        <span class="floating-letter float-down" style="left: 40%; animation-delay: 6s;">A</span>
+        <span class="floating-letter float-down" style="left: 60%; animation-delay: 10s;">A</span>
+        <span class="floating-letter float-down" style="left: 80%; animation-delay: 14s;">H</span>
+        
+        <!-- Diagonal floating letters -->
+        <span class="floating-letter float-diagonal" style="animation-delay: 1s;">P</span>
+        <span class="floating-letter float-diagonal" style="animation-delay: 7s;">B</span>
+        <span class="floating-letter float-diagonal" style="animation-delay: 13s;">T</span>
+        
+        <!-- Static pulsing letters scattered across the page -->
+        <span class="floating-letter pulse-letter" style="top: 15%; left: 15%; animation-delay: 0s;">L</span>
+        <span class="floating-letter pulse-letter" style="top: 25%; left: 85%; animation-delay: 2s;">E</span>
+        <span class="floating-letter pulse-letter" style="top: 35%; left: 25%; animation-delay: 4s;">T</span>
+        <span class="floating-letter pulse-letter" style="top: 45%; left: 75%; animation-delay: 6s;">T</span>
+        <span class="floating-letter pulse-letter" style="top: 55%; left: 35%; animation-delay: 1s;">E</span>
+        <span class="floating-letter pulse-letter" style="top: 65%; left: 65%; animation-delay: 3s;">R</span>
+        <span class="floating-letter pulse-letter" style="top: 75%; left: 45%; animation-delay: 5s;">S</span>
+        <span class="floating-letter pulse-letter" style="top: 85%; left: 55%; animation-delay: 7s;">!</span>
+        
+        <!-- Additional scattered letters for full page coverage -->
+        <span class="floating-letter pulse-letter" style="top: 5%; left: 5%; animation-delay: 0.5s;">N</span>
+        <span class="floating-letter pulse-letter" style="top: 10%; left: 95%; animation-delay: 1.5s;">A</span>
+        <span class="floating-letter pulse-letter" style="top: 20%; left: 10%; animation-delay: 2.5s;">V</span>
+        <span class="floating-letter pulse-letter" style="top: 30%; left: 90%; animation-delay: 3.5s;">Y</span>
+        <span class="floating-letter pulse-letter" style="top: 40%; left: 5%; animation-delay: 4.5s;">B</span>
+        <span class="floating-letter pulse-letter" style="top: 50%; left: 95%; animation-delay: 5.5s;">A</span>
+        <span class="floating-letter pulse-letter" style="top: 60%; left: 10%; animation-delay: 6.5s;">T</span>
+        <span class="floating-letter pulse-letter" style="top: 70%; left: 90%; animation-delay: 7.5s;">T</span>
+        <span class="floating-letter pulse-letter" style="top: 80%; left: 15%; animation-delay: 8.5s;">L</span>
+        <span class="floating-letter pulse-letter" style="top: 90%; left: 85%; animation-delay: 9.5s;">E</span>
+        <span class="floating-letter pulse-letter" style="top: 95%; left: 50%; animation-delay: 10.5s;">!</span>
+        
+        <!-- More center area coverage -->
+        <span class="floating-letter pulse-letter" style="top: 18%; left: 50%; animation-delay: 0.8s;">C</span>
+        <span class="floating-letter pulse-letter" style="top: 28%; left: 60%; animation-delay: 1.8s;">O</span>
+        <span class="floating-letter pulse-letter" style="top: 38%; left: 40%; animation-delay: 2.8s;">M</span>
+        <span class="floating-letter pulse-letter" style="top: 48%; left: 30%; animation-delay: 3.8s;">M</span>
+        <span class="floating-letter pulse-letter" style="top: 58%; left: 70%; animation-delay: 4.8s;">A</span>
+        <span class="floating-letter pulse-letter" style="top: 68%; left: 20%; animation-delay: 5.8s;">N</span>
+        <span class="floating-letter pulse-letter" style="top: 78%; left: 80%; animation-delay: 6.8s;">D</span>
+        <span class="floating-letter pulse-letter" style="top: 88%; left: 40%; animation-delay: 7.8s;">!</span>
+        
+        <!-- Additional diagonal and moving letters -->
+        <span class="floating-letter float-up" style="left: 25%; animation-delay: 1s;">S</span>
+        <span class="floating-letter float-down" style="left: 65%; animation-delay: 5s;">E</span>
+        <span class="floating-letter float-up" style="left: 45%; animation-delay: 7s;">A</span>
+        <span class="floating-letter float-down" style="left: 85%; animation-delay: 13s;">S</span>
+        <span class="floating-letter float-diagonal" style="animation-delay: 3s;">Q</span>
+        <span class="floating-letter float-diagonal" style="animation-delay: 9s;">U</span>
+        <span class="floating-letter float-diagonal" style="animation-delay: 15s;">E</span>
+        <span class="floating-letter float-diagonal" style="animation-delay: 19s;">S</span>
+        <span class="floating-letter float-diagonal" style="animation-delay: 21s;">T</span>
     </div>
 
     <nav class="nav">
         <a href="#features">Features</a>
-        <a href="#play">Play</a>
+        <a href="game.html">Play</a>
         <a href="#about">About</a>
     </nav>
 
@@ -298,7 +391,7 @@
         <div class="hero-content">
             <h1 class="logo">WORD FLEET</h1>
             <p class="tagline">Command Your Letters, Conquer the Dictionary</p>
-            <a href="#play" class="cta-button">Set Sail</a>
+            <a href="game.html" class="cta-button">Set Sail</a>
         </div>
     </section>
 
