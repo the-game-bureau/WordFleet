@@ -32,22 +32,18 @@
                 linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #2d4a5e 100%);
         }
 
-
-
         .hero-content {
             position: relative;
             z-index: 2;
         }
 
         .logo {
-            font-size: 4.5rem;
-            font-weight: bold;
+            width: 100%;
+            max-width: 800px;
+            height: 200px;
             margin-bottom: 1rem;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            background: linear-gradient(45deg, #ffd700, #ffb347, #ff6b35);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            background: url('./media/word_fleet_banner.png') center/contain no-repeat;
+            filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
             animation: glow 3s ease-in-out infinite alternate;
         }
 
@@ -62,6 +58,14 @@
             opacity: 0.9;
             font-weight: 300;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .tagline:hover {
+            opacity: 1;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            transform: scale(1.05);
         }
 
         .cta-button {
@@ -106,10 +110,57 @@
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: 
-                linear-gradient(rgba(26, 35, 50, 0.85), rgba(26, 35, 50, 0.75)),
-                url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAGQAoADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAK') center/cover;
-            background-attachment: fixed;
+                radial-gradient(circle at 30% 20%, rgba(255, 140, 66, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 70% 80%, rgba(255, 107, 53, 0.08) 0%, transparent 40%);
+            border-radius: 20px;
+            animation: battleWaves 25s ease-in-out infinite;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        @keyframes battleWaves {
+            0%, 100% { 
+                transform: translateX(0) scale(1);
+                opacity: 0.3;
+            }
+            33% { 
+                transform: translateX(-10px) scale(1.02);
+                opacity: 0.4;
+            }
+            66% { 
+                transform: translateX(10px) scale(0.98);
+                opacity: 0.2;
+            }
+        }
+
+        .features::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            right: -50px;
+            bottom: -50px;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255, 140, 66, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 70% 80%, rgba(255, 107, 53, 0.05) 0%, transparent 30%);
+            border-radius: 40px;
+            z-index: -2;
+            animation: battleGlow 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes battleGlow {
+            from { opacity: 0.5; }
+            to { opacity: 0.8; }
         }
 
         .features-grid {
@@ -122,15 +173,14 @@
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             padding: 40px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .feature-card::before {
@@ -151,9 +201,8 @@
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 215, 0, 0.6);
-            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 215, 0, 0.4);
         }
 
         .feature-icon {
@@ -181,20 +230,14 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
-            position: relative;
-            z-index: 2;
         }
 
         .section-subtitle {
             text-align: center;
             font-size: 1.2rem;
-            opacity: 0.9;
+            opacity: 0.8;
             max-width: 600px;
             margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .floating-elements {
@@ -245,6 +288,8 @@
 
         /* Floating diagonally for some letters */
         .float-diagonal {
+            left: -100px;
+            top: 100vh;
             animation: floatDiagonal 20s infinite linear;
         }
 
@@ -389,7 +434,7 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1 class="logo">WORD FLEET</h1>
+            <div class="logo"></div>
             <p class="tagline">Command Your Letters, Conquer the Dictionary</p>
             <a href="game.html" class="cta-button">Set Sail</a>
         </div>
