@@ -6,22 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Fleet - Game Generator</title>
     <style>
+        :root {
+            --navy: #1e3a5f;
+            --white: #ffffff;
+            --sky-blue: #87ceeb;
+            --ocean-blue: #2c5f7d;
+            --teal: #3bb3b3;
+            --sand: #f7e7b4;
+            --yellow: #ffe066;
+            --gray: #b0b8c1;
+            --coral: #ff7f50;
+            --brass: #bfa14a;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1e3a5f 0%, #2c5f7d 100%);
+            background: linear-gradient(135deg, var(--navy) 0%, var(--ocean-blue) 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--white);
         }
 
         .container {
             max-width: 500px;
             width: 90%;
             text-align: center;
+            background: rgba(255,255,255,0.02);
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(30,58,95,0.10);
         }
 
         .title-letters {
@@ -32,36 +48,38 @@
         }
 
         .title-tile {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #f8f9fa;
-            border: 3px solid #1e3a5f;
-            border-radius: 8px;
+            background: var(--sand);
+            border: 3px solid var(--navy);
+            border-radius: 6px;
             font-family: 'Arial Black', Arial, sans-serif;
             font-weight: 900;
-            font-size: 24px;
-            color: #1e3a5f;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 26px;
+            color: var(--navy);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+            margin-bottom: 2px;
+            letter-spacing: 1px;
         }
 
         .title-space { width: 16px; }
 
         .attribution {
             font-size: 14px;
-            color: #b8d4e3;
+            color: var(--sky-blue);
             margin-bottom: 40px;
         }
 
         .setup-card {
-            background: rgba(248, 249, 250, 0.95);
+            background: rgba(247, 231, 180, 0.95); /* sand */
             border-radius: 20px;
             padding: 30px;
-            color: #1e3a5f;
+            color: var(--navy);
             margin-bottom: 30px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 24px rgba(30,58,95,0.10);
         }
 
         .form-group {
@@ -73,13 +91,13 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #1e3a5f;
+            color: var(--navy);
         }
 
         .form-group input {
             width: 100%;
             padding: 12px;
-            border: 2px solid #87ceeb;
+            border: 2px solid var(--sky-blue);
             border-radius: 8px;
             font-size: 16px;
             transition: border-color 0.3s ease;
@@ -87,7 +105,7 @@
 
         .form-group input:focus {
             outline: none;
-            border-color: #1e3a5f;
+            border-color: var(--navy);
             box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.1);
         }
 
@@ -123,6 +141,7 @@
             background-color: #d3d3d3;
             transition: 0.4s;
             border-radius: 24px;
+            pointer-events: none;
         }
 
         .toggle-slider:before {
@@ -151,8 +170,8 @@
         }
 
         .generate-btn {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-            color: #f8f9fa;
+            background: linear-gradient(135deg, var(--ocean-blue) 0%, var(--teal) 100%);
+            color: var(--white);
             border: none;
             padding: 15px 30px;
             border-radius: 25px;
@@ -160,22 +179,24 @@
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+            box-shadow: 0 4px 12px rgba(44,95,125,0.18);
             transition: all 0.3s ease;
+            border: 2px solid var(--brass);
         }
 
         .generate-btn:hover {
-            background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+            background: linear-gradient(135deg, var(--teal) 0%, var(--sky-blue) 100%);
+            color: var(--navy);
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(220, 53, 69, 0.4);
+            box-shadow: 0 6px 16px rgba(44,95,125,0.22);
         }
 
         .warning-box {
-            background: rgba(255, 193, 7, 0.15);
-            border: 2px solid #ffc107;
+            background: rgba(255, 224, 102, 0.18); /* yellow */
+            border: 2px solid var(--yellow);
             border-radius: 10px;
             padding: 15px;
-            color: #856404;
+            color: var(--navy);
             font-weight: bold;
         }
 
@@ -186,11 +207,9 @@
 
         .player-page {
             width: 8.5in;
-            height: 11in;
             background: white;
             padding: 30px 15px 10px 15px;
             position: relative;
-            page-break-after: always;
             color: black;
         }
 
@@ -324,8 +343,8 @@
         .fold-line {
             width: 100%;
             height: 1px;
-            background: repeating-linear-gradient(to right, #999 0px, #999 5px, transparent 5px, transparent 10px);
-            border: 1px dashed #999;
+            background: repeating-linear-gradient(to right, var(--gray) 0px, var(--gray) 5px, transparent 5px, transparent 10px);
+            border: 1px dashed var(--gray);
             margin: 15px 0 35px 0;
             position: relative;
         }
@@ -336,12 +355,12 @@
             top: -10px;
             left: 50%;
             transform: translateX(-50%);
-            background: white;
+            background: var(--white);
             padding: 0 15px;
             font-size: 10px;
-            color: #999;
+            color: var(--gray);
             text-transform: uppercase;
-            border: 1px solid #999;
+            border: 1px solid var(--gray);
             border-radius: 3px;
         }
 
@@ -357,12 +376,82 @@
             }
             
             .print-content { 
-                display: block !important; 
+                display: block !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
             
             .player-page { 
                 margin: 0 !important;
                 padding: 20px 15px 10px 15px !important;
+            }
+            .player-page:not(:last-child) {
+                page-break-after: always;
+            }
+            .player-page:last-child {
+                page-break-after: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                align-items: flex-start;
+                padding-top: 10px;
+            }
+            .container {
+                margin-top: 0;
+                max-width: 100vw;
+                width: 100vw;
+                border-radius: 0;
+                box-shadow: none;
+                min-height: 100vh;
+            }
+            .title-letters {
+                margin-top: 10px;
+                margin-bottom: 8px;
+                gap: 4px;
+            }
+            .title-tile {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+            .title-space {
+                width: 8px;
+            }
+            .attribution {
+                margin-bottom: 18px;
+                font-size: 12px;
+            }
+            .setup-card {
+                padding: 16px 6px;
+                border-radius: 10px;
+                margin-bottom: 18px;
+            }
+            .form-group label {
+                font-size: 15px;
+            }
+            .form-group input {
+                font-size: 15px;
+                padding: 10px;
+            }
+            .toggle-group {
+                gap: 8px;
+                margin: 12px 0;
+            }
+            .generate-btn {
+                font-size: 15px;
+                padding: 12px 10px;
+                border-radius: 18px;
+                margin-bottom: 12px;
+            }
+            .warning-box {
+                font-size: 13px;
+                padding: 10px;
+            }
+            .setup-card > div[style*="Don't peek at Tracker 2!"] {
+                font-size: 14px !important;
+                margin-bottom: 10px !important;
             }
         }
     </style>
@@ -381,16 +470,17 @@
             <div class="title-tile">E</div>
             <div class="title-tile">T</div>
         </div>
+        <div style="font-size: 18px; color: #f7e7b4; font-weight: bold; margin-bottom: 8px; text-shadow: 1px 1px 2px #1e3a5f;">Pen & Paper Edition</div>
         <div class="attribution">by thegamebureau.com</div>
 
         <div class="setup-card">
             <div class="form-group">
-                <label>Player 1 Fleet Name (optional):</label>
+                <label>Your Fleet Name (optional):</label>
                 <input type="text" id="player1Name" placeholder="e.g. Royal Armada">
             </div>
             
             <div class="form-group">
-                <label>Player 2 Fleet Name (optional):</label>
+                <label>Opponent's Fleet Name (optional):</label>
                 <input type="text" id="player2Name" placeholder="e.g. Scurvy Flotilla">
             </div>
             
@@ -402,16 +492,10 @@
                 <span>Auto-Generate Words</span>
             </div>
             
-            <button class="generate-btn" onclick="generateAndPrint()">Generate Game Sheets</button>
-            
-            <div class="warning-box">
-                <div style="font-size: 20px; margin-bottom: 8px;">⚠️</div>
-                <div style="font-size: 16px; font-weight: bold; margin-bottom: 8px; color: #dc3545;">IMPORTANT</div>
-                <div style="line-height: 1.4;">
-                    When printing, do <strong>NOT</strong> look at page 2!<br>
-                    <span style="color: #1e3a5f;">Page 1 is yours</span> • <span style="color: #1e3a5f;">Page 2 goes to your opponent</span>
-                </div>
+            <div id="dontPeekMsg" style="font-size: 16px; color: var(--navy); font-weight: bold; margin-bottom: 14px; text-align: center;">
+                Don't Peek at Opponent's Tracker (Page 2)
             </div>
+            <button class="generate-btn" onclick="generateAndPrint()">Print Fleet Trackers</button>
         </div>
     </div>
 
@@ -711,6 +795,9 @@
             if (auto) {
                 generateWords('p1');
                 generateWords('p2');
+            } else {
+                clearWords('p1');
+                clearWords('p2');
             }
             
             flipCoin();
@@ -760,6 +847,28 @@
             document.getElementById('coinFlip1').textContent = heads ? "IF HEADS YOU'RE FIRST" : "IF TAILS YOU'RE FIRST";
             document.getElementById('coinFlip2').textContent = heads ? "IF TAILS YOU'RE FIRST" : "IF HEADS YOU'RE FIRST";
         }
+
+        function clearWords(player) {
+            fillWord(`your-5-${player}`, '     ');
+            fillWord(`your-4-${player}`, '    ');
+            fillWord(`your-3a-${player}`, '   ');
+            fillWord(`your-3b-${player}`, '   ');
+            fillWord(`your-2-${player}`, '  ');
+        }
+
+        // Add event listener to toggle visibility of the Don't Peek message
+        const autoGenToggle = document.getElementById('autoGen');
+        const dontPeekMsg = document.getElementById('dontPeekMsg');
+        function updateDontPeekMsg() {
+            if (autoGenToggle.checked) {
+                dontPeekMsg.style.visibility = 'visible';
+            } else {
+                dontPeekMsg.style.visibility = 'hidden';
+            }
+        }
+        autoGenToggle.addEventListener('change', updateDontPeekMsg);
+        // Initialize on page load
+        updateDontPeekMsg();
     </script>
 </body>
 </html>
