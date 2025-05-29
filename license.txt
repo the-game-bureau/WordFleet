@@ -1,0 +1,24 @@
+Copyright © 2025 Kevin M. Kolb  
+All rights reserved.
+
+Title: Word Fleet  
+Author: Kevin M. Kolb  
+
+This software, including but not limited to its source code, compiled code, design, assets, text, images, audio, gameplay mechanics, and any related materials (collectively, "the Game"), is the intellectual property of Kevin M. Kolb.
+
+You are granted a non-exclusive, non-transferable, revocable license to access and play Word Fleet for personal, non-commercial entertainment purposes only.
+
+You may NOT:
+- Copy, distribute, sublicense, sell, or publicly perform the Game or any of its parts.
+- Reverse engineer, decompile, disassemble, or modify the Game.
+- Create derivative works based on the Game or any part thereof.
+- Host or embed the Game on any other website or platform without written permission.
+
+Commercial use, distribution, licensing, or adaptation of Word Fleet in any form is strictly prohibited without express written consent from Kevin M. Kolb.
+
+For licensing inquiries, business proposals, or permissions, contact:  
+📧 missioncontrol@thegamebureau.com
+
+Violation of this license may result in legal action and damages.
+
+This license is governed by the laws of the United States of America.
