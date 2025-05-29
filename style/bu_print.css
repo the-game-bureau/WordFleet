@@ -12,6 +12,15 @@ body {
     line-height: 1.2;
 }
 
+/* Blank page for printer alignment */
+.blank-page {
+    width: 8.5in;
+    height: 11in;
+    background: white;
+    page-break-after: always;
+    margin: 0 auto;
+}
+
 /* Player page layout */
 .player-page {
     max-width: 800px;
@@ -356,5 +365,15 @@ body {
 
     .modal-overlay {
         display: none !important;
+    }
+
+    .blank-page {
+        display: block !important;
+    }
+}
+
+@media screen {
+    .blank-page {
+        display: none;
     }
 }

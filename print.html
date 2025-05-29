@@ -4,348 +4,301 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Fleet - Print Version</title>
-    <link rel="stylesheet" href="style/print.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 5px;
+            line-height: 1.2;
+        }
+
+        .blank-page {
+            width: 8.5in;
+            height: 11in;
+            background: white;
+            page-break-after: always;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .player-page {
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            background: white;
+            padding: 30px 15px 10px 15px;
+            border-radius: 8px;
+            position: relative;
+            page-break-after: always;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .player-page:last-child { margin-bottom: 0; }
+
+        .coin-flip {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .title-letters {
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            margin-bottom: 3px;
+        }
+
+        .title-tile {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 2px solid black;
+            border-radius: 4px;
+            font-family: 'Arial Black', Arial, sans-serif;
+            font-weight: 900;
+            font-size: 18px;
+            color: black;
+        }
+
+        .title-space { width: 8px; }
+
+        .attribution {
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .divider {
+            border: none;
+            height: 1px;
+            background-color: #333;
+            margin-bottom: 35px;
+        }
+
+        .game-section { margin-bottom: 20px; }
+
+        .section-title {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .game-area {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid {
+            border-collapse: collapse;
+            border: 2px solid #333;
+        }
+
+        .grid th, .grid td {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #333;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .grid th { background-color: #f0f0f0; }
+        .grid td { background-color: white; cursor: pointer; }
+
+        .ships-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 140px;
+            border: 2px solid #333;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            height: 342px;
+            justify-content: space-between;
+        }
+
+        .ship-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .ship-name {
+            font-size: 11px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        .ship-boxes { display: flex; gap: 2px; }
+
+        .ship-box {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #333;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .fold-line {
+            width: 100%;
+            height: 1px;
+            background: repeating-linear-gradient(to right, #999 0px, #999 5px, transparent 5px, transparent 10px);
+            border: 1px dashed #999;
+            margin: 15px 0 35px 0;
+            position: relative;
+        }
+
+        .fold-line::after {
+            content: "fold here";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 15px;
+            font-size: 10px;
+            color: #999;
+            text-transform: uppercase;
+            border: 1px solid #999;
+            border-radius: 3px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1a2332;
+            font-size: 1.5rem;
+        }
+
+        .form-group { margin-bottom: 15px; }
+
+        .modal label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: #1a2332;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 5px;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover { background-color: #2d4a5e; }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-input { opacity: 0; width: 0; height: 0; }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .toggle-input:checked + .toggle-slider { background-color: #1a2332; }
+        .toggle-input:checked + .toggle-slider:before { transform: translateX(26px); }
+
+        @media print {
+            body { background: white !important; color: black !important; padding: 0 !important; }
+            .player-page { padding: 5px !important; margin: 0 !important; box-shadow: none !important; border-radius: 0 !important; }
+            .coin-flip { font-size: 9px !important; }
+            .title-tile { width: 25px !important; height: 25px !important; font-size: 12px !important; }
+            .modal-overlay { display: none !important; }
+            .blank-page { display: block !important; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Player 1 Page -->
-    <div class="player-page" id="player1">
-        <div class="coin-flip" id="coinFlip1">IF HEADS YOU'RE FIRST</div>
-        
-        <div class="title-letters">
-            <div class="title-tile">W</div>
-            <div class="title-tile">O</div>
-            <div class="title-tile">R</div>
-            <div class="title-tile">D</div>
-            <div class="title-space"></div>
-            <div class="title-tile">F</div>
-            <div class="title-tile">L</div>
-            <div class="title-tile">E</div>
-            <div class="title-tile">E</div>
-            <div class="title-tile">T</div>
-        </div>
-        
-        <div class="attribution">by thegamebureau.com</div>
-        <hr class="divider">
-        
-        <!-- Opponent's Fleet -->
-        <div class="game-section">
-            <h2 class="section-title" id="opponent-title1">Opponent's Fleet</h2>
-            <div class="game-area">
-                <table class="grid">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-                            <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    </tbody>
-                </table>
-                
-                <div class="ships-list">
-                    <div class="ship-item">
-                        <div class="ship-name">5-Letter Word</div>
-                        <div class="ship-boxes">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">4-Letter Word</div>
-                        <div class="ship-boxes">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">3-Letter Word</div>
-                        <div class="ship-boxes">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">3-Letter Word</div>
-                        <div class="ship-boxes">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">2-Letter Word</div>
-                        <div class="ship-boxes">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <hr class="fold-line">
-
-        <!-- Your Fleet -->
-        <div class="game-section">
-            <h2 class="section-title" id="your-title1">Your Fleet</h2>
-            <div class="game-area">
-                <table class="grid">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-                            <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    </tbody>
-                </table>
-                
-                <div class="ships-list">
-                    <div class="ship-item">
-                        <div class="ship-name">5-Letter Word</div>
-                        <div class="ship-boxes" id="your-5-p1">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">4-Letter Word</div>
-                        <div class="ship-boxes" id="your-4-p1">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">3-Letter Word</div>
-                        <div class="ship-boxes" id="your-3a-p1">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">3-Letter Word</div>
-                        <div class="ship-boxes" id="your-3b-p1">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">2-Letter Word</div>
-                        <div class="ship-boxes" id="your-2-p1">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Player 2 Page -->
-    <div class="player-page" id="player2">
-        <div class="coin-flip" id="coinFlip2">IF TAILS YOU'RE FIRST</div>
-        
-        <div class="title-letters">
-            <div class="title-tile">W</div>
-            <div class="title-tile">O</div>
-            <div class="title-tile">R</div>
-            <div class="title-tile">D</div>
-            <div class="title-space"></div>
-            <div class="title-tile">F</div>
-            <div class="title-tile">L</div>
-            <div class="title-tile">E</div>
-            <div class="title-tile">E</div>
-            <div class="title-tile">T</div>
-        </div>
-        
-        <div class="attribution">by thegamebureau.com</div>
-        <hr class="divider">
-        
-        <!-- Opponent's Fleet -->
-        <div class="game-section">
-            <h2 class="section-title" id="opponent-title2">Opponent's Fleet</h2>
-            <div class="game-area">
-                <table class="grid">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-                            <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    </tbody>
-                </table>
-                
-                <div class="ships-list">
-                    <div class="ship-item">
-                        <div class="ship-name">5-Letter Word</div>
-                        <div class="ship-boxes">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">4-Letter Word</div>
-                        <div class="ship-boxes">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">3-Letter Word</div>
-                        <div class="ship-boxes">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">3-Letter Word</div>
-                        <div class="ship-boxes">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">2-Letter Word</div>
-                        <div class="ship-boxes">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <hr class="fold-line">
-
-        <!-- Your Fleet -->
-        <div class="game-section">
-            <h2 class="section-title" id="your-title2">Your Fleet</h2>
-            <div class="game-area">
-                <table class="grid">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-                            <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    </tbody>
-                </table>
-                
-                <div class="ships-list">
-                    <div class="ship-item">
-                        <div class="ship-name">5-Letter Word</div>
-                        <div class="ship-boxes" id="your-5-p2">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">4-Letter Word</div>
-                        <div class="ship-boxes" id="your-4-p2">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">3-Letter Word</div>
-                        <div class="ship-boxes" id="your-3a-p2">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">3-Letter Word</div>
-                        <div class="ship-boxes" id="your-3b-p2">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                    <div class="ship-item">
-                        <div class="ship-name">2-Letter Word</div>
-                        <div class="ship-boxes" id="your-2-p2">
-                            <div class="ship-box"></div>
-                            <div class="ship-box"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Setup Modal -->
     <div class="modal-overlay" id="modal">
         <div class="modal">
             <h3>Word Fleet Setup</h3>
@@ -372,6 +325,349 @@
         </div>
     </div>
 
-    <script src="js/print.js"></script>
+    <div class="blank-page"></div>
+
+    <div class="player-page" id="player1">
+        <div class="coin-flip" id="coinFlip1">IF HEADS YOU'RE FIRST</div>
+        
+        <div class="title-letters">
+            <div class="title-tile">W</div>
+            <div class="title-tile">O</div>
+            <div class="title-tile">R</div>
+            <div class="title-tile">D</div>
+            <div class="title-space"></div>
+            <div class="title-tile">F</div>
+            <div class="title-tile">L</div>
+            <div class="title-tile">E</div>
+            <div class="title-tile">E</div>
+            <div class="title-tile">T</div>
+        </div>
+        
+        <div class="attribution">by thegamebureau.com</div>
+        <hr class="divider">
+        
+        <div class="game-section">
+            <h2 class="section-title" id="opponent-title1">Opponent's Fleet</h2>
+            <div class="game-area">
+                <table class="grid">
+                    <thead>
+                        <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="ships-list">
+                    <div class="ship-item">
+                        <div class="ship-name">5-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">4-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">2-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="fold-line">
+
+        <div class="game-section">
+            <h2 class="section-title" id="your-title1">Your Fleet</h2>
+            <div class="game-area">
+                <table class="grid">
+                    <thead>
+                        <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="ships-list">
+                    <div class="ship-item">
+                        <div class="ship-name">5-Letter Word</div>
+                        <div class="ship-boxes" id="your-5-p1">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">4-Letter Word</div>
+                        <div class="ship-boxes" id="your-4-p1">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes" id="your-3a-p1">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes" id="your-3b-p1">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">2-Letter Word</div>
+                        <div class="ship-boxes" id="your-2-p1">
+                            <div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="player-page" id="player2">
+        <div class="coin-flip" id="coinFlip2">IF TAILS YOU'RE FIRST</div>
+        
+        <div class="title-letters">
+            <div class="title-tile">W</div>
+            <div class="title-tile">O</div>
+            <div class="title-tile">R</div>
+            <div class="title-tile">D</div>
+            <div class="title-space"></div>
+            <div class="title-tile">F</div>
+            <div class="title-tile">L</div>
+            <div class="title-tile">E</div>
+            <div class="title-tile">E</div>
+            <div class="title-tile">T</div>
+        </div>
+        
+        <div class="attribution">by thegamebureau.com</div>
+        <hr class="divider">
+        
+        <div class="game-section">
+            <h2 class="section-title" id="opponent-title2">Opponent's Fleet</h2>
+            <div class="game-area">
+                <table class="grid">
+                    <thead>
+                        <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="ships-list">
+                    <div class="ship-item">
+                        <div class="ship-name">5-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">4-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">2-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="fold-line">
+
+        <div class="game-section">
+            <h2 class="section-title" id="your-title2">Your Fleet</h2>
+            <div class="game-area">
+                <table class="grid">
+                    <thead>
+                        <tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="ships-list">
+                    <div class="ship-item">
+                        <div class="ship-name">5-Letter Word</div>
+                        <div class="ship-boxes" id="your-5-p2">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">4-Letter Word</div>
+                        <div class="ship-boxes" id="your-4-p2">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes" id="your-3a-p2">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes" id="your-3b-p2">
+                            <div class="ship-box"></div><div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">2-Letter Word</div>
+                        <div class="ship-boxes" id="your-2-p2">
+                            <div class="ship-box"></div><div class="ship-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const WORDS = {
+            5: ['ABOUT','ABOVE','ACTOR','AFTER','AGAIN','AGREE','ALIVE','ALLOW','ALONE','ALONG','ANGRY','APART','APPLE','ARGUE','AVOID','AWAKE','BASIC','BEACH','BEGIN','BEING','BELOW','BLACK','BLANK','BLIND','BLOCK','BLOOD','BOARD','BRAIN','BRAND','BRAVE','BREAD','BREAK','BREED','BRIEF','BRING','BROAD','BROKE','BROWN','BUILD','BUILT','CARRY','CATCH','CAUSE','CHAIN','CHAIR','CHARM','CHART','CHASE','CHEAP','CHECK','CHEST','CHIEF','CHILD','CHINA','CHOSE','CIVIC','CIVIL','CLAIM','CLASS','CLEAN','CLEAR','CLICK','CLIMB','CLOCK','CLOSE','CLOUD','COACH','COAST','COULD','COUNT','COURT','COVER','CRAFT','CRASH','CRAZY','CREAM','CRIME','CROSS','CROWD','CROWN','CURVE','CYCLE','DAILY','DANCE','DEATH','DELAY','DEPTH','DOING','DOUBT','DOZEN','DRAFT','DRAMA','DREAM','DRESS','DRILL','DRINK','DRIVE','DROVE','DYING','EAGER','EARLY','EARTH','EIGHT','ELITE','EMPTY','ENEMY','ENJOY','ENTER','ENTRY','EQUAL','ERROR','EVENT','EVERY','EXACT','EXIST','EXTRA','FAITH','FALSE','FAULT','FIELD','FIFTH','FIFTY','FIGHT','FINAL','FIRST','FIXED','FLASH','FLEET','FLOOR','FLUID','FOCUS','FORCE','FORTH','FORTY','FORUM','FOUND','FRAME','FRANK','FRAUD','FRESH','FRONT','FRUIT','FULLY','FUNNY','GIANT','GIVEN','GLASS','GLOBE','GOING','GRACE','GRADE','GRAND','GRANT','GRASS','GRAVE','GREAT','GREEN','GROSS','GROUP','GROWN','GUARD','GUESS','GUEST','GUIDE','HAPPY','HEART','HEAVY','HORSE','HOTEL','HOUSE','HUMAN','IDEAL','IMAGE','INDEX','INNER','INPUT','ISSUE','JOINT','JUDGE','KNOWN','LABEL','LARGE','LASER','LATER','LAUGH','LAYER','LEARN','LEASE','LEAST','LEAVE','LEGAL','LEVEL','LIGHT','LIMIT','LIVED','LOCAL','LOOSE','LOWER','LUCKY','LUNCH','LYING','MAGIC','MAJOR','MAKER','MARCH','MATCH','MAYBE','MAYOR','MEANT','MEDIA','METAL','MIGHT','MINOR','MINUS','MIXED','MODEL','MONEY','MONTH','MORAL','MOTOR','MOUNT','MOUSE','MOUTH','MOVED','MOVIE','MUSIC','NEEDS','NEVER','NEWLY','NIGHT','NOISE','NORTH','NOTED','NOVEL','NURSE','OCCUR','OCEAN','OFFER','OFTEN','ORDER','OTHER','OUGHT','PAINT','PANEL','PAPER','PARTY','PEACE','PHASE','PHONE','PHOTO','PIANO','PIECE','PILOT','PITCH','PLACE','PLAIN','PLANE','PLANT','PLATE','POINT','POUND','POWER','PRESS','PRICE','PRIDE','PRIME','PRINT','PRIOR','PRIZE','PROOF','PROUD','PROVE','QUEEN','QUICK','QUIET','QUITE','RADIO','RAISE','RANGE','RAPID','RATIO','REACH','READY','REALM','REBEL','REFER','RELAX','REPLY','RIGHT','RIGID','RIVER','ROBOT','ROCKY','ROUGH','ROUND','ROUTE','ROYAL','RURAL','SCALE','SCARE','SCENE','SCOPE','SCORE','SENSE','SERVE','SEVEN','SHALL','SHAPE','SHARE','SHARP','SHEET','SHELF','SHELL','SHIFT','SHINE','SHIRT','SHOCK','SHOOT','SHORT','SHOWN','SIGHT','SILLY','SINCE','SIXTH','SIXTY','SIZED','SKILL','SLEEP','SLIDE','SMALL','SMART','SMILE','SMOKE','SNAKE','SOLID','SOLVE','SORRY','SOUND','SOUTH','SPACE','SPARE','SPEAK','SPEED','SPEND','SPENT','SPLIT','SPOKE','SPORT','STAFF','STAGE','STAKE','STAND','START','STATE','STEAM','STEEL','STEEP','STEER','STICK','STILL','STOCK','STONE','STOOD','STORE','STORM','STORY','STRIP','STUCK','STUDY','STUFF','STYLE','SUGAR','SUITE','SUPER','SWEET','SWORD','TABLE','TAKEN','TASTE','TAXES','TEACH','TEXAS','THANK','THEFT','THEIR','THEME','THERE','THESE','THICK','THING','THINK','THIRD','THOSE','THREE','THREW','THROW','THUMB','TIGHT','TIRED','TITLE','TODAY','TOPIC','TOTAL','TOUCH','TOUGH','TOWER','TRACK','TRADE','TRAIN','TREAT','TREND','TRIAL','TRIBE','TRICK','TRIED','TRIES','TRUCK','TRULY','TRUST','TRUTH','TWICE','UNCLE','UNDER','UNION','UNITY','UNTIL','UPPER','UPSET','URBAN','USAGE','USUAL','VALID','VALUE','VIDEO','VIRUS','VISIT','VITAL','VOCAL','VOICE','WASTE','WATCH','WATER','WHEEL','WHERE','WHICH','WHILE','WHITE','WHOLE','WHOSE','WOMAN','WOMEN','WORLD','WORRY','WORSE','WORST','WORTH','WOULD','WRITE','WRONG','WROTE','YOUNG','YOUTH'],
+            4: ['ABLE','ACID','AREA','ARMY','BACK','BALL','BAND','BANK','BASE','BEAT','BEEN','BELL','BEST','BILL','BIRD','BLOW','BLUE','BOAT','BODY','BONE','BOOK','BORN','BOTH','BOYS','CAME','CAMP','CARD','CARE','CASE','CASH','CAST','CELL','CHAT','CITY','CLUB','COAL','COAT','CODE','COLD','COME','COOL','COPY','CORN','COST','CREW','CROP','DARK','DATA','DATE','DAYS','DEAD','DEAL','DEAR','DECK','DEEP','DESK','DIED','DOES','DONE','DOOR','DOWN','DRAW','DREW','DROP','DRUG','DUAL','EACH','EARL','EAST','EASY','EDGE','ELSE','EVEN','EVER','EVIL','FACE','FACT','FAIL','FAIR','FALL','FARM','FAST','FEAR','FEED','FEEL','FEET','FELL','FELT','FILE','FILL','FILM','FIND','FINE','FIRE','FIRM','FISH','FIVE','FLAT','FLEW','FLOW','FOLK','FOOD','FOOT','FORD','FORM','FORT','FOUR','FREE','FROM','FUEL','FULL','FUND','GAIN','GAME','GATE','GAVE','GEAR','GIRL','GIVE','GLAD','GOAL','GOES','GOLD','GONE','GOOD','GRAB','GRAY','GREW','GRID','GROW','GULF','GUYS','HACK','HAIR','HALF','HALL','HAND','HANG','HARD','HARM','HATE','HAVE','HEAD','HEAR','HEAT','HELD','HELL','HELP','HERE','HERO','HIDE','HIGH','HILL','HINT','HIRE','HOLD','HOLE','HOLY','HOME','HOPE','HOST','HOUR','HUGE','HUNG','HUNT','HURT','IDEA','INCH','INTO','IRON','ITEM','KEEP','KEPT','KIND','KING','KNEW','KNOW','LACK','LADY','LAID','LAKE','LAND','LANE','LAST','LATE','LEAD','LEAF','LEAN','LEFT','LESS','LIFE','LIFT','LIKE','LINE','LINK','LIST','LIVE','LOAN','LOCK','LONG','LOOK','LORD','LOSE','LOSS','LOST','LOTS','LOUD','LOVE','LUCK','MADE','MAIL','MAIN','MAKE','MALE','MANY','MARK','MASS','MATH','MEAL','MEAN','MEAT','MEET','MIND','MINE','MISS','MODE','MORE','MOST','MOVE','MUCH','MUST','NAME','NAVY','NEAR','NECK','NEED','NEWS','NEXT','NICE','NINE','NODE','NONE','NOON','NOSE','NOTE','OKAY','ONCE','ONLY','ONTO','OPEN','OVER','PACE','PACK','PAGE','PAID','PAIN','PAIR','PALE','PARK','PART','PASS','PAST','PATH','PEAK','PICK','PILE','PINK','PLAN','PLAY','PLOT','PLUS','POEM','POET','POLE','POLL','POOL','POOR','PORT','POST','POUR','PULL','PUSH','QUIT','RACE','RAIL','RAIN','RANK','RARE','RATE','READ','REAL','REAR','RELY','RENT','REST','RICE','RICH','RIDE','RING','RISE','RISK','ROAD','ROCK','ROLE','ROLL','ROOM','ROOT','ROSE','RULE','RUNS','RUSH','SAFE','SAID','SAIL','SAKE','SALE','SALT','SAME','SAND','SAVE','SAYS','SEAT','SEEK','SEEM','SEEN','SELF','SELL','SEND','SENT','SHIP','SHOP','SHOT','SHOW','SHUT','SICK','SIDE','SIGN','SING','SINK','SIZE','SKIN','SLIP','SLOW','SNAP','SNOW','SOFT','SOIL','SOLD','SOLE','SOME','SONG','SOON','SORT','SOUL','SPIN','SPOT','STAR','STAY','STEP','STOP','SUCH','SUIT','SURE','TAKE','TALE','TALK','TALL','TANK','TAPE','TASK','TEAM','TELL','TEND','TERM','TEST','TEXT','THAN','THAT','THEM','THEN','THEY','THIN','THIS','THUS','TIDE','TIED','TIME','TINY','TOLD','TONE','TOOK','TOOL','TOPS','TORN','TOWN','TREE','TRIP','TRUE','TUNE','TURN','TYPE','UNIT','UPON','USED','USER','VARY','VAST','VERY','VIEW','VOTE','WAGE','WAIT','WAKE','WALK','WALL','WANT','WARD','WARM','WASH','WAVE','WAYS','WEAK','WEAR','WEEK','WELL','WENT','WERE','WEST','WHAT','WHEN','WIDE','WIFE','WILD','WILL','WIND','WINE','WING','WIRE','WISE','WISH','WITH','WOLF','WOOD','WORD','WORE','WORK','WORN','YARD','YEAR','YOUR','ZERO','ZONE'],
+            3: ['ACE','ACT','ADD','AGE','AGO','AID','AIM','AIR','ALL','AND','ANT','ANY','APE','ARE','ARK','ARM','ART','ASK','ATE','AWE','AXE','BAD','BAG','BAN','BAR','BAT','BAY','BED','BEE','BET','BIG','BIN','BIT','BOW','BOX','BOY','BUD','BUG','BUN','BUS','BUT','BUY','CAB','CAN','CAP','CAR','CAT','COW','CRY','CUB','CUD','CUP','CUT','DAD','DAM','DAY','DEN','DEW','DID','DIE','DIG','DIM','DIP','DOC','DOG','DOT','DRY','DUB','DUD','DUE','DUG','DUN','DYE','EAR','EAT','EEL','EGG','ELF','ELK','ELM','END','ERA','EVE','EWE','EYE','FAD','FAN','FAR','FAT','FAX','FED','FEE','FEW','FIG','FIN','FIR','FIT','FIX','FLY','FOE','FOG','FOR','FOX','FRY','FUN','FUR','GAB','GAG','GAL','GAP','GAS','GAY','GEL','GEM','GET','GIG','GIN','GOD','GOO','GOT','GUM','GUN','GUT','GUY','GYM','HAD','HAG','HAM','HAS','HAT','HAY','HEN','HER','HEX','HEY','HID','HIM','HIP','HIS','HIT','HOG','HOP','HOT','HOW','HUB','HUE','HUG','HUM','HUN','HUT','ICE','ILL','IMP','INK','INN','ION','IRE','IRK','ITS','IVY','JAB','JAG','JAM','JAR','JAW','JAY','JET','JIG','JOB','JOG','JOT','JOY','JUG','JUT','KEG','KEY','KID','KIN','KIT','LAB','LAD','LAG','LAP','LAW','LAX','LAY','LEA','LED','LEG','LET','LID','LIE','LIP','LIT','LOG','LOT','LOW','LYE','MAC','MAD','MAM','MAN','MAP','MAR','MAT','MAW','MAY','MEN','MET','MID','MIX','MOB','MOD','MOM','MOP','MOW','MUD','MUG','NAB','NAG','NAP','NAY','NET','NEW','NIT','NOB','NOD','NOR','NOT','NOW','NUB','NUN','NUT','OAK','OAR','OAT','ODD','OIL','OLD','ONE','ORB','ORE','OUR','OUT','OWE','OWL','OWN','PAD','PAL','PAN','PAP','PAR','PAT','PAW','PAY','PEA','PEG','PEN','PEP','PET','PEW','PIE','PIG','PIN','PIT','PLY','POD','POP','POT','POW','PRO','PRY','PUB','PUG','PUN','PUP','PUS','PUT','RAG','RAM','RAN','RAP','RAT','RAW','RAY','RED','REP','RIB','RID','RIG','RIM','RIP','ROB','ROD','ROE','ROT','ROW','RUB','RUG','RUM','RUN','RUT','RYE','SAC','SAD','SAG','SAP','SAT','SAW','SAY','SEA','SEW','SHE','SHY','SIN','SIP','SIR','SIS','SIT','SIX','SKI','SKY','SLY','SOB','SOD','SON','SOP','SOT','SOW','SOY','SPA','SPY','STY','SUB','SUM','SUN','TAB','TAD','TAG','TAN','TAP','TAR','TAT','TAX','TEA','TEN','THE','TIC','TIE','TIN','TIP','TOE','TON','TOO','TOP','TOW','TOY','TRY','TUB','TUG','TUT','TWO','URN','USE','VAN','VAT','VET','VIA','VIE','VOW','WAD','WAG','WAR','WAS','WAX','WAY','WEB','WED','WET','WHO','WHY','WIG','WIN','WIT','WOE','WOK','WON','WOO','WOW','YAK','YAM','YAP','YAW','YEA','YEP','YES','YET','YEW','YIN','YIP','YON','YOU','YOW','YUK','YUM','ZAG','ZAP','ZED','ZEE','ZEN','ZIP','ZIT','ZOO'],
+            2: ['AM','AN','AS','AT','AX','BE','BY','DO','GO','HE','IF','IN','IS','IT','ME','MY','NO','OF','ON','OR','OX','SO','TO','UP','US','WE','AD','AH','HI','HM','HO','LO','MA','OH','OW','PA','RE','SH','UM','YO']
+        };
+
+        function startGame() {
+            const p1 = document.getElementById('player1Name').value.trim();
+            const p2 = document.getElementById('player2Name').value.trim();
+            const auto = document.getElementById('autoGen').checked;
+            
+            if (p1) {
+                document.getElementById('your-title1').textContent = p1;
+                document.getElementById('opponent-title2').textContent = p1;
+            }
+            if (p2) {
+                document.getElementById('your-title2').textContent = p2;
+                document.getElementById('opponent-title1').textContent = p2;
+            }
+            
+            if (auto) {
+                genWords('p1');
+                genWords('p2');
+            }
+            
+            flipCoin();
+            document.getElementById('modal').style.display = 'none';
+            setTimeout(() => window.print(), 100);
+        }
+
+        function genWords(p) {
+            const used = new Set();
+            const pick = (len) => {
+                let word, tries = 0;
+                do {
+                    word = WORDS[len][Math.floor(Math.random() * WORDS[len].length)];
+                    tries++;
+                } while (used.has(word) && tries < 20);
+                used.add(word);
+                return word;
+            };
+            
+            fillWord(`your-5-${p}`, pick(5));
+            fillWord(`your-4-${p}`, pick(4));
+            const w3a = pick(3);
+            fillWord(`your-3a-${p}`, w3a);
+            let w3b;
+            do { w3b = pick(3); } while (w3b === w3a);
+            fillWord(`your-3b-${p}`, w3b);
+            fillWord(`your-2-${p}`, pick(2));
+        }
+
+        function fillWord(id, word) {
+            const el = document.getElementById(id);
+            if (el) {
+                for (let i = 0; i < word.length && i < el.children.length; i++) {
+                    el.children[i].textContent = word[i];
+                }
+            }
+        }
+
+        function flipCoin() {
+            const heads = Math.random() < 0.5;
+            document.getElementById('coinFlip1').textContent = heads ? "IF HEADS YOU'RE FIRST" : "IF TAILS YOU'RE FIRST";
+            document.getElementById('coinFlip2').textContent = heads ? "IF TAILS YOU'RE FIRST" : "IF HEADS YOU'RE FIRST";
+        }
+
+        window.addEventListener('load', () => {
+            document.getElementById('modal').style.display = 'flex';
+            flipCoin();
+        });
+    </script>
 </body>
 </html>
