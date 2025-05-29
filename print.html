@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Fleet - Print Version</title>
+    <link rel="stylesheet" href="style/print.css">
+</head>
+<body>
+    <!-- Player 1 Page -->
+    <div class="player-page" id="player1">
+        <div class="coin-flip" id="coinFlip1">IF HEADS YOU'RE FIRST</div>
+        
+        <div class="title-letters">
+            <div class="title-tile">W</div>
+            <div class="title-tile">O</div>
+            <div class="title-tile">R</div>
+            <div class="title-tile">D</div>
+            <div class="title-space"></div>
+            <div class="title-tile">F</div>
+            <div class="title-tile">L</div>
+            <div class="title-tile">E</div>
+            <div class="title-tile">E</div>
+            <div class="title-tile">T</div>
+        </div>
+        
+        <div class="attribution">by thegamebureau.com</div>
+        <hr class="divider">
+        
+        <!-- Opponent's Fleet -->
+        <div class="game-section">
+            <h2 class="section-title" id="opponent-title1">Opponent's Fleet</h2>
+            <div class="game-area">
+                <table class="grid">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+                            <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="ships-list">
+                    <div class="ship-item">
+                        <div class="ship-name">5-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">4-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">2-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="fold-line">
+
+        <!-- Your Fleet -->
+        <div class="game-section">
+            <h2 class="section-title" id="your-title1">Your Fleet</h2>
+            <div class="game-area">
+                <table class="grid">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+                            <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="ships-list">
+                    <div class="ship-item">
+                        <div class="ship-name">5-Letter Word</div>
+                        <div class="ship-boxes" id="your-5-p1">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">4-Letter Word</div>
+                        <div class="ship-boxes" id="your-4-p1">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes" id="your-3a-p1">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes" id="your-3b-p1">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">2-Letter Word</div>
+                        <div class="ship-boxes" id="your-2-p1">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Player 2 Page -->
+    <div class="player-page" id="player2">
+        <div class="coin-flip" id="coinFlip2">IF TAILS YOU'RE FIRST</div>
+        
+        <div class="title-letters">
+            <div class="title-tile">W</div>
+            <div class="title-tile">O</div>
+            <div class="title-tile">R</div>
+            <div class="title-tile">D</div>
+            <div class="title-space"></div>
+            <div class="title-tile">F</div>
+            <div class="title-tile">L</div>
+            <div class="title-tile">E</div>
+            <div class="title-tile">E</div>
+            <div class="title-tile">T</div>
+        </div>
+        
+        <div class="attribution">by thegamebureau.com</div>
+        <hr class="divider">
+        
+        <!-- Opponent's Fleet -->
+        <div class="game-section">
+            <h2 class="section-title" id="opponent-title2">Opponent's Fleet</h2>
+            <div class="game-area">
+                <table class="grid">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+                            <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="ships-list">
+                    <div class="ship-item">
+                        <div class="ship-name">5-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">4-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">2-Letter Word</div>
+                        <div class="ship-boxes">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="fold-line">
+
+        <!-- Your Fleet -->
+        <div class="game-section">
+            <h2 class="section-title" id="your-title2">Your Fleet</h2>
+            <div class="game-area">
+                <table class="grid">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+                            <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>B</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>C</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>D</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>E</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>F</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+                
+                <div class="ships-list">
+                    <div class="ship-item">
+                        <div class="ship-name">5-Letter Word</div>
+                        <div class="ship-boxes" id="your-5-p2">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">4-Letter Word</div>
+                        <div class="ship-boxes" id="your-4-p2">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes" id="your-3a-p2">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">3-Letter Word</div>
+                        <div class="ship-boxes" id="your-3b-p2">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="ship-item">
+                        <div class="ship-name">2-Letter Word</div>
+                        <div class="ship-boxes" id="your-2-p2">
+                            <div class="ship-box"></div>
+                            <div class="ship-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Setup Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <h3>Word Fleet Setup</h3>
+            <div class="form-group">
+                <label>Player 1 Fleet Name (optional):</label>
+                <input type="text" id="player1Name" placeholder="e.g. Royal Armada">
+            </div>
+            <div class="form-group">
+                <label>Player 2 Fleet Name (optional):</label>
+                <input type="text" id="player2Name" placeholder="e.g. Scurvy Flotilla">
+            </div>
+            <div class="form-group">
+                <label style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="autoGen" class="toggle-input" checked>
+                        <span class="toggle-slider"></span>
+                    </div>
+                    <span>Auto-Generate Words</span>
+                </label>
+            </div>
+            <div class="buttons">
+                <button class="btn" onclick="startGame()">Print Both Pages</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/print.js"></script>
+</body>
+</html>

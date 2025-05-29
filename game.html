@@ -3,266 +3,551 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Word Fleet – Galleons and Gunpowder Edition</title>
+  <title>Word Fleet – Command Your Letters, Conquer the Dictionary</title>
   <style>
-    /* General Styles */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; color: #333; background-color: #f8f9fa; line-height: 1.6; }
-
-    /* Pirate Font */
-    @font-face {
-      font-family: 'Pieces of Eight';
-      src: url('./media/Pieces_of_Eight.ttf') format('truetype');
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
     }
-    .pieces-font { font-family: 'Pieces of Eight', Arial, sans-serif; }
+    
+    body { 
+      font-family: 'Arial', sans-serif; 
+      background: linear-gradient(135deg, #1a2332 0%, #2d4a5e 50%, #3d5a73 100%);
+      color: #ffffff;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
 
     /* Header */
     header {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 20px; text-align: center;
-      background:
-        linear-gradient(rgba(10,20,60,0.7),rgba(10,20,60,0.7)),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23083653" width="100" height="100"/><circle fill="%23164e63" cx="20" cy="20" r="3"/><circle fill="%23164e63" cx="80" cy="30" r="2"/><circle fill="%23164e63" cx="40" cy="70" r="2.5"/></svg>')
-        center/cover;
-      color: #f9e7b8; border-bottom: 4px solid #d69a00;
-      box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
+      text-align: center;
+      padding: 40px 20px;
+      position: relative;
     }
-    header h1 {
-      font-size: 3.5rem; font-weight: bold;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-      color: #d69a00; margin-bottom: 5px;
+
+    .logo {
+      width: 100%;
+      max-width: 600px;
+      height: 150px;
+      margin: 0 auto 1rem;
+      background: url('https://the-game-bureau.github.io/WordFleet/media/word_fleet_banner.png') center/contain no-repeat;
+      filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
     }
-    .byline {
-      font-size: 1.2rem; color: #d69a00;
-      margin: 5px 0 10px; text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+
+    .tagline {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      font-weight: 300;
+      letter-spacing: 1px;
+      margin-bottom: 2rem;
     }
-    .byline a { color: #d69a00; text-decoration: none; }
-    .byline a:hover { text-decoration: underline; }
 
     /* Controls */
     .controls {
-      text-align: center; margin: 20px auto; padding: 20px;
-      background: #fff; border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 800px;
+      text-align: center;
+      margin: 20px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      max-width: 800px;
     }
+
     .btn {
-      padding: 12px 24px; background-color: #d69a00; color: #06203e;
-      border: none; border-radius: 5px; font-size: 1rem; font-weight: bold;
-      cursor: pointer; margin: 0 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: all 0.3s ease;
+      padding: 12px 24px;
+      background: linear-gradient(45deg, #2d4a5e, #3d5a73);
+      color: white;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 0 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
-    .btn:hover { background-color: #a67600; transform: scale(1.05); }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 215, 0, 0.5);
+    }
+
+    .btn-active {
+      background: linear-gradient(45deg, #ff6b35, #ff8c42, #ffa726) !important;
+      border-color: rgba(255, 215, 0, 0.8) !important;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4) !important;
+    }
+
+    .btn-active:hover {
+      box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6) !important;
+    }
 
     /* Layout */
     .table-container {
-      max-width: 1200px; margin: 0 auto; padding: 20px;
-      display: flex; flex-direction: column; gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
     }
+
     .game-layout {
-      display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 20px;
     }
 
-    /* Grid */
+    /* Grid Section */
     .grid-section {
-      background: #fff; border: 3px solid #0f4c75;
-      border-radius: 12px; padding: 24px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
+
+    .grid-section h3 {
+      text-align: center;
+      color: #ffd700;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
     #grid {
-      width: 100%; max-width: 500px; margin: 0 auto;
-      border-collapse: collapse; border: 2px solid #0f4c75;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      border: 2px solid #ffd700;
+      border-radius: 10px;
+      overflow: hidden;
     }
-    #grid th, #grid td {
-      width: 40px; height: 40px; border: 1px solid #cbd5e1;
-      text-align: center; vertical-align: middle; font-weight: 600;
-    }
+
     #grid th {
-      background: #0f4c75; color: #fff;
+      background: rgba(255, 215, 0, 0.9);
+      color: #1a2332;
+      font-weight: bold;
+      padding: 8px;
+      font-size: 14px;
     }
+
     #grid td {
-      background: #f8fafc; cursor: pointer;
-      transition: background 0.15s ease; font-size: 18px;
+      width: 35px;
+      height: 35px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 16px;
     }
-    #grid td:hover { background: #e2e8f0; }
 
-    /* Fleet */
+    #grid td:hover {
+      background: rgba(255, 215, 0, 0.2);
+      transform: scale(1.1);
+    }
+
+    /* Fleet Section */
     .fleet-section {
-      background: #fff; border: 3px solid #7c3aed;
-      border-radius: 12px; padding: 24px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
-    .word-cards { display: grid; gap: 16px; margin-top: 20px; }
-    .ship-group { margin-bottom: 24px; }
+
+    .fleet-section h3 {
+      text-align: center;
+      color: #ffd700;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .ship-group {
+      margin-bottom: 20px;
+    }
+
     .ship-title {
-      background: #f1f5f9; border-left: 4px solid; border-radius: 4px;
-      padding: 8px 16px; margin-bottom: 12px;
-      font-size: 14px; font-weight: 700; text-transform: uppercase;
-      color: #374151; letter-spacing: 0.08em;
+      background: rgba(255, 215, 0, 0.1);
+      border-left: 4px solid;
+      border-radius: 8px;
+      padding: 8px 16px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #ffd700;
+      letter-spacing: 0.1em;
     }
-    .patrol-boat .ship-title  { border-color: #dc2626; }
-    .destroyer   .ship-title  { border-color: #ea580c; }
-    .submarine   .ship-title  { border-color: #0891b2; }
-    .galleon     .ship-title  { border-color: #7c3aed; }
-    .battleship  .ship-title  { border-color: #059669; }
-    <style>
+
+    .cutter .ship-title { border-color: #ff6b6b; }
+    .sloop .ship-title { border-color: #ffa726; }
+    .brig .ship-title { border-color: #42a5f5; }
+    .frigate .ship-title { border-color: #ab47bc; }
+    .galleon .ship-title { border-color: #66bb6a; }
+
+    .word-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .word-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .cutter .word-card::before { background: #ff6b6b; }
+    .sloop .word-card::before { background: #ffa726; }
+    .brig .word-card::before { background: #42a5f5; }
+    .frigate .word-card::before { background: #ab47bc; }
+    .galleon .word-card::before { background: #66bb6a; }
+
+    .word-card:hover {
+      border-color: rgba(255, 215, 0, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .word {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .letter-tile {
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #f8f4dc, #e6ddb3);
+      border: 2px solid #d4c5a9;
+      border-radius: 6px;
+      box-shadow: 
+        inset 1px 1px 3px rgba(255,255,255,0.8),
+        inset -1px -1px 3px rgba(0,0,0,0.2),
+        2px 2px 4px rgba(0,0,0,0.3);
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      color: #2d2d2d;
+      margin: 2px;
+    }
+
+    .definition {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 13px;
+      line-height: 1.4;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      
+      .controls {
+        display: none;
+      }
+      
+      .grid-section, .fleet-section {
+        background: white !important;
+        border: 2px solid #333 !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+      }
+      
+      .grid-section h3, .fleet-section h3 {
+        color: #333 !important;
+      }
+      
+      .ship-title {
+        color: #333 !important;
+        background: #f5f5f5 !important;
+      }
+      
       .word-card {
-        background: #fff; border: 2px solid #cbd5e1;
-        border-radius: 8px; padding: 16px; position: relative;
-        transition: all 0.15s ease; overflow: hidden;
+        background: white !important;
+        border: 1px solid #ccc !important;
       }
-      .word-card:hover {
-        border-color: #0f4c75; transform: translateX(2px);
-      }
-      .word-card::before {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-      }
-      .patrol-boat .word-card::before  { background: #dc2626; }
-      .destroyer   .word-card::before  { background: #ea580c; }
-      .submarine   .word-card::before  { background: #0891b2; }
-      .galleon     .word-card::before  { background: #7c3aed; }
-      .battleship  .word-card::before  { background: #059669; }
-
-      .word {
-        display: flex; justify-content: center; gap: 2px;
-        margin-bottom: 8px; flex-wrap: wrap;
-      }
-      .scrabble-tile {
-        width: 40px; height: 40px; display: flex;
-        align-items: center; justify-content: center;
-        background: linear-gradient(145deg,#f8f4dc,#e6ddb3);
-        border:2px solid#d4c5a9;border-radius:4px;
-        box-shadow:
-          inset 1px 1px 3px rgba(255,255,255,0.8),
-          inset -1px -1px 3px rgba(0,0,0,0.2),
-          2px 2px 4px rgba(0,0,0,0.3);
-        font-family:'Arial Black',Arial,sans-serif;
-        font-weight:900;font-size:18px;color:#2d2d2d;margin:2px;
-      }
+      
       .definition {
-        color: #475569; font-size: 13px; line-height: 1.4;
-        text-align: center; margin-top: 4px;
+        color: #666 !important;
       }
-    </style>
+      
+      #grid th {
+        background: #f0f0f0 !important;
+        color: #333 !important;
+      }
+      
+      #grid td {
+        background: white !important;
+        border: 1px solid #ccc !important;
+      }
+    }
 
-  <body>
-    <header>…</header>
-    <div class="controls">…</div>
-    <div class="table-container">
-      <div id="content" class="game-layout">
-        <!-- loading spinner / grid + fleet will go here -->
+    @media (max-width: 768px) {
+      .game-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .logo {
+        height: 120px;
+      }
+      
+      .tagline {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"></div>
+    <p class="tagline">Command Your Letters, Conquer the Dictionary</p>
+  </header>
+
+  <div class="controls">
+    <button class="btn btn-active" onclick="selectVersion('web')">Web Version</button>
+    <button class="btn" onclick="selectVersion('print')">Print and Play</button>
+    <button class="btn" onclick="selectVersion('app')">App Version</button>
+  </div>
+
+  <div class="table-container">
+    <div class="game-layout">
+      <!-- Battle Grid -->
+      <div class="grid-section">
+        <h3>⚓ Battle Grid</h3>
+        <table id="grid">
+          <thead>
+            <tr>
+              <th>⚓</th>
+              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+              <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+            </tr>
+          </thead>
+          <tbody id="grid-body">
+            <!-- Grid will be generated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Fleet Cards -->
+      <div class="fleet-section">
+        <h3>🚢 Your Fleet</h3>
+        <div class="word-cards">
+          
+          <!-- Galleon (5 letters) -->
+          <div class="ship-group galleon">
+            <div class="ship-title">⚓ Galleon (5 letters)</div>
+            <div class="word-card">
+              <div class="word">
+                <span class="letter-tile">S</span>
+                <span class="letter-tile">W</span>
+                <span class="letter-tile">O</span>
+                <span class="letter-tile">R</span>
+                <span class="letter-tile">D</span>
+              </div>
+              <div class="definition">A long-bladed weapon used in combat</div>
+            </div>
+          </div>
+
+          <!-- Frigate (4 letters) -->
+          <div class="ship-group frigate">
+            <div class="ship-title">🏴‍☠️ Frigate (4 letters)</div>
+            <div class="word-card">
+              <div class="word">
+                <span class="letter-tile">S</span>
+                <span class="letter-tile">H</span>
+                <span class="letter-tile">I</span>
+                <span class="letter-tile">P</span>
+              </div>
+              <div class="definition">A large boat for traveling on water</div>
+            </div>
+          </div>
+
+          <!-- Brigs (3 letters) -->
+          <div class="ship-group brig">
+            <div class="ship-title">🚢 Brig (3 letters)</div>
+            <div class="word-card">
+              <div class="word">
+                <span class="letter-tile">S</span>
+                <span class="letter-tile">E</span>
+                <span class="letter-tile">A</span>
+              </div>
+              <div class="definition">Large body of saltwater</div>
+            </div>
+            <div class="word-card">
+              <div class="word">
+                <span class="letter-tile">M</span>
+                <span class="letter-tile">A</span>
+                <span class="letter-tile">P</span>
+              </div>
+              <div class="definition">Chart showing geographic features</div>
+            </div>
+          </div>
+
+          <!-- Cutter (2 letters) -->
+          <div class="ship-group cutter">
+            <div class="ship-title">🚤 Cutter (2 letters)</div>
+            <div class="word-card">
+              <div class="word">
+                <span class="letter-tile">A</span>
+                <span class="letter-tile">X</span>
+              </div>
+              <div class="definition">Tool for chopping wood</div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
-    <footer>…</footer>
+  </div>
 
-    <script>
-    let dictionaryWords = {};
+  <script>
+    // Generate the battle grid
+    function generateGrid() {
+      const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+      const tbody = document.getElementById('grid-body');
+      
+      letters.forEach(letter => {
+        const row = document.createElement('tr');
+        
+        // Row header
+        const th = document.createElement('th');
+        th.textContent = letter;
+        row.appendChild(th);
+        
+        // Grid cells
+        for (let i = 1; i <= 10; i++) {
+          const td = document.createElement('td');
+          td.dataset.coord = letter + i;
+          td.textContent = '◦';
+          td.onclick = () => toggleCell(td);
+          row.appendChild(td);
+        }
+        
+        tbody.appendChild(row);
+      });
+    }
 
-    async function loadDictionary() {
-      try {
-        const path = window.location.pathname;
-        const xmlPath = path.includes('/utility/')
-          ? '../dictionary/word_decks.xml'
-          : './dictionary/word_decks.xml';
-        console.log('Loading dictionary from:', xmlPath);
+    // Toggle cell states
+    function toggleCell(cell) {
+      const states = ['◦', '💥', '🌊', '⚓'];
+      const colors = ['', '#ff6b6b', '#42a5f5', '#66bb6a'];
+      
+      const currentIndex = states.indexOf(cell.textContent);
+      const nextIndex = (currentIndex + 1) % states.length;
+      
+      cell.textContent = states[nextIndex];
+      cell.style.background = colors[nextIndex] ? 
+        colors[nextIndex] + '40' : 'rgba(255, 255, 255, 0.05)';
+    }
 
-        const res  = await fetch(xmlPath);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const text = await res.text();
-        const xml  = new DOMParser().parseFromString(text, 'application/xml');
-
-        const nodes = Array.from(xml.querySelectorAll('word'));
-        console.log('Found', nodes.length, '<word> nodes');
-
-        dictionaryWords = {};
-        nodes.forEach(el => {
-          const w = el.textContent.trim();
-          const len = w.length;
-          let def = el.getAttribute('definition') || '';
-          const dEl = el.querySelector('definition');
-          if (!def && dEl) def = dEl.textContent.trim();
-
-          if (!dictionaryWords[len]) dictionaryWords[len] = [];
-          dictionaryWords[len].push({ word: w, definition: def });
-        });
-        console.log('Buckets:', Object.keys(dictionaryWords));
-      } catch (err) {
-        console.error('Error loading dictionary:', err);
-        document.getElementById('content').innerHTML =
-          '<div class="error">Unable to load word list.</div>';
+    // Version selection
+    function selectVersion(version) {
+      // Remove active class from all buttons
+      document.querySelectorAll('.btn').forEach(btn => {
+        btn.classList.remove('btn-active');
+      });
+      
+      // Add active class to clicked button
+      event.target.classList.add('btn-active');
+      
+      // Handle version-specific actions
+      switch(version) {
+        case 'web':
+          // Current interactive web version - no action needed
+          break;
+        case 'print':
+          window.print();
+          break;
+        case 'app':
+          alert('App version coming soon! Stay tuned for the mobile Word Fleet experience.');
+          break;
       }
     }
 
-    function getRandomWord(length) {
-      const list = dictionaryWords[length] || [];
-      return list.length
-        ? list[Math.floor(Math.random() * list.length)]
-        : { word: 'N/A', definition: 'No ships available' };
+    // Print functions (keeping for potential future use)
+    function printGrid() {
+      const gridSection = document.querySelector('.grid-section').outerHTML;
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Word Fleet - Battle Grid</title>
+            <style>
+              body { font-family: Arial, sans-serif; padding: 20px; }
+              table { border-collapse: collapse; margin: 0 auto; }
+              th, td { border: 1px solid #333; padding: 8px; text-align: center; }
+              th { background: #f0f0f0; }
+              h3 { text-align: center; margin-bottom: 20px; }
+            </style>
+          </head>
+          <body>${gridSection}</body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
     }
 
-    function createBattleGrid() {
-      const letters = [...'ABCDEFGHIJ'];
-      const nums = Array.from({length:10},(_,i)=>i+1);
-      let html = `<div class="grid-section"><table id="grid"><caption>🗺️ The High Seas Battle Grid</caption><thead><tr><th>☠️</th>`;
-      nums.forEach(n=> html += `<th>${n}</th>`);
-      html += `</tr></thead><tbody>`;
-      letters.forEach(l=>{
-        html += `<tr><th>${l}</th>`;
-        nums.forEach(n=> html += `<td data-coord="${l}${n}">◦</td>`);
-        html += `</tr>`;
-      });
-      html += `</tbody></table></div>`;
-      return html;
+    function printFleet() {
+      const fleetSection = document.querySelector('.fleet-section').outerHTML;
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Word Fleet - Fleet Cards</title>
+            <style>
+              body { font-family: Arial, sans-serif; padding: 20px; }
+              .ship-group { margin-bottom: 20px; page-break-inside: avoid; }
+              .ship-title { font-weight: bold; border-left: 4px solid #333; padding-left: 10px; margin-bottom: 10px; }
+              .word-card { border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; }
+              .word { display: flex; justify-content: center; gap: 5px; margin-bottom: 8px; }
+              .letter-tile { 
+                width: 30px; height: 30px; border: 1px solid #333; 
+                display: flex; align-items: center; justify-content: center;
+                font-weight: bold; background: #f9f9f9;
+              }
+              .definition { text-align: center; font-style: italic; color: #666; }
+            </style>
+          </head>
+          <body>${fleetSection}</body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
     }
 
-    function createScrabbleTiles(w) {
-      return [...w].map(c=>`<span class="scrabble-tile">${c}</span>`).join('');
-    }
-
-    function createFleetCards() {
-      const ships = [
-        {class:'patrol-boat',title:'🚤 Cutter (2)', length:2, count:1},
-        {class:'destroyer',  title:'⛵ Sloop (3)',  length:3, count:1},
-        {class:'submarine',  title:'🚢 Brig (3)',   length:3, count:1},
-        {class:'galleon',    title:'🏴‍☠️ Frigate (4)', length:4, count:1},
-        {class:'battleship', title:'⚓ Galleon (5)', length:5, count:1},
-      ];
-      let html = `<div class="fleet-section"><caption>🚢 Yer Fleet</caption><div class="word-cards">`;
-      ships.forEach(s=>{
-        html += `<div class="ship-group ${s.class}"><div class="ship-title">${s.title}</div>`;
-        for(let i=0;i<s.count;i++){
-          const {word,definition} = getRandomWord(s.length);
-          html += `<div class="word-card">
-                     <div class="word">${createScrabbleTiles(word)}</div>
-                     <div class="definition">${definition}</div>
-                   </div>`;
-        }
-        html += `</div>`;
-      });
-      html += `</div></div>`;
-      return html;
-    }
-
-    function loadWords() {
-      const c = document.getElementById('content');
-      c.innerHTML = createBattleGrid() + createFleetCards();
-      c.querySelectorAll('#grid td[data-coord]').forEach(td=>{
-        td.onclick = ()=>{
-          const states = ['◦','💥','🌊','⚓'];
-          const idx = states.indexOf(td.textContent);
-          const nxt = (idx+1)%states.length;
-          td.textContent = states[nxt];
-          td.style.background = ['', '#fecaca','#dbeafe','#dcfce7'][nxt];
-        };
-      });
-    }
-
-    function printGrid(){/*…*/}   // (same as before)
-    function printFleet(){/*…*/}  // (same as before)
-
-    document.addEventListener('DOMContentLoaded', async ()=>{
-      await loadDictionary();
-      loadWords();
+    // Initialize the game
+    document.addEventListener('DOMContentLoaded', () => {
+      generateGrid();
     });
-    </script>
-  </body>
+  </script>
+</body>
 </html>
