@@ -674,6 +674,86 @@
                 margin-bottom: 10px !important;
             }
         }
+        .dashed-separator.fold-line-label {
+            border: none !important;
+            border-top: 2px dashed black !important;
+            margin: 18px 0 0 0 !important;
+            width: 100% !important;
+            display: block !important;
+        }
+        .fold-label {
+            text-align: center;
+            font-size: 12px;
+            color: black;
+            margin-bottom: 12px;
+            margin-top: -10px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        .coin-flip {
+            position: relative;
+            display: inline-block;
+            margin-left: 24px;
+            top: 0;
+            right: 0;
+            background: white;
+            border: 1.5px solid black;
+            border-radius: 4px;
+            padding: 4px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            color: black;
+            text-transform: uppercase;
+            box-shadow: none;
+        }
+        .game-area {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 16px;
+            margin: 0;
+        }
+        @media print {
+            .player-page {
+                page-break-after: always;
+                break-after: page;
+                min-height: 10.5in;
+                box-sizing: border-box;
+                position: relative;
+            }
+            .fold-label {
+                color: black !important;
+                font-size: 12px !important;
+                margin-bottom: 12px !important;
+                margin-top: -10px !important;
+                letter-spacing: 2px !important;
+                font-weight: bold !important;
+            }
+            .dashed-separator.fold-line-label {
+                border: none !important;
+                border-top: 2px dashed black !important;
+                margin: 18px 0 0 0 !important;
+                width: 100% !important;
+                display: block !important;
+            }
+            .coin-flip {
+                position: relative !important;
+                display: inline-block !important;
+                margin-left: 24px !important;
+                top: 0 !important;
+                right: 0 !important;
+                background: white !important;
+                border: 1.5px solid black !important;
+                border-radius: 4px !important;
+                padding: 4px 12px !important;
+                font-size: 14px !important;
+                font-weight: bold !important;
+                color: black !important;
+                text-transform: uppercase !important;
+                box-shadow: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -720,28 +800,23 @@
 
     <!-- Hidden print content -->
     <div class="print-content" id="printContent">
-        <!-- Player 1 Header Section -->
-        <div class="player-header" id="player1-header">
-            <div class="coin-flip" id="coinFlip1">IF HEADS YOU'RE FIRST</div>
-            
-            <div class="print-title-letters">
-                <div class="print-title-tile">W</div>
-                <div class="print-title-tile">O</div>
-                <div class="print-title-tile">R</div>
-                <div class="print-title-tile">D</div>
-                <div class="print-title-space"></div>
-                <div class="print-title-tile">F</div>
-                <div class="print-title-tile">L</div>
-                <div class="print-title-tile">E</div>
-                <div class="print-title-tile">E</div>
-                <div class="print-title-tile">T</div>
+        <!-- Page 1: Player 1 -->
+        <div class="player-page">
+            <div class="player-header" id="player1-header">
+                <div class="print-title-letters">
+                    <div class="print-title-tile">W</div>
+                    <div class="print-title-tile">O</div>
+                    <div class="print-title-tile">R</div>
+                    <div class="print-title-tile">D</div>
+                    <div class="print-title-space"></div>
+                    <div class="print-title-tile">F</div>
+                    <div class="print-title-tile">L</div>
+                    <div class="print-title-tile">E</div>
+                    <div class="print-title-tile">E</div>
+                    <div class="print-title-tile">T</div>
+                </div>
+                <div class="battletracker" id="battletracker1"></div>
             </div>
-            <div class="battletracker">Us vs Them</div>
-            <hr class="divider">
-        </div>
-
-        <!-- Player 1 Opponent Section -->
-        <div class="player-opponent" id="player1-opponent">
             <div class="game-section">
                 <h2 class="section-title" id="opponent-title1">Opponent's Fleet</h2>
                 <div class="game-area">
@@ -759,10 +834,10 @@
                             <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                             <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                             <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                            <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                            <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                         </tbody>
                     </table>
-                    
+                    <div class="coin-flip" id="coinFlip1">IF HEADS YOU'RE FIRST</div>
                     <div class="ships-list">
                         <div class="ship-item">
                             <div class="ship-name">5-Letter Word</div>
@@ -797,14 +872,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Dashed line above Fleet One Tactical Grid (middle of page) -->
-        <hr class="dashed-separator">
-
-        <!-- Player 1 Fleet Section -->
-        <div class="player-fleet" id="player1-fleet">
-            <hr class="fold-line">
+            <!-- Fold line -->
+            <hr class="dashed-separator fold-line-label"><div class="fold-label">FOLD LINE</div>
             <div class="game-section">
                 <h2 class="section-title" id="your-title1">Your Fleet</h2>
                 <div class="game-area">
@@ -825,7 +894,6 @@
                             <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                         </tbody>
                     </table>
-                    
                     <div class="ships-list">
                         <div class="ship-item">
                             <div class="ship-name">5-Letter Word</div>
@@ -862,29 +930,23 @@
             </div>
             <div class="print-attribution print-footer pagedjs-footer">WORD FLEET &#8226; Pen & Paper Edition &#8226; by Kevin Kolb &#8226; TheGameBureau.com</div>
         </div>
-
-        <!-- Player 2 Header Section -->
-        <div class="player-header" id="player2-header">
-            <div class="coin-flip" id="coinFlip2">IF TAILS YOU'RE FIRST</div>
-            
-            <div class="print-title-letters">
-                <div class="print-title-tile">W</div>
-                <div class="print-title-tile">O</div>
-                <div class="print-title-tile">R</div>
-                <div class="print-title-tile">D</div>
-                <div class="print-title-space"></div>
-                <div class="print-title-tile">F</div>
-                <div class="print-title-tile">L</div>
-                <div class="print-title-tile">E</div>
-                <div class="print-title-tile">E</div>
-                <div class="print-title-tile">T</div>
+        <!-- Page 2: Player 2 -->
+        <div class="player-page">
+            <div class="player-header" id="player2-header">
+                <div class="print-title-letters">
+                    <div class="print-title-tile">W</div>
+                    <div class="print-title-tile">O</div>
+                    <div class="print-title-tile">R</div>
+                    <div class="print-title-tile">D</div>
+                    <div class="print-title-space"></div>
+                    <div class="print-title-tile">F</div>
+                    <div class="print-title-tile">L</div>
+                    <div class="print-title-tile">E</div>
+                    <div class="print-title-tile">E</div>
+                    <div class="print-title-tile">T</div>
+                </div>
+                <div class="battletracker" id="battletracker2"></div>
             </div>
-            <div class="battletracker">Us vs Them</div>
-            <hr class="divider">
-        </div>
-
-        <!-- Player 2 Opponent Section -->
-        <div class="player-opponent" id="player2-opponent">
             <div class="game-section">
                 <h2 class="section-title" id="opponent-title2">Opponent's Fleet</h2>
                 <div class="game-area">
@@ -905,7 +967,7 @@
                             <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                         </tbody>
                     </table>
-                    
+                    <div class="coin-flip" id="coinFlip2">IF TAILS YOU'RE FIRST</div>
                     <div class="ships-list">
                         <div class="ship-item">
                             <div class="ship-name">5-Letter Word</div>
@@ -940,14 +1002,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Dashed line above Fleet Two Tactical Grid (middle of page) -->
-        <hr class="dashed-separator">
-
-        <!-- Player 2 Fleet Section -->
-        <div class="player-fleet" id="player2-fleet">
-            <hr class="fold-line">
+            <!-- Fold line -->
+            <hr class="dashed-separator fold-line-label"><div class="fold-label">FOLD LINE</div>
             <div class="game-section">
                 <h2 class="section-title" id="your-title2">Your Fleet</h2>
                 <div class="game-area">
@@ -968,7 +1024,6 @@
                             <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                         </tbody>
                     </table>
-                    
                     <div class="ships-list">
                         <div class="ship-item">
                             <div class="ship-name">5-Letter Word</div>
