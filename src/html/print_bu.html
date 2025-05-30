@@ -42,10 +42,10 @@
         }
 
         .container {
-            max-width: 700px;
-            width: 98%;
+            max-width: 500px;
+            width: 90%;
             text-align: center;
-            background: transparent;
+            background: rgba(255,255,255,0.02);
             border-radius: 18px;
             box-shadow: 0 4px 24px rgba(30,58,95,0.10);
         }
@@ -69,7 +69,7 @@
             font-family: 'Arial Black', Arial, sans-serif;
             font-weight: 900;
             font-size: 26px;
-            color: #1e3a5f;
+            color: var(--navy);
             box-shadow: 0 2px 6px rgba(0,0,0,0.18);
             margin-bottom: 2px;
             letter-spacing: 1px;
@@ -231,7 +231,7 @@
             border: 1px solid #ccc;
             padding: 8px 12px;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 11px;
             font-weight: bold;
             color: #333;
             text-transform: uppercase;
@@ -245,8 +245,8 @@
         }
 
         .print-title-tile {
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -255,15 +255,15 @@
             border-radius: 4px;
             font-family: 'Arial Black', Arial, sans-serif;
             font-weight: 900;
-            font-size: 24px;
+            font-size: 18px;
             color: black;
         }
 
-        .print-title-space { width: 12px; }
+        .print-title-space { width: 8px; }
 
         .print-attribution {
             text-align: center;
-            font-size: 24px;
+            font-size: 11px;
             color: #666;
             margin-bottom: 25px;
         }
@@ -298,12 +298,12 @@
         }
 
         .grid th, .grid td {
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             border: 1px solid #333;
             text-align: center;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .grid th { background-color: #f0f0f0; }
@@ -339,15 +339,15 @@
         .ship-boxes { display: flex; gap: 2px; }
 
         .ship-box {
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             border: 2px solid #333;
             background-color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .fold-line {
@@ -374,21 +374,11 @@
             border-radius: 3px;
         }
 
-        .player-header {
-            width: 100%;
-            padding: 15px;
-            margin: 0;
-            position: relative;
-            color: black;
-            border: 2px solid black;
-        }
-
         @media print {
             body { 
                 background: white !important; 
                 margin: 0 !important;
                 padding: 0 !important;
-                color: black !important;
             }
             
             .container { 
@@ -399,458 +389,17 @@
                 display: block !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                color: black !important;
             }
-
-            /* Player 1 Page */
-            #player1-header {
-                width: 100% !important;
-                padding: 8px 5px !important;
-                margin: 0 0 8px 0 !important;
-                position: relative !important;
-                color: black !important;
-                border: none !important;
-                border-bottom: 2px solid #888 !important;
-                background: none !important;
-            }
-
-            #player1-header .coin-flip {
-                position: absolute !important;
-                top: 8px !important;
-                right: 10px !important;
-                color: black !important;
+            
+            .player-page { 
                 margin: 0 !important;
-                padding: 2px 8px !important;
-                font-size: 13px !important;
-                background-color: white !important;
-                border: 1px solid #888 !important;
-                border-radius: 3px !important;
-                font-weight: bold !important;
+                padding: 20px 15px 10px 15px !important;
             }
-
-            #player1-opponent,
-            #player1-fleet {
-                padding: 0 !important;
-                margin: 0 !important;
-                color: black !important;
+            .player-page:not(:last-child) {
+                page-break-after: always;
             }
-
-            .game-area {
-                display: flex !important;
-                flex-direction: row !important;
-                align-items: flex-start !important;
-                justify-content: flex-start !important;
-                gap: 18px !important;
-                margin: 0 !important;
-            }
-
-            .grid {
-                border-collapse: collapse !important;
-                border: 1px solid #888 !important;
-                background: none !important;
-                margin: 0 !important;
-            }
-            .grid th, .grid td {
-                width: 24px !important;
-                height: 24px !important;
-                border: 1px solid #aaa !important;
-                text-align: center !important;
-                font-weight: bold !important;
-                font-size: 12px !important;
-                padding: 0 !important;
-                background: white !important;
-                color: black !important;
-            }
-            .grid th {
-                background: #f8f8f8 !important;
-                font-size: 11px !important;
-            }
-
-            .ships-list {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 7px !important;
-                min-width: 80px !important;
-                border: none !important;
-                padding: 0 !important;
-                background: none !important;
-                border-radius: 0 !important;
-                height: auto !important;
-                justify-content: flex-start !important;
-            }
-            .ship-item {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 2px !important;
-            }
-            .ship-name {
-                font-size: 10px !important;
-                font-weight: bold !important;
-                color: black !important;
-                text-align: left !important;
-                margin-bottom: 1px !important;
-            }
-            .ship-boxes {
-                display: flex !important;
-                gap: 1px !important;
-            }
-            .ship-box {
-                width: 18px !important;
-                height: 18px !important;
-                border: 1px solid #888 !important;
-                background-color: white !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                font-weight: bold !important;
-                font-size: 11px !important;
-                color: black !important;
-                border-radius: 2px !important;
-            }
-
-            .section-title {
-                text-align: left !important;
-                font-size: 13px !important;
-                font-weight: bold !important;
-                margin-bottom: 6px !important;
-                color: black !important;
-            }
-
-            .divider, .fold-line {
-                display: none !important;
-            }
-
-            /* Player 2 Page */
-            #player2-header {
-                width: 100% !important;
-                padding: 8px 5px !important;
-                margin: 0 0 8px 0 !important;
-                position: relative !important;
-                color: black !important;
-                border: none !important;
-                border-bottom: 2px solid #888 !important;
-                background: none !important;
-            }
-
-            #player2-header .coin-flip {
-                position: absolute !important;
-                top: 8px !important;
-                right: 10px !important;
-                color: black !important;
-                margin: 0 !important;
-                padding: 2px 8px !important;
-                font-size: 13px !important;
-                background-color: white !important;
-                border: 1px solid #888 !important;
-                border-radius: 3px !important;
-                font-weight: bold !important;
-            }
-
-            #player2-opponent,
-            #player2-fleet {
-                padding: 0 !important;
-                margin: 0 !important;
-                color: black !important;
-            }
-
-            .game-area {
-                display: flex !important;
-                flex-direction: row !important;
-                align-items: flex-start !important;
-                justify-content: flex-start !important;
-                gap: 18px !important;
-                margin: 0 !important;
-            }
-
-            .grid {
-                border-collapse: collapse !important;
-                border: 1px solid #888 !important;
-                background: none !important;
-                margin: 0 !important;
-            }
-            .grid th, .grid td {
-                width: 24px !important;
-                height: 24px !important;
-                border: 1px solid #aaa !important;
-                text-align: center !important;
-                font-weight: bold !important;
-                font-size: 12px !important;
-                padding: 0 !important;
-                background: white !important;
-                color: black !important;
-            }
-            .grid th {
-                background: #f8f8f8 !important;
-                font-size: 11px !important;
-            }
-
-            .ships-list {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 7px !important;
-                min-width: 80px !important;
-                border: none !important;
-                padding: 0 !important;
-                background: none !important;
-                border-radius: 0 !important;
-                height: auto !important;
-                justify-content: flex-start !important;
-            }
-            .ship-item {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 2px !important;
-            }
-            .ship-name {
-                font-size: 10px !important;
-                font-weight: bold !important;
-                color: black !important;
-                text-align: left !important;
-                margin-bottom: 1px !important;
-            }
-            .ship-boxes {
-                display: flex !important;
-                gap: 1px !important;
-            }
-            .ship-box {
-                width: 18px !important;
-                height: 18px !important;
-                border: 1px solid #888 !important;
-                background-color: white !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                font-weight: bold !important;
-                font-size: 11px !important;
-                color: black !important;
-                border-radius: 2px !important;
-            }
-
-            .section-title {
-                text-align: left !important;
-                font-size: 13px !important;
-                font-weight: bold !important;
-                margin-bottom: 6px !important;
-                color: black !important;
-            }
-
-            .divider, .fold-line {
-                display: none !important;
-            }
-
-            /* Ensure all text elements are black */
-            .print-title-letters,
-            .print-title-tile,
-            .print-attribution,
-            .section-title,
-            .ship-name,
-            .grid th,
-            .grid td,
-            .coin-flip {
-                color: black !important;
-            }
-
-            .print-attribution {
-                font-size: 24px !important;
-                margin-top: 10px !important;
-                margin-bottom: 20px !important;
-            }
-
-            .print-title-tile {
-                width: 48px !important;
-                height: 48px !important;
-                font-size: 24px !important;
-                border: 2px solid black !important;
-            }
-
-            .print-title-space {
-                width: 12px !important;
-            }
-
-            .grid {
-                border: 2px solid black !important;
-            }
-
-            .grid th, .grid td {
-                width: 40px !important;
-                height: 40px !important;
-                border: 1px solid black !important;
-                font-size: 16px !important;
-            }
-
-            .ship-box {
-                width: 40px !important;
-                height: 40px !important;
-                border: 2px solid black !important;
-                font-size: 16px !important;
-            }
-
-            /* Page break before Player 2 */
-            #player2-header {
-                page-break-before: always !important;
-            }
-
-            /* Coin flip box on its own line, top left */
-            #player1-header .coin-flip,
-            #player2-header .coin-flip {
-                position: static !important;
-                display: block !important;
-                margin: 0 0 12px 0 !important;
-                padding: 8px 20px !important;
-                font-size: 22px !important;
-                background-color: #f3f3fa !important;
-                border: 2px solid #888 !important;
-                border-radius: 6px !important;
-                font-weight: bold !important;
-                color: #222 !important;
-                width: fit-content !important;
-                box-shadow: 0 2px 8px #eee !important;
-            }
-
-            #player1-header, #player2-header {
-                width: 100% !important;
-                padding: 24px 18px 12px 18px !important;
-                margin: 0 0 18px 0 !important;
-                position: relative !important;
-                color: black !important;
-                border: none !important;
-                border-bottom: 3px solid #888 !important;
-                background: none !important;
-            }
-
-            .print-title-letters {
-                gap: 12px !important;
-                margin-bottom: 18px !important;
-            }
-            .print-title-tile {
-                width: 72px !important;
-                height: 72px !important;
-                font-size: 38px !important;
-                border: 3px solid #333 !important;
-                border-radius: 8px !important;
-                background: #f7f7fa !important;
-                color: #1e3a5f !important;
-                box-shadow: 0 2px 8px #eee !important;
-            }
-            .print-title-space {
-                width: 24px !important;
-            }
-            .print-attribution {
-                font-size: 28px !important;
-                margin-bottom: 28px !important;
-            }
-
-            .game-area {
-                gap: 40px !important;
-            }
-            .grid {
-                border: 3px solid #888 !important;
-            }
-            .grid th, .grid td {
-                width: 48px !important;
-                height: 48px !important;
-                font-size: 26px !important;
-                border: 2px solid #aaa !important;
-                padding: 0 !important;
-                background: white !important;
-                color: #222 !important;
-            }
-            .grid th {
-                background: #e9e9f3 !important;
-                font-size: 22px !important;
-            }
-
-            .ships-list {
-                gap: 18px !important;
-                min-width: 200px !important;
-                padding: 10px 0 0 0 !important;
-            }
-            .ship-item {
-                gap: 6px !important;
-            }
-            .ship-name {
-                font-size: 18px !important;
-                margin-bottom: 4px !important;
-            }
-            .ship-boxes {
-                gap: 4px !important;
-            }
-            .ship-box {
-                width: 44px !important;
-                height: 44px !important;
-                font-size: 22px !important;
-                border: 2px solid #888 !important;
-                background: #f3f3fa !important;
-                border-radius: 4px !important;
-            }
-
-            .section-title {
-                font-size: 22px !important;
-                margin-bottom: 12px !important;
-            }
-
-            .divider, .fold-line {
-                display: none !important;
-            }
-
-            .attribution-link {
-                color: black !important;
-                text-decoration: none !important;
-                pointer-events: none !important;
-            }
-
-            .print-content {
-                width: 8in !important;
-                max-width: 8in !important;
-                margin: 0 auto !important;
-            }
-            .player-fleet {
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: space-between !important;
-                width: 8in !important;
-                max-width: 8in !important;
-                box-sizing: border-box !important;
-                position: relative !important;
-                page-break-after: auto !important;
-            }
-            .player-fleet:first-of-type {
-                page-break-after: always !important;
-            }
-            .print-footer {
-                text-align: center;
-                font-size: 16px !important;
-                color: #222;
-                margin: 24px 0 0 0 !important;
-                white-space: nowrap !important;
-            }
-
-            .battletracker {
-                text-align: center;
-                margin-bottom: 12px;
-                font-size: 28px;
-                color: #222;
-                font-weight: normal !important;
-            }
-            .battletracker .bt-p1 {
-                font-weight: bold;
-                text-transform: uppercase;
-            }
-            .battletracker .bt-p2-bold {
-                font-weight: bold;
-                text-transform: uppercase;
-            }
-            .bt-p1-bold {
-                font-weight: bold !important;
-            }
-            .bt-p2-bold {
-                font-weight: bold !important;
-            }
-
-            .grid-player-name {
-                font-weight: bold;
+            .player-page:last-child {
+                page-break-after: auto;
             }
         }
 
@@ -933,16 +482,17 @@
             <div class="title-tile">E</div>
             <div class="title-tile">T</div>
         </div>
-        <div class="attribution" style="font-size: 18px; color: #f7e7b4; font-weight: bold; margin-bottom: 40px; text-shadow: 1px 1px 2px #1e3a5f;">Pen & Paper Edition &#8226; by Kevin Kolb &#8226; <a href="https://thegamebureau.com" class="attribution-link" target="_blank" style="color: #f7e7b4; text-decoration: none;">TheGameBureau.com</a></div>
+        <div style="font-size: 18px; color: #f7e7b4; font-weight: bold; margin-bottom: 8px; text-shadow: 1px 1px 2px #1e3a5f;">Pen & Paper Edition</div>
+        <div class="attribution">by Kevin Kolb for thegamebureau.com</div>
 
         <div class="setup-card">
             <div class="form-group">
-                <label>Fleet One Name (optional):</label>
+                <label>Your Fleet Name (optional):</label>
                 <input type="text" id="player1Name" placeholder="e.g. Royal Armada">
             </div>
             
             <div class="form-group">
-                <label>Fleet Two Name (optional):</label>
+                <label>Opponent's Fleet Name (optional):</label>
                 <input type="text" id="player2Name" placeholder="e.g. Scurvy Flotilla">
             </div>
             
@@ -955,16 +505,15 @@
             </div>
             
             <div id="dontPeekMsg" style="font-size: 16px; color: var(--navy); font-weight: bold; margin-bottom: 14px; text-align: center;">
-                Don't Peek at Fleet Two's Tracker (Page 2)
+                Don't Peek at Opponent's Tracker (Page 2)
             </div>
-            <button class="generate-btn" onclick="generateAndPrint()">Print Battle Trackers</button>
+            <button class="generate-btn" onclick="generateAndPrint()">Print Fleet Trackers</button>
         </div>
     </div>
 
     <!-- Hidden print content -->
     <div class="print-content" id="printContent">
-        <!-- Player 1 Header Section -->
-        <div class="player-header" id="player1-header">
+        <div class="player-page" id="player1">
             <div class="coin-flip" id="coinFlip1">IF HEADS YOU'RE FIRST</div>
             
             <div class="print-title-letters">
@@ -979,12 +528,10 @@
                 <div class="print-title-tile">E</div>
                 <div class="print-title-tile">T</div>
             </div>
-            <div class="battletracker">Us vs Them</div>
+            
+            <div class="print-attribution">by Kevin Kolb for thegamebureau.com</div>
             <hr class="divider">
-        </div>
-
-        <!-- Player 1 Opponent Section -->
-        <div class="player-opponent" id="player1-opponent">
+            
             <div class="game-section">
                 <h2 class="section-title" id="opponent-title1">Opponent's Fleet</h2>
                 <div class="game-area">
@@ -1002,7 +549,7 @@
                             <tr><th>G</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                             <tr><th>H</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                             <tr><th>I</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                            <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                            <tr><th>J</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                         </tbody>
                     </table>
                     
@@ -1040,11 +587,9 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Player 1 Fleet Section -->
-        <div class="player-fleet" id="player1-fleet">
             <hr class="fold-line">
+
             <div class="game-section">
                 <h2 class="section-title" id="your-title1">Your Fleet</h2>
                 <div class="game-area">
@@ -1100,11 +645,9 @@
                     </div>
                 </div>
             </div>
-            <div class="print-attribution print-footer">WORD FLEET &#8226; Pen & Paper Edition &#8226; by Kevin Kolb &#8226; TheGameBureau.com</div>
         </div>
 
-        <!-- Player 2 Header Section -->
-        <div class="player-header" id="player2-header">
+        <div class="player-page" id="player2">
             <div class="coin-flip" id="coinFlip2">IF TAILS YOU'RE FIRST</div>
             
             <div class="print-title-letters">
@@ -1119,12 +662,10 @@
                 <div class="print-title-tile">E</div>
                 <div class="print-title-tile">T</div>
             </div>
-            <div class="battletracker">Us vs Them</div>
+            
+            <div class="print-attribution">by Kevin Kolb for thegamebureau.com</div>
             <hr class="divider">
-        </div>
-
-        <!-- Player 2 Opponent Section -->
-        <div class="player-opponent" id="player2-opponent">
+            
             <div class="game-section">
                 <h2 class="section-title" id="opponent-title2">Opponent's Fleet</h2>
                 <div class="game-area">
@@ -1180,11 +721,9 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Player 2 Fleet Section -->
-        <div class="player-fleet" id="player2-fleet">
             <hr class="fold-line">
+
             <div class="game-section">
                 <h2 class="section-title" id="your-title2">Your Fleet</h2>
                 <div class="game-area">
@@ -1240,7 +779,6 @@
                     </div>
                 </div>
             </div>
-            <div class="print-attribution print-footer">WORD FLEET &#8226; Pen & Paper Edition &#8226; by Kevin Kolb &#8226; TheGameBureau.com</div>
         </div>
     </div>
 
@@ -1257,26 +795,13 @@
             const p2 = document.getElementById('player2Name').value.trim();
             const auto = document.getElementById('autoGen').checked;
             
-            // Set new grid titles (only for section titles above grids)
-            const player1 = p1 || 'Fleet One';
-            const player2 = p2 || 'Fleet Two';
-            document.getElementById('opponent-title1').innerHTML = `Hunt <span class=\"grid-player-name\">${player2}</span> Tactical Grid`;
-            document.getElementById('your-title1').innerHTML = `Track <span class=\"grid-player-name\">${player1}</span> Tactical Grid`;
-            document.getElementById('opponent-title2').innerHTML = `Hunt <span class=\"grid-player-name\">${player1}</span> Tactical Grid`;
-            document.getElementById('your-title2').innerHTML = `Track <span class=\"grid-player-name\">${player2}</span> Tactical Grid`;
-            
-            // Set battletracker lines in print using the visible player names
-            const yourFleet1 = document.getElementById('your-title1').textContent.trim() || 'Your Fleet';
-            const opponentFleet1 = document.getElementById('opponent-title1').textContent.trim() || "Opponent's Fleet";
-            const yourFleet2 = document.getElementById('your-title2').textContent.trim() || 'Your Fleet';
-            const opponentFleet2 = document.getElementById('opponent-title2').textContent.trim() || "Opponent's Fleet";
-            const printContent = document.getElementById('printContent');
-            const battletrackers = printContent.querySelectorAll('.battletracker');
-            if (battletrackers[0]) {
-                battletrackers[0].innerHTML = `<span class="bt-p1 bt-p1-bold">${yourFleet1}</span> vs <span class="bt-p2">${opponentFleet1}</span> Battle Tracker`;
+            if (p1) {
+                document.getElementById('your-title1').textContent = p1;
+                document.getElementById('opponent-title2').textContent = p1;
             }
-            if (battletrackers[1]) {
-                battletrackers[1].innerHTML = `<span class="bt-p1 bt-p1-bold">${opponentFleet2}</span> vs <span class="bt-p2">${yourFleet2}</span> Battle Tracker`;
+            if (p2) {
+                document.getElementById('your-title2').textContent = p2;
+                document.getElementById('opponent-title1').textContent = p2;
             }
             
             if (auto) {
@@ -1288,11 +813,7 @@
             }
             
             flipCoin();
-            
-            // Force DOM update before printing
-            setTimeout(() => {
-                window.print();
-            }, 100);
+            window.print();
         }
 
         function generateWords(player) {
