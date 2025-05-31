@@ -1,62 +1,530 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Word Fleet – Coming Soon</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #f0f4f8;
-      text-align: center;
-      padding: 3em 1em;
-      color: #333;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.2em;
-    }
-    h2 {
-      font-weight: 400;
-      margin-top: 0;
-      color: #555;
-    }
-    p {
-      font-size: 1.1em;
-      margin: 1em auto;
-      max-width: 600px;
-    }
-    form {
-      margin-top: 2em;
-    }
-    input[type="email"] {
-      padding: 0.6em;
-      width: 60%;
-      max-width: 300px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      padding: 0.6em 1.2em;
-      margin-left: 0.5em;
-      background-color: #0055aa;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #003f7d;
-    }
-  </style>
+    <link rel="icon" type="image/x-icon" href="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORD FLEET • by Kevin Kolb • TheGameBureau.com</title>
+    <meta property="og:title" content="WORD FLEET • by Kevin Kolb • TheGameBureau.com">
+    <meta property="og:description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
+    <meta property="og:image" content="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet-social.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://the-game-bureau.github.io/WordFleet/src/html/print.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WORD FLEET • by Kevin Kolb • TheGameBureau.com">
+    <meta name="twitter:description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
+    <meta name="twitter:image" content="media/wordfleet-social.png">
+    <meta name="description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
+    <style>
+        :root {
+            --navy: #1e3a5f;
+            --white: #ffffff;
+            --sky-blue: #87ceeb;
+            --ocean-blue: #2c5f7d;
+            --teal: #3bb3b3;
+            --sand: #f7e7b4;
+            --yellow: #ffe066;
+            --gray: #b0b8c1;
+            --coral: #ff7f50;
+            --brass: #bfa14a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--ocean-blue) 100%);
+            min-height: 100vh;
+        }
+
+        .main-container {
+            width: 100%;
+            min-height: 100vh;
+            background-image: url('src/media/banner_thin.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            background-position: top center;
+            position: relative;
+        }
+
+        /* Dark gradient overlay on right side */
+        .main-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 400px; /* Adjust based on banner height */
+            background: linear-gradient(to right, transparent, rgba(30, 58, 95, 0.3));
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .forms-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 400px 20px 40px 20px; /* Set top padding to 400px */
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-card {
+            background: rgba(247, 231, 180, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 35px;
+            color: var(--navy);
+            box-shadow: 0 10px 30px rgba(30,58,95,0.25);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(247, 231, 180, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle white background behind text */
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+        }
+
+        .form-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(30,58,95,0.35);
+            border-color: rgba(247, 231, 180, 0.7);
+        }
+
+        .form-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--navy);
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--sky-blue);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: var(--navy);
+            font-size: 15px;
+            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--sky-blue);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group input:hover, .form-group select:hover {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(59, 179, 179, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--navy);
+            box-shadow: 0 0 0 4px rgba(30, 58, 95, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            background: var(--white);
+        }
+
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            display: inline-block;
+        }
+
+        .toggle-input { 
+            opacity: 0; 
+            width: 0; 
+            height: 0; 
+            position: absolute;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #d3d3d3;
+            transition: 0.4s;
+            border-radius: 24px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: #f8f9fa;
+            transition: 0.4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .toggle-input:checked + .toggle-slider { 
+            background-color: var(--teal); 
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .toggle-input:checked + .toggle-slider:before { 
+            transform: translateX(26px); 
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--ocean-blue) 0%, var(--teal) 100%);
+            color: var(--white);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 28px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            box-shadow: 0 6px 20px rgba(44,95,125,0.25);
+            transition: all 0.3s ease;
+            border: 2px solid var(--brass);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .action-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--sky-blue) 100%);
+            color: var(--navy);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(44,95,125,0.35);
+        }
+
+        .action-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(44,95,125,0.25);
+        }
+
+        .action-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .action-btn.loading::after {
+            content: '...';
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { content: ''; }
+            33% { content: '.'; }
+            66% { content: '..'; }
+            100% { content: '...'; }
+        }
+
+        .info-text {
+            font-size: 14px;
+            color: var(--navy);
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        #dontPeekMsg {
+            font-size: 16px;
+            color: var(--navy);
+            font-weight: bold;
+            margin-bottom: 14px;
+            text-align: center;
+            padding: 12px;
+            background: rgba(255, 224, 102, 0.3);
+            border-radius: 10px;
+            border: 2px solid var(--yellow);
+            transition: all 0.3s ease;
+        }
+
+        /* Validation styles */
+        .form-group input:invalid {
+            border-color: var(--coral);
+        }
+
+        .form-group input:valid {
+            border-color: var(--teal);
+        }
+
+        /* Fallback image for accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        @media (max-width: 1200px) {
+            .forms-container {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .forms-container {
+                grid-template-columns: 1fr;
+                padding: 60px 10px 20px 10px; /* Reduce top padding on mobile to prevent overlap */
+            }
+            .form-card {
+                padding: 25px 20px;
+            }
+            .main-container::after {
+                display: none; /* Remove gradient overlay on mobile */
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>⚓ Word Fleet</h1>
-  <h2>A Word Game Adventure Sets Sail Soon</h2>
-  <p>
-    Ahoy, wordsmith! Your fleet of letters is almost ready to launch.<br />
-    🧩 Puzzles. 🚢 Strategy. ⚔️ Word battles.<br />
-    The seas are stirring—get ready to play.
-  </p>
+    <div class="main-container">
+        <!-- Screen reader accessible image description -->
+        <span class="sr-only">A battleship and an aircraft carrier fire at an unseen enemy. Word Fleet</span>
+        
+        <div class="forms-container">
+            <!-- Print & Play Edition -->
+            <form class="form-card" action="src/html/print.html" method="GET" onsubmit="return handlePrintSubmit(event)">
+                <h2 class="form-title">Print & Play Edition</h2>
+                <div class="form-group">
+                    <label for="player1Name">Your Fleet Name (optional):</label>
+                    <input type="text" name="Fleet1" id="player1Name" placeholder="e.g. Royal Armada" pattern="[A-Za-z0-9\s]{0,30}" title="Fleet name can contain letters, numbers, and spaces (max 30 characters)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="player2Name">Opponent's Fleet Name (optional):</label>
+                    <input type="text" name="Fleet2" id="player2Name" placeholder="e.g. Scurvy Flotilla" pattern="[A-Za-z0-9\s]{0,30}" title="Fleet name can contain letters, numbers, and spaces (max 30 characters)">
+                </div>
+                
+                <div class="toggle-group">
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="words" id="autoGen" class="toggle-input" checked value="true">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span>Auto-Generate Words</span>
+                </div>
+                
+                <div id="dontPeekMsg">
+                    Don't Peek at Opponent's Tracker (Page 2)
+                </div>
+                
+                <button type="submit" class="action-btn" id="printBtn">Print Fleet Trackers</button>
+                <p class="info-text">Generate printable game sheets for pen & paper play</p>
+            </form>
+
+            <!-- Head to Head Battle -->
+            <div class="form-card">
+                <h2 class="form-title">Head to Head Battle</h2>
+                <div class="form-group">
+                    <label for="battlePlayer1">Your Name:</label>
+                    <input type="text" id="battlePlayer1" placeholder="Admiral" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="battlePlayer2">Opponent's Name:</label>
+                    <input type="text" id="battlePlayer2" placeholder="Captain" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="gameMode">Game Mode:</label>
+                    <select id="gameMode">
+                        <option value="classic">Classic Battle</option>
+                        <option value="timed">Timed Challenge</option>
+                        <option value="tournament">Tournament Mode</option>
+                    </select>
+                </div>
+                
+                <button class="action-btn" onclick="startBattle()">Start Battle</button>
+                <p class="info-text">Challenge a friend in real-time naval word combat</p>
+            </div>
+
+            <!-- Battle A Bot -->
+            <div class="form-card">
+                <h2 class="form-title">Battle A Bot</h2>
+                <div class="form-group">
+                    <label for="botPlayerName">Your Name:</label>
+                    <input type="text" id="botPlayerName" placeholder="Commander" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="botDifficulty">Bot Difficulty:</label>
+                    <select id="botDifficulty">
+                        <option value="easy">Easy - Cadet</option>
+                        <option value="medium">Medium - Captain</option>
+                        <option value="hard">Hard - Admiral</option>
+                        <option value="expert">Expert - Fleet Master</option>
+                    </select>
+                </div>
+                
+                <div class="toggle-group">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="hintsEnabled" class="toggle-input">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span>Enable Hints</span>
+                </div>
+                
+                <button class="action-btn" onclick="startBotBattle()">Challenge Bot</button>
+                <p class="info-text">Test your skills against our AI opponent</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Handle form submission with default values
+        function handlePrintSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const btn = document.getElementById('printBtn');
+            
+            // Add loading state
+            btn.classList.add('loading');
+            btn.textContent = 'Generating';
+            
+            // Get form values with defaults
+            const fleet1 = form.Fleet1.value.trim() || 'Fleet One';
+            const fleet2 = form.Fleet2.value.trim() || 'Fleet Two';
+            const words = form.words.checked ? 'true' : 'false';
+            
+            // Create URL with parameters
+            const params = new URLSearchParams({
+                Fleet1: fleet1,
+                Fleet2: fleet2,
+                words: words
+            });
+            
+            // Simulate loading delay then redirect
+            setTimeout(() => {
+                window.location.href = `${form.action}?${params.toString()}`;
+            }, 500);
+            
+            return false;
+        }
+
+        function startBattle() {
+            const btn = event.target;
+            const player1 = document.getElementById('battlePlayer1').value || 'Admiral';
+            const player2 = document.getElementById('battlePlayer2').value || 'Captain';
+            const mode = document.getElementById('gameMode').value;
+            
+            // Add loading animation
+            btn.classList.add('loading');
+            btn.textContent = 'Starting Battle';
+            
+            setTimeout(() => {
+                alert(`Starting ${mode} battle between ${player1} and ${player2}`);
+                btn.classList.remove('loading');
+                btn.textContent = 'Start Battle';
+            }, 1000);
+        }
+
+        function startBotBattle() {
+            const btn = event.target;
+            const playerName = document.getElementById('botPlayerName').value || 'Commander';
+            const difficulty = document.getElementById('botDifficulty').value;
+            const hints = document.getElementById('hintsEnabled').checked;
+            
+            // Add loading animation
+            btn.classList.add('loading');
+            btn.textContent = 'Preparing Bot';
+            
+            setTimeout(() => {
+                alert(`Starting bot battle: ${playerName} vs ${difficulty} bot${hints ? ' with hints' : ''}`);
+                btn.classList.remove('loading');
+                btn.textContent = 'Challenge Bot';
+            }, 1000);
+        }
+
+        // Auto-generate toggle for Print & Play
+        const autoGenToggle = document.getElementById('autoGen');
+        const dontPeekMsg = document.getElementById('dontPeekMsg');
+        
+        function updateDontPeekMsg() {
+            if (autoGenToggle.checked) {
+                dontPeekMsg.style.visibility = 'visible';
+                dontPeekMsg.style.opacity = '1';
+            } else {
+                dontPeekMsg.style.visibility = 'hidden';
+                dontPeekMsg.style.opacity = '0';
+            }
+        }
+        
+        autoGenToggle.addEventListener('change', updateDontPeekMsg);
+        // Initialize on page load
+        updateDontPeekMsg();
+
+        // Add hover effects to inputs
+        const inputs = document.querySelectorAll('input[type="text"], select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
 </body>
 </html>

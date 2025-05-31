@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WORD FLEET • Pen & Paper Edition</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7e7b4;
+      color: #1e3a5f;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      text-align: center;
+      margin-top: 32px;
+      margin-bottom: 8px;
+      font-size: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+    }
+    .subheader {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #3b3b3b;
+      margin-bottom: 32px;
+    }
+    .words-section {
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      background: #fffbe8;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(30,58,95,0.08);
+      padding: 32px 24px;
+    }
+    h2 {
+      color: #1e3a5f;
+      margin-top: 32px;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+      border-bottom: 2px solid #87ceeb;
+      display: inline-block;
+      padding-bottom: 4px;
+    }
+    ul.word-list {
+      columns: 4 200px;
+      -webkit-columns: 4 200px;
+      -moz-columns: 4 200px;
+      column-gap: 32px;
+      font-size: 1.05rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    @media (max-width: 700px) {
+      ul.word-list {
+        columns: 2 120px;
+      }
+      .words-section {
+        padding: 16px 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">WORD FLEET</div>
+  <div class="subheader">WORD FLEET &#8226; Pen & Paper Edition &#8226; by Kevin Kolb &#8226; TheGameBureau.com</div>
+  <div class="words-section" id="words-root">
+    Loading word lists...
+  </div>
+  <script>
+    fetch('words.json')
+      .then(response => response.json())
+      .then(data => {
+        const root = document.getElementById('words-root');
+        let html = '';
+        for (const len of ['5','4','3','2']) {
+          html += `<h2>${len}-Letter Words</h2><ul class="word-list">`;
+          html += data[len].map(word => `<li>${word}</li>`).join('');
+          html += '</ul>';
+        }
+        root.innerHTML = html;
+      })
+      .catch(() => {
+        document.getElementById('words-root').textContent = 'Failed to load word lists.';
+      });
+  </script>
+</body>
+</html> 
