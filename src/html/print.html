@@ -19,8 +19,26 @@
 <body>
   <div class="header">WORD FLEET</div>
   <div class="subheader">Pen & Paper Edition &#8226; by Kevin Kolb &#8226; TheGameBureau.com</div>
+  <div id="fleet-info"></div>
+  <div id="battle-tracker" style="font-size:1.3em;font-weight:bold;margin:18px 0 10px 0;"></div>
   <div class="words-section" id="words-root">
     Loading word lists...
   </div>
+  <script>
+    // Extract URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const fleet1 = params.get('Fleet1') || 'Fleet One';
+    const fleet2 = params.get('Fleet2') || 'Fleet Two';
+    const words = params.get('words') || 'true';
+
+    // Display fleet info
+    document.getElementById('fleet-info').innerHTML =
+      `<strong>Fleet 1:</strong> ${fleet1} <br>` +
+      `<strong>Fleet 2:</strong> ${fleet2} <br>` +
+      `<strong>Auto-Generate Words:</strong> ${words}`;
+
+    // Display battle tracker title
+    document.getElementById('battle-tracker').textContent = `${fleet1} vs ${fleet2} Battle Tracker`;
+  </script>
 </body>
 </html>
