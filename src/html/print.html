@@ -12,10 +12,10 @@
         }
         
         body {
-            font-family: 'Circular', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.5;
-            color: #222222;
-            background: #FFFFFF;
+            color: #1a1a1b;
+            background: #ffffff;
             padding: 0;
             margin: 0;
             min-height: 100vh;
@@ -29,74 +29,54 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
         
         .banner {
-            background: linear-gradient(135deg, #FF385C 0%, #E61E4D 50%, #D70466 100%);
-            color: white;
-            padding: 32px 24px;
+            background: #ffffff;
+            color: #1a1a1b;
+            padding: 16px 0;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             position: relative;
-            min-height: 140px;
+            width: 100%;
+            border-bottom: 1px solid #d3d6da;
+            min-height: auto;
         }
         
-        .banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        
-        .banner-text {
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            position: relative;
-            z-index: 1;
-            flex: 1;
-            text-align: left;
-            word-wrap: break-word;
-            hyphens: auto;
-            line-height: 1.4;
-            opacity: 0.95;
-            text-transform: uppercase;
-        }
-        
-        .banner-center {
-            flex: 2;
+        .banner-content {
+            max-width: 800px;
+            width: 100%;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            white-space: nowrap;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
         
         .banner h1 {
-            font-size: 42px;
-            font-weight: 800;
-            letter-spacing: -1px;
-            line-height: 1.1;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
             margin: 0;
+            color: #1a1a1b;
         }
         
         .tagline {
-            font-size: 14px;
-            font-weight: 400;
+            font-size: 28px;
+            font-weight: 700;
             letter-spacing: 0.5px;
-            margin-top: 8px;
-            opacity: 0.9;
-            line-height: 1.3;
-            text-transform: uppercase;
+            margin-top: 16px;
+            color: #1a1a1b;
+            line-height: 1.4;
         }
         
         .tagline .fleet-one {
-            font-weight: 800;
+            font-weight: 600;
         }
         
         .banner-right {
@@ -108,38 +88,43 @@
         }
         
         .print-button {
-            background: rgba(255,255,255,0.2);
+            background: #6AAA64;
             color: white;
-            border: 1.5px solid rgba(255,255,255,0.4);
-            padding: 12px 24px;
-            border-radius: 24px;
+            border: 1px solid #d3d6da;
+            height: 60px;
+            min-width: 180px;
+            max-width: 180px;
+            border-radius: 0;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.25px;
-            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            text-transform: uppercase;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+            box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            padding: 0 24px;
         }
         
         .print-button:hover {
-            background: rgba(255,255,255,0.3);
-            border-color: rgba(255,255,255,0.6);
-            transform: translateY(-1px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            background: #000;
+            color: #fff;
+            box-shadow: 0 4px 16px 0 rgba(0,0,0,0.12);
+            transform: translateY(-2px) scale(1.03);
         }
         
         .print-button:active {
-            transform: translateY(0);
+            background: #5a8a54;
+            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.10);
+            transform: none;
         }
         
         .content {
-            padding: 40px 24px 80px 24px;
+            padding: 20px 0;
             min-height: 400px;
             background: white;
-            max-width: 2000px;
-            margin: 0 auto;
             flex: 1;
             width: 100%;
         }
@@ -274,8 +259,8 @@
         .fleet-two-ships-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            padding: 10px;
+            gap: 12px;
+            padding: 0;
         }
         
         .fleet-two-ship-item {
@@ -300,26 +285,61 @@
         
         .fleet-two-ship-boxes {
             display: flex;
-            gap: 2px;
+            gap: 4px;
+            justify-content: center;
         }
         
         .fleet-two-ship-box {
             width: 60px;
             height: 60px;
-            border: 1px solid #DDDDDD;
+            border: 1px solid #d3d6da;
             background: white;
         }
         
         .footer {
-            background: #F7F7F7;
-            color: #717171;
-            padding: 32px 24px;
+            background: #ffffff;
+            color: #1a1a1b;
+            padding: 20px;
             text-align: center;
             font-size: 14px;
             font-weight: 400;
-            letter-spacing: 0.25px;
-            border-top: 1px solid #DDDDDD;
-            text-transform: uppercase;
+            border-top: 1px solid #d3d6da;
+        }
+        
+        .fleet2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 32px;
+            padding: 0;
+            background: #fff;
+            border-radius: 4px;
+            margin: 40px auto;
+            max-width: 1100px;
+            width: 100%;
+        }
+        
+        .column, .column-flex {
+            flex: 1 1 0;
+            min-width: 0;
+            background: #fff;
+            border-radius: 4px;
+            color: #1a1a1b;
+            min-height: 200px;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0 8px;
+        }
+        
+        .column h3, .column-flex h3 {
+            margin: 0 0 16px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1b;
+            text-align: center;
         }
         
         .fold-line {
@@ -331,28 +351,43 @@
         
         @media print {
             body {
-                background: white;
-                padding: 0;
+                background: #fff !important;
+                color: #000 !important;
+                padding: 0 !important;
+                margin: 0 !important;
             }
-            
-            .print-button {
-                display: none;
-            }
-            
             .banner {
-                background: #FF385C !important;
-                -webkit-print-color-adjust: exact;
-                color-adjust: exact;
+                background: #fff !important;
+                color: #000 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
             }
-            
+            .print-button, .banner-buttons-container, .banner-btn-left, .banner-btn-right {
+                display: none !important;
+            }
             .footer {
-                background: #F7F7F7 !important;
-                -webkit-print-color-adjust: exact;
-                color-adjust: exact;
+                background: #fff !important;
+                color: #000 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
             }
-            
             .fold-line {
                 border-top: 2px dashed #000 !important;
+            }
+            .tagline {
+                font-size: 28px !important;
+                font-weight: 700 !important;
+            }
+            .banner-content h1 {
+                margin-bottom: 8px !important;
+            }
+            .tagline {
+                margin-top: 0 !important;
+                margin-bottom: 4px !important;
+            }
+            .print-coin-flip-msg {
+                margin-top: 0 !important;
+                margin-bottom: 8px !important;
             }
         }
         
@@ -493,12 +528,14 @@
             }
         }
         
-        /* Alphabet (right column) styles - copied from ship styles */
+        /* Alphabet styles */
         .fleet-two-alphabet-list {
             display: flex;
             flex-direction: column;
-            gap: 2px;
-            padding: 10px;
+            gap: 8px;
+            padding: 0;
+            align-items: center;
+            justify-content: flex-start;
         }
         .fleet-two-alphabet-item {
             display: flex;
@@ -519,48 +556,74 @@
         }
         .fleet-two-alphabet-boxes {
             display: flex;
-            gap: 2px;
+            gap: 4px;
+            justify-content: center;
         }
         .fleet-two-alphabet-box {
             width: 60px;
             height: 60px;
-            border: 1px solid #DDDDDD;
-            background: none;
-            font-family: 'Circular', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
-            font-size: 32px;
+            border: 1px solid #d3d6da;
+            background: white;
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 24px;
             font-weight: 700;
-            color: #222222;
+            color: #1a1a1b;
             text-align: center;
             vertical-align: middle;
             display: flex;
             align-items: center;
             justify-content: center;
             text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            position: relative;
         }
         
         .fleet-two-alphabet-box.vowel {
-            background-color: #F0F0F0;
+            background-color: #d3d6da;
+            color: #1a1a1b;
+        }
+
+        .fleet-two-alphabet-box:hover {
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+
+        .fleet-two-alphabet-box.vowel:hover {
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+
+        .fleet-two-alphabet-box.selected {
+            background-color: #538d4e !important;
+            color: white;
+            border-color: #538d4e;
+        }
+
+        .fleet-two-alphabet-box .letter-text {
+            display: block;
+            transition: all 0.3s ease;
+            z-index: 2;
+            position: relative;
+        }
+
+        .fleet-two-alphabet-box .explosion {
+            position: absolute;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            top: 2px;
+            right: 2px;
+            z-index: 3;
+        }
+
+        .fleet-two-alphabet-box.selected .explosion {
+            opacity: 1;
         }
 
         /* Fleet Two Grid Section */
-        .fleet-two-grid-section {
-            margin-top: 48px;
-            padding: 0 24px;
-        }
-        
-        .fleet-two-grid-header {
-            background: #F7F7F7;
-            padding: 16px 24px;
-            border: 1px solid #DDDDDD;
-            border-radius: 8px 8px 0 0;
-            font-size: 14px;
-            font-weight: 700;
-            color: #222222;
-            text-align: center;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        
         .fleet-two-grid-container {
             border: 1px solid #DDDDDD;
             border-top: none;
@@ -573,21 +636,26 @@
         
         .fleet-two-grid-row {
             display: flex;
-            gap: 2px;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+        .fleet-two-grid-row:last-child {
+            margin-bottom: 0;
         }
         
         .fleet-two-grid-cell {
             width: 60px;
             height: 60px;
-            border: 1px solid #DDDDDD;
+            border: 1px solid #d3d6da;
             background: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Circular', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
-            font-size: 32px;
-            font-weight: 600;
-            color: #222222;
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1b;
+            text-transform: uppercase;
         }
         
         .fleet-two-grid-cell.no-border {
@@ -595,280 +663,476 @@
         }
         
         .fleet-two-grid-cell.header {
-            background-color: #F7F7F7;
+            background-color: #d3d6da;
+            font-weight: 600;
+            color: #1a1a1b;
+        }
+
+        /* Unify all squares to use the alphabet box style */
+        .fleet-two-grid-cell,
+        .fleet-two-ship-box,
+        .fleet-two-alphabet-box {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #d3d6da;
+            background: white;
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 24px;
             font-weight: 700;
+            color: #1a1a1b;
+            text-align: center;
+            vertical-align: middle;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            position: relative;
+        }
+        .fleet-two-grid-cell.no-border {
+            border: none;
+        }
+        .fleet-two-grid-cell.header {
+            background-color: #d3d6da;
+            font-weight: 600;
+            color: #1a1a1b;
+        }
+        .fleet-two-alphabet-box.vowel {
+            background-color: #d3d6da;
+            color: #1a1a1b;
+        }
+        .fleet-two-alphabet-box.selected,
+        .fleet-two-grid-cell.selected,
+        .fleet-two-ship-box.selected {
+            background-color: #538d4e !important;
+            color: white;
+            border-color: #538d4e;
+        }
+
+        .game-area {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1700px;
+            margin: 48px auto 32px auto;
+            width: 100%;
+            background: #f7f7f7;
+            border-radius: 8px;
+            box-shadow: 0 2px 16px 0 rgba(0,0,0,0.04);
+            padding: 32px;
+            overflow: auto;
+            box-sizing: border-box;
+        }
+        .game-column {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+        .fleet-two-grid-row {
+            max-width: 660px;
+            width: 100%;
+        }
+
+        .banner-buttons-container {
+            display: flex;
+            width: 100%;
+            max-width: 440px;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+            padding: 16px 0;
+            gap: 32px;
+        }
+        .banner-btn-left {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .banner-btn-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+        .heads-tails-fixed {
+            min-width: 170px;
+            max-width: 170px;
+            white-space: nowrap;
+        }
+        .print-coin-flip-msg {
+            display: none;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 8px;
+            color: #000;
+        }
+        @media print {
+            .print-coin-flip-msg {
+                display: block !important;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Section 1: Banner -->
+        <!-- Banner Section -->
         <section class="banner">
-            <div class="banner-text">IF HEADS YOU'RE FIRST</div>
-            <div class="banner-center">
+            <div class="banner-content">
                 <h1>WORD FLEET</h1>
+                <div id="print-coin-flip" class="print-coin-flip-msg"></div>
                 <div class="tagline"><span class="fleet-one">Fleet One</span> vs Fleet Two Battle Tracker</div>
-            </div>
-            <div class="banner-right">
-                <!-- Print Button -->
-                <button class="print-button" onclick="window.print()">Print</button>
+                <div style="display: flex; gap: 16px; justify-content: center; align-items: center; margin-top: 24px;">
+                  <div class="banner-buttons-container">
+                    <div class="banner-btn-left">
+                      <button class="print-button heads-tails-fixed" id="headsTailsBtn" onclick="toggleHeadsTails()">HEADS OR TAILS</button>
+                    </div>
+                    <div class="banner-btn-right">
+                      <button class="print-button heads-tails-fixed" onclick="window.print()">PRINT</button>
+                    </div>
+                  </div>
+                </div>
             </div>
         </section>
 
-        <!-- Content Area -->
-        <main class="content">
-            <!-- Fleet Two Section -->
-            <section class="fleet-two-section">
-                <div class="fleet-two-header">ATTACK FLEET TWO HERE!</div>
-                <div class="fleet-two-columns">
-                    <div class="fleet-two-column-left">
-<div class="fleet-two-grid-container">
-                    <!-- First row (headers) -->
-                    <div class="fleet-two-grid-row">
-                        <div class="fleet-two-grid-cell no-border"></div>
-                        <div class="fleet-two-grid-cell header">1</div>
-                        <div class="fleet-two-grid-cell header">2</div>
-                        <div class="fleet-two-grid-cell header">3</div>
-                        <div class="fleet-two-grid-cell header">4</div>
-                        <div class="fleet-two-grid-cell header">5</div>
-                        <div class="fleet-two-grid-cell header">6</div>
-                        <div class="fleet-two-grid-cell header">7</div>
-                        <div class="fleet-two-grid-cell header">8</div>
-                        <div class="fleet-two-grid-cell header">9</div>
-                        <div class="fleet-two-grid-cell header">10</div>
-                    </div>
-                    <!-- Rows A through J -->
-                    <div class="fleet-two-grid-row">
-                        <div class="fleet-two-grid-cell header">A</div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                    </div>
-                    <div class="fleet-two-grid-row">
-                        <div class="fleet-two-grid-cell header">B</div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                    </div>
-                    <div class="fleet-two-grid-row">
-                        <div class="fleet-two-grid-cell header">C</div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                    </div>
-                    <div class="fleet-two-grid-row">
-                        <div class="fleet-two-grid-cell header">D</div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                    </div>
-                    <div class="fleet-two-grid-row">
-                        <div class="fleet-two-grid-cell header">E</div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                    </div>
-                    <div class="fleet-two-grid-row">
-                        <div class="fleet-two-grid-cell header">F</div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                    </div>
-                    <div class="fleet-two-grid-row">
-                        <div class="fleet-two-grid-cell header">G</div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                    </div>
-                    <div class="fleet-two-grid-row">
-                        <div class="fleet-two-grid-cell header">H</div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                    </div>
-                    <div class="fleet-two-grid-row">
-                        <div class="fleet-two-grid-cell header">I</div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                    </div>
-                    <div class="fleet-two-grid-row">
-                        <div class="fleet-two-grid-cell header">J</div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                        <div class="fleet-two-grid-cell"></div>
-                    </div>
-                    </div>
-                    </div>
-                    <div class="fleet-two-column-center">
-                        <div class="fleet-two-ships-list">
-                            <div class="fleet-two-ship-item">
-                                <div class="fleet-two-ship-name-5">5-Letter Word</div>
-                                <div class="fleet-two-ship-boxes">
-                                    <div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div>
-                                </div>
-                            </div>
-                            <div class="fleet-two-ship-item">
-                                <div class="fleet-two-ship-name-4">4-Letter Word</div>
-                                <div class="fleet-two-ship-boxes">
-                                    <div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div>
-                                </div>
-                            </div>
-                            <div class="fleet-two-ship-item">
-                                <div class="fleet-two-ship-name-3alpha">3-Letter Word Alpha</div>
-                                <div class="fleet-two-ship-boxes">
-                                    <div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div>
-                                </div>
-                            </div>
-                            <div class="fleet-two-ship-item">
-                                <div class="fleet-two-ship-name-3bravo">3-Letter Word Bravo</div>
-                                <div class="fleet-two-ship-boxes">
-                                    <div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div>
-                                </div>
-                            </div>
-                            <div class="fleet-two-ship-item">
-                                <div class="fleet-two-ship-name-2">2-Letter Word</div>
-                                <div class="fleet-two-ship-boxes">
-                                    <div class="fleet-two-ship-box"></div><div class="fleet-two-ship-box"></div>
-                                </div>
-                            </div>
+        <div class="game-area">
+            <div class="game-column">
+                <h3>Battle Grid</h3>
+                <!-- First row (headers) -->
+                <div class="fleet-two-grid-row">
+                    <div class="fleet-two-grid-cell no-border"></div>
+                    <div class="fleet-two-grid-cell header">1</div>
+                    <div class="fleet-two-grid-cell header">2</div>
+                    <div class="fleet-two-grid-cell header">3</div>
+                    <div class="fleet-two-grid-cell header">4</div>
+                    <div class="fleet-two-grid-cell header">5</div>
+                    <div class="fleet-two-grid-cell header">6</div>
+                    <div class="fleet-two-grid-cell header">7</div>
+                    <div class="fleet-two-grid-cell header">8</div>
+                    <div class="fleet-two-grid-cell header">9</div>
+                    <div class="fleet-two-grid-cell header">10</div>
+                </div>
+                <!-- Rows A through J -->
+                <div class="fleet-two-grid-row">
+                    <div class="fleet-two-grid-cell header">A</div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                </div>
+                <div class="fleet-two-grid-row">
+                    <div class="fleet-two-grid-cell header">B</div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                </div>
+                <div class="fleet-two-grid-row">
+                    <div class="fleet-two-grid-cell header">C</div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                </div>
+                <div class="fleet-two-grid-row">
+                    <div class="fleet-two-grid-cell header">D</div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                </div>
+                <div class="fleet-two-grid-row">
+                    <div class="fleet-two-grid-cell header">E</div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                </div>
+                <div class="fleet-two-grid-row">
+                    <div class="fleet-two-grid-cell header">F</div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                </div>
+                <div class="fleet-two-grid-row">
+                    <div class="fleet-two-grid-cell header">G</div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                </div>
+                <div class="fleet-two-grid-row">
+                    <div class="fleet-two-grid-cell header">H</div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                </div>
+                <div class="fleet-two-grid-row">
+                    <div class="fleet-two-grid-cell header">I</div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                </div>
+                <div class="fleet-two-grid-row">
+                    <div class="fleet-two-grid-cell header">J</div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                    <div class="fleet-two-grid-cell"></div>
+                </div>
+            </div>
+            <div class="game-column">
+                <h3>Your Fleet</h3>
+                <div class="fleet-two-ships-list">
+                    <div class="fleet-two-ship-item">
+                        <div class="fleet-two-ship-name-5">5-Letter Word</div>
+                        <div class="fleet-two-ship-boxes">
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
                         </div>
                     </div>
-                    <div class="fleet-two-column-right">
-                        <div class="fleet-two-alphabet-list">
-                            <div class="fleet-two-alphabet-item">
-                                <div class="fleet-two-alphabet-boxes">
-                                    <div class="fleet-two-alphabet-box vowel">A</div>
-                                    <div class="fleet-two-alphabet-box">B</div>
-                                    <div class="fleet-two-alphabet-box">C</div>
-                                    <div class="fleet-two-alphabet-box">D</div>
-                                </div>
-                            </div>
-                            <div class="fleet-two-alphabet-item">
-                                <div class="fleet-two-alphabet-boxes">
-                                    <div class="fleet-two-alphabet-box vowel">E</div>
-                                    <div class="fleet-two-alphabet-box">F</div>
-                                    <div class="fleet-two-alphabet-box">G</div>
-                                </div>
-                            </div>
-                            <div class="fleet-two-alphabet-item">
-                                <div class="fleet-two-alphabet-boxes">
-                                    <div class="fleet-two-alphabet-box">H</div>
-                                    <div class="fleet-two-alphabet-box vowel">I</div>
-                                    <div class="fleet-two-alphabet-box">J</div>
-                                    <div class="fleet-two-alphabet-box">K</div>
-                                </div>
-                            </div>
-                            <div class="fleet-two-alphabet-item">
-                                <div class="fleet-two-alphabet-boxes">
-                                    <div class="fleet-two-alphabet-box">L</div>
-                                    <div class="fleet-two-alphabet-box">M</div>
-                                    <div class="fleet-two-alphabet-box">N</div>
-                                    <div class="fleet-two-alphabet-box vowel">O</div>
-                                    <div class="fleet-two-alphabet-box">P</div>
-                                </div>
-                            </div>
-                            <div class="fleet-two-alphabet-item">
-                                <div class="fleet-two-alphabet-boxes">
-                                    <div class="fleet-two-alphabet-box">Q</div>
-                                    <div class="fleet-two-alphabet-box">R</div>
-                                    <div class="fleet-two-alphabet-box">S</div>
-                                </div>
-                            </div>
-                            <div class="fleet-two-alphabet-item">
-                                <div class="fleet-two-alphabet-boxes">
-                                    <div class="fleet-two-alphabet-box">T</div>
-                                    <div class="fleet-two-alphabet-box vowel">U</div>
-                                    <div class="fleet-two-alphabet-box">V</div>
-                                </div>
-                            </div>
-                            <div class="fleet-two-alphabet-item">
-                                <div class="fleet-two-alphabet-boxes">
-                                    <div class="fleet-two-alphabet-box">W</div>
-                                    <div class="fleet-two-alphabet-box">X</div>
-                                </div>
-                            </div>
-                            <div class="fleet-two-alphabet-item">
-                                <div class="fleet-two-alphabet-boxes">
-                                    <div class="fleet-two-alphabet-box">Y</div>
-                                    <div class="fleet-two-alphabet-box">Z</div>
-                                </div>
-                            </div>
+                    <div class="fleet-two-ship-item">
+                        <div class="fleet-two-ship-name-4">4-Letter Word</div>
+                        <div class="fleet-two-ship-boxes">
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="fleet-two-ship-item">
+                        <div class="fleet-two-ship-name-3alpha">3-Letter Word Alpha</div>
+                        <div class="fleet-two-ship-boxes">
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="fleet-two-ship-item">
+                        <div class="fleet-two-ship-name-3bravo">3-Letter Word Bravo</div>
+                        <div class="fleet-two-ship-boxes">
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
+                        </div>
+                    </div>
+                    <div class="fleet-two-ship-item">
+                        <div class="fleet-two-ship-name-2">2-Letter Word</div>
+                        <div class="fleet-two-ship-boxes">
+                            <div class="fleet-two-ship-box"></div>
+                            <div class="fleet-two-ship-box"></div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </main>
+            </div>
+            <div class="game-column">
+                <h3>Called Letters</h3>
+                <section class="fleet-two-alphabet-list">
+                    <div class="fleet-two-alphabet-item">
+                        <div class="fleet-two-alphabet-boxes">
+                            <div class="fleet-two-alphabet-box vowel" onclick="toggleExplosion(this)">
+                                <span class="letter-text">A</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">B</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">C</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">D</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fleet-two-alphabet-item">
+                        <div class="fleet-two-alphabet-boxes">
+                            <div class="fleet-two-alphabet-box vowel" onclick="toggleExplosion(this)">
+                                <span class="letter-text">E</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">F</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">G</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fleet-two-alphabet-item">
+                        <div class="fleet-two-alphabet-boxes">
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">H</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box vowel" onclick="toggleExplosion(this)">
+                                <span class="letter-text">I</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">J</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">K</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fleet-two-alphabet-item">
+                        <div class="fleet-two-alphabet-boxes">
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">L</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">M</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">N</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box vowel" onclick="toggleExplosion(this)">
+                                <span class="letter-text">O</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">P</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fleet-two-alphabet-item">
+                        <div class="fleet-two-alphabet-boxes">
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">Q</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">R</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">S</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fleet-two-alphabet-item">
+                        <div class="fleet-two-alphabet-boxes">
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">T</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box vowel" onclick="toggleExplosion(this)">
+                                <span class="letter-text">U</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">V</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fleet-two-alphabet-item">
+                        <div class="fleet-two-alphabet-boxes">
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">W</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">X</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fleet-two-alphabet-item">
+                        <div class="fleet-two-alphabet-boxes">
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">Y</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
+                                <span class="letter-text">Z</span>
+                                <span class="explosion">💥</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
 
         <hr class="fold-line">
         <footer class="footer">
@@ -877,5 +1141,36 @@
             </div>
         </footer>
     </div>
+
+    <script>
+        function toggleExplosion(element) {
+            element.classList.toggle('selected');
+        }
+        function toggleHeadsTails() {
+            const btn = document.getElementById('headsTailsBtn');
+            if (btn.textContent === 'HEADS OR TAILS' || btn.textContent === 'TAILS') {
+                btn.textContent = 'HEADS';
+            } else {
+                btn.textContent = 'TAILS';
+            }
+        }
+        // Set print coin flip message before printing
+        function setPrintCoinFlipMsg() {
+            const btn = document.getElementById('headsTailsBtn');
+            const msg = document.getElementById('print-coin-flip');
+            if (!btn || !msg) return;
+            if (btn.textContent === 'TAILS') {
+                msg.textContent = 'IF TAILS YOU GO FIRST';
+            } else {
+                msg.textContent = 'IF HEADS YOU GO FIRST';
+            }
+        }
+        if (window.matchMedia) {
+            window.matchMedia('print').addEventListener('change', function(e) {
+                if (e.matches) setPrintCoinFlipMsg();
+            });
+        }
+        window.onbeforeprint = setPrintCoinFlipMsg;
+    </script>
 </body>
 </html>
