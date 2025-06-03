@@ -1,0 +1,67 @@
+Here's a comprehensive prompt to recreate the current Word Fleet web page:
+
+**Create a modern, sleek web page for "Word Fleet" - a strategic naval-themed game that combines Wordle and Battleship mechanics. The page should have these exact specifications:**
+
+**🎨 Design Aesthetic:**
+- Dark navy background (#0a0e1a) with a futuristic, military command center feel
+- Glassmorphism design throughout with backdrop blur effects and translucent panels
+- Modern typography using system fonts (Apple/Google/Microsoft default stacks)
+- Sophisticated color scheme with deep blues, translucent whites, and green terminal accents
+
+**📱 Layout & Structure:**
+- Fully responsive design that works perfectly on mobile, tablet, and desktop
+- Maximum width container (1400px) centered on page
+- Three main content sections in a grid: "Attack Grid" (2x width), "Enemy Ships", and "Letters"
+- Clean print-optimized version that converts to black and white
+
+**🎯 Header Section:**
+- Large gradient text title "WORD FLEET" with blue-to-green-to-yellow color transition
+- Subtitle "Pen & Paper Edition" in small caps
+- Two navigation buttons: "HOME" and "RULES OF ENGAGEMENT" with pill-shaped borders
+- Interactive launch code display in top-right corner showing "LAUNCH CODE*: [random 1-10]"
+- Launch code should be clickable with hover effects (scale/glow)
+
+**💥 Interactive Launch Code Popup:**
+- When launch code is clicked, show full-screen overlay with blur backdrop
+- Military-styled popup window with glassmorphism effect
+- Green accent colors matching terminal aesthetic
+- Title: "Battle Launch Protocol"
+- Content: "Add launch codes from upper right coordinates of both Battle Trackers. Odd total: Fleet 1 initiates first strike. Even total: Fleet 2 does."
+- Close with X button, clicking outside, or Escape key
+- Smooth fade-in animation
+
+**🎮 Main Content Sections:**
+- Three cards with subtle borders, hover animations (lift effect), and glassmorphism
+- Each section has emoji icon (⚔️ for Attack Grid, 🚢 for Enemy Ships, 🔤 for Letters)
+- Placeholder text describing each section's purpose
+- Cards should have subtle glow effects on hover
+
+**⚓ Footer:**
+- Protocol explanation in highlighted box
+- Credits: "WORD FLEET - Pen & Paper Edition • by Kevin M.Kolb • thegamebureau.com"
+- Same glassmorphism styling as rest of page
+
+**🎯 Technical Requirements:**
+- Generate random launch code (1-10) on each page load
+- Smooth CSS transitions and hover effects throughout
+- Mobile-first responsive design with proper breakpoints
+- Print styles that hide interactive elements and convert to black/white
+- Clean HTML5 structure with semantic elements
+- No external dependencies - pure HTML/CSS/JavaScript
+
+**✨ Visual Polish:**
+- Subtle animations and micro-interactions
+- Consistent spacing and typography hierarchy
+- Professional color palette with excellent contrast
+- Modern button and card styling with rounded corners
+- Backdrop blur effects where appropriate
+- Smooth scaling and shadow effects on interactive elements
+
+**🌊 Atmosphere:**
+- Naval command center aesthetic
+- High-tech military interface feel
+- Clean, professional, and game-ready
+- Balance between excitement and readability
+- Premium web app quality with attention to detail
+
+The final result should look like a cutting-edge naval strategy game interface that professional game studios would create, with perfect responsiveness and polished interactions throughout.
