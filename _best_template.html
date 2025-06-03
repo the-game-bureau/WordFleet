@@ -12,11 +12,15 @@
             box-sizing: border-box;
         }
         
+        html, body {
+            height: 100%;
+        }
+        
         body {
             font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.5;
-            color: #4a535a;
-            background: linear-gradient(135deg, #22303c 0%, #b0b8b9 100%);
+            color: #2c3e50;
+            background: #f5f0e6;
             padding: 0;
             margin: 0;
             min-height: 100vh;
@@ -27,23 +31,22 @@
         .word-fleet {
             background: #ffffff;
             border-radius: 8px;
-            box-shadow: 0 20px 40px rgba(34, 48, 60, 0.2), 0 8px 16px rgba(34, 48, 60, 0.1);
+            box-shadow: 0 20px 40px rgba(26, 60, 92, 0.2), 0 8px 16px rgba(26, 60, 92, 0.1);
             overflow: hidden;
             max-width: 1000px;
             width: 100%;
             transition: all 0.3s ease;
             margin: 40px auto 0 auto;
-            flex: 1 0 auto;
             margin-bottom: 40px;
         }
         
         .word-fleet:hover {
-            box-shadow: 0 25px 50px rgba(34, 48, 60, 0.25), 0 12px 24px rgba(34, 48, 60, 0.15);
+            box-shadow: 0 25px 50px rgba(26, 60, 92, 0.25), 0 12px 24px rgba(26, 60, 92, 0.15);
         }
         
         .banner {
-            background: linear-gradient(135deg, #22303c 0%, #4a535a 100%);
-            color: #fff3d6;
+            background: linear-gradient(135deg, #1a3c5c 0%, #2c3e50 100%);
+            color: #e8f4f8;
             padding: 32px 0;
             text-align: center;
             position: relative;
@@ -90,10 +93,10 @@
         .banner-contents {
             font-size: 60px;
             font-weight: 900;
-            text-shadow: 0 4px 8px rgba(34,48,60,0.3);
+            text-shadow: 0 4px 8px rgba(26, 60, 92, 0.3);
             position: relative;
             z-index: 2;
-            background: linear-gradient(45deg, #fff3d6, #4a535a);
+            background: linear-gradient(45deg, #e8f4f8, #4ecdc4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -102,6 +105,7 @@
         .game-elements {
             display: flex;
             min-height: 200px;
+            gap: 0;
         }
         
         .game-element {
@@ -116,6 +120,7 @@
             cursor: pointer;
             text-align: center;
             border-radius: 4px;
+            margin: 0;
         }
         
         .game-element:hover {
@@ -123,15 +128,15 @@
         }
         
         .game-element:nth-child(1) {
-            background: linear-gradient(135deg, #22303c 0%, #4a535a 100%);
+            background: linear-gradient(135deg, #1a3c5c 0%, #2c3e50 100%);
         }
         
         .game-element:nth-child(2) {
-            background: linear-gradient(135deg, #4a535a 0%, #22303c 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #1a3c5c 100%);
         }
         
         .game-element:nth-child(3) {
-            background: linear-gradient(135deg, #fff3d6 0%, #4a535a 100%);
+            background: linear-gradient(135deg, #4ecdc4 0%, #2c3e50 100%);
         }
         
         .element {
@@ -268,74 +273,89 @@
             
             .word-fleet {
                 box-shadow: none;
-                border: 2px solid #b0b8b9;
+                border: 2px solid #4ecdc4;
             }
             
             .banner {
-                background: #f5f5f5 !important;
-                color: #4a535a !important;
+                background: #e8f4f8 !important;
+                color: #2c3e50 !important;
             }
             
             .banner-contents {
-                color: #4a535a !important;
-                -webkit-text-fill-color: #4a535a !important;
+                color: #2c3e50 !important;
+                -webkit-text-fill-color: #2c3e50 !important;
             }
             
             .game-element:nth-child(1) {
-                background: #f5f5f5 !important;
+                background: #e8f4f8 !important;
             }
             
             .game-element:nth-child(2) {
-                background: #f5f5f5 !important;
+                background: #e8f4f8 !important;
             }
             
             .game-element:nth-child(3) {
-                background: #f5f5f5 !important;
+                background: #e8f4f8 !important;
             }
             
             .element {
-                color: #4a535a !important;
+                color: #2c3e50 !important;
                 text-shadow: none !important;
             }
             
             .element-description {
-                color: #4a535a !important;
+                color: #2c3e50 !important;
                 text-shadow: none !important;
             }
             
             .footer {
-                background: #f5f5f5 !important;
-                color: #4a535a !important;
-                border-top: 1px solid #b0b8b9 !important;
+                background: #e8f4f8 !important;
+                color: #2c3e50 !important;
+                border-top: 1px solid #4ecdc4 !important;
             }
             
             .footer p {
-                color: #4a535a !important;
+                color: #2c3e50 !important;
             }
         }
         
         .footer {
-            background: #22272a;
+            background: #1a3c5c;
             color: #ffffff;
             padding: 20px 0;
             text-align: center;
             font-size: 14px;
-            border-top: 1px solid rgba(176, 184, 185, 0.2);
+            border-top: 1px solid rgba(78, 205, 196, 0.2);
             border-radius: 0;
             width: 100%;
             flex-shrink: 0;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            z-index: 100;
+            box-sizing: border-box;
         }
         
         .footer-inner {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 24px;
+            width: 100%;
+            margin: 0;
+            padding: 0 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .footer p {
             margin: 0;
             opacity: 0.9;
-            color: #b0b8b9;
+            color: #4ecdc4;
+        }
+        
+        @media (max-width: 700px) {
+            .footer-inner {
+                white-space: normal;
+                text-overflow: unset;
+            }
         }
     </style>
 </head>
@@ -364,8 +384,7 @@
     </div>
     <div class="footer">
         <div class="footer-inner">
-            <p>* Battle Launch Protocol: Add launch codes from upper right coordinates of both Battle Trackers.</p>
-            <p>Odd total: Fleet 1 initiates first strike. Even total: Fleet 2 does.</p>
+            <p>* Battle Launch Protocol: Add launch codes from upper right coordinates of both Battle Trackers. Odd total: Fleet 1 initiates first strike. Even total: Fleet 2 does.</p>
             <p>WORD FLEET - Pen & Paper Edition • by Kevin M.Kolb • thegamebureau.com</p>
         </div>
     </div>
