@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Fleet - Pen & Paper Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            color: #4a535a;
+            background: linear-gradient(135deg, #22303c 0%, #b0b8b9 100%);
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .word-fleet {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(34, 48, 60, 0.2), 0 8px 16px rgba(34, 48, 60, 0.1);
+            overflow: hidden;
+            max-width: 1000px;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin: 40px auto 0 auto;
+            flex: 1 0 auto;
+            margin-bottom: 40px;
+        }
+        
+        .word-fleet:hover {
+            box-shadow: 0 25px 50px rgba(34, 48, 60, 0.25), 0 12px 24px rgba(34, 48, 60, 0.15);
+        }
+        
+        .banner {
+            background: linear-gradient(135deg, #22303c 0%, #4a535a 100%);
+            color: #fff3d6;
+            padding: 32px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            width: 100%;
+        }
+        
+        .banner-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .launch-code {
+            color: #39FF14;
+            font-family: 'VT323', monospace;
+            font-size: 2.1rem;
+            text-align: right;
+            display: block;
+            width: 100%;
+        }
+        
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(0deg); }
+            50% { transform: translateX(0%) translateY(0%) rotate(180deg); }
+        }
+        
+        .banner-contents {
+            font-size: 60px;
+            font-weight: 900;
+            text-shadow: 0 4px 8px rgba(34,48,60,0.3);
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(45deg, #fff3d6, #4a535a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .game-elements {
+            display: flex;
+            min-height: 200px;
+        }
+        
+        .game-element {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 4px;
+        }
+        
+        .game-element:hover {
+            z-index: 10;
+        }
+        
+        .game-element:nth-child(1) {
+            background: linear-gradient(135deg, #22303c 0%, #4a535a 100%);
+        }
+        
+        .game-element:nth-child(2) {
+            background: linear-gradient(135deg, #4a535a 0%, #22303c 100%);
+        }
+        
+        .game-element:nth-child(3) {
+            background: linear-gradient(135deg, #fff3d6 0%, #4a535a 100%);
+        }
+        
+        .element {
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+            margin-bottom: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .element:hover {
+            transform: scale(1.05);
+        }
+        
+        .element-description {
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            line-height: 1.4;
+            max-width: 200px;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        
+        .element-description:hover {
+            transform: scale(1.05);
+        }
+        
+        .game-element::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .game-element:hover::before {
+            opacity: 1;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .word-fleet {
+                border-radius: 15px;
+            }
+            
+            .banner {
+                padding: 24px 16px;
+            }
+            
+            .banner-contents {
+                font-size: 40px;
+            }
+            
+            .game-elements {
+                flex-direction: column;
+                min-height: auto;
+            }
+            
+            .game-element {
+                padding: 30px 20px;
+                min-height: 120px;
+            }
+            
+            .element {
+                font-size: 28px;
+                margin-bottom: 8px;
+            }
+            
+            .element-description {
+                font-size: 12px;
+                max-width: 250px;
+            }
+            
+            .game-element:hover {
+                transform: none;
+            }
+            
+            .launch-code {
+                top: 10px;
+                right: 12px;
+                font-size: 10px;
+                padding: 1px 6px;
+                width: auto;
+                min-width: 0;
+                max-width: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .banner {
+                padding: 20px 12px;
+            }
+            
+            .banner-contents {
+                font-size: 30px;
+            }
+            
+            .game-element {
+                padding: 24px 16px;
+                min-height: 100px;
+            }
+            
+            .element {
+                font-size: 22px;
+                margin-bottom: 6px;
+            }
+            
+            .element-description {
+                font-size: 11px;
+                max-width: 200px;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .word-fleet {
+                box-shadow: none;
+                border: 2px solid #b0b8b9;
+            }
+            
+            .banner {
+                background: #f5f5f5 !important;
+                color: #4a535a !important;
+            }
+            
+            .banner-contents {
+                color: #4a535a !important;
+                -webkit-text-fill-color: #4a535a !important;
+            }
+            
+            .game-element:nth-child(1) {
+                background: #f5f5f5 !important;
+            }
+            
+            .game-element:nth-child(2) {
+                background: #f5f5f5 !important;
+            }
+            
+            .game-element:nth-child(3) {
+                background: #f5f5f5 !important;
+            }
+            
+            .element {
+                color: #4a535a !important;
+                text-shadow: none !important;
+            }
+            
+            .element-description {
+                color: #4a535a !important;
+                text-shadow: none !important;
+            }
+            
+            .footer {
+                background: #f5f5f5 !important;
+                color: #4a535a !important;
+                border-top: 1px solid #b0b8b9 !important;
+            }
+            
+            .footer p {
+                color: #4a535a !important;
+            }
+        }
+        
+        .footer {
+            background: #22272a;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            border-top: 1px solid rgba(176, 184, 185, 0.2);
+            border-radius: 0;
+            width: 100%;
+            flex-shrink: 0;
+        }
+        
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .footer p {
+            margin: 0;
+            opacity: 0.9;
+            color: #b0b8b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="banner-inner">
+            <div class="launch-code" id="launch-code">LAUNCH CODE*: </div>
+            <div class="banner-contents">WORD FLEET</div>
+        </div>
+    </div>
+    <div class="word-fleet">
+        <div class="game-elements">
+            <div class="game-element">
+                <div class="element-description">Click coordinates to attack enemy ships and guess their word positions</div>
+                <div class="element">ATTACK GRID</div>
+            </div>
+            <div class="game-element">
+                <div class="element">ENEMY SHIPS</div>
+                <div class="element-description">Hidden word ships on the battlefield. Find and sink them all to win!</div>
+            </div>
+            <div class="game-element">
+                <div class="element">USED LETTERS</div>
+                <div class="element-description">Track which letters you've guessed to solve the word puzzles</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-inner">
+            <p>* Battle Launch Protocol: Add launch codes from upper right coordinates of both Battle Trackers.</p>
+            <p>Odd total: Fleet 1 initiates first strike. Even total: Fleet 2 does.</p>
+            <p>WORD FLEET - Pen & Paper Edition • by Kevin M.Kolb • thegamebureau.com</p>
+        </div>
+    </div>
+    <script>
+        // Generate a random number between 1 and 10 and display it in the launch code
+        document.addEventListener('DOMContentLoaded', function() {
+            var code = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('launch-code').textContent = 'LAUNCH CODE*: ' + code.toString().padStart(2, '0');
+        });
+    </script>
+</body>
+</html>

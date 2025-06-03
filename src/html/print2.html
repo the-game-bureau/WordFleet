@@ -35,7 +35,7 @@
         .banner {
             background: #ffffff;
             color: #1a1a1b;
-            padding: 8px 0;
+            padding: 16px 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -48,7 +48,7 @@
         .banner-content {
             max-width: 800px;
             width: 100%;
-            padding: 0 10px;
+            padding: 0 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -67,16 +67,16 @@
         }
         
         .tagline {
-            font-size: 24px;
-            font-weight: 400;
+            font-size: 28px;
+            font-weight: 700;
             letter-spacing: 0.5px;
-            margin-top: 8px;
+            margin-top: 16px;
             color: #1a1a1b;
-            line-height: 1.2;
+            line-height: 1.4;
         }
         
         .tagline .fleet-one {
-            font-weight: 700;
+            font-weight: 600;
         }
         
         .banner-right {
@@ -389,6 +389,14 @@
                 margin-top: 0 !important;
                 margin-bottom: 8px !important;
             }
+            .letter-count-coords-section h3 {
+                font-size: 18px !important;
+                margin-bottom: 8px !important;
+            }
+            .letter-count-coords-cell {
+                font-size: 16px !important;
+                height: 60px !important;
+            }
         }
         
         @media (max-width: 950px) {
@@ -581,7 +589,7 @@
         }
         
         .fleet-two-alphabet-box.vowel {
-            background-color: #e9ecef;
+            background-color: #d3d6da;
             color: #1a1a1b;
         }
 
@@ -638,7 +646,6 @@
             display: flex;
             gap: 4px;
             margin-bottom: 8px;
-            width: fit-content;
         }
         .fleet-two-grid-row:last-child {
             margin-bottom: 0;
@@ -647,10 +654,6 @@
         .fleet-two-grid-cell {
             width: 60px;
             height: 60px;
-            min-width: 60px;
-            min-height: 60px;
-            max-width: 60px;
-            max-height: 60px;
             border: 1px solid #d3d6da;
             background: white;
             display: flex;
@@ -661,7 +664,6 @@
             font-weight: 700;
             color: #1a1a1b;
             text-transform: uppercase;
-            box-sizing: border-box;
         }
         
         .fleet-two-grid-cell.no-border {
@@ -669,7 +671,7 @@
         }
         
         .fleet-two-grid-cell.header {
-            background-color: #e9ecef;
+            background-color: #d3d6da;
             font-weight: 600;
             color: #1a1a1b;
         }
@@ -680,10 +682,6 @@
         .fleet-two-alphabet-box {
             width: 60px;
             height: 60px;
-            min-width: 60px;
-            min-height: 60px;
-            max-width: 60px;
-            max-height: 60px;
             border: 1px solid #d3d6da;
             background: white;
             font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -700,18 +698,17 @@
             transition: all 0.2s ease;
             user-select: none;
             position: relative;
-            box-sizing: border-box;
         }
         .fleet-two-grid-cell.no-border {
             border: none;
         }
         .fleet-two-grid-cell.header {
-            background-color: #e9ecef;
+            background-color: #d3d6da;
             font-weight: 600;
             color: #1a1a1b;
         }
         .fleet-two-alphabet-box.vowel {
-            background-color: #e9ecef;
+            background-color: #d3d6da;
             color: #1a1a1b;
         }
         .fleet-two-alphabet-box.selected,
@@ -737,97 +734,13 @@
             overflow: auto;
             box-sizing: border-box;
         }
-
-        .game-header {
-            width: 100%;
-            background: #F7F7F7;
-            padding: 16px 24px 0 24px;
-            border: 1px solid #DDDDDD;
-            border-bottom: none;
-            border-radius: 8px 8px 0 0;
-            font-size: 14px;
-            font-weight: 700;
-            color: #222222;
-            text-align: center;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            margin-bottom: 0;
-        }
-
-        .grid-column,
-        .word-column,
-        .alphabet-column {
-            flex: 0 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .game-column {
+            flex: 1 1 0;
             min-width: 0;
-            padding: 0 8px;
         }
-
-        .grid-column h3,
-        .word-column h3,
-        .alphabet-column h3 {
-            margin: 0 0 16px 0;
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a1a1b;
-            text-align: center;
+        .fleet-two-grid-row {
+            max-width: 660px;
             width: 100%;
-            padding: 0 8px;
-        }
-
-        .fleet-two-ships-list {
-            width: fit-content;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 0;
-        }
-
-        .fleet-two-alphabet-list {
-            width: fit-content;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding: 0;
-        }
-
-        .fleet-two-alphabet-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            width: fit-content;
-        }
-
-        .fleet-two-alphabet-boxes {
-            display: flex;
-            gap: 4px;
-            justify-content: center;
-            flex-wrap: wrap;
-            max-width: 300px;
-        }
-
-        .fleet-two-ship-boxes {
-            display: flex;
-            gap: 4px;
-            justify-content: center;
-        }
-
-        @media (max-width: 950px) {
-            .game-area {
-                flex-direction: column;
-                align-items: center;
-                gap: 32px;
-            }
-            
-            .grid-column,
-            .word-column,
-            .alphabet-column {
-                width: 100%;
-                max-width: 660px;
-            }
         }
 
         .banner-buttons-container {
@@ -868,40 +781,43 @@
             }
         }
 
-        .game-split-row {
-            display: flex;
-            width: 100%;
-            margin-bottom: 16px;
-            gap: 0;
-            background: none;
-            border-left: 1px solid #DDDDDD;
-            border-right: 1px solid #DDDDDD;
-            border-bottom: 1px solid #DDDDDD;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            padding: 0 24px 0 24px;
-            box-sizing: border-box;
+        .letter-count-coords-section {
+            margin: 32px 0;
+            text-align: center;
         }
-        .game-split-cell {
-            flex: 1 1 0;
-            height: 32px;
+        .letter-count-coords-section h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1a1a1b;
+        }
+        .letter-count-coords-table {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .letter-count-coords-row {
+            display: flex;
+            gap: 4px;
+        }
+        .letter-count-coords-cell {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #d3d6da;
+            background: #fff;
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1b;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            font-weight: 600;
-            border-top: none;
-            border-bottom: none;
-            border-radius: 0;
+            text-transform: uppercase;
         }
-        .game-split-cell.blue {
-            background: #d0e7ff;
-        }
-        .game-split-cell.yellow {
-            background: #fff9c4;
-        }
-        .game-split-cell.ecru {
-            background: #f5e9da;
+        .letter-count-coords-cell.header {
+            background: #d3d6da;
+            font-weight: 700;
         }
     </style>
 </head>
@@ -926,14 +842,8 @@
             </div>
         </section>
 
-        <div class="game-header">ATTACK FLEET TWO HERE</div>
-        <div class="game-split-row">
-            <div class="game-split-cell blue"></div>
-            <div class="game-split-cell yellow"></div>
-            <div class="game-split-cell ecru"></div>
-        </div>
         <div class="game-area">
-            <div class="grid-column">
+            <div class="game-column">
                 <h3>Battle Grid</h3>
                 <!-- First row (headers) -->
                 <div class="fleet-two-grid-row">
@@ -1081,8 +991,8 @@
                     <div class="fleet-two-grid-cell"></div>
                 </div>
             </div>
-            <div class="word-column">
-                <h3>Word/Ship</h3>
+            <div class="game-column">
+                <h3>Your Fleet</h3>
                 <div class="fleet-two-ships-list">
                     <div class="fleet-two-ship-item">
                         <div class="fleet-two-ship-name-5">5-Letter Word</div>
@@ -1128,143 +1038,145 @@
                     </div>
                 </div>
             </div>
-            <div class="alphabet-column">
-                <h3>Letters You've Called</h3>
-                <section class="fleet-two-alphabet-list">
-                    <div class="fleet-two-alphabet-item">
-                        <div class="fleet-two-alphabet-boxes">
-                            <div class="fleet-two-alphabet-box vowel" onclick="toggleExplosion(this)">
-                                <span class="letter-text">A</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">B</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">C</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">D</span>
-                                <span class="explosion">💥</span>
-                            </div>
+            <div class="game-column">
+                <section class="letter-count-coords-section">
+                    <h3>Letter Count & Coordinates</h3>
+                    <div class="letter-count-coords-table">
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell header"></div>
+                            <div class="letter-count-coords-cell header"></div>
+                            <div class="letter-count-coords-cell header"></div>
                         </div>
-                    </div>
-                    <div class="fleet-two-alphabet-item">
-                        <div class="fleet-two-alphabet-boxes">
-                            <div class="fleet-two-alphabet-box vowel" onclick="toggleExplosion(this)">
-                                <span class="letter-text">E</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">F</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">G</span>
-                                <span class="explosion">💥</span>
-                            </div>
+                        <!-- Example rows, duplicate as needed -->
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">A</div>
+                            <div class="letter-count-coords-cell">2</div>
+                            <div class="letter-count-coords-cell">B2, D5</div>
                         </div>
-                    </div>
-                    <div class="fleet-two-alphabet-item">
-                        <div class="fleet-two-alphabet-boxes">
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">H</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box vowel" onclick="toggleExplosion(this)">
-                                <span class="letter-text">I</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">J</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">K</span>
-                                <span class="explosion">💥</span>
-                            </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">B</div>
+                            <div class="letter-count-coords-cell">1</div>
+                            <div class="letter-count-coords-cell">E7</div>
                         </div>
-                    </div>
-                    <div class="fleet-two-alphabet-item">
-                        <div class="fleet-two-alphabet-boxes">
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">L</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">M</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">N</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box vowel" onclick="toggleExplosion(this)">
-                                <span class="letter-text">O</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">P</span>
-                                <span class="explosion">💥</span>
-                            </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">C</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
                         </div>
-                    </div>
-                    <div class="fleet-two-alphabet-item">
-                        <div class="fleet-two-alphabet-boxes">
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">Q</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">R</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">S</span>
-                                <span class="explosion">💥</span>
-                            </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">D</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
                         </div>
-                    </div>
-                    <div class="fleet-two-alphabet-item">
-                        <div class="fleet-two-alphabet-boxes">
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">T</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box vowel" onclick="toggleExplosion(this)">
-                                <span class="letter-text">U</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">V</span>
-                                <span class="explosion">💥</span>
-                            </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">E</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
                         </div>
-                    </div>
-                    <div class="fleet-two-alphabet-item">
-                        <div class="fleet-two-alphabet-boxes">
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">W</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">X</span>
-                                <span class="explosion">💥</span>
-                            </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">F</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
                         </div>
-                    </div>
-                    <div class="fleet-two-alphabet-item">
-                        <div class="fleet-two-alphabet-boxes">
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">Y</span>
-                                <span class="explosion">💥</span>
-                            </div>
-                            <div class="fleet-two-alphabet-box" onclick="toggleExplosion(this)">
-                                <span class="letter-text">Z</span>
-                                <span class="explosion">💥</span>
-                            </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">G</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">H</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">I</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">J</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">K</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">L</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">M</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">N</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">O</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">P</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">Q</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">R</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">S</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">T</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">U</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">V</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">W</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">X</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">Y</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
+                        </div>
+                        <div class="letter-count-coords-row">
+                            <div class="letter-count-coords-cell">Z</div>
+                            <div class="letter-count-coords-cell"></div>
+                            <div class="letter-count-coords-cell"></div>
                         </div>
                     </div>
                 </section>
@@ -1280,9 +1192,6 @@
     </div>
 
     <script>
-        function toggleExplosion(element) {
-            element.classList.toggle('selected');
-        }
         function toggleHeadsTails() {
             const btn = document.getElementById('headsTailsBtn');
             if (btn.textContent === 'HEADS OR TAILS' || btn.textContent === 'TAILS') {
@@ -1291,6 +1200,7 @@
                 btn.textContent = 'TAILS';
             }
         }
+        
         // Set print coin flip message before printing
         function setPrintCoinFlipMsg() {
             const btn = document.getElementById('headsTailsBtn');
@@ -1302,11 +1212,13 @@
                 msg.textContent = 'IF HEADS YOU GO FIRST';
             }
         }
+        
         if (window.matchMedia) {
             window.matchMedia('print').addEventListener('change', function(e) {
                 if (e.matches) setPrintCoinFlipMsg();
             });
         }
+        
         window.onbeforeprint = setPrintCoinFlipMsg;
     </script>
 </body>
