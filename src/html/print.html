@@ -176,23 +176,26 @@
             align-items: center;
             width: 100%;
             height: 100%;
+            aspect-ratio: 1;
         }
 
         .grid-11x11 {
             display: grid;
-            grid-template-columns: repeat(11, 50px);
-            grid-template-rows: repeat(11, 50px);
+            grid-template-columns: repeat(11, min(50px, 8vw));
+            grid-template-rows: repeat(11, min(50px, 8vw));
             gap: 6px;
             justify-content: center;
+            width: 100%;
+            max-width: 600px;
         }
 
         .grid-tile {
-            width: 50px;
-            height: 50px;
+            width: min(50px, 8vw);
+            height: min(50px, 8vw);
             border: 1px solid #d3d6da;
             background: white;
             font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 20px;
+            font-size: min(20px, 3.2vw);
             font-weight: 700;
             color: #1a1a1b;
             display: flex;
@@ -497,12 +500,14 @@
             color: #333333;
         }
 
-        .toggle-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            width: 100%;
+        .toggle-label {
+            font-size: 0.85rem;
+            color: #666666;
+            font-weight: 500;
+            width: auto;
+            text-align: center;
+            white-space: nowrap;
+            padding: 0 5px;
         }
 
         .toggle-container {
@@ -510,6 +515,16 @@
             align-items: center;
             gap: 8px;
             justify-content: center;
+            flex-wrap: nowrap;
+        }
+
+        .toggle-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            white-space: nowrap;
         }
 
         .toggle-switch {
@@ -561,14 +576,6 @@
             background-color: #ffffff;
         }
 
-        .toggle-label {
-            font-size: 0.85rem;
-            color: #666666;
-            font-weight: 500;
-            width: 90px;
-            text-align: center;
-        }
-
         .toggle-label.active {
             color: #333333;
             font-weight: 600;
@@ -606,29 +613,90 @@
             .launch-code { display: none !important; }
             .nav-menu { display: none !important; }
             
-            .attack-grid {
-                max-height: 5in !important;
-            }
-
-            .attack-grid .widget {
+            .offense, .defense {
                 padding: 10px !important;
+                gap: 10px !important;
+                grid-template-columns: 2fr 1fr 1fr !important;
             }
 
-            .grid-11x11 {
-                grid-template-columns: repeat(11, 32px) !important;
-                grid-template-rows: repeat(11, 32px) !important;
-                gap: 3px !important;
-            }
-
-            .grid-tile {
-                width: 32px !important;
-                height: 32px !important;
-                font-size: 14px !important;
+            .section {
+                border: 1px solid #cccccc !important;
+                margin: 0 !important;
             }
 
             .section h2 {
-                padding: 8px 15px !important;
-                font-size: 0.9rem !important;
+                padding: 5px 10px !important;
+                font-size: 0.8rem !important;
+                margin: 0 !important;
+            }
+
+            .widget {
+                padding: 5px !important;
+                min-height: auto !important;
+            }
+
+            .grid-11x11 {
+                grid-template-columns: repeat(11, 25px) !important;
+                grid-template-rows: repeat(11, 25px) !important;
+                gap: 2px !important;
+            }
+
+            .grid-tile {
+                width: 25px !important;
+                height: 25px !important;
+                font-size: 12px !important;
+            }
+
+            .letter-box {
+                width: 25px !important;
+                height: 25px !important;
+                font-size: 12px !important;
+            }
+
+            .enemy-ship-row, .my-ship-row {
+                padding: 4px !important;
+                margin: 2px 0 !important;
+            }
+
+            .letter-boxes {
+                gap: 2px !important;
+            }
+
+            .enemy-ship-label, .my-ship-label {
+                font-size: 10px !important;
+                margin-top: 2px !important;
+            }
+
+            .section.letters .widget {
+                min-height: auto !important;
+            }
+
+            .section.letters .enemy-ship-list {
+                gap: 2px !important;
+            }
+
+            .footer {
+                padding: 10px !important;
+                margin-top: 10px !important;
+            }
+
+            .credits {
+                font-size: 0.8rem !important;
+            }
+
+            @page {
+                size: A4;
+                margin: 0.5cm;
+            }
+
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .container {
+                border: none !important;
+                max-width: none !important;
             }
         }
 
@@ -666,6 +734,7 @@
                 text-align: center;
                 padding: 15px;
                 font-size: 0.9rem;
+                white-space: normal;
             }
 
             .launch-code {
@@ -918,6 +987,7 @@
                             <div class="letter-boxes word-label-row">
                                 <div class="letter-box"></div>
                                 <div class="letter-box"></div>
+                                <div class="letter-box"></div>
                             </div>
                             <div class="enemy-ship-label">2-Letter Word</div>
                         </div>
@@ -1033,9 +1103,15 @@
                     </section>
                 </div>
             </section>
+
             <section class="section letters">
                 <h2>My Letter Manifest</h2>
                 <div class="widget">
+                    <section class="enemy-ship-list">
+                        <!-- Content will be populated by JavaScript -->
+                    </section>
+                </div>
+            </section>
         </main>
 
         <footer class="footer">
@@ -1165,53 +1241,52 @@
             }
         });
 
-        // ➕ Add styled summary tile under My Letter Manifest
-        const myLetterManifest = document.querySelector('.defense .letters .widget');
-
-        // Remove any existing summary rows before adding a new one
-        const existingSummary = myLetterManifest.querySelector('.enemy-ship-row.summary');
-        if (existingSummary) existingSummary.remove();
+        // Handle My Letter Manifest
+        const myLetterManifest = document.querySelector('.defense .letters .enemy-ship-list');
+        myLetterManifest.innerHTML = ''; // Clear existing content
 
         const urlParams = new URLSearchParams(window.location.search);
-const wordsParam = urlParams.get('words');
+        const wordsParam = urlParams.get('words');
 
-if (wordsParam === 'no') {
-    const blanksRow = document.createElement('div');
-    blanksRow.className = 'enemy-ship-row summary';
+        if (!wordsParam || wordsParam === 'no') {
+            // Create row for blank boxes
+            const blanksRow = document.createElement('div');
+            blanksRow.className = 'enemy-ship-row';
 
-    const blankBoxContainer = document.createElement('div');
-    blankBoxContainer.className = 'letter-boxes';
+            // Create container for the boxes
+            const blankBoxContainer = document.createElement('div');
+            blankBoxContainer.className = 'letter-boxes';
 
-    for (let i = 0; i < 17; i++) {
-        const blankBox = document.createElement('div');
-        blankBox.className = 'letter-box';
-        blankBoxContainer.appendChild(blankBox);
-    }
+            // Create exactly 17 blank boxes
+            for (let i = 0; i < 17; i++) {
+                const blankBox = document.createElement('div');
+                blankBox.className = 'letter-box';
+                blankBoxContainer.appendChild(blankBox);
+            }
 
-    blanksRow.appendChild(blankBoxContainer);
-    myLetterManifest.appendChild(blanksRow);
-    return; // skip letter summary if we're in blank mode
-}
+            blanksRow.appendChild(blankBoxContainer);
+            myLetterManifest.appendChild(blanksRow);
+        } else {
+            // Add letter summary
+            const summaryRowWrapper = document.createElement('div');
+            summaryRowWrapper.className = 'enemy-ship-row summary';
 
+            const summaryBoxContainer = document.createElement('div');
+            summaryBoxContainer.className = 'letter-boxes';
 
-        const summaryRowWrapper = document.createElement('div');
-        summaryRowWrapper.className = 'enemy-ship-row summary'; // marked as summary for easy cleanup
+            const summaryCounts = buildMyLetterListSummary(usedWords)
+                .split(', ')
+                .map(pair => {
+                    const box = document.createElement('div');
+                    box.className = 'letter-box';
+                    box.textContent = pair;
+                    return box;
+                });
 
-        const summaryBoxContainer = document.createElement('div');
-        summaryBoxContainer.className = 'letter-boxes';
-
-        const summaryCounts = buildMyLetterListSummary(usedWords)
-            .split(', ')
-            .map(pair => {
-                const box = document.createElement('div');
-                box.className = 'letter-box';
-                box.textContent = pair;
-                return box;
-            });
-
-        summaryCounts.forEach(box => summaryBoxContainer.appendChild(box));
-        summaryRowWrapper.appendChild(summaryBoxContainer);
-        myLetterManifest.appendChild(summaryRowWrapper);
+            summaryCounts.forEach(box => summaryBoxContainer.appendChild(box));
+            summaryRowWrapper.appendChild(summaryBoxContainer);
+            myLetterManifest.appendChild(summaryRowWrapper);
+        }
     }
 
     async function loadWordsFromXML() {
@@ -1255,7 +1330,7 @@ if (wordsParam === 'no') {
         if (wordsParam === 'yes') {
             loadWordsFromXML();
         } else {
-            populateMyShips(); // manual mode (blank)
+            populateMyShips(); // This will handle both ships and letter manifest
         }
 
         document.getElementById('printBtn').addEventListener('click', function () {
