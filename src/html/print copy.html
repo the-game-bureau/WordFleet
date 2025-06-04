@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Fleet - Pen & Paper Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0e1a;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Flowing water background */
+        .water-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(ellipse at 20% 70%, rgba(30, 58, 138, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 30%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 90%, rgba(29, 78, 216, 0.25) 0%, transparent 50%);
+            animation: waterFlow 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes waterFlow {
+            0% { 
+                transform: translateX(-10px) translateY(-5px) scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translateX(15px) translateY(10px) scale(1.05);
+                opacity: 0.8;
+            }
+            100% { 
+                transform: translateX(-5px) translateY(-10px) scale(0.95);
+                opacity: 0.7;
+            }
+        }
+
+        /* Floating Wordle tiles background */
+        .floating-tiles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .tile {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: bold;
+            font-size: 24px;
+            color: #ffffff;
+            border-radius: 0;
+            animation: floatTile 15s linear infinite;
+        }
+
+        .tile:nth-child(4n+1) {
+            background: #3a3a3c;
+            border: 2px solid #3a3a3c;
+        }
+
+        .tile:nth-child(4n+2) {
+            background: #6aaa64;
+            border: 2px solid #6aaa64;
+        }
+
+        .tile:nth-child(4n+3) {
+            background: #c9b458;
+            border: 2px solid #c9b458;
+        }
+
+        .tile:nth-child(4n) {
+            background: #787c7e;
+            border: 2px solid #787c7e;
+        }
+
+        @keyframes floatTile {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 8px;
+            line-height: 1;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .word-group {
+            display: inline-flex;
+            white-space: nowrap;
+        }
+
+        .word-tile {
+            width: 60px;
+            height: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: bold;
+            font-size: 32px;
+            color: #ffffff;
+            background: #6aaa64;
+            border: 2px solid #6aaa64;
+            border-radius: 0;
+            margin: 2px;
+        }
+
+        .word-spacer {
+            width: 60px;
+            height: 60px;
+            display: inline-flex;
+            margin: 2px;
+            visibility: hidden;
+        }
+
+        .tagline {
+            font-size: 0.95rem;
+            font-weight: 500;
+            opacity: 0.7;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 0;
+        }
+
+        .nav-link, .print-button {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .print-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .launch-code {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #22c55e;
+            letter-spacing: 1px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .launch-code:hover {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: rgba(34, 197, 94, 0.5);
+            transform: scale(1.05);
+        }
+
+        .battle-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .battle-popup.show {
+            display: flex;
+        }
+
+        .popup-content {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 500px;
+            margin: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-title {
+            color: #22c55e;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .popup-text {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-popup:hover {
+            color: #22c55e;
+        }
+
+        .main-content {
+            padding: 60px 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .section:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .section h2 {
+            background: rgba(15, 23, 42, 0.6);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 20px 25px;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 0;
+        }
+
+        .widget {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 40px 25px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .widget::before {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover .widget::before {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .attack-grid .widget::before {
+            content: "⚔️";
+        }
+
+        .enemy-ships .widget::before {
+            content: "🚢";
+        }
+
+        .letters .widget::before {
+            content: "🔤";
+        }
+
+        .widget-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-width: 200px;
+        }
+
+        .footer {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .credits {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .container {
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+            }
+            
+            .header, .main-content, .footer {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .nav-link, .print-button {
+                color: black !important;
+                border-color: black !important;
+            }
+            
+            .section {
+                border-color: black !important;
+                background: white !important;
+            }
+            
+            .widget {
+                background: white !important;
+                border-color: black !important;
+                color: black !important;
+            }
+            
+            .battle-popup, .water-background, .floating-tiles, .print-button {
+                display: none !important;
+            }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 40px 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .floating-tiles, .water-background {
+                display: none;
+            }
+            
+            .word-tile, .word-spacer {
+                width: 42px;
+                height: 42px;
+                font-size: 24px;
+                margin: 1px;
+            }
+            
+            .word-spacer {
+                width: 22px;
+            }
+            
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+                letter-spacing: -1px;
+            }
+            
+            .launch-code {
+                position: static;
+                margin: 20px auto 0;
+                display: inline-block;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                margin-top: 20px;
+            }
+            
+            .main-content {
+                padding: 30px 15px;
+                gap: 20px;
+            }
+            
+            .section {
+                border-radius: 12px;
+            }
+            
+            .widget {
+                min-height: 160px;
+                padding: 30px 20px;
+            }
+            
+            .footer {
+                padding: 30px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 0.8rem;
+            }
+            
+            .section h2 {
+                font-size: 1rem;
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="water-background"></div>
+    <div class="floating-tiles"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1>
+                <span class="word-group">
+                    <span class="word-tile">W</span>
+                    <span class="word-tile">O</span>
+                    <span class="word-tile">R</span>
+                    <span class="word-tile">D</span>
+                </span>
+                <span class="word-spacer"></span>
+                <span class="word-group">
+                    <span class="word-tile">F</span>
+                    <span class="word-tile">L</span>
+                    <span class="word-tile">E</span>
+                    <span class="word-tile">E</span>
+                    <span class="word-tile">T</span>
+                </span>
+            </h1>
+            <p class="tagline">Pen & Paper Edition</p>
+            
+            <nav class="nav-menu">
+                <a href="/index.html" class="nav-link">RETREAT</a>
+                <a href="#" class="nav-link">RULES OF ENGAGEMENT</a>
+                <button class="print-button" id="printBtn">🖨️ PRINT</button>
+            </nav>
+            
+            <div class="launch-code" id="launchCodeBtn">
+                LAUNCH CODE: <span id="launchCode">10</span>
+            </div>
+        </header>
+
+        <div class="battle-popup" id="battlePopup">
+            <div class="popup-content">
+                <button class="close-popup" id="closePopup">&times;</button>
+                <div class="popup-title">Battle Launch Protocol</div>
+                <div class="popup-text">
+                    Your Launch Code + Opponent's Launch Code = #<br>
+                    Odd #: Fleet 1 Initiates First Strike<br>
+                    Even #: Fleet 2 Initiates First Strike
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <section class="section attack-grid">
+                <h2>Attack Grid</h2>
+                <div class="widget">
+                    <div class="widget-text">
+                        Battle Grid Interface<br>
+                        Coordinate targeting system for strategic strikes
+                    </div>
+                </div>
+            </section>
+
+            <section class="section enemy-ships">
+                <h2>Enemy Ships</h2>
+                <div class="widget">
+                    <div class="widget-text">
+                        Fleet Tracking Display<br>
+                        Monitor enemy vessel positions and status
+                    </div>
+                </div>
+            </section>
+
+            <section class="section letters">
+                <h2>Letters</h2>
+                <div class="widget">
+                    <div class="widget-text">
+                        Letter Reconnaissance Log<br>
+                        Track discovered characters and word progress
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="credits">
+                    WORD FLEET - Pen & Paper Edition • by Kevin M.Kolb • thegamebureau.com
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Generate random launch code
+        document.getElementById('launchCode').textContent = Math.floor(Math.random() * 10) + 1;
+        
+        // Create floating tiles
+        function createFloatingTiles() {
+            const tilesContainer = document.querySelector('.floating-tiles');
+            const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            
+            allLetters.forEach((letter, index) => {
+                const tile = document.createElement('div');
+                tile.className = 'tile';
+                tile.textContent = letter;
+                
+                tile.style.left = Math.random() * 100 + '%';
+                // Stagger the delays so tiles start from bottom and appear over time
+                tile.style.animationDelay = (index * 1) + 's';
+                
+                tilesContainer.appendChild(tile);
+            });
+        }
+        
+        // Print functionality
+        const printBtn = document.getElementById('printBtn');
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+        
+        // Popup functionality
+        const launchCodeBtn = document.getElementById('launchCodeBtn');
+        const battlePopup = document.getElementById('battlePopup');
+        const closePopup = document.getElementById('closePopup');
+        
+        launchCodeBtn.addEventListener('click', () => {
+            battlePopup.classList.add('show');
+        });
+        
+        closePopup.addEventListener('click', () => {
+            battlePopup.classList.remove('show');
+        });
+        
+        battlePopup.addEventListener('click', (e) => {
+            if (e.target === battlePopup) {
+                battlePopup.classList.remove('show');
+            }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && battlePopup.classList.contains('show')) {
+                battlePopup.classList.remove('show');
+            }
+        });
+        
+        // Initialize
+        createFloatingTiles();
+    </script>
+</body>
+</html>
