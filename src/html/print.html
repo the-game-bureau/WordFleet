@@ -25,6 +25,8 @@
             border: 1px solid #cccccc;
             min-height: 100vh;
             width: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
@@ -33,19 +35,22 @@
             padding: 15px;
             text-align: center;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .header h1 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 900;
-            letter-spacing: 8px;
+            letter-spacing: clamp(4px, 2vw, 8px);
             margin-bottom: 6px;
             color: #000000;
             text-transform: uppercase;
         }
 
         .tagline {
-            font-size: 0.95rem;
+            font-size: clamp(0.8rem, 3vw, 0.95rem);
             font-weight: 500;
             color: #666666;
             margin-bottom: 20px;
@@ -57,21 +62,25 @@
             display: flex;
             justify-content: center;
             gap: 15px;
+            flex-wrap: wrap;
+            padding: 0 10px;
         }
 
         .nav-link, .print-button {
             color: #333333;
             text-decoration: none;
-            padding: 8px 16px;
+            padding: 12px 20px;
             background: #f5f5f5;
             border: 1px solid #cccccc;
             border-radius: 50px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
             letter-spacing: 0.5px;
             cursor: pointer;
             font-family: inherit;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .nav-link:hover, .print-button:hover {
@@ -90,11 +99,11 @@
             padding: 8px 12px;
             border-radius: 6px;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
             color: #22c55e;
             letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: inherit;
         }
 
@@ -117,6 +126,8 @@
             grid-template-columns: 2fr 1fr 1fr;
             gap: 25px;
             width: 100%;
+            flex: 1;
+            border-bottom: none;
         }
 
         .section {
@@ -278,9 +289,10 @@
 
         .footer {
             background: #f8f9fa;
-            border-top: 2px solid #cccccc;
+            border-top: 1px solid #cccccc;
             padding: 25px 20px;
             text-align: center;
+            margin-top: 0;
         }
 
         .credits {
@@ -323,9 +335,96 @@
             transition: all 0.3s ease;
         }
 
-        .popup-content:hover {
-            border-color: #999999;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        .popup-content.rules-content {
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .rules-body {
+            padding: 40px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .rules-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            margin-bottom: 6px;
+            color: #000000;
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+        }
+
+        .rules-subtitle {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333333;
+            margin-bottom: 30px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .rules-intro {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #333333;
+            width: 100%;
+        }
+
+        .rules-section {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333333;
+            margin: 25px 0 15px;
+            width: 100%;
+        }
+
+        .rules-list {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .rules-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .rules-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #333333;
+            font-size: 1.2rem;
+        }
+
+        .rules-meta {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #666666;
+            margin: 30px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .rules-closing {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333333;
+            text-align: center;
+            margin-top: 30px;
+            width: 100%;
         }
 
         .popup-title {
@@ -532,6 +631,68 @@
                 font-size: 0.9rem !important;
             }
         }
+
+        .section.letters .widget {
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .section.letters .enemy-ship-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                padding: 0 20px;
+            }
+
+            .nav-link, .print-button {
+                width: 100%;
+                text-align: center;
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+
+            .launch-code {
+                position: static;
+                margin: 10px auto;
+                width: fit-content;
+            }
+
+            .header h1 {
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 8px;
+            }
+
+            .nav-menu {
+                padding: 0 10px;
+            }
+
+            .nav-link, .print-button {
+                padding: 12px;
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -592,6 +753,31 @@
                     </div>
                     
                     <button type="button" class="action-btn" id="fleet2PrintBtn">Print Battle Tracker</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rules of Engagement Popup -->
+        <div class="popup" id="rulesPopup">
+            <div class="popup-content rules-content">
+                <button class="close-popup" id="closeRulesPopup">&times;</button>
+                <div class="popup-title">RULES OF ENGAGEMENT</div>
+                <div class="popup-body rules-body">
+                    <p class="rules-intro">From the Strategic Depths of Naval Warfare Comes the Ultimate Word Battle! Combining the tactical genius of the classic grid-based strategy that has captivated players for over a century with the addictive word-building challenge that has taken the world by storm.</p>
+                    
+                    <h3 class="rules-section">Deploy Your Fleet</h3>
+                    <ul class="rules-list">
+                        <li>Position your words like battleships across your grid. Words must read from left to right or from top to bottom.</li>
+                        <li>Launch word-powered attacks against enemy fleets</li>
+                        <li>Sink opposing vessels with devastating dictionary strikes</li>
+                        <li>Master both strategy and spelling to claim victory</li>
+                    </ul>
+                    
+                    <h3 class="rules-section">Two Legendary Games Unite</h3>
+                    <p>The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.</p>
+                    
+                    <h3 class="rules-section">Battle-Tested Gameplay</h3>
+                    <p>Born from a tradition stretching back to WWI trenches where soldiers played pencil-and-paper ship battles, now evolved into the ultimate test of mental warfare.</p>
                 </div>
             </div>
         </div>
@@ -787,72 +973,9 @@
                     </section>
                 </div>
             </section>
-
             <section class="section letters">
                 <h2>My Letter Manifest</h2>
                 <div class="widget">
-                    <section class="enemy-ship-list">
-                        <div class="enemy-ship-row">
-                            <div class="letter-boxes">
-                                <div class="letter-box vowel"><span class="letter-text">A</span></div>
-                                <div class="letter-box"><span class="letter-text">B</span></div>
-                                <div class="letter-box"><span class="letter-text">C</span></div>
-                                <div class="letter-box"><span class="letter-text">D</span></div>
-                            </div>
-                        </div>
-                        <div class="enemy-ship-row">
-                            <div class="letter-boxes">
-                                <div class="letter-box vowel"><span class="letter-text">E</span></div>
-                                <div class="letter-box"><span class="letter-text">F</span></div>
-                                <div class="letter-box"><span class="letter-text">G</span></div>
-                            </div>
-                        </div>
-                        <div class="enemy-ship-row">
-                            <div class="letter-boxes">
-                                <div class="letter-box"><span class="letter-text">H</span></div>
-                                <div class="letter-box vowel"><span class="letter-text">I</span></div>
-                                <div class="letter-box"><span class="letter-text">J</span></div>
-                                <div class="letter-box"><span class="letter-text">K</span></div>
-                            </div>
-                        </div>
-                        <div class="enemy-ship-row">
-                            <div class="letter-boxes word-label-row">
-                                <div class="letter-box"><span class="letter-text">L</span></div>
-                                <div class="letter-box"><span class="letter-text">M</span></div>
-                                <div class="letter-box"><span class="letter-text">N</span></div>
-                                <div class="letter-box vowel"><span class="letter-text">O</span></div>
-                                <div class="letter-box"><span class="letter-text">P</span></div>
-                            </div>
-                        </div>
-                        <div class="enemy-ship-row">
-                            <div class="letter-boxes">
-                                <div class="letter-box"><span class="letter-text">Q</span></div>
-                                <div class="letter-box"><span class="letter-text">R</span></div>
-                                <div class="letter-box"><span class="letter-text">S</span></div>
-                            </div>
-                        </div>
-                        <div class="enemy-ship-row">
-                            <div class="letter-boxes">
-                                <div class="letter-box"><span class="letter-text">T</span></div>
-                                <div class="letter-box vowel"><span class="letter-text">U</span></div>
-                                <div class="letter-box"><span class="letter-text">V</span></div>
-                            </div>
-                        </div>
-                        <div class="enemy-ship-row">
-                            <div class="letter-boxes">
-                                <div class="letter-box"><span class="letter-text">W</span></div>
-                                <div class="letter-box"><span class="letter-text">X</span></div>
-                            </div>
-                        </div>
-                        <div class="enemy-ship-row">
-                            <div class="letter-boxes">
-                                <div class="letter-box vowel"><span class="letter-text">Y</span></div>
-                                <div class="letter-box"><span class="letter-text">Z</span></div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </section>
         </main>
 
         <footer class="footer">
@@ -862,290 +985,295 @@
         </footer>
     </div>
 
-    <script>
-        const firstNames = ['Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged', 'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull', 'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy'];
-        const shipTypes = ['Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force', 'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad', 'Cohort'];
-        
-        let wordsData = {
-            2: [],
-            3: [],
-            4: [],
-            5: []
-        };
+<script>
+    const firstNames = ['Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged', 'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull', 'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy'];
+    const shipTypes = ['Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force', 'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad', 'Cohort'];
 
-        function generateRandomFleetName() {
-            const randomFirst = firstNames[Math.floor(Math.random() * firstNames.length)];
-            const randomType = shipTypes[Math.floor(Math.random() * shipTypes.length)];
-            return randomFirst + ' ' + randomType;
+    let wordsData = {
+        2: [],
+        3: [],
+        4: [],
+        5: []
+    };
+
+    function generateRandomFleetName() {
+        const randomFirst = firstNames[Math.floor(Math.random() * firstNames.length)];
+        const randomType = shipTypes[Math.floor(Math.random() * shipTypes.length)];
+        return randomFirst + ' ' + randomType;
+    }
+
+    function isVowel(letter) {
+        return 'AEIOU'.includes(letter.toUpperCase());
+    }
+
+    function createLetterBox(letter, isVowelBox = false) {
+        const box = document.createElement('div');
+        box.className = 'letter-box' + (isVowelBox ? ' vowel' : '');
+        box.textContent = letter;
+        return box;
+    }
+
+    function createShipRow(word, label) {
+        const row = document.createElement('div');
+        row.className = 'my-ship-row';
+        row.style.flexDirection = 'column';
+        row.style.alignItems = 'center';
+
+        const letterBoxes = document.createElement('div');
+        letterBoxes.className = 'letter-boxes word-label-row';
+
+        for (let i = 0; i < word.length; i++) {
+            const letter = word[i];
+            const box = createLetterBox(letter, isVowel(letter));
+            letterBoxes.appendChild(box);
         }
 
-        function isVowel(letter) {
-            return 'AEIOU'.includes(letter.toUpperCase());
+        const shipLabel = document.createElement('div');
+        shipLabel.className = 'my-ship-label';
+        shipLabel.textContent = label;
+
+        row.appendChild(letterBoxes);
+        row.appendChild(shipLabel);
+        return row;
+    }
+
+    function getRandomWord(length) {
+        const words = wordsData[length];
+        if (words && words.length > 0) {
+            return words[Math.floor(Math.random() * words.length)];
         }
+        return null;
+    }
 
-        function createLetterBox(letter, isVowelBox = false) {
-            const box = document.createElement('div');
-            box.className = 'letter-box' + (isVowelBox ? ' vowel' : '');
-            box.textContent = letter;
-            return box;
-        }
+    function buildMyLetterListSummary(wordsUsed) {
+        const allLetters = wordsUsed.flatMap(word => word.toUpperCase().split(''));
+        const counts = {};
 
-        function createShipRow(word, label) {
-            const row = document.createElement('div');
-            row.className = 'my-ship-row';
-            row.style.flexDirection = 'column';
-            row.style.alignItems = 'center';
-
-            const letterBoxes = document.createElement('div');
-            letterBoxes.className = 'letter-boxes word-label-row';
-
-            for (let i = 0; i < word.length; i++) {
-                const letter = word[i];
-                const box = createLetterBox(letter, isVowel(letter));
-                letterBoxes.appendChild(box);
-            }
-
-            const shipLabel = document.createElement('div');
-            shipLabel.className = 'my-ship-label';
-            shipLabel.textContent = label;
-
-            row.appendChild(letterBoxes);
-            row.appendChild(shipLabel);
-            return row;
-        }
-
-        function getRandomWord(length) {
-            const words = wordsData[length];
-            if (words && words.length > 0) {
-                return words[Math.floor(Math.random() * words.length)];
-            }
-            return null;
-        }
-
-        function populateMyShips() {
-            const myShipsList = document.getElementById('myShipsList');
-            
-            // Clear existing content
-            myShipsList.innerHTML = '';
-            
-            // Check if we have words loaded
-            const totalWords = Object.values(wordsData).reduce((sum, arr) => sum + arr.length, 0);
-            
-            if (totalWords === 0) {
-                // No words loaded - create empty boxes for manual entry
-                const ships = [
-                    { length: 5, label: '5-Letter Word' },
-                    { length: 4, label: '4-Letter Word' },
-                    { length: 3, label: '3-Letter Word Alpha' },
-                    { length: 3, label: '3-Letter Word Bravo' },
-                    { length: 2, label: '2-Letter Word' }
-                ];
-
-                ships.forEach(ship => {
-                    const row = document.createElement('div');
-                    row.className = 'my-ship-row';
-                    row.style.flexDirection = 'column';
-                    row.style.alignItems = 'center';
-
-                    const letterBoxes = document.createElement('div');
-                    letterBoxes.className = 'letter-boxes word-label-row';
-
-                    for (let i = 0; i < ship.length; i++) {
-                        const box = document.createElement('div');
-                        box.className = 'letter-box';
-                        letterBoxes.appendChild(box);
-                    }
-
-                    const shipLabel = document.createElement('div');
-                    shipLabel.className = 'my-ship-label';
-                    shipLabel.textContent = ship.label;
-
-                    row.appendChild(letterBoxes);
-                    row.appendChild(shipLabel);
-                    myShipsList.appendChild(row);
-                });
-            } else {
-                // Words loaded - generate ships with random words
-                const ships = [
-                    { length: 5, label: '5-Letter Word' },
-                    { length: 4, label: '4-Letter Word' },
-                    { length: 3, label: '3-Letter Word Alpha' },
-                    { length: 3, label: '3-Letter Word Bravo' },
-                    { length: 2, label: '2-Letter Word' }
-                ];
-
-                ships.forEach(ship => {
-                    const word = getRandomWord(ship.length);
-                    if (word) {
-                        const shipRow = createShipRow(word, ship.label);
-                        myShipsList.appendChild(shipRow);
-                    } else {
-                        // No word available for this length - create empty boxes
-                        const row = document.createElement('div');
-                        row.className = 'my-ship-row';
-                        row.style.flexDirection = 'column';
-                        row.style.alignItems = 'center';
-
-                        const letterBoxes = document.createElement('div');
-                        letterBoxes.className = 'letter-boxes word-label-row';
-
-                        for (let i = 0; i < ship.length; i++) {
-                            const box = document.createElement('div');
-                            box.className = 'letter-box';
-                            letterBoxes.appendChild(box);
-                        }
-
-                        const shipLabel = document.createElement('div');
-                        shipLabel.className = 'my-ship-label';
-                        shipLabel.textContent = ship.label;
-
-                        row.appendChild(letterBoxes);
-                        row.appendChild(shipLabel);
-                        myShipsList.appendChild(row);
-                    }
-                });
-            }
-        }
-
-        async function loadWordsFromXML() {
-            try {
-                const response = await fetch('src/dictionary/words.xml');
-                if (!response.ok) {
-                    populateMyShips(); // Just populate with empty boxes
-                    return;
-                }
-                
-                const xmlText = await response.text();
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-                
-                // Check for parsing errors
-                const parserError = xmlDoc.querySelector('parsererror');
-                if (parserError) {
-                    populateMyShips(); // Just populate with empty boxes
-                    return;
-                }
-
-                // Extract words by length
-                const wordLengthElements = xmlDoc.querySelectorAll('WordLength');
-                
-                wordLengthElements.forEach(lengthElement => {
-                    const length = parseInt(lengthElement.getAttribute('length'));
-                    if (length >= 2 && length <= 5) {
-                        const words = lengthElement.querySelectorAll('Word');
-                        wordsData[length] = Array.from(words).map(word => word.textContent.trim());
-                    }
-                });
-
-                populateMyShips();
-                
-            } catch (error) {
-                populateMyShips(); // Just populate with empty boxes
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('launchCode').textContent = Math.floor(Math.random() * 10) + 1;
-            
-            const urlParams = new URLSearchParams(window.location.search);
-            let fleetName = urlParams.get('Fleet') || urlParams.get('fleet') || 'Fleet';
-            fleetName = fleetName.toUpperCase();
-            
-            const taglineElement = document.getElementById('tagline');
-            const taglineText = fleetName === 'FLEET' ? 'Pen & Paper Edition - Battle Tracker' : 'Pen & Paper Edition - ' + fleetName + ' Battle Tracker';
-            taglineElement.textContent = taglineText;
-            
-            // Load words and populate ships
-            const wordsParam = urlParams.get('words');
-            if (wordsParam !== 'no') {
-                loadWordsFromXML();
-            } else {
-                populateMyShips(); // Will show manual entry mode
-            }
-            
-            document.getElementById('printBtn').addEventListener('click', function() {
-                window.print();
-            });
-            
-            const launchBtn = document.getElementById('launchCodeBtn');
-            const battleModal = document.getElementById('battlePopup');
-            const closeBattleBtn = document.getElementById('closePopup');
-            
-            launchBtn.addEventListener('click', function() {
-                battleModal.classList.add('show');
-            });
-            
-            closeBattleBtn.addEventListener('click', function() {
-                battleModal.classList.remove('show');
-            });
-            
-            battleModal.addEventListener('click', function(event) {
-                if (event.target === battleModal) {
-                    battleModal.classList.remove('show');
-                }
-            });
-            
-            const fleet2Button = document.getElementById('fleet2Btn');
-            const fleet2Modal = document.getElementById('fleet2Popup');
-            const closeFleet2Button = document.getElementById('closeFleet2Popup');
-            const fleet2PrintButton = document.getElementById('fleet2PrintBtn');
-            const fleet2Toggle = document.getElementById('fleet2AutoGen');
-            const fleet2PickLabel = document.getElementById('fleet2PickWordsLabel');
-            const fleet2AutoLabel = document.getElementById('fleet2AutoGenLabel');
-            const fleet2Input = document.getElementById('fleet2Name');
-
-            fleet2Button.addEventListener('click', function() {
-                fleet2Input.value = generateRandomFleetName();
-                fleet2Modal.classList.add('show');
-            });
-            
-            closeFleet2Button.addEventListener('click', function() {
-                fleet2Modal.classList.remove('show');
-            });
-            
-            fleet2Modal.addEventListener('click', function(event) {
-                if (event.target === fleet2Modal) {
-                    fleet2Modal.classList.remove('show');
-                }
-            });
-
-            function updateToggleLabels() {
-                if (fleet2Toggle.checked) {
-                    fleet2PickLabel.classList.remove('active');
-                    fleet2AutoLabel.classList.add('active');
-                } else {
-                    fleet2PickLabel.classList.add('active');
-                    fleet2AutoLabel.classList.remove('active');
-                }
-            }
-            
-            fleet2Toggle.addEventListener('change', updateToggleLabels);
-            updateToggleLabels();
-
-            fleet2PrintButton.addEventListener('click', function() {
-                const newFleetName = fleet2Input.value.trim() || 'Fleet';
-                const wordsOption = fleet2Toggle.checked ? 'yes' : 'no';
-                
-                const urlParameters = new URLSearchParams({
-                    Fleet: newFleetName,
-                    words: wordsOption
-                });
-                
-                fleet2Modal.classList.remove('show');
-                window.location.href = 'print.html?' + urlParameters.toString();
-            });
-
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape') {
-                    if (battleModal.classList.contains('show')) {
-                        battleModal.classList.remove('show');
-                    }
-                    if (fleet2Modal.classList.contains('show')) {
-                        fleet2Modal.classList.remove('show');
-                    }
-                }
-            });
+        allLetters.forEach(letter => {
+            counts[letter] = (counts[letter] || 0) + 1;
         });
-    </script>
+
+        return Object.entries(counts)
+            .sort((a, b) => a[0].localeCompare(b[0]))
+            .map(([letter, count]) => `${letter}${count}`)
+            .join(', ');
+    }
+
+    function populateMyShips() {
+        const myShipsList = document.getElementById('myShipsList');
+        myShipsList.innerHTML = '';
+
+        const ships = [
+            { length: 5, label: '5-Letter Word' },
+            { length: 4, label: '4-Letter Word' },
+            { length: 3, label: '3-Letter Word Alpha' },
+            { length: 3, label: '3-Letter Word Bravo' },
+            { length: 2, label: '2-Letter Word' }
+        ];
+
+        const usedWords = [];
+
+        ships.forEach(ship => {
+            const word = getRandomWord(ship.length);
+            if (word) {
+                usedWords.push(word);
+                const shipRow = createShipRow(word, ship.label);
+                myShipsList.appendChild(shipRow);
+            } else {
+                // fallback to empty if word missing
+                const row = document.createElement('div');
+                row.className = 'my-ship-row';
+                row.style.flexDirection = 'column';
+                row.style.alignItems = 'center';
+
+                const letterBoxes = document.createElement('div');
+                letterBoxes.className = 'letter-boxes word-label-row';
+
+                for (let i = 0; i < ship.length; i++) {
+                    const box = document.createElement('div');
+                    box.className = 'letter-box';
+                    letterBoxes.appendChild(box);
+                }
+
+                const shipLabel = document.createElement('div');
+                shipLabel.className = 'my-ship-label';
+                shipLabel.textContent = ship.label;
+
+                row.appendChild(letterBoxes);
+                row.appendChild(shipLabel);
+                myShipsList.appendChild(row);
+            }
+        });
+
+        // ➕ Add styled summary tile under My Letter Manifest
+        const myLetterManifest = document.querySelector('.defense .letters .widget');
+
+        // Remove any existing summary rows before adding a new one
+        const existingSummary = myLetterManifest.querySelector('.enemy-ship-row.summary');
+        if (existingSummary) existingSummary.remove();
+
+        const urlParams = new URLSearchParams(window.location.search);
+const wordsParam = urlParams.get('words');
+
+if (wordsParam === 'no') {
+    const blanksRow = document.createElement('div');
+    blanksRow.className = 'enemy-ship-row summary';
+
+    const blankBoxContainer = document.createElement('div');
+    blankBoxContainer.className = 'letter-boxes';
+
+    for (let i = 0; i < 17; i++) {
+        const blankBox = document.createElement('div');
+        blankBox.className = 'letter-box';
+        blankBoxContainer.appendChild(blankBox);
+    }
+
+    blanksRow.appendChild(blankBoxContainer);
+    myLetterManifest.appendChild(blanksRow);
+    return; // skip letter summary if we're in blank mode
+}
+
+
+        const summaryRowWrapper = document.createElement('div');
+        summaryRowWrapper.className = 'enemy-ship-row summary'; // marked as summary for easy cleanup
+
+        const summaryBoxContainer = document.createElement('div');
+        summaryBoxContainer.className = 'letter-boxes';
+
+        const summaryCounts = buildMyLetterListSummary(usedWords)
+            .split(', ')
+            .map(pair => {
+                const box = document.createElement('div');
+                box.className = 'letter-box';
+                box.textContent = pair;
+                return box;
+            });
+
+        summaryCounts.forEach(box => summaryBoxContainer.appendChild(box));
+        summaryRowWrapper.appendChild(summaryBoxContainer);
+        myLetterManifest.appendChild(summaryRowWrapper);
+    }
+
+    async function loadWordsFromXML() {
+        try {
+            const response = await fetch('../dictionary/words.xml');
+            if (!response.ok) return;
+
+            const xmlText = await response.text();
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+            const parserError = xmlDoc.querySelector('parsererror');
+            if (parserError) return;
+
+            const wordLengthElements = xmlDoc.querySelectorAll('WordLength');
+            wordLengthElements.forEach(lengthElement => {
+                const length = parseInt(lengthElement.getAttribute('length'));
+                if (length >= 2 && length <= 5) {
+                    const words = lengthElement.querySelectorAll('Word');
+                    wordsData[length] = Array.from(words).map(word => word.textContent.trim());
+                }
+            });
+
+            populateMyShips();
+        } catch (error) {
+            console.error('XML load error:', error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('launchCode').textContent = Math.floor(Math.random() * 10) + 1;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let fleetName = urlParams.get('Fleet') || urlParams.get('fleet') || 'Fleet';
+        fleetName = fleetName.toUpperCase();
+        const taglineElement = document.getElementById('tagline');
+        taglineElement.textContent = fleetName === 'FLEET'
+            ? 'Pen & Paper Edition - Battle Tracker'
+            : 'Pen & Paper Edition - ' + fleetName + ' Battle Tracker';
+
+        const wordsParam = urlParams.get('words');
+        if (wordsParam === 'yes') {
+            loadWordsFromXML();
+        } else {
+            populateMyShips(); // manual mode (blank)
+        }
+
+        document.getElementById('printBtn').addEventListener('click', function () {
+            window.print();
+        });
+
+        const launchBtn = document.getElementById('launchCodeBtn');
+        const battleModal = document.getElementById('battlePopup');
+        const closeBattleBtn = document.getElementById('closePopup');
+
+        launchBtn.addEventListener('click', () => battleModal.classList.add('show'));
+        closeBattleBtn.addEventListener('click', () => battleModal.classList.remove('show'));
+        battleModal.addEventListener('click', e => {
+            if (e.target === battleModal) battleModal.classList.remove('show');
+        });
+
+        const fleet2Button = document.getElementById('fleet2Btn');
+        const fleet2Modal = document.getElementById('fleet2Popup');
+        const closeFleet2Button = document.getElementById('closeFleet2Popup');
+        const fleet2PrintButton = document.getElementById('fleet2PrintBtn');
+        const fleet2Toggle = document.getElementById('fleet2AutoGen');
+        const fleet2PickLabel = document.getElementById('fleet2PickWordsLabel');
+        const fleet2AutoLabel = document.getElementById('fleet2AutoGenLabel');
+        const fleet2Input = document.getElementById('fleet2Name');
+
+        fleet2Button.addEventListener('click', function () {
+            fleet2Input.value = generateRandomFleetName();
+            fleet2Modal.classList.add('show');
+        });
+
+        closeFleet2Button.addEventListener('click', () => fleet2Modal.classList.remove('show'));
+        fleet2Modal.addEventListener('click', e => {
+            if (e.target === fleet2Modal) fleet2Modal.classList.remove('show');
+        });
+
+        // Rules of Engagement popup handlers
+        const rulesLink = document.querySelector('a[href="#"]');
+        const rulesModal = document.getElementById('rulesPopup');
+        const closeRulesBtn = document.getElementById('closeRulesPopup');
+
+        rulesLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            rulesModal.classList.add('show');
+        });
+
+        closeRulesBtn.addEventListener('click', () => rulesModal.classList.remove('show'));
+        rulesModal.addEventListener('click', e => {
+            if (e.target === rulesModal) rulesModal.classList.remove('show');
+        });
+
+        fleet2Toggle.addEventListener('change', updateToggleLabels);
+        function updateToggleLabels() {
+            fleet2PickLabel.classList.toggle('active', !fleet2Toggle.checked);
+            fleet2AutoLabel.classList.toggle('active', fleet2Toggle.checked);
+        }
+        updateToggleLabels();
+
+        fleet2PrintButton.addEventListener('click', function () {
+            const newFleetName = fleet2Input.value.trim() || 'Fleet';
+            const wordsOption = fleet2Toggle.checked ? 'yes' : 'no';
+            const urlParameters = new URLSearchParams({
+                Fleet: newFleetName,
+                words: wordsOption
+            });
+
+            fleet2Modal.classList.remove('show');
+            window.location.href = 'print.html?' + urlParameters.toString();
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                if (battleModal.classList.contains('show')) battleModal.classList.remove('show');
+                if (fleet2Modal.classList.contains('show')) fleet2Modal.classList.remove('show');
+            }
+        });
+    });
+</script>
+
+
 </body>
 </html>
