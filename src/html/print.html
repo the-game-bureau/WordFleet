@@ -103,9 +103,18 @@
             transform: scale(1.05);
         }
 
-        .main-content {
+        .offense {
             padding: 40px 20px;
-            display: flex;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 25px;
+            width: 100%;
+        }
+
+        .defense {
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
             gap: 25px;
             width: 100%;
         }
@@ -147,18 +156,6 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-        }
-
-        .attack-grid {
-            flex: 2;
-        }
-
-        .enemy-ships {
-            flex: 1;
-        }
-
-        .letters {
-            flex: 1;
         }
 
         /* Attack Grid Styles */
@@ -216,7 +213,7 @@
         }
 
         /* Letter tracking styles */
-        .enemy-ship-list {
+        .enemy-ship-list, .my-ship-list {
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -226,7 +223,7 @@
             height: 100%;
         }
 
-        .enemy-ship-row {
+        .enemy-ship-row, .my-ship-row {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -271,7 +268,7 @@
             flex-wrap: nowrap;
         }
 
-        .enemy-ship-label {
+        .enemy-ship-label, .my-ship-label {
             font-size: 14px;
             font-weight: 600;
             text-transform: uppercase;
@@ -498,6 +495,12 @@
             transform: translateY(-1px);
         }
 
+        .load-error {
+            color: #cc0000;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
         /* Print styles */
         @media print {
             .popup { display: none !important; }
@@ -593,7 +596,7 @@
             </div>
         </div>
 
-        <main class="main-content">
+        <main class="offense">
             <section class="section attack-grid">
                 <h2>Attack Grid</h2>
                 <div class="widget">
@@ -743,6 +746,115 @@
             </section>
         </main>
 
+        <main class="defense">
+            <section class="section attack-grid">
+                <h2>Defense Grid</h2>
+                <div class="widget">
+                    <div class="attack-grid-container">
+                        <div class="grid-11x11">
+                            <!-- Row 1 -->
+                            <div class="grid-tile"></div><div class="grid-tile">A</div><div class="grid-tile">B</div><div class="grid-tile">C</div><div class="grid-tile">D</div><div class="grid-tile">E</div><div class="grid-tile">F</div><div class="grid-tile">G</div><div class="grid-tile">H</div><div class="grid-tile">I</div><div class="grid-tile">J</div>
+                            <!-- Row 2 -->
+                            <div class="grid-tile">1</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+                            <!-- Row 3 -->
+                            <div class="grid-tile">2</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+                            <!-- Row 4 -->
+                            <div class="grid-tile">3</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+                            <!-- Row 5 -->
+                            <div class="grid-tile">4</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+                            <!-- Row 6 -->
+                            <div class="grid-tile">5</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+                            <!-- Row 7 -->
+                            <div class="grid-tile">6</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+                            <!-- Row 8 -->
+                            <div class="grid-tile">7</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+                            <!-- Row 9 -->
+                            <div class="grid-tile">8</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+                            <!-- Row 10 -->
+                            <div class="grid-tile">9</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+                            <!-- Row 11 -->
+                            <div class="grid-tile">10</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section my-ships">
+                <h2>My Word Ships</h2>
+                <div class="widget">
+                    <section class="my-ship-list" id="myShipsList">
+                        <!-- Ships will be populated by JavaScript -->
+                    </section>
+                </div>
+            </section>
+
+            <section class="section letters">
+                <h2>My Letter Manifest</h2>
+                <div class="widget">
+                    <section class="enemy-ship-list">
+                        <div class="enemy-ship-row">
+                            <div class="letter-boxes">
+                                <div class="letter-box vowel"><span class="letter-text">A</span></div>
+                                <div class="letter-box"><span class="letter-text">B</span></div>
+                                <div class="letter-box"><span class="letter-text">C</span></div>
+                                <div class="letter-box"><span class="letter-text">D</span></div>
+                            </div>
+                        </div>
+                        <div class="enemy-ship-row">
+                            <div class="letter-boxes">
+                                <div class="letter-box vowel"><span class="letter-text">E</span></div>
+                                <div class="letter-box"><span class="letter-text">F</span></div>
+                                <div class="letter-box"><span class="letter-text">G</span></div>
+                            </div>
+                        </div>
+                        <div class="enemy-ship-row">
+                            <div class="letter-boxes">
+                                <div class="letter-box"><span class="letter-text">H</span></div>
+                                <div class="letter-box vowel"><span class="letter-text">I</span></div>
+                                <div class="letter-box"><span class="letter-text">J</span></div>
+                                <div class="letter-box"><span class="letter-text">K</span></div>
+                            </div>
+                        </div>
+                        <div class="enemy-ship-row">
+                            <div class="letter-boxes word-label-row">
+                                <div class="letter-box"><span class="letter-text">L</span></div>
+                                <div class="letter-box"><span class="letter-text">M</span></div>
+                                <div class="letter-box"><span class="letter-text">N</span></div>
+                                <div class="letter-box vowel"><span class="letter-text">O</span></div>
+                                <div class="letter-box"><span class="letter-text">P</span></div>
+                            </div>
+                        </div>
+                        <div class="enemy-ship-row">
+                            <div class="letter-boxes">
+                                <div class="letter-box"><span class="letter-text">Q</span></div>
+                                <div class="letter-box"><span class="letter-text">R</span></div>
+                                <div class="letter-box"><span class="letter-text">S</span></div>
+                            </div>
+                        </div>
+                        <div class="enemy-ship-row">
+                            <div class="letter-boxes">
+                                <div class="letter-box"><span class="letter-text">T</span></div>
+                                <div class="letter-box vowel"><span class="letter-text">U</span></div>
+                                <div class="letter-box"><span class="letter-text">V</span></div>
+                            </div>
+                        </div>
+                        <div class="enemy-ship-row">
+                            <div class="letter-boxes">
+                                <div class="letter-box"><span class="letter-text">W</span></div>
+                                <div class="letter-box"><span class="letter-text">X</span></div>
+                            </div>
+                        </div>
+                        <div class="enemy-ship-row">
+                            <div class="letter-boxes">
+                                <div class="letter-box vowel"><span class="letter-text">Y</span></div>
+                                <div class="letter-box"><span class="letter-text">Z</span></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </main>
+
         <footer class="footer">
             <p class="credits">
                 WORD FLEET - Pen & Paper Edition • by Kevin M.Kolb • thegamebureau.com
@@ -754,10 +866,182 @@
         const firstNames = ['Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged', 'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull', 'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy'];
         const shipTypes = ['Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force', 'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad', 'Cohort'];
         
+        let wordsData = {
+            2: [],
+            3: [],
+            4: [],
+            5: []
+        };
+
         function generateRandomFleetName() {
             const randomFirst = firstNames[Math.floor(Math.random() * firstNames.length)];
             const randomType = shipTypes[Math.floor(Math.random() * shipTypes.length)];
             return randomFirst + ' ' + randomType;
+        }
+
+        function isVowel(letter) {
+            return 'AEIOU'.includes(letter.toUpperCase());
+        }
+
+        function createLetterBox(letter, isVowelBox = false) {
+            const box = document.createElement('div');
+            box.className = 'letter-box' + (isVowelBox ? ' vowel' : '');
+            box.textContent = letter;
+            return box;
+        }
+
+        function createShipRow(word, label) {
+            const row = document.createElement('div');
+            row.className = 'my-ship-row';
+            row.style.flexDirection = 'column';
+            row.style.alignItems = 'center';
+
+            const letterBoxes = document.createElement('div');
+            letterBoxes.className = 'letter-boxes word-label-row';
+
+            for (let i = 0; i < word.length; i++) {
+                const letter = word[i];
+                const box = createLetterBox(letter, isVowel(letter));
+                letterBoxes.appendChild(box);
+            }
+
+            const shipLabel = document.createElement('div');
+            shipLabel.className = 'my-ship-label';
+            shipLabel.textContent = label;
+
+            row.appendChild(letterBoxes);
+            row.appendChild(shipLabel);
+            return row;
+        }
+
+        function getRandomWord(length) {
+            const words = wordsData[length];
+            if (words && words.length > 0) {
+                return words[Math.floor(Math.random() * words.length)];
+            }
+            return null;
+        }
+
+        function populateMyShips() {
+            const myShipsList = document.getElementById('myShipsList');
+            
+            // Clear existing content
+            myShipsList.innerHTML = '';
+            
+            // Check if we have words loaded
+            const totalWords = Object.values(wordsData).reduce((sum, arr) => sum + arr.length, 0);
+            
+            if (totalWords === 0) {
+                // No words loaded - create empty boxes for manual entry
+                const ships = [
+                    { length: 5, label: '5-Letter Word' },
+                    { length: 4, label: '4-Letter Word' },
+                    { length: 3, label: '3-Letter Word Alpha' },
+                    { length: 3, label: '3-Letter Word Bravo' },
+                    { length: 2, label: '2-Letter Word' }
+                ];
+
+                ships.forEach(ship => {
+                    const row = document.createElement('div');
+                    row.className = 'my-ship-row';
+                    row.style.flexDirection = 'column';
+                    row.style.alignItems = 'center';
+
+                    const letterBoxes = document.createElement('div');
+                    letterBoxes.className = 'letter-boxes word-label-row';
+
+                    for (let i = 0; i < ship.length; i++) {
+                        const box = document.createElement('div');
+                        box.className = 'letter-box';
+                        letterBoxes.appendChild(box);
+                    }
+
+                    const shipLabel = document.createElement('div');
+                    shipLabel.className = 'my-ship-label';
+                    shipLabel.textContent = ship.label;
+
+                    row.appendChild(letterBoxes);
+                    row.appendChild(shipLabel);
+                    myShipsList.appendChild(row);
+                });
+            } else {
+                // Words loaded - generate ships with random words
+                const ships = [
+                    { length: 5, label: '5-Letter Word' },
+                    { length: 4, label: '4-Letter Word' },
+                    { length: 3, label: '3-Letter Word Alpha' },
+                    { length: 3, label: '3-Letter Word Bravo' },
+                    { length: 2, label: '2-Letter Word' }
+                ];
+
+                ships.forEach(ship => {
+                    const word = getRandomWord(ship.length);
+                    if (word) {
+                        const shipRow = createShipRow(word, ship.label);
+                        myShipsList.appendChild(shipRow);
+                    } else {
+                        // No word available for this length - create empty boxes
+                        const row = document.createElement('div');
+                        row.className = 'my-ship-row';
+                        row.style.flexDirection = 'column';
+                        row.style.alignItems = 'center';
+
+                        const letterBoxes = document.createElement('div');
+                        letterBoxes.className = 'letter-boxes word-label-row';
+
+                        for (let i = 0; i < ship.length; i++) {
+                            const box = document.createElement('div');
+                            box.className = 'letter-box';
+                            letterBoxes.appendChild(box);
+                        }
+
+                        const shipLabel = document.createElement('div');
+                        shipLabel.className = 'my-ship-label';
+                        shipLabel.textContent = ship.label;
+
+                        row.appendChild(letterBoxes);
+                        row.appendChild(shipLabel);
+                        myShipsList.appendChild(row);
+                    }
+                });
+            }
+        }
+
+        async function loadWordsFromXML() {
+            try {
+                const response = await fetch('src/dictionary/words.xml');
+                if (!response.ok) {
+                    populateMyShips(); // Just populate with empty boxes
+                    return;
+                }
+                
+                const xmlText = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+                
+                // Check for parsing errors
+                const parserError = xmlDoc.querySelector('parsererror');
+                if (parserError) {
+                    populateMyShips(); // Just populate with empty boxes
+                    return;
+                }
+
+                // Extract words by length
+                const wordLengthElements = xmlDoc.querySelectorAll('WordLength');
+                
+                wordLengthElements.forEach(lengthElement => {
+                    const length = parseInt(lengthElement.getAttribute('length'));
+                    if (length >= 2 && length <= 5) {
+                        const words = lengthElement.querySelectorAll('Word');
+                        wordsData[length] = Array.from(words).map(word => word.textContent.trim());
+                    }
+                });
+
+                populateMyShips();
+                
+            } catch (error) {
+                populateMyShips(); // Just populate with empty boxes
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -770,6 +1054,14 @@
             const taglineElement = document.getElementById('tagline');
             const taglineText = fleetName === 'FLEET' ? 'Pen & Paper Edition - Battle Tracker' : 'Pen & Paper Edition - ' + fleetName + ' Battle Tracker';
             taglineElement.textContent = taglineText;
+            
+            // Load words and populate ships
+            const wordsParam = urlParams.get('words');
+            if (wordsParam !== 'no') {
+                loadWordsFromXML();
+            } else {
+                populateMyShips(); // Will show manual entry mode
+            }
             
             document.getElementById('printBtn').addEventListener('click', function() {
                 window.print();
