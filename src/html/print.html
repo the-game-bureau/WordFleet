@@ -677,6 +677,48 @@
             .header h1 {
                 margin-top: 10px;
             }
+
+            .offense, .defense {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 20px 10px;
+            }
+
+            .section {
+                width: 100%;
+            }
+
+            .widget {
+                padding: 15px;
+            }
+
+            .grid-11x11 {
+                grid-template-columns: repeat(11, 35px);
+                grid-template-rows: repeat(11, 35px);
+                gap: 4px;
+            }
+
+            .grid-tile {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+
+            .letter-boxes {
+                max-width: 100%;
+                justify-content: center;
+            }
+
+            .letter-box {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+
+            .enemy-ship-row, .my-ship-row {
+                width: 100%;
+                max-width: 320px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -691,6 +733,24 @@
             .nav-link, .print-button {
                 padding: 12px;
                 font-size: 0.85rem;
+            }
+
+            .grid-11x11 {
+                grid-template-columns: repeat(11, 30px);
+                grid-template-rows: repeat(11, 30px);
+                gap: 3px;
+            }
+
+            .grid-tile {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+
+            .letter-box {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
             }
         }
     </style>
