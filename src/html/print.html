@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Fleet - Pen & Paper Edition</title>
     <style>
+        @font-face {
+            font-family: 'Clear Sans';
+            src: url('https://raw.githubusercontent.com/jasonlong/clearsans-webfont/master/ClearSans-Bold.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,6 +23,16 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: #ffffff;
             color: #000000;
+        }
+
+        .header h1 {
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 900;
+            letter-spacing: clamp(4px, 2vw, 8px);
+            margin-bottom: 0px; /* Reduced from 6px to 0px */
+            color: #000000;
+            text-transform: uppercase;
         }
 
         .container {
@@ -32,36 +49,28 @@
         .header {
             background: #ffffff;
             border-bottom: 1px solid #cccccc;
-            padding: 15px;
+            padding: 8px; /* Reduced from 15px */
             text-align: center;
             position: relative;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-        }
-
-        .header h1 {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            font-weight: 900;
-            letter-spacing: clamp(4px, 2vw, 8px);
-            margin-bottom: 6px;
-            color: #000000;
-            text-transform: uppercase;
+            gap: 8px; /* Reduced from 15px */
         }
 
         .tagline {
             font-size: clamp(0.8rem, 3vw, 0.95rem);
             font-weight: 500;
             color: #666666;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             letter-spacing: 2px;
             text-transform: uppercase;
+            margin-top: 0px; /* Added to ensure no extra space */
         }
 
         .nav-menu {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px; /* Reduced from 15px */
             flex-wrap: wrap;
             padding: 0 10px;
         }
@@ -69,7 +78,7 @@
         .nav-link, .print-button {
             color: #333333;
             text-decoration: none;
-            padding: 12px 20px;
+            padding: 8px 16px; /* Reduced from 12px 20px */
             background: #f5f5f5;
             border: 1px solid #cccccc;
             border-radius: 50px;
@@ -81,6 +90,10 @@
             font-family: inherit;
             white-space: nowrap;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .nav-link:hover, .print-button:hover {
@@ -94,9 +107,10 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: #f0f9ff;
-            border: 1px solid #22c55e;
-            padding: 8px 12px;
+            background: #e5e5e5;
+            border: 1px solid #999999;
+            padding: 8px 18px; /* Increased horizontal padding */
+            min-width: 155px;   /* Ensures enough width for "LAUNCH CODE: 999" */
             border-radius: 6px;
             font-weight: 600;
             font-size: clamp(0.7rem, 2vw, 0.8rem);
@@ -105,11 +119,48 @@
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: inherit;
+            text-align: left;
+            box-sizing: border-box;
         }
 
         .launch-code:hover {
             background: #e0f2fe;
             transform: scale(1.05);
+        }
+
+        .launch-banner {
+            width: 100%;
+            background: #22c55e;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 8px 0 7px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-bottom: 2px solid #16a34a;
+            cursor: pointer;
+            user-select: none;
+            z-index: 100;
+        }
+        .launch-banner .icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+            vertical-align: middle;
+        }
+        .launch-banner #launchCode {
+            font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', 'Liberation Mono', monospace;
+            background: rgba(0,0,0,0.10);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 600px) {
+            .launch-banner {
+                font-size: 1rem;
+                padding: 10px 0 9px 0;
+            }
         }
 
         .offense {
@@ -299,11 +350,11 @@
         }
 
         .credits {
-            font-weight: 600;
-            color: #333333;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-size: clamp(0.8rem, 3vw, 0.95rem);
+            font-weight: 500;
+            color: #666666;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         /* Popup styles */
@@ -719,34 +770,37 @@
 
         @media (max-width: 768px) {
             .header {
+                flex-direction: column;
+                align-items: stretch;
                 padding: 10px;
             }
-
+            .launch-code {
+                position: static;
+                margin: 0 0 10px 0;
+                width: fit-content;
+                align-self: flex-start;
+                order: -1; /* Move to the top of the header */
+            }
             .nav-menu {
                 flex-direction: column;
                 align-items: stretch;
                 gap: 10px;
                 padding: 0 20px;
             }
-
-            .nav-link, .print-button {
+            .nav-link, .print-button, .launch-btn {
                 width: 100%;
                 text-align: center;
                 padding: 15px;
                 font-size: 0.9rem;
                 white-space: normal;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
             }
-
-            .launch-code {
-                position: static;
-                margin: 10px auto;
-                width: fit-content;
-            }
-
             .header h1 {
                 margin-top: 10px;
             }
-
             .offense, .defense {
                 grid-template-columns: 1fr;
                 gap: 15px;
@@ -822,6 +876,47 @@
                 font-size: 14px;
             }
         }
+
+        .launch-btn {
+            color: #333333;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: #f5f5f5;
+            border: 1px solid #cccccc;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .launch-btn:hover {
+            background: #e5e5e5;
+            border-color: #999999;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            color: #22c55e;
+        }
+        .launch-btn #launchCode {
+            font-family: inherit;
+            font-weight: inherit;
+            margin-left: 0;
+            font-size: inherit;
+            letter-spacing: inherit;
+        }
+
+        #printCodeBtn #launchCode,
+        #printBtn #launchCode,
+        #launchCodeBtn #launchCode {
+            margin-left: 0.5em;
+        }
     </style>
 </head>
 <body>
@@ -829,40 +924,19 @@
         <header class="header">
             <h1>WORD FLEET</h1>
             <p class="tagline" id="tagline">Pen & Paper Edition - Battle Tracker</p>
-            
             <nav class="nav-menu">
                 <a href="../../index.html" class="nav-link">RETREAT</a>
                 <a href="#" class="nav-link">RULES OF ENGAGEMENT</a>
-                <button class="print-button" id="printBtn">PRINT THIS BATTLE TRACKER</button>
-                <button class="nav-link" id="fleet2Btn">PRINT A DIFFERENT BATTLE TRACKER</button>
+                <button class="nav-link" id="fleet2Btn">GENERATE NEW TRACKER</button>
+                <button class="print-button" id="printBtn">PRINT</button>
             </nav>
-            
-            <div class="launch-code" id="launchCodeBtn">
-                LAUNCH CODE: <span id="launchCode">10</span>
-            </div>
         </header>
-
-        <!-- Battle Launch Protocol Popup -->
-        <div class="popup" id="battlePopup">
-            <div class="popup-content">
-                <button class="close-popup" id="closePopup">&times;</button>
-                <div class="popup-title">Battle Launch Protocol</div>
-                <div class="popup-body">
-                    <div class="popup-text">
-                        Youngest Captain Calls Heads Or Tails<br>
-                        Sum Both Launch Codes<br>
-                        Odd = Heads | Even = Tails<br>
-                        Winner Launches First Strike
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Fleet 2 Popup -->
         <div class="popup" id="fleet2Popup">
             <div class="popup-content">
                 <button class="close-popup" id="closeFleet2Popup">&times;</button>
-                <div class="popup-title">PRINT A DIFFERENT BATTLE TRACKER</div>
+                <div class="popup-title">GENERATE NEW TRACKER</div>
                 <div class="popup-body">
                     <div class="form-group">
                         <label for="fleet2Name">Name Your Fleet</label>
@@ -881,7 +955,7 @@
                         </div>
                     </div>
                     
-                    <button type="button" class="action-btn" id="fleet2PrintBtn">Print Battle Tracker</button>
+                    <button type="button" class="action-btn" id="fleet2PrintBtn">GENERATE</button>
                 </div>
             </div>
         </div>
@@ -917,27 +991,19 @@
                 <div class="widget">
                     <div class="attack-grid-container">
                         <div class="grid-11x11">
-                            <!-- Row 1 -->
-                            <div class="grid-tile"></div><div class="grid-tile">A</div><div class="grid-tile">B</div><div class="grid-tile">C</div><div class="grid-tile">D</div><div class="grid-tile">E</div><div class="grid-tile">F</div><div class="grid-tile">G</div><div class="grid-tile">H</div><div class="grid-tile">I</div><div class="grid-tile">J</div>
-                            <!-- Row 2 -->
+                            <!-- Row 1: Top labels -->
+                            <div class="grid-tile"></div>
+                            <div class="grid-tile">A</div><div class="grid-tile">B</div><div class="grid-tile">C</div><div class="grid-tile">D</div><div class="grid-tile">E</div><div class="grid-tile">F</div><div class="grid-tile">G</div><div class="grid-tile">H</div><div class="grid-tile">I</div><div class="grid-tile">J</div>
+                            <!-- Row 2-11: Side labels and empty cells -->
                             <div class="grid-tile">1</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
-                            <!-- Row 3 -->
                             <div class="grid-tile">2</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
-                            <!-- Row 4 -->
                             <div class="grid-tile">3</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
-                            <!-- Row 5 -->
                             <div class="grid-tile">4</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
-                            <!-- Row 6 -->
                             <div class="grid-tile">5</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
-                            <!-- Row 7 -->
                             <div class="grid-tile">6</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
-                            <!-- Row 8 -->
                             <div class="grid-tile">7</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
-                            <!-- Row 9 -->
                             <div class="grid-tile">8</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
-                            <!-- Row 10 -->
                             <div class="grid-tile">9</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
-                            <!-- Row 11 -->
                             <div class="grid-tile">10</div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
                         </div>
                     </div>
@@ -1116,7 +1182,7 @@
 
         <footer class="footer">
             <p class="credits">
-                WORD FLEET - Pen & Paper Edition • by Kevin M.Kolb • thegamebureau.com
+                WORD FLEET - Pen & Paper Edition • by Kevin M.Kolb • thegamebureau.com • LAUNCH CODE: <span id="launchCode"></span>
             </p>
         </footer>
     </div>
@@ -1316,7 +1382,14 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('launchCode').textContent = Math.floor(Math.random() * 10) + 1;
+        // Format launch code with leading zeros
+        function formatLaunchCode(num) {
+            return num.toString().padStart(3, '0');
+        }
+        function setRandomLaunchCode() {
+            document.getElementById('launchCode').textContent = formatLaunchCode(Math.floor(Math.random() * 100) + 1);
+        }
+        setRandomLaunchCode();
 
         const urlParams = new URLSearchParams(window.location.search);
         let fleetName = urlParams.get('Fleet') || urlParams.get('fleet') || 'Fleet';
@@ -1335,16 +1408,6 @@
 
         document.getElementById('printBtn').addEventListener('click', function () {
             window.print();
-        });
-
-        const launchBtn = document.getElementById('launchCodeBtn');
-        const battleModal = document.getElementById('battlePopup');
-        const closeBattleBtn = document.getElementById('closePopup');
-
-        launchBtn.addEventListener('click', () => battleModal.classList.add('show'));
-        closeBattleBtn.addEventListener('click', () => battleModal.classList.remove('show'));
-        battleModal.addEventListener('click', e => {
-            if (e.target === battleModal) battleModal.classList.remove('show');
         });
 
         const fleet2Button = document.getElementById('fleet2Btn');
@@ -1402,7 +1465,6 @@
 
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
-                if (battleModal.classList.contains('show')) battleModal.classList.remove('show');
                 if (fleet2Modal.classList.contains('show')) fleet2Modal.classList.remove('show');
             }
         });
