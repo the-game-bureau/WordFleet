@@ -1,20 +1,18 @@
 # WORD FLEET
-## Pen & Paper Edition
+### Pen & Paper Edition
 ### Rules of Engagement
+**For 2 Players • Ages 8+ • 15-30 Minutes**
 
-**For 2 Players • Ages 10+ • 15-30 Minutes**
-
----
 
 ## WHAT YOU NEED TO PLAY
-- 2 Battle Trackers (downloadable from https://thegamebureau.com/wf)
-- 2 pencils
+- 2 Battle Trackers (downloadable from [thegamebureau.com/wrdflt](https://thegamebureau.com/wrdflt))
+- 2 Pens or Pencils
 - 2 Highlighters (optional)
 
 ---
 
 ## OBJECT OF THE GAME
-Be the first Captain to destroy all 5 of your opponent's Word Ships by calling out letters and declaring words correctly.
+Victory goes to the first Captain who destroys all 5 enemy Word Ships by discovering their letters and successfully declaring each complete word.
 
 ---
 
@@ -23,11 +21,11 @@ Each Captain commands exactly 5 Word Ships:
 
 | Word Ship | Length |
 |-----------|--------|
-| 🚢 **KETCH** | 5 letters |
-| 🛥️ **SHIP** | 4 letters |
-| 🚤 **ARK** | 3 letters |
-| 🚤 **SUB** | 3 letters |
-| 🛶 **PT** | 2 letters |
+| ⛵ **KETCH** | 5 letters |
+| 🚢 **SHIP** | 4 letters |
+| 🛶 **ARK** | 3 letters |
+| 🌊 **SUB** | 3 letters |
+| 🚤 **PT** | 2 letters |
 
 ---
 
