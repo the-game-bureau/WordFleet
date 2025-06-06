@@ -844,6 +844,7 @@
             }
         }
 
+
         @media (max-width: 480px) {
             .header {
                 padding: 8px;
@@ -917,6 +918,40 @@
         #launchCodeBtn #launchCode {
             margin-left: 0.5em;
         }
+        .input-with-refresh {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-with-refresh input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.refresh-btn {
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.refresh-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.refresh-btn:active {
+    transform: rotate(-180deg);
+}
     </style>
 </head>
 <body>
@@ -940,7 +975,12 @@
                 <div class="popup-body">
                     <div class="form-group">
                         <label for="fleet2Name">Name Your Fleet</label>
-                        <input type="text" id="fleet2Name" value="Royal Armada">
+                        <div class="input-with-refresh">
+    <input type="text" id="fleet2Name" value="Royal Armada">
+    <button type="button" class="refresh-btn" onclick="regenerateFleet2Name()" title="Generate new fleet name">
+        🔄
+    </button>
+</div>
                     </div>
                     
                     <div class="toggle-group">
@@ -1188,9 +1228,48 @@
     </div>
 
 <script>
-    const firstNames = ['Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged', 'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull', 'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy'];
-    const shipTypes = ['Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force', 'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad', 'Cohort'];
+const firstNames = [
+    'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged',
+    'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
+    'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
+    // Classic Naval
+    'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
+    'Battle-Ready',
+    // Weathered & Seasoned
+    'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
+    'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached',
+    // Intimidating
+    'Iron-Fisted', 'Cannon-Heavy', 'Gun-Blazing', 'Torpedo-Laden',
+    'Skull & Crossbones', 'Merciless', 'Fearsome',
+    // Quirky/Fun
+    'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed',
+    'Eye-Patched', 'Beard-Braided', 'Compass-Spinning',
+    // Mystical/Legendary
+    'Ghost Ship', 'Kraken\'s', 'Siren\'s', 'Poseidon\'s', 'Davy Jones\'',
+    'Cursed', 'Phantom',
+    // Condition-Based
+    'Half-Sunk', 'Listing', 'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
+];
 
+const shipTypes = [
+    'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force',
+    'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
+    'Cohort',
+    // Naval Formations
+    'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit', 'Force', 'Command',
+    // Naval Operations
+    'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard', 'Reserve', 'Guard',
+    'Watch', 'Blockade',
+    // Maritime Features
+    'Tide', 'Current', 'Wake', 'Waves', 'Storm', 'Tempest', 'Gale', 'Maelstrom',
+    // Naval Ranks/Titles
+    'Admiralty', 'Authority', 'Order', 'Legion', 'Brotherhood', 'Alliance', 'Coalition',
+    // Oceanic/Geographic
+    'Depth', 'Trench', 'Reef', 'Harbor', 'Bay', 'Strait', 'Channel', 'Passage',
+    // Action-Oriented
+    'Assault', 'Siege', 'Bombardment', 'Offensive', 'Campaign', 'Operation',
+    'Mission', 'Expedition'
+];
     let wordsData = {
         2: [],
         3: [],
@@ -1202,6 +1281,10 @@
         const randomFirst = firstNames[Math.floor(Math.random() * firstNames.length)];
         const randomType = shipTypes[Math.floor(Math.random() * shipTypes.length)];
         return randomFirst + ' ' + randomType;
+    }
+            function regenerateFleet2Name() {
+    const fleet2Input = document.getElementById('fleet2Name');
+    fleet2Input.value = generateRandomFleetName();
     }
 
     function isVowel(letter) {

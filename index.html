@@ -4,14 +4,14 @@
     <link rel="icon" type="image/x-icon" href="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WORD FLEET • by Kevin Kolb • TheGameBureau.com</title>
-    <meta property="og:title" content="WORD FLEET • by Kevin Kolb • TheGameBureau.com">
+    <title>WORD FLEET</title>
+    <meta property="og:title" content="WORD FLEET">
     <meta property="og:description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
     <meta property="og:image" content="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet-social.png">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://the-game-bureau.github.io/WordFleet/">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="WORD FLEET • by Kevin Kolb • TheGameBureau.com">
+    <meta name="twitter:title" content="WORD FLEET">
     <meta name="twitter:description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
     <meta name="twitter:image" content="media/wordfleet-social.png">
     <meta name="description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
@@ -21,39 +21,88 @@
             --battleship-gray: #4a535a;
             --ocean-blue: #22303c;
             --tile-green: #6aaa64;
-            --smoke: #b0b8b9;
-            --shell-yellow: #6aaa64;
             --white: #ffffff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
         
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, var(--battleship-gray) 0%, var(--ocean-blue) 100%);
-            min-height: 100vh;
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            background: 
+                linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(34, 48, 60, 0.4) 100%),
+                url('src/media/word_fleet_banner_1600x400.png');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            min-height: 300vh;
+            /* Much more height to show full image */
         }
 
-        .main-container {
-            flex: 1;
+        /* Header matches cards styling */
+        .wordle-header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .wordle-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .wordle-word {
+            display: flex;
+            gap: 0px;
+            margin: 0 12px;
+        }
+
+        .wordle-tile {
+            width: clamp(40px, 8vw, 60px);
+            height: clamp(40px, 8vw, 60px);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 0;
+            font-size: clamp(18px, 4vw, 28px);
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-weight: bold;
+            border-radius: 0px;
+            background: #6aaa64;
+            color: #ffffff;
+            text-transform: uppercase;
+            border: none;
+            margin: 1px;
         }
 
-        /* Dark gradient overlay on right side */
-        /* .main-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 40%;
-            height: 400px; 
-            background: linear-gradient(to right, transparent, rgba(30, 58, 95, 0.3));
-            pointer-events: none;
-            z-index: 1;
-        } */
+        .header-tagline {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            margin-top: 8px;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .main-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0 200vh 0;
+            min-height: calc(100vh - 120px);
+        }
 
         .forms-container {
             display: grid;
@@ -65,34 +114,40 @@
             padding: 0 24px;
         }
 
+        /* More transparent glass effect with blur */
         .form-card {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 24px 24px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             max-width: 400px;
             width: 100%;
             margin: 0 auto;
-            transition: box-shadow 0.2s;
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
             gap: 16px;
+            position: relative;
         }
 
         .form-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
         }
 
         .form-title {
             font-size: 20px;
             font-weight: 700;
-            color: #000000;
+            color: #ffffff;
             text-align: center;
             margin: 0;
             padding-bottom: 12px;
-            border-bottom: 2px solid #000000;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.4);
             letter-spacing: -0.5px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         .form-group {
@@ -104,21 +159,55 @@
             display: block;
             margin-bottom: 6px;
             font-weight: 600;
-            color: #000000;
+            color: #ffffff;
             font-size: 16px;
             letter-spacing: 0.2px;
             text-align: center;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         .form-group input, .form-group select {
             width: 100%;
-            padding: 8px 12px;
+            padding: 12px;
             border: 1px solid #e0e0e0;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 16px;
-            transition: all 0.2s ease;
+            transition: border-color 0.2s ease;
             background: #ffffff;
             color: #000000;
+        }
+
+        .input-with-refresh {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-with-refresh input {
+            padding-right: 40px;
+        }
+
+        .refresh-btn {
+            position: absolute;
+            right: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .refresh-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .refresh-btn:active {
+            transform: rotate(-180deg);
         }
 
         .form-group input:hover, .form-group select:hover {
@@ -128,7 +217,7 @@
         .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: #000000;
-            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
         }
 
         .toggle-group {
@@ -148,9 +237,10 @@
 
         .toggle-group-label {
             font-size: 16px;
-            color: #000000;
+            color: #ffffff;
             font-weight: 600;
             letter-spacing: 0.2px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         .toggle-switch {
@@ -179,7 +269,6 @@
             transition: 0.2s;
             border-radius: 22px;
             border: 1px solid #e0e0e0;
-            will-change: transform;
         }
 
         .toggle-slider:before {
@@ -192,7 +281,6 @@
             background-color: #000000;
             transition: 0.2s;
             border-radius: 50%;
-            will-change: transform;
         }
 
         .toggle-input:checked + .toggle-slider { 
@@ -207,19 +295,19 @@
 
         .toggle-label {
             font-size: 16px;
-            color: #666666;
+            color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
-            transition: none;
+            transition: color 0.2s ease;
             width: 100px;
             text-align: center;
             white-space: nowrap;
             display: inline-block;
-            font-variation-settings: "wght" 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         .toggle-label.active {
-            color: #000000;
-            font-variation-settings: "wght" 600;
+            color: #ffffff;
+            font-weight: 600;
         }
 
         #pickWordsLabel {
@@ -244,12 +332,12 @@
             color: #ffffff;
             border: none;
             padding: 14px 28px;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 20px;
             font-weight: 600;
             margin: 0;
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease, transform 0.1s ease;
             width: 100%;
             letter-spacing: 0.2px;
         }
@@ -282,34 +370,13 @@
 
         .info-text {
             font-size: 16px;
-            color: #666666;
+            color: rgba(255, 255, 255, 0.9);
             text-align: center;
             margin: -4px 0 12px;
             line-height: 1.4;
             padding-bottom: 16px;
-            border-bottom: 2px solid #000000;
-        }
-
-        #dontPeekMsg {
-            font-size: 16px;
-            color: var(--battleship-gray);
-            font-weight: bold;
-            margin-bottom: 14px;
-            text-align: center;
-            padding: 12px;
-            background: rgba(255, 224, 102, 0.3);
-            border-radius: 10px;
-            border: 2px solid var(--shell-yellow);
-            transition: all 0.3s ease;
-        }
-
-        /* Validation styles */
-        .form-group input:invalid {
-            border-color: var(--ocean-blue);
-        }
-
-        .form-group input:valid {
-            border-color: var(--ocean-blue);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         /* Fallback image for accessibility */
@@ -325,6 +392,7 @@
             border: 0;
         }
 
+        /* Responsive design */
         @media (max-width: 1200px) {
             .forms-container {
                 grid-template-columns: 1fr;
@@ -341,196 +409,107 @@
         }
 
         @media (max-width: 768px) {
+            .wordle-header {
+                padding: 15px 0;
+            }
+            
+            .wordle-word {
+                gap: 3px;
+                margin: 0 6px;
+            }
+            
+            .wordle-title {
+                gap: 6px;
+            }
+
+            .header-tagline {
+                font-size: 14px;
+            }
+
             .forms-container {
                 padding: 0 16px;
                 width: 100%;
                 max-width: 400px;
             }
+            
             .form-card {
                 padding: 20px 16px;
             }
+            
+            .main-container {
+                padding: 20px 0;
+            }
         }
 
-        @media (min-width: 1800px) {
+        @media (max-width: 480px) {
+            .wordle-header {
+                padding: 12px 0;
+            }
+            
+            .wordle-word {
+                gap: 2px;
+                margin: 0 4px;
+            }
+            
+            .wordle-title {
+                gap: 4px;
+                padding: 0 10px;
+            }
+
+            .header-tagline {
+                font-size: 12px;
+                padding: 3px 8px;
+            }
+
+            .main-container {
+                padding: 15px 0;
+            }
+            
             .forms-container {
-                /* Remove extra top padding */
-            }
-        }
-
-        .head-to-head-card,
-        .bot-battle-card {
-            max-height: 220px; /* Half of the default .form-card padding and content height */
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .site-footer {
-            width: 100%;
-            text-align: center;
-            padding: 32px 0;
-            font-size: 22px;
-            color: var(--white);
-            background: #22272a;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-weight: bold;
-        }
-        .footer-link {
-            color: var(--white);
-            text-decoration: underline;
-            font-weight: bold;
-            transition: color 0.2s;
-            text-transform: uppercase;
-            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
-        }
-        .footer-link:hover {
-            color: var(--tile-green);
-        }
-
-        .footer-wordle-row {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 18px;
-        }
-        .footer-tile {
-            width: 38px;
-            height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3em;
-            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-weight: bold;
-            border-radius: 6px;
-            background: #6aaa64;
-            color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.12);
-            text-transform: uppercase;
-        }
-        .footer-tile.green { background: #6aaa64; color: #fff; }
-        .footer-tile.yellow { background: #6aaa64; color: #fff; }
-        .footer-tile.spacer { background: transparent; box-shadow: none; }
-
-        .top-banner-img-wrapper {
-            position: relative;
-            width: 100%;
-            height: clamp(180px, 25vw, 280px);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            background: var(--ocean-blue);
-        }
-        .top-banner-img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 65%;
-            margin: 0;
-            padding: 0;
-            transition: transform 0.3s ease;
-        }
-        @media (hover: hover) {
-            .top-banner-img:hover {
-                transform: scale(1.02);
-            }
-        }
-        @media (min-width: 1600px) {
-            .top-banner-img {
-                object-position: center 59%;
-            }
-        }
-
-        .game-overview {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 40px auto;
-            max-width: 1000px;
-            box-shadow: 0 10px 30px rgba(30,58,95,0.15);
-        }
-
-        .game-overview h2 {
-            color: var(--ocean-blue);
-            font-size: 32px;
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-        }
-
-        .game-overview h3 {
-            color: var(--ocean-blue);
-            font-size: 24px;
-            margin: 30px 0 15px;
-        }
-
-        .game-overview p {
-            color: var(--ocean-blue);
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .game-overview .tagline {
-            font-size: 22px;
-            font-weight: bold;
-            color: var(--tile-green);
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .game-overview .specs {
-            text-align: center;
-            font-size: 20px;
-            color: var(--tile-green);
-            margin: 30px 0;
-            font-weight: bold;
-        }
-
-        @media (max-width: 768px) {
-            .game-overview {
-                padding: 20px;
-                margin: 20px;
-            }
-            .game-overview h2 {
-                font-size: 28px;
-            }
-            .game-overview h3 {
-                font-size: 22px;
-            }
-            .game-overview p {
-                font-size: 16px;
+                gap: 16px;
+                padding: 0 12px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="top-banner-img-wrapper">
-        <img src="src/media/word_fleet_banner_1600x400.png" alt="Word Fleet" class="top-banner-img" />
-    </div>
+    <header class="wordle-header">
+        <div class="wordle-title">
+            <div class="wordle-word">
+                <div class="wordle-tile">W</div>
+                <div class="wordle-tile">O</div>
+                <div class="wordle-tile">R</div>
+                <div class="wordle-tile">D</div>
+            </div>
+            <div class="wordle-word">
+                <div class="wordle-tile">F</div>
+                <div class="wordle-tile">L</div>
+                <div class="wordle-tile">E</div>
+                <div class="wordle-tile">E</div>
+                <div class="wordle-tile">T</div>
+            </div>
+        </div>
+        <p class="header-tagline">by Kevin M. Kolb • thegamebureau.com</p>
+    </header>
+
     <div class="main-container">
-        <!-- Screen reader accessible image description -->
-        <span class="sr-only">A battleship and an aircraft carrier fire at an unseen enemy. Word Fleet</span>
-        
+        <span class="sr-only">Word Fleet - Naval word combat strategy game</span>
         <div class="forms-container">
             <!-- Print & Play Edition -->
-            <form class="form-card print-play-card" action="src/html/print.html" method="GET" onsubmit="return handlePrintSubmit(event)">
-                <h2 class="form-title">Pen & Paper Edition</h2>
+            <form class="form-card" action="src/html/print.html" method="GET" onsubmit="return handlePrintSubmit(event)">
+                <h2 class="form-title">Pen &amp; Paper Edition</h2>
                 <p class="info-text">So grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!</p>
                 <div class="form-group">
                     <label for="player1Name">Name Your Fleet</label>
-                    <input type="text" name="fleet" id="player1Name" value="Royal Armada" required pattern=".{0,30}" title="Fleet name can contain letters, numbers, spaces, special characters, and emojis (max 30 characters)">
+                    <div class="input-with-refresh">
+                        <input type="text" name="fleet" id="player1Name" value="Royal Armada" required pattern=".{0,30}" title="Fleet name can contain letters, numbers, spaces, special characters, and emojis (max 30 characters)">
+                        <button type="button" class="refresh-btn" onclick="regenerateFleetName()" title="Generate new fleet name">
+                            🔄
+                        </button>
+                    </div>
                 </div>
-                
                 <div class="toggle-group">
-                    <span class="toggle-group-label">Word Ships</span>
+                    <span class="toggle-group-label">(Word) Ships</span>
                     <div class="toggle-container">
                         <span class="toggle-label" id="pickWordsLabel">Pick Your Own</span>
                         <label class="toggle-switch">
@@ -540,19 +519,18 @@
                         <span class="toggle-label" id="autoGenLabel">Auto-Generated</span>
                     </div>
                 </div>
-                
                 <button type="submit" class="action-btn" id="printBtn">Print Your Battle Tracker</button>
             </form>
-
+            
             <!-- Head to Head Battle -->
-            <div class="form-card head-to-head-card">
+            <div class="form-card">
                 <h2 class="form-title">Head to Head Battle</h2>
                 <p class="info-text">Battle in real-time naval word combat via LAN, Text or App.</p>
                 <p class="info-text">Coming soon.</p>
             </div>
-
+            
             <!-- Battle A Bot -->
-            <div class="form-card bot-battle-card">
+            <div class="form-card">
                 <h2 class="form-title">Battle A Bot</h2>
                 <p class="info-text">Test your skills against an AI opponent.</p>
                 <p class="info-text">Coming soon.</p>
@@ -560,75 +538,33 @@
         </div>
     </div>
 
-    <div class="game-overview">
-        <h2>WORD FLEET</h2>
-        <p class="tagline">Rules of Engagement</p>
-        
-        <p>From the Strategic Depths of Naval Warfare Comes the Ultimate Word Battle! Combining the tactical genius of the classic grid-based strategy that has captivated players for over a century with the addictive word-building challenge that has taken the world by storm.</p>
-
-        <h3>Deploy Your Fleet</h3>
-        <p>• Position your words like battleships across your grid. Words must read from left to right or from top to bottom.<br>
-        • Launch word-powered attacks against enemy fleets<br>
-        • Sink opposing vessels with devastating dictionary strikes<br>
-        • Master both strategy and spelling to claim victory</p>
-
-        <h3>Two Legendary Games Unite</h3>
-        <p>The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.</p>
-
-        <h3>Battle-Tested Gameplay</h3>
-        <p>Born from a tradition stretching back to WWI trenches where soldiers played pencil-and-paper ship battles, now evolved into the ultimate test of mental warfare.</p>
-
-        <p class="specs">Ages 10+ • 2-4 Players • 30-45 Minutes</p>
-        <p class="tagline">Set Sail for Lexical Domination!</p>
-    </div>
-
-    <img src="src/media/word_fleet_banner_1600x400.png" alt="Word Fleet" style="width: 100%; display: block; margin: 0; padding: 0; line-height: 0;">
-    <footer class="site-footer" style="margin: 0; padding: 32px 0;">
-        <div class="footer-content">
-            <p style="font-weight: normal; font-size: 16px; color: var(--white);">
-                WORD FLEET • by Kevin M. Kolb • thegamebureau.com
-            </p>
-        </div>
-    </footer>
-
     <script>
         // Array of first names for fleets
         const fleetFirstNames = [
-            'Salty',
-            'Barnacle-Crusted',
-            'Rum-Soaked',
-            'Royal',
-            'Crabby',
-            'Peg-Legged',
-            'Soggy-Bottom',
-            'Windswept',
-            'Mullet-Class',
-            'Scurvy Dog',
-            'Leaky Hull',
-            'Ironclad',
-            'Dreadnought',
-            'Ghost Flag',
-            'Thunderhead',
-            'Bloodwake',
-            'Scurvy'
+            'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged',
+            'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
+            'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
+            'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
+            'Battle-Ready', 'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
+            'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached', 'Iron-Fisted', 'Cannon-Heavy',
+            'Gun-Blazing', 'Torpedo-Laden', 'Skull & Crossbones', 'Merciless', 'Fearsome',
+            'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed', 'Eye-Patched',
+            'Beard-Braided', 'Compass-Spinning', 'Ghost Ship', 'Kraken\'s', 'Siren\'s',
+            'Poseidon\'s', 'Davy Jones\'', 'Cursed', 'Phantom', 'Half-Sunk', 'Listing',
+            'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
         ];
 
         // Array of naval terms for fleet names
         const navalTerms = [
-            'Armada',
-            'Fleet',
-            'Flotilla',
-            'Squadron',
-            'Convoy',
-            'Navy',
-            'Task Force',
-            'Armament',
-            'Battlegroup',
-            'Line',
-            'Expeditionary Force',
-            'Regatta',
-            'Squad',
-            'Cohort'
+            'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force',
+            'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
+            'Cohort', 'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit',
+            'Force', 'Command', 'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard',
+            'Reserve', 'Guard', 'Watch', 'Blockade', 'Tide', 'Current', 'Wake', 'Waves',
+            'Storm', 'Tempest', 'Gale', 'Maelstrom', 'Admiralty', 'Authority', 'Order',
+            'Legion', 'Brotherhood', 'Alliance', 'Coalition', 'Depth', 'Trench', 'Reef',
+            'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
+            'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition'
         ];
 
         // Function to get random fleet name
@@ -638,8 +574,14 @@
             return `${randomFirstName} ${randomNavalTerm}`;
         }
 
+        // Function to regenerate fleet name
+        function regenerateFleetName() {
+            const fleetInput = document.getElementById('player1Name');
+            fleetInput.value = getRandomFleetName();
+        }
+
         // Set random fleet name on page load
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', function() {
             const fleetInput = document.getElementById('player1Name');
             fleetInput.value = getRandomFleetName();
         });
@@ -650,7 +592,7 @@
             const form = event.target;
             
             // Get form values with defaults
-            const fleet1 = form.fleet.value.trim() || 'Fllet';
+            const fleet1 = form.fleet.value.trim() || 'Fleet';
             const words = form.words.checked ? 'yes' : 'no';
             
             // Create URL with parameters
@@ -660,43 +602,9 @@
             });
             
             // Redirect immediately
-            window.location.href = `${form.action}?${params.toString()}`;
+            window.location.href = form.action + '?' + params.toString();
             
             return false;
-        }
-
-        function startBattle() {
-            const btn = event.target;
-            const player1 = document.getElementById('battlePlayer1').value || 'Admiral';
-            const player2 = document.getElementById('battlePlayer2').value || 'Captain';
-            const mode = document.getElementById('gameMode').value;
-            
-            // Add loading animation
-            btn.classList.add('loading');
-            btn.textContent = 'Starting Battle';
-            
-            setTimeout(() => {
-                alert(`Starting ${mode} battle between ${player1} and ${player2}`);
-                btn.classList.remove('loading');
-                btn.textContent = 'Start Battle';
-            }, 1000);
-        }
-
-        function startBotBattle() {
-            const btn = event.target;
-            const playerName = document.getElementById('botPlayerName').value || 'Commander';
-            const difficulty = document.getElementById('botDifficulty').value;
-            const hints = document.getElementById('hintsEnabled').checked;
-            
-            // Add loading animation
-            btn.classList.add('loading');
-            btn.textContent = 'Preparing Bot';
-            
-            setTimeout(() => {
-                alert(`Starting bot battle: ${playerName} vs ${difficulty} bot${hints ? ' with hints' : ''}`);
-                btn.classList.remove('loading');
-                btn.textContent = 'Challenge Bot';
-            }, 1000);
         }
 
         // Auto-generate toggle for Print & Play
@@ -714,18 +622,24 @@
             }
         }
         
-        autoGenToggle.addEventListener('change', updateToggleLabels);
-        // Initialize on page load
-        updateToggleLabels();
+        if (autoGenToggle) {
+            autoGenToggle.addEventListener('change', updateToggleLabels);
+            // Initialize on page load
+            updateToggleLabels();
+        }
 
         // Add hover effects to inputs
         const inputs = document.querySelectorAll('input[type="text"], select');
-        inputs.forEach(input => {
+        inputs.forEach(function(input) {
             input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'scale(1.02)';
+                if (this.parentElement) {
+                    this.parentElement.style.transform = 'scale(1.02)';
+                }
             });
             input.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'scale(1)';
+                if (this.parentElement) {
+                    this.parentElement.style.transform = 'scale(1)';
+                }
             });
         });
     </script>
