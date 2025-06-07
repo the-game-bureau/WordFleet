@@ -446,11 +446,13 @@
             body {
                 min-height: 100vh;
                 height: auto;
-                background: var(--battleship-gray) !important;
-                background-image: none !important;
-                overflow-y: auto;
+                background: var(--battleship-gray) url('src/media/word_fleet_banner_1600x400.png') bottom center/contain no-repeat !important;
+                background-attachment: scroll;
+                background-repeat: no-repeat;
+                background-position: bottom center;
                 padding: 0;
                 margin: 0;
+                overflow-y: auto;
             }
             .main-container {
                 padding-bottom: 0;
@@ -461,17 +463,7 @@
                 padding-bottom: 0;
             }
             .mobile-image-footer {
-                width: 100vw;
-                max-width: 100vw;
-                display: block;
-                /* Try a taller aspect ratio or set a fixed height */
-                aspect-ratio: 2 / 1;
-                height: auto;
-                background: url('src/media/word_fleet_banner_1600x400.png') center bottom/contain no-repeat;
-                margin-top: 24px;
-                border-radius: 0 0 16px 16px;
-                box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
-                flex-shrink: 0;
+                display: none;
             }
             html, body {
                 height: auto;
