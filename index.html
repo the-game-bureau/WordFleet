@@ -204,6 +204,7 @@
 
         .refresh-btn:hover {
             background: rgba(0, 0, 0, 0.1);
+            box-shadow: none; /* Remove shadow on hover */
         }
 
         .refresh-btn:active {
@@ -463,10 +464,11 @@
                 width: 100vw;
                 max-width: 100vw;
                 display: block;
-                aspect-ratio: 4 / 1; /* 1600x400 = 4:1 */
+                /* Try a taller aspect ratio or set a fixed height */
+                aspect-ratio: 2 / 1;
                 height: auto;
                 background: url('src/media/word_fleet_banner_1600x400.png') center bottom/contain no-repeat;
-                margin-top: 24px; /* Match the gap between cards */
+                margin-top: 24px;
                 border-radius: 0 0 16px 16px;
                 box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
                 flex-shrink: 0;
