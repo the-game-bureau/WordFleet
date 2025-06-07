@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Fleet - Pen & Paper Edition</title>
+    <style>
+        @font-face {
+            font-family: 'Clear Sans';
+            src: url('https://raw.githubusercontent.com/jasonlong/clearsans-webfont/master/ClearSans-Bold.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid #cccccc;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .header h1 {
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 900;
+            letter-spacing: clamp(4px, 2vw, 8px);
+            margin: 0;
+            color: #000000;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: clamp(0.8rem, 3vw, 0.95rem);
+            font-weight: 500;
+            color: #666666;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 0 10px;
+        }
+
+        .nav-link, .print-button {
+            color: #333333;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: #f5f5f5;
+            border: 1px solid #cccccc;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-link:hover, .print-button:hover {
+            background: #e5e5e5;
+            border-color: #999999;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .launch-code {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e5e5e5;
+            border: 1px solid #999999;
+            padding: 8px 18px; /* Increased horizontal padding */
+            min-width: 155px;   /* Ensures enough width for "LAUNCH CODE: 999" */
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            color: #22c55e;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        .launch-code:hover {
+            background: #e0f2fe;
+            transform: scale(1.05);
+        }
+
+        .launch-banner {
+            width: 100%;
+            background: #22c55e;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 8px 0 7px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-bottom: 2px solid #16a34a;
+            cursor: pointer;
+            user-select: none;
+            z-index: 100;
+        }
+        .launch-banner .icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+            vertical-align: middle;
+        }
+        .launch-banner #launchCode {
+            font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', 'Liberation Mono', monospace;
+            background: rgba(0,0,0,0.10);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 600px) {
+            .launch-banner {
+                font-size: 1rem;
+                padding: 10px 0 9px 0;
+            }
+        }
+
+        .offense {
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            width: 100%;
+        }
+
+        .defense {
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 25px;
+            width: 100%;
+            flex: 1;
+            border-bottom: none;
+        }
+
+        .section {
+            background: #ffffff;
+            border: 2px solid #cccccc;
+            border-radius: 8px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: #999999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            background: #f8f9fa;
+            color: #333333;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 15px 20px;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #cccccc;
+            margin: 0;
+        }
+
+        .widget {
+            background: #ffffff;
+            padding: 20px;
+            text-align: center;
+            color: #333333;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Attack Grid Styles */
+        .attack-grid-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1;
+        }
+
+        .grid-container {
+            margin: 40px auto;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .grid-11x11 {
+            display: grid;
+            grid-template-columns: repeat(11, min(50px, 8vw));
+            grid-template-rows: repeat(11, min(50px, 8vw));
+            gap: 6px;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .grid-tile {
+            width: min(50px, 8vw);
+            height: min(50px, 8vw);
+            border: 1px solid #d3d6da;
+            background: white;
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: min(20px, 3.2vw);
+            font-weight: 700;
+            color: #1a1a1b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+
+        /* Special styling for labels */
+        .grid-tile:nth-child(-n+11), 
+        .grid-tile:nth-child(11n+1) {
+            background-color: #f0f0f0;
+        }
+
+        .grid-tile:first-child {
+            background-color: transparent;
+            border: none;
+        }
+
+        /* Letter tracking styles */
+        .enemy-ship-list, .my-ship-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .enemy-ship-row, .my-ship-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 8px;
+            border: 1px solid #d3d6da;
+            border-radius: 4px;
+            background: #fafafa;
+            width: 320px;
+            flex-shrink: 0;
+        }
+
+        .letter-boxes {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 320px;
+        }
+
+        .letter-box {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #d3d6da;
+            background: white;
+            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+        
+        .letter-box.vowel {
+            background-color: white;
+        }
+
+        .word-label-row {
+            min-width: 280px;
+            flex-wrap: nowrap;
+        }
+
+        .enemy-ship-label, .my-ship-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            border-top: 1px solid #cccccc;
+            padding: 25px 20px;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .credits {
+            font-size: clamp(0.8rem, 3vw, 0.95rem);
+            font-weight: 500;
+            color: #666666;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Popup styles */
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .popup.show {
+            display: flex;
+        }
+
+        .popup-content {
+            background: #ffffff;
+            border: 2px solid #cccccc;
+            border-radius: 8px;
+            padding: 0;
+            max-width: 400px;
+            width: 90%;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .popup-title {
+            background: #f8f9fa;
+            color: #333333;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 15px 20px;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #cccccc;
+            margin: 0;
+        }
+
+        .popup-body {
+            background: #ffffff;
+            color: #333333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .popup-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #666666;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 10;
+        }
+
+        .close-popup:hover {
+            color: #333333;
+        }
+
+        /* Form elements for Fleet 2 popup */
+        .form-group {
+            width: 100%;
+            text-align: center;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #333333;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: #ffffff;
+            color: #333333;
+        }
+
+        .toggle-label {
+            font-size: 0.85rem;
+            color: #666666;
+            font-weight: 500;
+            width: auto;
+            text-align: center;
+            white-space: nowrap;
+            padding: 0 5px;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+
+        .toggle-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            white-space: nowrap;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 36px;
+            height: 20px;
+            display: inline-block;
+        }
+
+        .toggle-input { 
+            opacity: 0; 
+            width: 0; 
+            height: 0; 
+            position: absolute;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffffff;
+            transition: 0.2s;
+            border-radius: 20px;
+            border: 1px solid #cccccc;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 1px;
+            bottom: 1px;
+            background-color: #333333;
+            transition: 0.2s;
+            border-radius: 50%;
+        }
+
+        .toggle-input:checked + .toggle-slider { 
+            background-color: #333333;
+            border-color: #333333;
+        }
+
+        .toggle-input:checked + .toggle-slider:before { 
+            transform: translateX(16px);
+            background-color: #ffffff;
+        }
+
+        .toggle-label.active {
+            color: #333333;
+            font-weight: 600;
+        }
+
+        .action-btn {
+            background: #333333;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            width: 100%;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: #555555;
+            transform: translateY(-1px);
+        }
+
+        .load-error {
+            color: #cc0000;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        /* Print styles */
+        @media print {
+            .popup { display: none !important; }
+            .launch-code { display: none !important; }
+            .nav-menu { display: none !important; }
+            
+            .offense, .defense {
+                padding: 10px !important;
+                gap: 10px !important;
+                grid-template-columns: 2fr 1fr 1fr !important;
+            }
+
+            .section {
+                border: 1px solid #cccccc !important;
+                margin: 0 !important;
+            }
+
+            .section h2 {
+                padding: 5px 10px !important;
+                font-size: 0.8rem !important;
+                margin: 0 !important;
+            }
+
+            .widget {
+                padding: 5px !important;
+                min-height: auto !important;
+            }
+
+            .grid-11x11 {
+                grid-template-columns: repeat(11, 25px) !important;
+                grid-template-rows: repeat(11, 25px) !important;
+                gap: 2px !important;
+            }
+
+            .grid-tile {
+                width: 25px !important;
+                height: 25px !important;
+                font-size: 12px !important;
+            }
+
+            .letter-box {
+                width: 25px !important;
+                height: 25px !important;
+                font-size: 12px !important;
+            }
+
+            .enemy-ship-row, .my-ship-row {
+                padding: 4px !important;
+                margin: 2px 0 !important;
+            }
+
+            .letter-boxes {
+                gap: 2px !important;
+            }
+
+            .enemy-ship-label, .my-ship-label {
+                font-size: 10px !important;
+                margin-top: 2px !important;
+            }
+
+            .section.letters .widget {
+                min-height: auto !important;
+            }
+
+            .section.letters .enemy-ship-list {
+                gap: 2px !important;
+            }
+
+            .footer {
+                padding: 10px !important;
+                margin-top: 10px !important;
+            }
+
+            .credits {
+                font-size: 0.8rem !important;
+            }
+
+            @page {
+                size: A4;
+                margin: 0.5cm;
+            }
+
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .container {
+                border: none !important;
+                max-width: none !important;
+            }
+        }
+
+        .section.letters .widget {
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .section.letters .enemy-ship-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 10px;
+            }
+            .launch-code {
+                position: static;
+                margin: 0 0 10px 0;
+                width: fit-content;
+                align-self: flex-start;
+                order: -1; /* Move to the top of the header */
+            }
+            .nav-menu {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                padding: 0 20px;
+            }
+            .nav-link, .print-button, .launch-btn {
+                width: 100%;
+                text-align: center;
+                padding: 15px;
+                font-size: 0.9rem;
+                white-space: normal;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+            }
+            .header h1 {
+                margin-top: 10px;
+            }
+            .offense, .defense {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 20px 10px;
+            }
+
+            .section {
+                width: 100%;
+            }
+
+            .widget {
+                padding: 15px;
+            }
+
+            .grid-11x11 {
+                grid-template-columns: repeat(11, 35px);
+                grid-template-rows: repeat(11, 35px);
+                gap: 4px;
+            }
+
+            .grid-tile {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+
+            .letter-boxes {
+                max-width: 100%;
+                justify-content: center;
+            }
+
+            .letter-box {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+
+            .enemy-ship-row, .my-ship-row {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 8px;
+            }
+
+            .nav-menu {
+                padding: 0 10px;
+            }
+
+            .nav-link, .print-button {
+                padding: 12px;
+                font-size: 0.85rem;
+            }
+
+            .grid-11x11 {
+                grid-template-columns: repeat(11, 30px);
+                grid-template-rows: repeat(11, 30px);
+                gap: 3px;
+            }
+
+            .grid-tile {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+
+            .letter-box {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+        }
+
+        .launch-btn {
+            color: #333333;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: #f5f5f5;
+            border: 1px solid #cccccc;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .launch-btn:hover {
+            background: #e5e5e5;
+            border-color: #999999;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            color: #22c55e;
+        }
+        .launch-btn #launchCode {
+            font-family: inherit;
+            font-weight: inherit;
+            margin-left: 0;
+            font-size: inherit;
+            letter-spacing: inherit;
+        }
+
+        #printCodeBtn #launchCode,
+        #printBtn #launchCode,
+        #launchCodeBtn #launchCode {
+            margin-left: 0.5em;
+        }
+        .input-with-refresh {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-with-refresh input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.refresh-btn {
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.refresh-btn:hover {
+    background: white;
+}
+
+.refresh-btn:active {
+    background: white;
+    transform: rotate(-180deg);
+}
+
+/* Add this CSS style */
+.grid-tile.bottom-row {
+    border: none;
+    background: transparent;
+}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>WORD FLEET</h1>
+        <p class="tagline" id="tagline">Pen & Paper Edition - Battle Tracker</p>
+        <nav class="nav-menu">
+            <a href="../../index.html" class="nav-link">RETREAT</a>
+            <button class="nav-link" id="fleet2Btn">GENERATE NEW TRACKER</button>
+            <button class="print-button" id="printBtn">PRINT</button>
+        </nav>
+    </header>
+
+    <!-- Fleet 2 Popup -->
+    <div class="popup" id="fleet2Popup">
+        <div class="popup-content">
+            <button class="close-popup" id="closeFleet2Popup">&times;</button>
+            <div class="popup-title">GENERATE NEW TRACKER</div>
+            <div class="popup-body">
+                <div class="form-group">
+                    <label for="fleet2Name">Name Your Fleet</label>
+                    <div class="input-with-refresh">
+                        <input type="text" id="fleet2Name" value="Royal Armada">
+                        <button type="button" class="refresh-btn" onclick="regenerateFleet2Name()" title="Generate new fleet name">
+                            🔄
+                        </button>
+                    </div>
+                </div>
+                <div class="toggle-group">
+                    <span class="toggle-label">Word Ships</span>
+                    <div class="toggle-container">
+                        <span class="toggle-label" id="fleet2PickWordsLabel">Pick Your Own</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="fleet2AutoGen" class="toggle-input" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label" id="fleet2AutoGenLabel">Auto-Generated</span>
+                    </div>
+                </div>
+                <button type="button" class="action-btn" id="fleet2PrintBtn">GENERATE</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-container" style="margin: 40px auto; width: 100%; max-width: 800px;">
+        <div class="grid-11x11">
+            <!-- Row 1: Top labels -->
+            <div class="grid-tile"></div>
+            <div class="grid-tile">A</div><div class="grid-tile">B</div><div class="grid-tile">C</div>
+            <div class="grid-tile">D</div><div class="grid-tile">E</div><div class="grid-tile">F</div>
+            <div class="grid-tile">G</div><div class="grid-tile">H</div><div class="grid-tile">I</div>
+            <div class="grid-tile">J</div>
+            
+            <!-- Rows 2-11: Numbers and cells -->
+            <div class="grid-tile">1</div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div>
+
+            <div class="grid-tile">2</div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div>
+
+            <div class="grid-tile">3</div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div>
+
+            <div class="grid-tile">4</div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div>
+
+            <div class="grid-tile">5</div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div>
+
+            <div class="grid-tile">6</div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div>
+
+            <div class="grid-tile">7</div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div>
+
+            <div class="grid-tile">8</div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div>
+
+            <div class="grid-tile">9</div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div>
+
+            <div class="grid-tile">10</div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div><div class="grid-tile"></div>
+            <div class="grid-tile"></div><div class="grid-tile"></div>
+
+            <!-- Add this new row at the bottom after row 10 -->
+    <div class="grid-tile bottom-row"></div>
+    <div class="grid-tile bottom-row"></div>
+    <div class="grid-tile bottom-row"></div>
+    <div class="grid-tile bottom-row">5</div>
+    <div class="grid-tile bottom-row">4</div>
+    <div class="grid-tile bottom-row">3</div>
+    <div class="grid-tile bottom-row">3</div>
+    <div class="grid-tile bottom-row">2</div>
+    <div class="grid-tile bottom-row"></div>
+    <div class="grid-tile bottom-row"></div>
+    <div class="grid-tile bottom-row"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p class="credits">
+            WORD FLEET - Pen & Paper Edition • by Kevin M.Kolb • thegamebureau.com • LAUNCH CODE: <span id="launchCode"></span>
+        </p>
+    </footer>
+<script>
+const firstNames = [
+    'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged',
+    'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
+    'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
+    // Classic Naval
+    'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
+    'Battle-Ready',
+    // Weathered & Seasoned
+    'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
+    'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached',
+    // Intimidating
+    'Iron-Fisted', 'Cannon-Heavy', 'Gun-Blazing', 'Torpedo-Laden',
+    'Skull & Crossbones', 'Merciless', 'Fearsome',
+    // Quirky/Fun
+    'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed',
+    'Eye-Patched', 'Beard-Braided', 'Compass-Spinning',
+    // Mystical/Legendary
+    'Ghost Ship', 'Kraken\'s', 'Siren\'s', 'Poseidon\'s', 'Davy Jones\'',
+    'Cursed', 'Phantom',
+    // Condition-Based
+    'Half-Sunk', 'Listing', 'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
+];
+
+const shipTypes = [
+    'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force',
+    'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
+    'Cohort',
+    // Naval Formations
+    'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit', 'Force', 'Command',
+    // Naval Operations
+    'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard', 'Reserve', 'Guard',
+    'Watch', 'Blockade',
+    // Maritime Features
+    'Tide', 'Current', 'Wake', 'Waves', 'Storm', 'Tempest', 'Gale', 'Maelstrom',
+    // Naval Ranks/Titles
+    'Admiralty', 'Authority', 'Order', 'Legion', 'Brotherhood', 'Alliance', 'Coalition',
+    // Oceanic/Geographic
+    'Depth', 'Trench', 'Reef', 'Harbor', 'Bay', 'Strait', 'Channel', 'Passage',
+    // Action-Oriented
+    'Assault', 'Siege', 'Bombardment', 'Offensive', 'Campaign', 'Operation',
+    'Mission', 'Expedition'
+];
+    let wordsData = {
+        2: [],
+        3: [],
+        4: [],
+        5: []
+    };
+
+    function generateRandomFleetName() {
+        const randomFirst = firstNames[Math.floor(Math.random() * firstNames.length)];
+        const randomType = shipTypes[Math.floor(Math.random() * shipTypes.length)];
+        return randomFirst + ' ' + randomType;
+    }
+            function regenerateFleet2Name() {
+    const fleet2Input = document.getElementById('fleet2Name');
+    fleet2Input.value = generateRandomFleetName();
+    }
+
+    function isVowel(letter) {
+        return 'AEIOU'.includes(letter.toUpperCase());
+    }
+
+    function createLetterBox(letter, isVowelBox = false) {
+        const box = document.createElement('div');
+        box.className = 'letter-box' + (isVowelBox ? ' vowel' : '');
+        box.textContent = letter;
+        return box;
+    }
+
+    function createShipRow(word, label) {
+        const row = document.createElement('div');
+        row.className = 'my-ship-row';
+        row.style.flexDirection = 'column';
+        row.style.alignItems = 'center';
+
+        const letterBoxes = document.createElement('div');
+        letterBoxes.className = 'letter-boxes word-label-row';
+
+        for (let i = 0; i < word.length; i++) {
+            const letter = word[i];
+            const box = createLetterBox(letter, isVowel(letter));
+            letterBoxes.appendChild(box);
+        }
+
+        const shipLabel = document.createElement('div');
+        shipLabel.className = 'my-ship-label';
+        shipLabel.textContent = label;
+
+        row.appendChild(letterBoxes);
+        row.appendChild(shipLabel);
+        return row;
+    }
+
+    function getRandomWord(length) {
+        const words = wordsData[length];
+        if (words && words.length > 0) {
+            return words[Math.floor(Math.random() * words.length)];
+        }
+        return null;
+    }
+
+    function buildMyLetterListSummary(wordsUsed) {
+        const allLetters = wordsUsed.flatMap(word => word.toUpperCase().split(''));
+        const counts = {};
+
+        allLetters.forEach(letter => {
+            counts[letter] = (counts[letter] || 0) + 1;
+        });
+
+        return Object.entries(counts)
+            .sort((a, b) => a[0].localeCompare(b[0]))
+            .map(([letter, count]) => `${letter}${count}`)
+            .join(', ');
+    }
+
+    function populateMyShips() {
+        const myShipsList = document.getElementById('myShipsList');
+        myShipsList.innerHTML = '';
+
+        const ships = [
+            { length: 5, label: '5-Letter Word' },
+            { length: 4, label: '4-Letter Word' },
+            { length: 3, label: '3-Letter Word Alpha' },
+            { length: 3, label: '3-Letter Word Bravo' },
+            { length: 2, label: '2-Letter Word' }
+        ];
+
+        const usedWords = [];
+
+        ships.forEach(ship => {
+            const word = getRandomWord(ship.length);
+            if (word) {
+                usedWords.push(word);
+                const shipRow = createShipRow(word, ship.label);
+                myShipsList.appendChild(shipRow);
+            } else {
+                // fallback to empty if word missing
+                const row = document.createElement('div');
+                row.className = 'my-ship-row';
+                row.style.flexDirection = 'column';
+                row.style.alignItems = 'center';
+
+                const letterBoxes = document.createElement('div');
+                letterBoxes.className = 'letter-boxes word-label-row';
+
+                for (let i = 0; i < ship.length; i++) {
+                    const box = document.createElement('div');
+                    box.className = 'letter-box';
+                    letterBoxes.appendChild(box);
+                }
+
+                const shipLabel = document.createElement('div');
+                shipLabel.className = 'my-ship-label';
+                shipLabel.textContent = ship.label;
+
+                row.appendChild(letterBoxes);
+                row.appendChild(shipLabel);
+                myShipsList.appendChild(row);
+            }
+        });
+
+        // Handle My Letter Manifest
+        const myLetterManifest = document.querySelector('.defense .letters .enemy-ship-list');
+        myLetterManifest.innerHTML = ''; // Clear existing content
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const wordsParam = urlParams.get('words');
+
+        if (!wordsParam || wordsParam === 'no') {
+            // Create row for blank boxes
+            const blanksRow = document.createElement('div');
+            blanksRow.className = 'enemy-ship-row';
+
+            // Create container for the boxes
+            const blankBoxContainer = document.createElement('div');
+            blankBoxContainer.className = 'letter-boxes';
+
+            // Create exactly 17 blank boxes
+            for (let i = 0; i < 17; i++) {
+                const blankBox = document.createElement('div');
+                blankBox.className = 'letter-box';
+                blankBoxContainer.appendChild(blankBox);
+            }
+
+            blanksRow.appendChild(blankBoxContainer);
+            myLetterManifest.appendChild(blanksRow);
+        } else {
+            // Add letter summary
+            const summaryRowWrapper = document.createElement('div');
+            summaryRowWrapper.className = 'enemy-ship-row summary';
+
+            const summaryBoxContainer = document.createElement('div');
+            summaryBoxContainer.className = 'letter-boxes';
+
+            const summaryCounts = buildMyLetterListSummary(usedWords)
+                .split(', ')
+                .map(pair => {
+                    const box = document.createElement('div');
+                    box.className = 'letter-box';
+                    box.textContent = pair;
+                    return box;
+                });
+
+            summaryCounts.forEach(box => summaryBoxContainer.appendChild(box));
+            summaryRowWrapper.appendChild(summaryBoxContainer);
+            myLetterManifest.appendChild(summaryRowWrapper);
+        }
+    }
+
+    async function loadWordsFromXML() {
+        try {
+            const response = await fetch('../dictionary/words.xml');
+            if (!response.ok) return;
+
+            const xmlText = await response.text();
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+            const parserError = xmlDoc.querySelector('parsererror');
+            if (parserError) return;
+
+            const wordLengthElements = xmlDoc.querySelectorAll('WordLength');
+            wordLengthElements.forEach(lengthElement => {
+                const length = parseInt(lengthElement.getAttribute('length'));
+                if (length >= 2 && length <= 5) {
+                    const words = lengthElement.querySelectorAll('Word');
+                    wordsData[length] = Array.from(words).map(word => word.textContent.trim());
+                }
+            });
+
+            populateMyShips();
+        } catch (error) {
+            console.error('XML load error:', error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Format launch code with leading zeros
+        function formatLaunchCode(num) {
+            return num.toString().padStart(3, '0');
+        }
+        function setRandomLaunchCode() {
+            const code1 = formatLaunchCode(Math.floor(Math.random() * 999) + 1);
+            const code2 = formatLaunchCode(Math.floor(Math.random() * 999) + 1);
+            const code3 = formatLaunchCode(Math.floor(Math.random() * 999) + 1);
+            document.getElementById('launchCode').textContent = code1 + '•' + code2 + '•' + code3;
+        }
+        setRandomLaunchCode();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let fleetName = urlParams.get('Fleet') || urlParams.get('fleet') || 'Fleet';
+        fleetName = fleetName.toUpperCase();
+        const taglineElement = document.getElementById('tagline');
+        taglineElement.textContent = fleetName === 'FLEET'
+            ? 'Pen & Paper Edition - Battle Tracker'
+            : 'Pen & Paper Edition - ' + fleetName + ' Battle Tracker';
+
+        const wordsParam = urlParams.get('words');
+        if (wordsParam === 'yes') {
+            loadWordsFromXML();
+        } else {
+            populateMyShips(); // This will handle both ships and letter manifest
+        }
+
+        document.getElementById('printBtn').addEventListener('click', function () {
+            window.print();
+        });
+
+        const fleet2Button = document.getElementById('fleet2Btn');
+        const fleet2Modal = document.getElementById('fleet2Popup');
+        const closeFleet2Button = document.getElementById('closeFleet2Popup');
+        const fleet2PrintButton = document.getElementById('fleet2PrintBtn');
+        const fleet2Toggle = document.getElementById('fleet2AutoGen');
+        const fleet2PickLabel = document.getElementById('fleet2PickWordsLabel');
+        const fleet2AutoLabel = document.getElementById('fleet2AutoGenLabel');
+        const fleet2Input = document.getElementById('fleet2Name');
+
+        fleet2Button.addEventListener('click', function () {
+            fleet2Input.value = generateRandomFleetName();
+            fleet2Modal.classList.add('show');
+        });
+
+        closeFleet2Button.addEventListener('click', () => fleet2Modal.classList.remove('show'));
+        fleet2Modal.addEventListener('click', e => {
+            if (e.target === fleet2Modal) fleet2Modal.classList.remove('show');
+        });
+
+    document.addEventListener('DOMContentLoaded', function () {els);
+        // Format launch code with leading zeros
+        function formatLaunchCode(num) {ggle('active', !fleet2Toggle.checked);
+            return num.toString().padStart(3, '0');e', fleet2Toggle.checked);
+        }
+        function setRandomLaunchCode() {
+            const code1 = formatLaunchCode(Math.floor(Math.random() * 999) + 1);
+            const code2 = formatLaunchCode(Math.floor(Math.random() * 999) + 1);
+            const code3 = formatLaunchCode(Math.floor(Math.random() * 999) + 1);
+            document.getElementById('launchCode').textContent = code1 + '•' + code2 + '•' + code3;
+        }   const urlParameters = new URLSearchParams({
+        setRandomLaunchCode();tName,
+                words: wordsOption
+        const urlParams = new URLSearchParams(window.location.search);
+        let fleetName = urlParams.get('Fleet') || urlParams.get('fleet') || 'Fleet';
+        fleetName = fleetName.toUpperCase();ow');
+        const taglineElement = document.getElementById('tagline');oString();
+        taglineElement.textContent = fleetName === 'FLEET'
+            ? 'Pen & Paper Edition - Battle Tracker'
+            : 'Pen & Paper Edition - ' + fleetName + ' Battle Tracker';
+            if (e.key === 'Escape') {
+        const wordsParam = urlParams.get('words');('show')) fleet2Modal.classList.remove('show');
+        if (wordsParam === 'yes') {
+            loadWordsFromXML();
+        } else {
+            populateMyShips(); // This will handle both ships and letter manifest
+        }
+
+        document.getElementById('printBtn').addEventListener('click', function () {
+            window.print();        });        const fleet2Button = document.getElementById('fleet2Btn');        const fleet2Modal = document.getElementById('fleet2Popup');        const closeFleet2Button = document.getElementById('closeFleet2Popup');        const fleet2PrintButton = document.getElementById('fleet2PrintBtn');        const fleet2Toggle = document.getElementById('fleet2AutoGen');        const fleet2PickLabel = document.getElementById('fleet2PickWordsLabel');        const fleet2AutoLabel = document.getElementById('fleet2AutoGenLabel');        const fleet2Input = document.getElementById('fleet2Name');        fleet2Button.addEventListener('click', function () {            fleet2Input.value = generateRandomFleetName();            fleet2Modal.classList.add('show');        });        closeFleet2Button.addEventListener('click', () => fleet2Modal.classList.remove('show'));        fleet2Modal.addEventListener('click', e => {            if (e.target === fleet2Modal) fleet2Modal.classList.remove('show');        });        fleet2Toggle.addEventListener('change', updateToggleLabels);        function updateToggleLabels() {            fleet2PickLabel.classList.toggle('active', !fleet2Toggle.checked);            fleet2AutoLabel.classList.toggle('active', fleet2Toggle.checked);        }        updateToggleLabels();        fleet2PrintButton.addEventListener('click', function () {            const newFleetName = fleet2Input.value.trim() || 'Fleet';            const wordsOption = fleet2Toggle.checked ? 'yes' : 'no';            const urlParameters = new URLSearchParams({                Fleet: newFleetName,                words: wordsOption            });            fleet2Modal.classList.remove('show');            window.location.href = 'print.html?' + urlParameters.toString();        });        document.addEventListener('keydown', function (e) {            if (e.key === 'Escape') {                if (fleet2Modal.classList.contains('show')) fleet2Modal.classList.remove('show');            }        });    });</script></body></html>
