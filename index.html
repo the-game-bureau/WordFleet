@@ -446,29 +446,35 @@
             body {
                 min-height: 100vh;
                 height: auto;
-                background: var(--battleship-gray) url('src/media/word_fleet_banner_1600x400.png') bottom center/contain no-repeat !important;
-                background-attachment: scroll;
-                background-repeat: no-repeat;
-                background-position: bottom center;
+                background: var(--battleship-gray) !important;
+                background-image: none !important;
+                overflow-y: auto;
                 padding: 0;
                 margin: 0;
-                overflow-y: auto;
             }
             .main-container {
                 padding-bottom: 0;
                 margin-bottom: 0;
             }
             .forms-container {
-                gap: 24px; /* Ensure consistent gap between cards */
+                gap: 24px;
                 padding-bottom: 0;
             }
             .mobile-image-footer {
-                display: none;
+                display: block;
+                width: 100vw;
+                max-width: 100vw;
+                margin: 24px auto 0 auto; /* space above image */
+                text-align: center;
             }
-            html, body {
+            .mobile-image-footer img {
+                width: 100vw;
+                max-width: 100vw;
                 height: auto;
-                min-height: 100vh;
-                overflow: auto;
+                display: block;
+                margin: 0 auto;
+                border-radius: 0 0 16px 16px;
+                box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
             }
         }
     </style>
@@ -645,6 +651,8 @@
         });
     </script>
     <!-- Show the background image at the bottom of the page on mobile -->
-<div class="mobile-image-footer"></div>
+<div class="mobile-image-footer">
+    <img src="src/media/word_fleet_banner_1600x400.png" alt="Word Fleet Banner">
+</div>
 </body>
 </html>
