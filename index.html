@@ -469,6 +469,15 @@
                 gap: 16px;
                 padding: 0 12px;
             }
+
+            .mobile-image-footer {
+                width: 100vw;
+                height: 160px;
+                background: url('src/media/word_fleet_banner_1600x400.png') center bottom/cover no-repeat;
+                margin-top: 32px;
+                border-radius: 0 0 16px 16px;
+                box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
+            }
         }
     </style>
 </head>
@@ -643,5 +652,7 @@
             });
         });
     </script>
+    <!-- Show the background image at the bottom of the page on mobile -->
+<div class="mobile-image-footer"></div>
 </body>
 </html>
