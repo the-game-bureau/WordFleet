@@ -477,6 +477,26 @@
                 box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
             }
         }
+
+        @media screen and (orientation: landscape) and (max-width: 900px) {
+    body > *:not(.force-portrait-message) {
+        display: none !important;
+    }
+    .force-portrait-message {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: #fff;
+        background: var(--battleship-gray, #333);
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 32px;
+    }
+}
+.force-portrait-message {
+    display: none;
+}
     </style>
 </head>
 <body>
@@ -653,6 +673,9 @@
     <!-- Show the background image at the bottom of the page on mobile -->
 <div class="mobile-image-footer">
     <img src="src/media/word_fleet_banner_1600x400.png" alt="Word Fleet Banner">
+</div>
+<div class="force-portrait-message">
+    Please rotate your device to portrait mode for the best Word Fleet experience.
 </div>
 </body>
 </html>
