@@ -31,7 +31,7 @@
         }
         
         body {
-            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: 
                 linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(34, 48, 60, 0.4) 100%),
                 url('src/media/word_fleet_banner_1600x400.png');
@@ -48,7 +48,7 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 20px 0;
+            padding: 20px 0 15px 0;
             text-align: center;
             width: 100%;
         }
@@ -76,7 +76,7 @@
             justify-content: center;
             font-size: clamp(18px, 4vw, 28px);
             font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-weight: bold;
+            font-weight: 700;
             border-radius: 0px;
             background: #6aaa64;
             color: #ffffff;
@@ -87,13 +87,46 @@
 
         .header-tagline {
             color: rgba(255, 255, 255, 0.9);
-            font-size: 16px;
+            font-size: clamp(0.8rem, 3vw, 0.95rem);
             margin-top: 8px;
-            font-weight: normal;
-            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+            font-family: inherit;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .header-rules-btn {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .header-rules-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: #6aaa64;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-shadow: none;
         }
 
         .main-container {
@@ -138,14 +171,14 @@
         }
 
         .form-title {
-            font-size: 20px;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
             font-weight: 700;
             color: #ffffff;
             text-align: center;
             margin: 0;
             padding-bottom: 12px;
             border-bottom: 2px solid rgba(255, 255, 255, 0.4);
-            letter-spacing: -0.5px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
@@ -160,8 +193,8 @@
             margin-bottom: 6px;
             font-weight: 600;
             color: #ffffff;
-            font-size: 16px;
-            letter-spacing: 0.2px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            letter-spacing: 0.5px;
             text-align: center;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
@@ -171,10 +204,13 @@
             padding: 12px;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.2s ease;
+            font-size: clamp(0.9rem, 3vw, 1rem);
             background: #ffffff;
             color: #000000;
+            outline: none;
+            font-family: inherit;
+            /* Remove box-shadow and border-color transitions */
+            transition: none;
         }
 
         .input-with-refresh {
@@ -195,27 +231,24 @@
             cursor: pointer;
             padding: 4px;
             border-radius: 4px;
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            transition: background-color 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 16px;
         }
 
-        .refresh-btn:hover {
-            background: rgba(0, 0, 0, 0.1);
-            box-shadow: none; /* Remove shadow on hover */
+        .refresh-btn:hover,
+        .refresh-btn:focus,
+        .refresh-btn:active {
+            background: #fff !important;
+            border: none !important;
+            box-shadow: none !important;
         }
 
         .refresh-btn:active {
             transform: rotate(-180deg);
         }
-
-        .refresh-btn:hover,
-.refresh-btn:focus,
-.refresh-btn:active {
-    border: 1.5px solid #fff !important;
-}
 
         .form-group input:hover, .form-group select:hover {
             border-color: #000000;
@@ -243,10 +276,10 @@
         }
 
         .toggle-group-label {
-            font-size: 16px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
             color: #ffffff;
             font-weight: 600;
-            letter-spacing: 0.2px;
+            letter-spacing: 0.5px;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
@@ -301,7 +334,7 @@
         }
 
         .toggle-label {
-            font-size: 16px;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
             color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
             transition: color 0.2s ease;
@@ -334,56 +367,52 @@
             margin-top: 4px;
         }
 
-        .action-btn {
-            background: #000000;
-            color: #ffffff;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 20px;
+        /* Updated button styles to match print.html */
+        .action-btn,
+        .print-btn,
+        .rules-btn {
+            color: #333333;
+            text-decoration: none;
+            padding: 10px 18px;
+            background: #f5f5f5;
+            border: 1px solid #cccccc;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 600;
-            margin: 0;
-            transition: background-color 0.2s ease, transform 0.1s ease;
-            width: 100%;
-            letter-spacing: 0.2px;
-        }
-
-        .action-btn:hover {
-            background: #333333;
-            transform: translateY(-1px);
-        }
-
-        .action-btn:active {
-            transform: translateY(0);
-        }
-
-        .action-btn.loading {
-            pointer-events: none;
-            opacity: 0.8;
-        }
-
-        .action-btn.loading::after {
-            content: '...';
-            animation: loading 1.5s infinite;
-        }
-
-        @keyframes loading {
-            0% { content: ''; }
-            33% { content: '.'; }
-            66% { content: '..'; }
-            100% { content: '...'; }
-        }
-
-        .info-text {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            margin: -4px 0 12px;
-            line-height: 1.4;
-            padding-bottom: 16px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.4);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            text-transform: uppercase;
+            width: 100%;
+            margin: 8px 0 0 0;
+        }
+
+        .action-btn:hover,
+        .print-btn:hover,
+        .rules-btn:hover,
+        .action-btn:focus,
+        .print-btn:focus,
+        .rules-btn:focus {
+            background: #e5e5e5;
+            border-color: #999999;
+            color: #6aaa64;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            outline: none;
+        }
+
+        .form-divider {
+            border: none;
+            border-top: 2px solid rgba(200,200,200,0.25);
+            margin: 14px 0 10px 0;
+            width: 100%;
         }
 
         /* Fallback image for accessibility */
@@ -417,7 +446,7 @@
 
         @media (max-width: 768px) {
             .wordle-header {
-                padding: 15px 0;
+                padding: 15px 0 12px 0;
             }
             
             .wordle-word {
@@ -430,7 +459,13 @@
             }
 
             .header-tagline {
-                font-size: 14px;
+                font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+                margin-bottom: 10px;
+            }
+
+            .header-rules-btn {
+                font-size: clamp(0.65rem, 2vw, 0.75rem);
+                padding: 6px 12px;
             }
 
             .forms-container {
@@ -470,7 +505,7 @@
                 display: block;
                 width: 100vw;
                 max-width: 100vw;
-                margin: 24px auto 0 auto; /* space above image */
+                margin: 24px auto 0 auto;
                 text-align: center;
             }
             .mobile-image-footer img {
@@ -484,25 +519,41 @@
             }
         }
 
+        /* Hide mobile image footer by default */
+        .mobile-image-footer {
+            display: none;
+        }
+
         @media screen and (orientation: landscape) and (max-width: 900px) {
-    body > *:not(.force-portrait-message) {
-        display: none !important;
-    }
-    .force-portrait-message {
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        color: #fff;
-        background: var(--battleship-gray, #333);
-        font-size: 1.5rem;
-        text-align: center;
-        padding: 32px;
-    }
-}
-.force-portrait-message {
-    display: none;
-}
+            body > *:not(.force-portrait-message) {
+                display: none !important;
+            }
+            .force-portrait-message {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                color: #fff;
+                background: var(--battleship-gray, #333);
+                font-size: 1.5rem;
+                text-align: center;
+                padding: 32px;
+            }
+        }
+        .force-portrait-message {
+            display: none;
+        }
+
+        /* Prevent bounce/scale on focus/blur for input and emoji button */
+        .input-with-refresh input:focus,
+        .input-with-refresh input:active,
+        .input-with-refresh input:hover,
+        .refresh-btn:focus,
+        .refresh-btn:active,
+        .refresh-btn:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
     </style>
 </head>
 <body>
@@ -523,6 +574,7 @@
             </div>
         </div>
         <p class="header-tagline">by Kevin M. Kolb • <a href="https://thegamebureau.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">thegamebureau.com</a></p>
+        <a href="src/html/rules.html" class="header-rules-btn">Rules of Engagement</a>
     </header>
 
     <div class="main-container">
@@ -531,7 +583,7 @@
             <!-- Print & Play Edition -->
             <form class="form-card" action="src/html/print.html" method="GET" onsubmit="return handlePrintSubmit(event)">
                 <h2 class="form-title">Pen &amp; Paper Edition</h2>
-                <p class="info-text">So grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!</p>
+                <p class="info-text">So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!</p>
                 <div class="form-group">
                     <label for="player1Name">Name Your Fleet</label>
                     <div class="input-with-refresh">
@@ -571,37 +623,39 @@
         </div>
     </div>
 
+    <div class="force-portrait-message">
+        Please rotate your device to portrait mode for the best Word Fleet experience.
+    </div>
+    <div class="mobile-image-footer">
+        <img src="src/media/word_fleet_banner_1600x400.png" alt="Word Fleet Banner">
+    </div>
     <script>
-        // Array of first names for fleets
-        const fleetFirstNames = [
-            'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged',
-            'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
-            'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
-            'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
-            'Battle-Ready', 'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
-            'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached', 'Iron-Fisted', 'Cannon-Heavy',
-            'Gun-Blazing', 'Torpedo-Laden', 'Skull & Crossbones', 'Merciless', 'Fearsome',
-            'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed', 'Eye-Patched',
-            'Beard-Braided', 'Compass-Spinning', 'Ghost Ship', 'Kraken\'s', 'Siren\'s',
-            'Poseidon\'s', 'Davy Jones\'', 'Cursed', 'Phantom', 'Half-Sunk', 'Listing',
-            'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
-        ];
-
-        // Array of naval terms for fleet names
-        const navalTerms = [
-            'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force',
-            'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
-            'Cohort', 'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit',
-            'Force', 'Command', 'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard',
-            'Reserve', 'Guard', 'Watch', 'Blockade', 'Tide', 'Current', 'Wake', 'Waves',
-            'Storm', 'Tempest', 'Gale', 'Maelstrom', 'Admiralty', 'Authority', 'Order',
-            'Legion', 'Brotherhood', 'Alliance', 'Coalition', 'Depth', 'Trench', 'Reef',
-            'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
-            'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition'
-        ];
-
         // Function to get random fleet name
         function getRandomFleetName() {
+            const fleetFirstNames = [
+                'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged',
+                'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
+                'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
+                'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
+                'Battle-Ready', 'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
+                'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached', 'Iron-Fisted', 'Cannon-Heavy',
+                'Gun-Blazing', 'Torpedo-Laden', 'Skull & Crossbones', 'Merciless', 'Fearsome',
+                'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed', 'Eye-Patched',
+                'Beard-Braided', 'Compass-Spinning', 'Ghost Ship', 'Kraken\'s', 'Siren\'s',
+                'Poseidon\'s', 'Davy Jones\'', 'Cursed', 'Phantom', 'Half-Sunk', 'Listing',
+                'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
+            ];
+            const navalTerms = [
+                'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force',
+                'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
+                'Cohort', 'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit',
+                'Force', 'Command', 'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard',
+                'Reserve', 'Guard', 'Watch', 'Blockade', 'Tide', 'Current', 'Wake', 'Waves',
+                'Storm', 'Tempest', 'Gale', 'Maelstrom', 'Admiralty', 'Authority', 'Order',
+                'Legion', 'Brotherhood', 'Alliance', 'Coalition', 'Depth', 'Trench', 'Reef',
+                'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
+                'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition'
+            ];
             const randomFirstName = fleetFirstNames[Math.floor(Math.random() * fleetFirstNames.length)];
             const randomNavalTerm = navalTerms[Math.floor(Math.random() * navalTerms.length)];
             return `${randomFirstName} ${randomNavalTerm}`;
@@ -623,20 +677,13 @@
         function handlePrintSubmit(event) {
             event.preventDefault();
             const form = event.target;
-            
-            // Get form values with defaults
             const fleet1 = form.fleet.value.trim() || 'Fleet';
             const words = form.words.checked ? 'yes' : 'no';
-            
-            // Create URL with parameters
             const params = new URLSearchParams({
                 fleet: fleet1,
                 words: words
             });
-            
-            // Redirect immediately
             window.location.href = form.action + '?' + params.toString();
-            
             return false;
         }
 
@@ -644,7 +691,7 @@
         const autoGenToggle = document.getElementById('autoGen');
         const pickWordsLabel = document.getElementById('pickWordsLabel');
         const autoGenLabel = document.getElementById('autoGenLabel');
-        
+
         function updateToggleLabels() {
             if (autoGenToggle.checked) {
                 pickWordsLabel.classList.remove('active');
@@ -654,14 +701,14 @@
                 autoGenLabel.classList.remove('active');
             }
         }
-        
-        if (autoGenToggle) {
-            autoGenToggle.addEventListener('change', updateToggleLabels);
-            // Initialize on page load
-            updateToggleLabels();
-        }
 
-        // Add hover effects to inputs
+        // Initialize toggle labels on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            updateToggleLabels();
+            autoGenToggle.addEventListener('change', updateToggleLabels);
+        });
+
+        // Optional: Add hover/focus effects to inputs
         const inputs = document.querySelectorAll('input[type="text"], select');
         inputs.forEach(function(input) {
             input.addEventListener('focus', function() {
@@ -676,12 +723,5 @@
             });
         });
     </script>
-    <!-- Show the background image at the bottom of the page on mobile -->
-<div class="mobile-image-footer">
-    <img src="src/media/word_fleet_banner_1600x400.png" alt="Word Fleet Banner">
-</div>
-<div class="force-portrait-message">
-    Please rotate your device to portrait mode for the best Word Fleet experience.
-</div>
 </body>
 </html>

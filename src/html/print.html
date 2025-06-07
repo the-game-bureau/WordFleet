@@ -389,98 +389,6 @@
             transition: all 0.3s ease;
         }
 
-        .popup-content.rules-content {
-            max-width: 800px;
-            width: 90%;
-            margin: 20px auto;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .rules-body {
-            padding: 40px;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .rules-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            letter-spacing: 8px;
-            margin-bottom: 6px;
-            color: #000000;
-            text-transform: uppercase;
-            text-align: center;
-            width: 100%;
-        }
-
-        .rules-subtitle {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #333333;
-            margin-bottom: 30px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .rules-intro {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            color: #333333;
-            width: 100%;
-        }
-
-        .rules-section {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #333333;
-            margin: 25px 0 15px;
-            width: 100%;
-        }
-
-        .rules-list {
-            list-style-type: none;
-            padding-left: 20px;
-            margin-bottom: 25px;
-            width: 100%;
-        }
-
-        .rules-list li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        .rules-list li:before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #333333;
-            font-size: 1.2rem;
-        }
-
-        .rules-meta {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #666666;
-            margin: 30px 0;
-            text-align: center;
-            width: 100%;
-        }
-
-        .rules-closing {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #333333;
-            text-align: center;
-            margin-top: 30px;
-            width: 100%;
-        }
-
         .popup-title {
             background: #f8f9fa;
             color: #333333;
@@ -946,10 +854,16 @@
 }
 
 .refresh-btn:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+.refresh-btn:focus {
+    outline: none;
+    background: #fff;
 }
 
 .refresh-btn:active {
+    background: #fff;
     transform: rotate(-180deg);
 }
     </style>
@@ -961,7 +875,6 @@
             <p class="tagline" id="tagline">Pen & Paper Edition - Battle Tracker</p>
             <nav class="nav-menu">
                 <a href="../../index.html" class="nav-link">RETREAT</a>
-                <a href="#" class="nav-link">RULES OF ENGAGEMENT</a>
                 <button class="nav-link" id="fleet2Btn">GENERATE NEW TRACKER</button>
                 <button class="print-button" id="printBtn">PRINT</button>
             </nav>
@@ -996,31 +909,6 @@
                     </div>
                     
                     <button type="button" class="action-btn" id="fleet2PrintBtn">GENERATE</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Rules of Engagement Popup -->
-        <div class="popup" id="rulesPopup">
-            <div class="popup-content rules-content">
-                <button class="close-popup" id="closeRulesPopup">&times;</button>
-                <div class="popup-title">RULES OF ENGAGEMENT</div>
-                <div class="popup-body rules-body">
-                    <p class="rules-intro">From the Strategic Depths of Naval Warfare Comes the Ultimate Word Battle! Combining the tactical genius of the classic grid-based strategy that has captivated players for over a century with the addictive word-building challenge that has taken the world by storm.</p>
-                    
-                    <h3 class="rules-section">Deploy Your Fleet</h3>
-                    <ul class="rules-list">
-                        <li>Position your words like battleships across your grid. Words must read from left to right or from top to bottom.</li>
-                        <li>Launch word-powered attacks against enemy fleets</li>
-                        <li>Sink opposing vessels with devastating dictionary strikes</li>
-                        <li>Master both strategy and spelling to claim victory</li>
-                    </ul>
-                    
-                    <h3 class="rules-section">Two Legendary Games Unite</h3>
-                    <p>The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.</p>
-                    
-                    <h3 class="rules-section">Battle-Tested Gameplay</h3>
-                    <p>Born from a tradition stretching back to WWI trenches where soldiers played pencil-and-paper ship battles, now evolved into the ultimate test of mental warfare.</p>
                 </div>
             </div>
         </div>
@@ -1510,21 +1398,6 @@ const shipTypes = [
         closeFleet2Button.addEventListener('click', () => fleet2Modal.classList.remove('show'));
         fleet2Modal.addEventListener('click', e => {
             if (e.target === fleet2Modal) fleet2Modal.classList.remove('show');
-        });
-
-        // Rules of Engagement popup handlers
-        const rulesLink = document.querySelector('a[href="#"]');
-        const rulesModal = document.getElementById('rulesPopup');
-        const closeRulesBtn = document.getElementById('closeRulesPopup');
-
-        rulesLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            rulesModal.classList.add('show');
-        });
-
-        closeRulesBtn.addEventListener('click', () => rulesModal.classList.remove('show'));
-        rulesModal.addEventListener('click', e => {
-            if (e.target === rulesModal) rulesModal.classList.remove('show');
         });
 
         fleet2Toggle.addEventListener('change', updateToggleLabels);
