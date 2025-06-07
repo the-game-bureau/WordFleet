@@ -444,13 +444,12 @@
         @media (max-width: 480px) {
             body {
                 min-height: 100vh;
-                height: 100dvh;
+                height: auto;
                 background: var(--battleship-gray) !important;
                 background-image: none !important;
                 overflow-y: auto;
                 padding: 0;
                 margin: 0;
-                /* Prevent extra scroll */
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -473,8 +472,9 @@
                 display: block;
             }
             html, body {
-                height: 100dvh;
-                overflow: hidden;
+                height: auto;
+                min-height: 100vh;
+                overflow: auto;
             }
         }
     </style>
