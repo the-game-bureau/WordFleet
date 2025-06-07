@@ -442,49 +442,39 @@
         }
 
         @media (max-width: 480px) {
-            .wordle-header {
-                padding: 12px 0;
-            }
-            
-            .wordle-word {
-                gap: 2px;
-                margin: 0 4px;
-            }
-            
-            .wordle-title {
-                gap: 4px;
-                padding: 0 10px;
-            }
-
-            .header-tagline {
-                font-size: 12px;
-                padding: 3px 8px;
-            }
-
-            .main-container {
-                padding: 15px 0;
-            }
-            
-            .forms-container {
-                gap: 16px;
-                padding: 0 12px;
-            }
-
-            .mobile-image-footer {
-                width: 100vw;
-                height: 160px;
-                background: url('src/media/word_fleet_banner_1600x400.png') center bottom/cover no-repeat;
-                margin-top: 32px;
-                border-radius: 0 0 16px 16px;
-                box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
-            }
-
             body {
                 min-height: 100vh;
                 height: 100dvh;
                 background: var(--battleship-gray) !important;
                 background-image: none !important;
                 overflow-y: auto;
+                padding: 0;
+                margin: 0;
+                /* Prevent extra scroll */
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+            }
+            .main-container {
+                flex: 1 0 auto;
+                padding-bottom: 0;
+                margin-bottom: 0;
+            }
+            .mobile-image-footer {
+                width: 100vw;
+                max-width: 100vw;
+                height: auto;
+                aspect-ratio: 10 / 2.5; /* 1600x400 = 4:1, but adjust as needed */
+                background: url('src/media/word_fleet_banner_1600x400.png') center bottom/contain no-repeat;
+                margin-top: 0;
+                border-radius: 0 0 16px 16px;
+                box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
+                flex-shrink: 0;
+                display: block;
+            }
+            html, body {
+                height: 100dvh;
+                overflow: hidden;
             }
         }
     </style>
