@@ -854,16 +854,11 @@
 }
 
 .refresh-btn:hover {
-    background: #fff;
-}
-
-.refresh-btn:focus {
-    outline: none;
-    background: #fff;
+    background: white;
 }
 
 .refresh-btn:active {
-    background: #fff;
+    background: white;
     transform: rotate(-180deg);
 }
     </style>
@@ -1358,7 +1353,10 @@ const shipTypes = [
             return num.toString().padStart(3, '0');
         }
         function setRandomLaunchCode() {
-            document.getElementById('launchCode').textContent = formatLaunchCode(Math.floor(Math.random() * 100) + 1);
+            const code1 = formatLaunchCode(Math.floor(Math.random() * 100) + 1);
+            const code2 = formatLaunchCode(Math.floor(Math.random() * 100) + 1);
+            const code3 = formatLaunchCode(Math.floor(Math.random() * 100) + 1);
+            document.getElementById('launchCode').textContent = code1 + '•' + code2 + '•' + code3;
         }
         setRandomLaunchCode();
 
