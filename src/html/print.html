@@ -106,33 +106,57 @@
             top: 0;
             left: 0;
             display: flex;
-        }
-
-        .attack-grid {
-            width: 5in;
-            height: 5in;
-            display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0.5in;
+            padding-top: 0.25in;
             border: 1px solid #ddd;
         }
 
-        .attack-header {
-            width: 100%;
-            height: 0.25in;
+        .offense-grid-section {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.15in;
+        }
+
+        .offense-grid-label {
+            font-size: 14px;
             font-weight: bold;
-            font-size: 12px;
+            text-transform: uppercase;
+            color: #333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
             gap: 8px;
         }
 
-        .attack-main {
-            width: 100%;
-            height: calc(100% - 0.25in);
+        .offense-grid {
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            grid-template-rows: repeat(11, 1fr);
+            gap: 2px;
+            width: 4.5in;
+            height: 4.2in;
+            padding: 2px;
+            border: 1px solid #ddd;
+        }
+
+        .offense-cell {
+            background-color: white;
+            border: 1px solid #ddd;
             display: flex;
             justify-content: center;
             align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .offense-cell:first-child {
+            background-color: transparent !important;
+            background: none !important;
+            border: none;
+            box-shadow: none;
         }
 
         .bubble-number {
@@ -148,10 +172,7 @@
             font-size: 11px;
         }
 
-        .used-letters {
-            width: 3.5in;
-            height: 5in;
-        }        /* Middle Header */
+        /* Middle Header */
         .middle-header {
             width: 8.5in;
             height: 1in;
@@ -275,6 +296,7 @@
             border: none;
             box-shadow: none;
         }
+
         /* Floating Toolbar */
         .toolbar {
             position: fixed;
@@ -397,41 +419,70 @@
             padding: 0 12px;
         }
 
-        .letter-manifest {
-            width: 3.5in;
-            height: 5in;
-            border: 1px solid #ddd;
+        .offense-letter-manifest {
             display: flex;
             flex-direction: column;
-            padding: 0.25in;
-            gap: 0.25in;
+            align-items: flex-start;
+            gap: 0.15in;
+            margin-top: 0.03in;
         }
 
-        .manifest-title {
+        .offense-manifest-title {
             font-size: 14px;
             font-weight: bold;
             text-transform: uppercase;
-            text-align: center;
             color: #333;
         }
 
-        .manifest-list {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 0.15in;
-        }
-
-        .manifest-item {
+        .offense-manifest-container {
             display: flex;
             justify-content: center;
+            width: 2.5in;
+            height: 4.2in;
+            padding: 0.15in;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        .offense-manifest-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1in;
+            width: 100%;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .offense-manifest-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.08in;
+        }
+
+        .offense-manifest-item {
+            width: 0.35in;
+            height: 0.35in;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             color: #333;
             border: 1px solid #ddd;
-            padding: 0.1in;
-            aspect-ratio: 1;
-        }        .defense-letter-manifest {
+            line-height: 1;
+            box-sizing: border-box;
+        }
+
+        .offense-manifest-item[data-vowel="true"] {
+            background-color: #f5f5f5;
+        }
+
+        .offense-manifest-letter {
+            margin-bottom: 2px;
+        }
+
+        .defense-letter-manifest {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -612,8 +663,9 @@
 
     <div class="page">
         <!-- Offense Section -->
-        <div class="offense">            <div class="attack-grid">
-                <div class="attack-header">
+        <div class="offense">            
+            <div class="offense-grid-section">
+                <div class="offense-grid-label">
                     ATTACK GRID 
                     <span class="bubble-number">5</span>
                     <span class="bubble-number">4</span>
@@ -621,36 +673,120 @@
                     <span class="bubble-number">3</span>
                     <span class="bubble-number">2</span>
                 </div>
-                <div class="attack-main"></div>
-            </div>
-            <div class="letter-manifest">                <div class="manifest-title">Letter Intelligence Report</div>
-                <div class="manifest-list">
-                    <div class="manifest-item">A</div>
-                    <div class="manifest-item">B</div>
-                    <div class="manifest-item">C</div>
-                    <div class="manifest-item">D</div>
-                    <div class="manifest-item">E</div>
-                    <div class="manifest-item">F</div>
-                    <div class="manifest-item">G</div>
-                    <div class="manifest-item">H</div>
-                    <div class="manifest-item">I</div>
-                    <div class="manifest-item">J</div>
-                    <div class="manifest-item">K</div>
-                    <div class="manifest-item">L</div>
-                    <div class="manifest-item">M</div>
-                    <div class="manifest-item">N</div>
-                    <div class="manifest-item">O</div>
-                    <div class="manifest-item">P</div>
-                    <div class="manifest-item">Q</div>
-                    <div class="manifest-item">R</div>
-                    <div class="manifest-item">S</div>
-                    <div class="manifest-item">T</div>
-                    <div class="manifest-item">U</div>
-                    <div class="manifest-item">V</div>
-                    <div class="manifest-item">W</div>
-                    <div class="manifest-item">X</div>
-                    <div class="manifest-item">Y</div>
-                    <div class="manifest-item">Z</div>
+                <div class="offense-grid">
+                    <!-- 121 cells (11x11) -->
+                    <div class="offense-cell"></div><div class="offense-cell">A</div><div class="offense-cell">B</div><div class="offense-cell">C</div><div class="offense-cell">D</div><div class="offense-cell">E</div><div class="offense-cell">F</div><div class="offense-cell">G</div><div class="offense-cell">H</div><div class="offense-cell">I</div><div class="offense-cell">J</div>
+                    <div class="offense-cell">1</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">2</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">3</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">4</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">5</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">6</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">7</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">8</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">9</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">10</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                </div>
+            </div>            
+            <div class="offense-letter-manifest">
+                <div class="offense-manifest-title">FIRED LETTERS</div>
+                <div class="offense-manifest-container">
+                    <div class="offense-manifest-list">
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item" data-vowel="true">
+                                <span class="offense-manifest-letter">A</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">B</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">C</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">D</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item" data-vowel="true">
+                                <span class="offense-manifest-letter">E</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">F</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">G</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">H</span>
+                            </div>
+                            <div class="offense-manifest-item" data-vowel="true">
+                                <span class="offense-manifest-letter">I</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">J</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">K</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">L</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">M</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">N</span>
+                            </div>
+                            <div class="offense-manifest-item" data-vowel="true">
+                                <span class="offense-manifest-letter">O</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">P</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">Q</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">R</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">S</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">T</span>
+                            </div>
+                            <div class="offense-manifest-item" data-vowel="true">
+                                <span class="offense-manifest-letter">U</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">V</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">W</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">X</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">Y</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">Z</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -665,7 +801,8 @@
             </div>
         </div>
 
-        <!-- Defense Section -->        <div class="defense">            
+        <!-- Defense Section -->        
+        <div class="defense">            
             <div class="defense-grid-section">
                 <div class="defense-grid-label">DEFENSE GRID</div>
                 <div class="defense-grid">
@@ -681,7 +818,8 @@
                     <div class="defense-cell">8</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
                     <div class="defense-cell">9</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
                     <div class="defense-cell">10</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>                </div>
-            </div>            <div class="defense-letter-manifest">
+            </div>            
+            <div class="defense-letter-manifest">
                 <div class="defense-manifest-title">LETTER MANIFEST</div>
                 <div class="defense-manifest-container">
                     <div class="defense-manifest-list">
@@ -921,7 +1059,9 @@
             const words = wordsList[length];
             if (!words || words.length === 0) return 'WORD';
             return words[Math.floor(Math.random() * words.length)];
-        }        // Count letter occurrences in the game words
+        }        
+
+        // Count letter occurrences in the game words
         function countLetterOccurrences(gameWords) {
             const letterCounts = {};
             // Initialize counts for all letters
@@ -947,7 +1087,9 @@
                 const countSpan = item.querySelector('.defense-manifest-count');
                 countSpan.textContent = letterCounts[letter] || 0;
             });
-        }        // Update battle tracker and optionally load words from XML
+        }        
+
+        // Update battle tracker and optionally load words from XML
         async function updateBattleTracker() {
             const urlParams = new URLSearchParams(window.location.search);
             const fleetParam = urlParams.get('fleet');
@@ -1003,15 +1145,11 @@
             } else {
                 wordBox.classList.add('hidden');
             }
-        }
-
-        function generateNewTracker() {
-            // Preserve URL parameters when reloading
+        }        function generateNewTracker() {
+            // Redirect to index.html with highlight parameter and preserve existing params
             const currentParams = new URLSearchParams(window.location.search);
-            const urlWithParams = currentParams.toString() ? 
-                `${window.location.pathname}?${currentParams.toString()}` : 
-                window.location.pathname;
-            window.location.href = urlWithParams;
+            currentParams.append('highlight', 'form');
+            window.location.href = `../../index.html?${currentParams.toString()}`;
         }
 
         function showPrintDialog() {

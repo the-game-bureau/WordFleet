@@ -104,18 +104,18 @@
         .header-rules-btn {
             color: #000000;
             text-decoration: none;
-            padding: 8px 16px;
-            background: #ffffff;
+            padding: 10px 18px;
+            background: #f5f5f5;
             border: 1px solid #cccccc;
             border-radius: 50px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 600;
-            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
             letter-spacing: 0.5px;
             cursor: pointer;
             font-family: inherit;
             white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -125,11 +125,11 @@
         }
 
         .header-rules-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
+            background: #e5e5e5;
+            border-color: #999999;
             color: #000000;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
 
@@ -423,20 +423,137 @@
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
 
-        .header-rules-btn:hover {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-        }
-
         .form-divider {
             border: none;
             border-top: 2px solid rgba(200,200,200,0.25);
             margin: 14px 0 10px 0;
             width: 100%;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            color: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .modal-title {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin: 0 0 24px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+            padding-bottom: 16px;
+        }
+
+        .rules-content {
+            color: #ffffff;
+            line-height: 1.6;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .rules-content h3 {
+            color: #ffffff;
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            margin: 24px 0 12px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .rules-content p {
+            margin-bottom: 16px;
+        }
+
+        .rules-content ul {
+            margin: 16px 0 16px 20px;
+        }
+
+        .rules-content li {
+            margin-bottom: 8px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+            justify-content: center;
+        }
+
+        .info-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.85rem, 2.8vw, 0.9rem);
+            line-height: 1.4;
+            margin-bottom: 16px;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         /* Fallback image for accessibility */
@@ -505,6 +622,15 @@
             .main-container {
                 padding: 20px 0;
             }
+
+            .modal-card {
+                padding: 24px 20px;
+                margin: 10px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 480px) {
@@ -541,11 +667,32 @@
                 border-radius: 0 0 16px 16px;
                 box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
             }
+
+            .modal-overlay {
+                padding: 10px;
+            }
+
+            .modal-card {
+                padding: 20px 16px;
+                margin: 0;
+                max-height: 95vh;
+            }
         }
 
         /* Hide mobile image footer by default */
         .mobile-image-footer {
             display: none;
+        }
+
+        /* Highlight animation for form */
+        @keyframes formHighlight {
+            0% { transform: scale(1); box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1); }
+            50% { transform: scale(1.02); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); }
+            100% { transform: scale(1); box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1); }
+        }
+
+        .form-highlight {
+            animation: formHighlight 1s ease-in-out 3;
         }
 
         @media screen and (orientation: landscape) and (max-width: 900px) {
@@ -598,7 +745,7 @@
             </div>
         </div>
         <p class="header-tagline">by Kevin M. Kolb • <a href="https://thegamebureau.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">thegamebureau.com</a></p>
-        <a href="src/html/rules.html" class="header-rules-btn">Rules of Engagement</a>
+        <button class="header-rules-btn" onclick="openRulesModal()">Rules of Engagement</button>
     </header>
 
     <div class="main-container">
@@ -611,7 +758,7 @@
                 <div class="form-group">
                     <label for="player1Name">Name Your Fleet</label>
                     <div class="input-with-refresh">
-                        <input type="text" name="fleet" id="player1Name" value="Royal Armada" required pattern=".{0,20}" title="Fleet name can contain letters, numbers, spaces, special characters, and emojis (max 30 characters)">
+                        <input type="text" name="fleet" id="player1Name" value="Royal Armada" required pattern=".{0,30}" title="Fleet name can contain letters, numbers, spaces, special characters, and emojis (max 30 characters)">
                         <button type="button" class="refresh-btn" onclick="regenerateFleetName()" title="Generate new fleet name">
                             🔄
                         </button>
@@ -647,48 +794,104 @@
         </div>
     </div>
 
+    <!-- Rules Modal -->
+    <div class="modal-overlay" id="rulesModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeRulesModal()">&times;</button>
+            <h2 class="modal-title">Rules of Engagement</h2>
+            <div class="rules-content">
+                <h3>Overview</h3>
+                <p>Word Fleet combines the strategic depth of naval combat with the intellectual challenge of word puzzles. Two admirals command fleets of letter-ships, using vocabulary as their primary weapon system.</p>
+
+                <h3>Fleet Composition</h3>
+                <p>Each fleet consists of 5 word-ships of varying lengths:</p>
+                <ul>
+                    <li><strong>Destroyer:</strong> 3-letter word</li>
+                    <li><strong>Submarine:</strong> 4-letter word</li>
+                    <li><strong>Cruiser:</strong> 5-letter word</li>
+                    <li><strong>Battleship:</strong> 6-letter word</li>
+                    <li><strong>Aircraft Carrier:</strong> 7-letter word</li>
+                </ul>
+
+                <h3>Setup Phase</h3>
+                <p>Players secretly position their word-ships on their personal grid. Ships can be placed horizontally or vertically, but not diagonally. Ships cannot overlap or touch each other.</p>
+
+                <h3>Combat Phase</h3>
+                <p>Players take turns calling out words to attack enemy positions. If the word contains letters that match positions on the opponent's ships, those positions are marked as hits. A ship is sunk when all its letters have been hit.</p>
+
+                <h3>Victory Conditions</h3>
+                <p>The first admiral to sink all enemy word-ships claims victory and naval supremacy!</p>
+
+                <h3>Strategic Notes</h3>
+                <p>Choose your word-ships carefully - common letters make you vulnerable, but obscure words might be harder for you to remember under pressure. Balance offensive vocabulary with defensive positioning.</p>
+
+                <h3>Optional Rules</h3>
+                <ul>
+                    <li><strong>Dictionary Challenge:</strong> Players may challenge words and consult a dictionary</li>
+                    <li><strong>Theme Fleets:</strong> All ships must follow a theme (animals, foods, etc.)</li>
+                    <li><strong>Radar Sweep:</strong> Once per game, reveal if a 3x3 area contains any ships</li>
+                </ul>
+            </div>
+            <div class="modal-actions">
+                <button class="action-btn" onclick="closeRulesModal()">Retreat</button>
+                <button class="print-btn" onclick="printRules()">Print</button>
+            </div>
+        </div>
+    </div>
+
     <div class="force-portrait-message">
         Please rotate your device to portrait mode for the best Word Fleet experience.
     </div>
     <div class="mobile-image-footer">
         <img src="src/media/word_fleet_banner_1600x400.png" alt="Word Fleet Banner">
     </div>
-    <script>
-        // Function to get random fleet name
-        function getRandomFleetName() {
-            const fleetFirstNames = [
-                'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged',
-                'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
-                'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
-                'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
-                'Battle-Ready', 'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
-                'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached', 'Iron-Fisted', 'Cannon-Heavy',
-                'Gun-Blazing', 'Torpedo-Laden', 'Skull & Crossbones', 'Merciless', 'Fearsome',
-                'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed', 'Eye-Patched',
-                'Beard-Braided', 'Compass-Spinning', 'Ghost Ship', 'Kraken\'s', 'Siren\'s',
-                'Poseidon\'s', 'Davy Jones\'', 'Cursed', 'Phantom', 'Half-Sunk', 'Listing',
-                'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
+    <script>        // Function to get random fleet name
+        function getRandomFleetName() {            const fleetAdjectives = [                // Short options
+                'Salty', 'Royal', 'Iron', 'Steel', 'Bold', 'Brave', 'Swift',
+                'Dark', 'Grim', 'Wild', 'Storm', 'Ghost', 'Sea', 'Deep', 'Spirit', 'Lucky', 'Black',                // Traditional naval
+                'Naval', 'Grand', 'Elite', 'Prime', 'First', 'Great', 'New',
+                // Longer options with short alternatives
+                'Privateer', 'Pirate', 'Thunderous', 'Ferocious', 'Fierce', 'Legendary', 'Epic',
+                'Victorious', 'Bold', 'Indomitable', 'Strong', 'Invincible', 'Mighty',
+                'Illustrious', 'Noble', 'Prestigious', 'Prime', 'Sovereign', 'Royal',                // Possessives (short)
+                'Drake\'s', 'Lord\'s', 'King\'s', 'Queen\'s'
             ];
-            const navalTerms = [
-                'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force',
-                'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
-                'Cohort', 'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit',
-                'Force', 'Command', 'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard',
-                'Reserve', 'Guard', 'Watch', 'Blockade', 'Tide', 'Current', 'Wake', 'Waves',
-                'Storm', 'Tempest', 'Gale', 'Maelstrom', 'Admiralty', 'Authority', 'Order',
-                'Legion', 'Brotherhood', 'Alliance', 'Coalition', 'Depth', 'Trench', 'Reef',
-                'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
-                'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition'
-            ];
-
-            let fleetName;
-            do {
-                const randomFirstName = fleetFirstNames[Math.floor(Math.random() * fleetFirstNames.length)];
-                const randomNavalTerm = navalTerms[Math.floor(Math.random() * navalTerms.length)];
-                fleetName = `${randomFirstName} ${randomNavalTerm}`;
-            } while (fleetName.length > 30);
+            const navalFormations = [
+                // Short core terms
+                'Fleet', 'Squad', 'Force', 'Guard', 'Navy', 'Wing', 'Line',
+                'Crew', 'Raid', 'Watch', 'Band', 'Pack', 'Horde', 'Host', 'Krewe',
+                // Traditional short
+                'Legion', 'Corps', 'Group', 'Troop', 'Front', 'Guard',
+                // Longer options with short alternatives
+                'Armada', 'Fleet', 'Squadron', 'Squad', 'Battalion', 'Force',
+                'Vanguard', 'Front', 'Flotilla', 'Fleet', 'Alliance', 'Force',
+                'Brigade', 'Guard', 'Regiment', 'Corps', 'Division', 'Wing'
+            ];            // Get random adjective and formation
+            let adjective = fleetAdjectives[Math.floor(Math.random() * fleetAdjectives.length)];
+            let formation = navalFormations[Math.floor(Math.random() * navalFormations.length)];
             
-            return fleetName;
+            // If the combined length would be too long, find shorter alternatives
+            while ((adjective.length + formation.length + 1) > 29) {
+                // Find the index of the longer word's alternative
+                const adjIndex = fleetAdjectives.indexOf(adjective);
+                const formIndex = navalFormations.indexOf(formation);
+                
+                // If it's a long adjective with an alternative, use the alternative
+                if (adjIndex % 2 === 0 && adjective.length > 6) {
+                    adjective = fleetAdjectives[adjIndex + 1];
+                }
+                // If it's a long formation with an alternative, use the alternative
+                else if (formIndex % 2 === 0 && formation.length > 6) {
+                    formation = navalFormations[formIndex + 1];
+                }
+                // If still too long, pick new random short ones
+                else {
+                    adjective = fleetAdjectives[Math.floor(fleetAdjectives.length / 2)];
+                    formation = navalFormations[Math.floor(navalFormations.length / 2)];
+                }
+            }
+            
+            return `${adjective} ${formation}`;
         }
 
         // Function to regenerate fleet name
@@ -696,6 +899,101 @@
             const fleetInput = document.getElementById('player1Name');
             fleetInput.value = getRandomFleetName();
         }
+
+        // Modal functions
+        function openRulesModal() {
+            const modal = document.getElementById('rulesModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRulesModal() {
+            const modal = document.getElementById('rulesModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function printRules() {
+            // Create a print-friendly version of the rules
+            const printWindow = window.open('', '_blank');
+            const rulesContent = document.querySelector('.rules-content').innerHTML;
+            
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Word Fleet - Rules of Engagement</title>
+                    <style>
+                        body {
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                            max-width: 800px;
+                            margin: 0 auto;
+                            padding: 40px 20px;
+                            line-height: 1.6;
+                            color: #333;
+                        }
+                        h1 {
+                            text-align: center;
+                            font-size: 2rem;
+                            margin-bottom: 2rem;
+                            text-transform: uppercase;
+                            letter-spacing: 2px;
+                            border-bottom: 3px solid #333;
+                            padding-bottom: 1rem;
+                        }
+                        h3 {
+                            font-size: 1.3rem;
+                            margin: 2rem 0 1rem 0;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                            color: #333;
+                        }
+                        p {
+                            margin-bottom: 1rem;
+                        }
+                        ul {
+                            margin: 1rem 0 1rem 20px;
+                        }
+                        li {
+                            margin-bottom: 0.5rem;
+                        }
+                        strong {
+                            font-weight: 600;
+                        }
+                        @media print {
+                            body { 
+                                padding: 20px;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Word Fleet<br>Rules of Engagement</h1>
+                    ${rulesContent}
+                </body>
+                </html>
+            `);
+            
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+            }, 250);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('rulesModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeRulesModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeRulesModal();
+            }
+        });
 
         // Set random fleet name on page load
         window.addEventListener('DOMContentLoaded', function() {
@@ -715,7 +1013,25 @@
             });
             window.location.href = form.action + '?' + params.toString();
             return false;
-        }
+        }        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            // Check for highlight parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('highlight') === 'form') {
+                const form = document.querySelector('.form-card');
+                form.classList.add('form-highlight');
+                // Scroll form into view
+                form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Generate a new random fleet name
+                document.getElementById('player1Name').value = getRandomFleetName();
+                // Preserve word generation setting only
+                const words = urlParams.get('words');
+                if (words) {
+                    document.getElementById('autoGen').checked = words === 'yes';
+                    updateToggleLabels();
+                }
+            }
+        });
 
         // Auto-generate toggle for Print & Play
         const autoGenToggle = document.getElementById('autoGen');
