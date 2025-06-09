@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Battle Tracker</title>
+    <title>Game</title>
     <link rel="icon" type="image/x-icon" href="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet.ico">
     <style>
         * {
@@ -12,97 +12,100 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background: white;
+        body {
             font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            padding-top: 105px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding-top: 50px;
-            padding-bottom: 50px;
+            min-height: 100vh;
         }
 
-        .page {
+        .page-container {
             width: 8.5in;
             height: 11in;
-            margin: 0;
-            padding: 0;
-            background: white;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
             position: relative;
         }
 
+        .page-border {
+            width: 100%;
+            height: 100%;
+            border: 0.25in solid #e0e0e0;
+            box-sizing: border-box;
+        }
+
+        .printable-area {
+            width: 8in;
+            height: 10.5in;
+            background-color: white;
+            border: 1px dashed #ccc;
+            padding: 0;
+            font-size: 12pt;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .printable-area * {
+            margin: 0;
+            padding: 0;
+        }
+
         .offense {
-            width: 8.5in;
-            height: 5in;
+            width: 8in;
+            height: 4.75in;
+            background-color: #e8f5e8;
+            border: 1px solid #ccc;
             position: absolute;
             top: 0;
             left: 0;
-            display: flex;
-        }
-
-        .offensegrid {
-            width: 5in;
-            height: 5in;
-            background-color: #e6f3ff;
-        }
-
-        .usedletters {
-            width: 3.5in;
-            height: 5in;
-            background-color: #f0e6ff;
         }
 
         .middleheader {
-            width: 8.5in;
+            width: 8in;
             height: 1in;
+            background-color: #fff9c4;
+            border: 1px solid #ccc;
             position: absolute;
-            top: 5in;
+            top: 4.75in;
             left: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
         }
 
         .defense {
-            width: 8.5in;
-            height: 5in;
+            width: 8in;
+            height: 4.75in;
             background-color: #ffe8d6;
+            border: 1px solid #ccc;
             position: absolute;
-            top: 6in;
+            top: 5.75in;
             left: 0;
         }
 
-        .header-line-1 {
-            font-size: 18px;
-            font-weight: normal;
+        /* Content styling */
+        h1 {
+            font-size: 18pt;
             margin: 0;
-            padding: 0;
-            line-height: 1;
-            white-space: nowrap;
+            color: #333;
         }
 
-        .header-line-2 {
-            font-size: 24px;
-            font-weight: bold;
+        p {
             margin: 0;
-            padding: 0;
-            line-height: 1;
-            white-space: nowrap;
+            color: #555;
         }
 
-        .header-line-3 {
-            font-size: 16px;
-            font-weight: normal;
-            margin: 0;
-            padding: 0;
-            line-height: 1;
-            white-space: nowrap;
+        .dimensions-info {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 8pt;
+            color: #999;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 4px 8px;
+            border-radius: 4px;
         }
 
         /* === FLOATING TOOLBAR === */
@@ -207,10 +210,11 @@
             background: #545b62;
         }
 
+        /* Enhanced Print CSS */
         @media print {
             @page {
                 size: 8.5in 11in;
-                margin: -0.25in;
+                margin: 0;
                 padding: 0;
             }
 
@@ -219,39 +223,39 @@
                 print-color-adjust: exact;
             }
 
-            html, body {
+            html {
                 margin: 0;
                 padding: 0;
-                width: 8.5in;
-                height: 11in;
-                background: white;
-                display: block;
             }
 
-            .page {
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
                 width: 8.5in;
                 height: 11in;
+            }
+
+            .page-container {
+                width: 8.5in;
+                height: 11in;
+                box-shadow: none;
+                border: none;
                 margin: 0;
                 padding: 0;
+                page-break-after: always;
                 position: relative;
             }
 
-            .offense {
-                position: absolute;
-                top: 0;
-                left: 0;
+            .page-border {
+                border: 0.25in solid #e0e0e0;
             }
 
-            .middleheader {
-                position: absolute;
-                top: 5in;
-                left: 0;
-            }
-
-            .defense {
-                position: absolute;
-                top: 6in;
-                left: 0;
+            .printable-area {
+                width: 8in;
+                height: 10.5in;
+                background-color: white;
+                border: none;
             }
 
             .wordfleet-toolbar {
@@ -260,6 +264,10 @@
 
             .print-dialog-overlay {
                 display: none !important;
+            }
+
+            .dimensions-info {
+                display: none;
             }
         }
     </style>
@@ -272,17 +280,27 @@
         <button class="fleet-btn" onclick="showPrintDialog()">PRINT</button>
     </div>
 
-    <div class="page">
-        <div class="offense">
-            <div class="offensegrid"></div>
-            <div class="usedletters"></div>
+    <div class="page-container">
+        <div class="page-border">
+            <div class="printable-area">
+                <div class="offense"></div>
+                <div class="middleheader"></div>
+                <div class="defense"></div>
+                
+                <h1>Printable Document</h1>
+                <p>This is your printable area. It measures exactly 8 inches wide by 10.5 inches tall, with a 0.25 inch margin on all sides of the 8.5" x 11" page.</p>
+                
+                <p>Content placed here will print exactly as it appears on screen. The page is designed to maintain proper dimensions when printed on standard letter-size paper.</p>
+                
+                <p>You can replace this content with whatever you need to print - text, images, forms, or any other content that needs to fit within the printable area.</p>
+                
+                <p>The light gray background and dashed border help visualize the printable area boundaries on screen, but won't appear when printed.</p>
+            </div>
         </div>
-        <div class="middleheader">
-            <div class="header-line-1">WORD FLEET • Pen & Paper Edition • by Kevin Kolb • thegamebureau.com</div>
-            <div class="header-line-2" id="battleTracker">BATTLE TRACKER</div>
-            <div class="header-line-3">LAUNCH CODES: VVV WWW XXX YYY ZZZ</div>
+        
+        <div class="dimensions-info">
+            Page: 8.5" × 11" | Printable: 8" × 10.5" | Margin: 0.25"
         </div>
-        <div class="defense"></div>
     </div>
 
     <!-- Print Dialog -->
@@ -305,34 +323,8 @@
     </div>
 
     <script>
-        // Generate random 3-digit codes with leading zeros
-        function generateLaunchCode() {
-            return Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-        }
-
-        // Check for fleet parameter and update battle tracker text
-        function updateBattleTracker() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const fleetParam = urlParams.get('fleet');
-            const battleTrackerElement = document.getElementById('battleTracker');
-            
-            if (fleetParam) {
-                battleTrackerElement.textContent = fleetParam.toUpperCase() + ' BATTLE TRACKER';
-            }
-            
-            // Generate random launch codes
-            const codes = [
-                generateLaunchCode(),
-                generateLaunchCode(),
-                generateLaunchCode(),
-                generateLaunchCode(),
-                generateLaunchCode()
-            ];
-            
-            document.querySelector('.header-line-3').textContent = `LAUNCH CODES: ${codes.join(' ')}`;
-        }
-
         function generateNewTracker() {
+            // Generate a new tracker by reloading with random parameters
             window.location.reload();
         }
 
@@ -358,19 +350,20 @@
             }
         });
 
-        // Keyboard shortcuts
+        // Optional: Add keyboard shortcut for printing (shows dialog first)
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
                 e.preventDefault();
                 showPrintDialog();
             }
+        });
+
+        // Close dialog with Escape key
+        document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closePrintDialog();
             }
         });
-
-        // Initialize on page load
-        updateBattleTracker();
     </script>
 </body>
 </html>
