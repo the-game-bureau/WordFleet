@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8.5 x 11 Paper Document</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #000;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        /* Paper container */
+        .paper {
+            width: 8.5in;
+            min-height: 11in;
+            background-color: white;
+            margin: 0 auto;
+            padding: 1in;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* Print styles */
+        @media print {
+            @page {
+                size: 8.5in 11in;
+                margin: 1in;
+            }
+
+            body {
+                background: none;
+                padding: 0;
+            }
+
+            .paper {
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                background: none;
+            }
+
+            .print-only {
+                display: block !important;
+            }
+
+            .screen-only {
+                display: none !important;
+            }
+        }
+
+        /* Screen-only styles */
+        @media screen {
+            .print-only {
+                display: none;
+            }
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 18pt;
+            margin-bottom: 0.5in;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 14pt;
+            margin-top: 0.3in;
+            margin-bottom: 0.2in;
+            font-weight: bold;
+        }
+
+        p {
+            margin-bottom: 0.2in;
+            text-align: justify;
+            text-indent: 0.25in;
+        }
+
+        p.no-indent {
+            text-indent: 0;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 0.5in;
+            margin-bottom: 0.2in;
+        }
+
+        li {
+            margin-bottom: 0.1in;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.2in 0;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 0.1in;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        /* Page breaks */
+        .page-break {
+            page-break-before: always;
+        }
+
+        .page-break-after {
+            page-break-after: always;
+        }
+
+        .no-break {
+            page-break-inside: avoid;
+        }
+
+        /* Header and footer areas */
+        .header {
+            position: absolute;
+            top: 0.5in;
+            left: 1in;
+            right: 1in;
+            text-align: center;
+            font-size: 10pt;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 0.1in;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0.5in;
+            left: 1in;
+            right: 1in;
+            text-align: center;
+            font-size: 10pt;
+            border-top: 1px solid #ccc;
+            padding-top: 0.1in;
+        }
+
+        /* Date and signature areas */
+        .signature-line {
+            border-bottom: 1px solid #000;
+            width: 3in;
+            display: inline-block;
+            margin: 0 0.2in;
+        }
+
+        .date-line {
+            border-bottom: 1px solid #000;
+            width: 2in;
+            display: inline-block;
+            margin: 0 0.2in;
+        }
+
+        /* Letterhead style */
+        .letterhead {
+            text-align: center;
+            margin-bottom: 0.5in;
+            padding-bottom: 0.2in;
+            border-bottom: 2px solid #000;
+        }
+
+        .letterhead h1 {
+            margin-bottom: 0.1in;
+            font-size: 20pt;
+        }
+
+        .letterhead p {
+            text-indent: 0;
+            margin-bottom: 0.05in;
+            font-size: 10pt;
+        }
+
+        /* Instructions for screen viewing */
+        .screen-instructions {
+            background: #ffffcc;
+            border: 1px solid #cccc00;
+            padding: 0.2in;
+            margin-bottom: 0.3in;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="paper">
+        <!-- Screen-only instructions -->
+        <div class="screen-instructions screen-only">
+            <strong>Instructions:</strong> This page is designed to look like 8.5" x 11" printer paper. 
+            Use your browser's print function (Ctrl/Cmd + P) to print this exactly as it appears. 
+            The print styles will automatically adjust for proper formatting.
+        </div>
+
+        <!-- Optional header (uncomment to use) -->
+        <!-- <div class="header print-only">Document Header - Page 1</div> -->
+
+        <!-- Sample letterhead -->
+        <div class="letterhead">
+            <h1>Your Company Name</h1>
+            <p>123 Business Street • City, State 12345</p>
+            <p>Phone: (555) 123-4567 • Email: info@company.com</p>
+        </div>
+
+        <!-- Document content -->
+        <h1>Sample Document Title</h1>
+
+        <p class="no-indent">Date: <span class="date-line"></span></p>
+
+        <p>This is a sample document that demonstrates how to create a web page that looks like a standard 8.5" × 11" piece of printer paper. The styling is designed to work both on screen and when printed.</p>
+
+        <h2>Key Features</h2>
+
+        <p>This template includes several important features for document creation:</p>
+
+        <ul>
+            <li>Proper page dimensions (8.5" × 11")</li>
+            <li>Standard 1-inch margins</li>
+            <li>Print-optimized CSS using @page rules</li>
+            <li>Typography suitable for professional documents</li>
+            <li>Automatic page breaks where needed</li>
+        </ul>
+
+        <h2>Print Styles</h2>
+
+        <p>The CSS includes specific print media queries that ensure the document prints correctly. When you print this page, it will:</p>
+
+        <ol>
+            <li>Remove the background color and shadow effects</li>
+            <li>Set proper page margins using the @page CSS rule</li>
+            <li>Ensure text flows properly within the printable area</li>
+            <li>Hide screen-only elements like instructions</li>
+            <li>Show print-only elements like headers and footers</li>
+        </ol>
+
+        <h2>Sample Table</h2>
+
+        <table class="no-break">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Widget A</td>
+                    <td>Standard widget for basic operations</td>
+                    <td>5</td>
+                    <td>$12.50</td>
+                </tr>
+                <tr>
+                    <td>Widget B</td>
+                    <td>Premium widget with advanced features</td>
+                    <td>2</td>
+                    <td>$25.00</td>
+                </tr>
+                <tr>
+                    <td>Service Fee</td>
+                    <td>Installation and setup</td>
+                    <td>1</td>
+                    <td>$50.00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Signature Section</h2>
+
+        <p class="no-indent">I hereby acknowledge that I have read and understood the contents of this document.</p>
+
+        <br><br>
+
+        <p class="no-indent">
+            Signature: <span class="signature-line"></span> &nbsp;&nbsp;&nbsp; Date: <span class="date-line"></span>
+        </p>
+
+        <br>
+
+        <p class="no-indent">
+            Print Name: <span class="signature-line"></span>
+        </p>
+
+        <!-- Optional footer (uncomment to use) -->
+        <!-- <div class="footer print-only">Company Confidential - Page 1</div> -->
+    </div>
+
+    <script>
+        // Optional: Add print button functionality
+        function printDocument() {
+            window.print();
+        }
+
+        // You can add a print button with: <button onclick="printDocument()">Print Document</button>
+    </script>
+</body>
+</html>

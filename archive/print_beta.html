@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORD FLEET Pen & Paper Edition</title>
+    <link rel="icon" href="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .paper {
+            width: 8.5in;
+            height: 11in;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .offense {
+            height: 5in;
+            background-color: #e8f4fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1976D2;
+            padding: 0;
+            margin: 0;
+        }
+
+        .lspace {
+            width: 0.25in;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-size: 8px;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .grid {
+            flex: 1;
+            background-color: #c2d9f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .mspace {
+            width: 0.25in;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-size: 8px;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .letters {
+            flex: 1;
+            background-color: #a0c4eb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .rspace {
+            width: 0.25in;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-size: 8px;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .offense-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .offense-left {
+            flex: 1;
+            background-color: #c2d9f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid {
+            flex: 1;
+            background-color: #d1e7f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .grid-title {
+            flex: 1;
+            background-color: #c2d9f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .bubble-numbers {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .bubble {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #333;
+            text-align: center;
+            line-height: 16px;
+            margin: 0 2px;
+            font-weight: bold;
+            background-color: white;
+        }
+
+        .grid-main {
+            flex: 1;
+            background-color: #d1e7f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid-table {
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+            width: 4in;
+            height: 4in;
+        }
+
+        .grid-table td {
+            width: calc(4in / 11);
+            height: calc(4in / 11);
+            border: 1px solid #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .ship-reminder {
+            flex: 1;
+            background-color: #b8d4f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spacer {
+            flex: 1;
+            background-color: #b8d4f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .letters {
+            flex: 1;
+            background-color: #a0c4eb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .letters-title {
+            flex: 1;
+            background-color: #91b8e6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .letters-grid {
+            flex: 4;
+            background-color: #a0c4eb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .middle {
+            height: 1in;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .defense {
+            height: 5in;
+            background-color: #fde8e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #C62828;
+        }
+
+        /* === FLOATING TOOLBAR === */
+        .wordfleet-toolbar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            border: 2px solid #3498db;
+        }
+
+        .fleet-btn {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            border: 1px solid #3498db;
+            padding: 10px 18px;
+            margin: 0 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .fleet-btn:hover {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.6);
+        }
+
+        /* === PRINT STYLES === */
+        @media print {
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            html, body {
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                background: white !important;
+            }
+            
+            body {
+                display: block !important;
+                align-items: unset !important;
+                justify-content: unset !important;
+                min-height: unset !important;
+            }
+            
+            .paper {
+                width: 100% !important;
+                height: 100% !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                page-break-inside: avoid;
+            }
+            
+            .wordfleet-toolbar {
+                display: none !important;
+            }
+            
+            @page {
+                margin: 0 !important;
+                padding: 0 !important;
+                size: letter;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Toolbar -->
+    <div class="wordfleet-toolbar">
+        <button class="fleet-btn" onclick="window.location.reload()">RETREAT</button>
+        <button class="fleet-btn" onclick="generateNewTracker()">GENERATE NEW TRACKER</button>
+        <button class="fleet-btn" onclick="window.print()">PRINT</button>
+    </div>
+
+    <div class="paper">
+        <div class="offense">
+            <div class="lspace">LSPACE</div>
+            <div class="grid">GRID</div>
+            <div class="mspace">MSPACE</div>
+            <div class="letters">LETTERS</div>
+            <div class="rspace">RSPACE</div>
+        </div>
+        <div class="middle">
+            <div style="text-align: center; font-size: 12px; line-height: 1.3;">
+                <div style="font-weight: bold; margin-bottom: 3px;">WORD FLEET</div>
+                <div>Pen & Paper Edition • Battle Tracker • by Kevin Kolb • thegamebureau.com</div>
+                <div style="margin-top: 3px;">launch codes: 111 222 333 444 555</div>
+            </div>
+        </div>
+        <div class="defense">
+            DEFENSE
+        </div>
+    </div>
+
+    <script>
+        function generateNewTracker() {
+            // Generate a new tracker by reloading with random parameters
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>

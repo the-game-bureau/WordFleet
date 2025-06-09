@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Paper Template</title>
+    <style>
+        /* === RESET & BASE STYLES === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.4;
+        }
+
+        /* === NO-PRINT NAVIGATION BAR === */
+        .site-navigation {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .site-logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .main-menu {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .main-menu li {
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .main-menu li:hover {
+            color: #f39c12;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: white;
+            color: #2c3e50;
+        }
+
+        .nav-btn.primary {
+            background: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        .nav-btn.primary:hover {
+            background: #c0392b;
+            border-color: #c0392b;
+        }
+
+        .nav-notice {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid #e74c3c;
+            padding: 12px 24px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .nav-notice strong {
+            color: #e74c3c;
+        }
+
+        /* === FLOATING ACTION TOOLBAR === */
+        .action-toolbar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .action-btn {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #e0e0e0;
+        }
+
+        /* === PAPER DOCUMENT CONTAINER === */
+        .document-container {
+            max-width: 8.5in;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            min-height: 11in;
+        }
+
+        .document-content {
+            padding: 1in;
+            background: white;
+        }
+
+        /* === DOCUMENT HEADER === */
+        .document-header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .document-title {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .document-subtitle {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* === DOCUMENT FOOTER === */
+        .document-footer {
+            text-align: center;
+            border-top: 1px solid #666;
+            padding-top: 10px;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* === CONTENT SECTIONS === */
+        .content-section {
+            margin: 20px 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .text-content {
+            line-height: 1.6;
+            text-align: justify;
+            margin: 20px 0;
+        }
+
+        .text-content p {
+            margin-bottom: 15px;
+        }
+
+        /* === DATA TABLES === */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .data-table th,
+        .data-table td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        /* === SIDE-BY-SIDE LAYOUT === */
+        .side-by-side-container {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .side-by-side-container .data-table {
+            flex: 1;
+            margin: 0;
+        }
+
+        /* === FIXED WIDTH CONTAINER === */
+        .fixed-width-container {
+            background: #f9f9f9;
+            border: 2px dashed #ccc;
+            padding: 20px;
+            margin: 20px 0;
+            width: 400px;
+            position: relative;
+        }
+
+        .fixed-width-container::before {
+            content: "Fixed Width Container (400px)";
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: white;
+            padding: 0 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .container-title {
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* === WEB-ONLY SECTIONS === */
+        .web-only-section {
+            background: linear-gradient(45deg, #9b59b6 0%, #e74c3c 100%);
+            color: white;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            border-radius: 8px;
+            border: 3px solid #8e44ad;
+            position: relative;
+            animation: webOnlyPulse 2s infinite;
+        }
+
+        .web-only-section::before {
+            content: "🚫 NO PRINT ZONE 🚫";
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #8e44ad;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .web-only-title {
+            margin-bottom: 10px;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .web-only-text {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        @keyframes webOnlyPulse {
+            0% { box-shadow: 0 0 0 0 rgba(142, 68, 173, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(142, 68, 173, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(142, 68, 173, 0); }
+        }
+
+        /* === MODAL FORM STYLES === */
+        .form-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 500px;
+            max-width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .form-title {
+            margin: 0 0 20px 0;
+            color: #333;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .form-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .form-btn.primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .form-btn.primary:hover {
+            background: #5a67d8;
+        }
+
+        .form-btn.secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+
+        .form-btn.secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        /* === PRINT STYLES === */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .document-container {
+                box-shadow: none;
+                max-width: none;
+                margin: 0;
+            }
+
+            .document-content {
+                padding: 0.5in;
+            }
+
+            /* Hide all web-only elements */
+            .site-navigation,
+            .action-toolbar,
+            .web-only-section {
+                display: none !important;
+            }
+
+            /* Prevent page breaks inside tables */
+            .side-by-side-container,
+            .data-table {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Site Navigation (No Print) -->
+    <div class="site-navigation">
+        <div class="nav-header">
+            <div class="site-logo">
+                🌐 PaperSim Pro
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li>Home</li>
+                    <li>Documents</li>
+                    <li>Templates</li>
+                    <li>Settings</li>
+                    <li>Help</li>
+                </ul>
+            </nav>
+            <div class="nav-buttons">
+                <button class="nav-btn">Login</button>
+                <button class="nav-btn primary">Sign Up</button>
+            </div>
+        </div>
+        <div class="nav-notice">
+            <strong>📄 NO PRINT NAVIGATION:</strong> This entire navigation bar disappears when printing!
+        </div>
+    </div>
+
+    <!-- Floating Action Toolbar (No Print) -->
+    <div class="action-toolbar">
+        <button class="action-btn" onclick="navigateToWordFleet()">RETREAT</button>
+        <button class="action-btn" onclick="openTrackerGenerator()">GENERATE NEW TRACKER</button>
+        <button class="action-btn" onclick="window.print()">PRINT</button>
+    </div>
+
+    <!-- Document Generator Modal -->
+    <div id="trackerGeneratorModal" class="form-modal">
+        <div class="form-container">
+            <span class="modal-close" onclick="closeTrackerGenerator()">&times;</span>
+            <h2 class="form-title">📋 Generate New Document</h2>
+            <form id="documentGeneratorForm">
+                <div class="form-group">
+                    <label class="form-label" for="documentTitle">Document Title:</label>
+                    <input type="text" id="documentTitle" name="documentTitle" class="form-input" value="Project Status Report" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="projectType">Project Type:</label>
+                    <select id="projectType" name="projectType" class="form-select" required>
+                        <option value="software">Software Development</option>
+                        <option value="marketing">Marketing Campaign</option>
+                        <option value="research">Research Project</option>
+                        <option value="design">Design Project</option>
+                        <option value="operations">Operations</option>
+                        <option value="consulting">Consulting</option>
+                        <option value="custom">Custom Project</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="teamSize">Team Size:</label>
+                    <select id="teamSize" name="teamSize" class="form-select" required>
+                        <option value="3">Small Team (3 tasks)</option>
+                        <option value="5">Medium Team (5 tasks)</option>
+                        <option value="7">Large Team (7 tasks)</option>
+                        <option value="10">Enterprise (10 tasks)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="priority">Priority Level:</label>
+                    <select id="priority" name="priority" class="form-select" required>
+                        <option value="high">High Priority (Urgent deadlines)</option>
+                        <option value="medium">Medium Priority (Standard timeline)</option>
+                        <option value="low">Low Priority (Extended timeline)</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="form-btn secondary" onclick="closeTrackerGenerator()">Cancel</button>
+                    <button type="submit" class="form-btn primary">Generate Document</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Document Container -->
+    <div class="document-container">
+        <div class="document-content">
+            <!-- Document Header -->
+            <div class="document-header">
+                <h1 class="document-title">Project Status Report</h1>
+                <div class="document-subtitle">Professional Document Template</div>
+            </div>
+
+            <!-- Main Status Table -->
+            <div class="content-section">
+                <h3 class="section-title">Current Project Status</h3>
+                <table class="data-table" id="mainStatusTable">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Status</th>
+                            <th>Due Date</th>
+                            <th>Assigned To</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Design Review</td>
+                            <td>Complete</td>
+                            <td>Mar 15</td>
+                            <td>John Smith</td>
+                        </tr>
+                        <tr>
+                            <td>Development Phase</td>
+                            <td>In Progress</td>
+                            <td>Apr 10</td>
+                            <td>Jane Doe</td>
+                        </tr>
+                        <tr>
+                            <td>Quality Testing</td>
+                            <td>Pending</td>
+                            <td>Apr 20</td>
+                            <td>Mike Johnson</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Side-by-Side Comparison Tables -->
+            <div class="content-section">
+                <h3 class="section-title">Quarterly Performance</h3>
+                <div class="side-by-side-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Q1 Results</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Revenue</td>
+                                <td>$125,000</td>
+                            </tr>
+                            <tr>
+                                <td>Expenses</td>
+                                <td>$89,000</td>
+                            </tr>
+                            <tr>
+                                <td>Net Profit</td>
+                                <td>$36,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Q2 Forecast</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Revenue</td>
+                                <td>$140,000</td>
+                            </tr>
+                            <tr>
+                                <td>Expenses</td>
+                                <td>$95,000</td>
+                            </tr>
+                            <tr>
+                                <td>Net Profit</td>
+                                <td>$45,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Fixed Width Container Example -->
+            <div class="fixed-width-container">
+                <h4 class="container-title">Important Notice</h4>
+                <p>This container maintains a fixed width of 400 pixels and does not use flexbox. It demonstrates how to create consistent sizing for forms, sidebars, or any content that requires specific dimensions regardless of surrounding layout.</p>
+            </div>
+
+            <!-- Text Content Section -->
+            <div class="content-section">
+                <h3 class="section-title">Executive Summary</h3>
+                <div class="text-content">
+                    <p>This professional document template demonstrates a complete paper simulation with WYSIWYG (What You See Is What You Get) capabilities. The template includes various content types including headers, tables, side-by-side layouts, and structured text sections.</p>
+                    
+                    <p>Key features include responsive design elements that maintain professional appearance across different viewing contexts, comprehensive print styling that removes web-only elements, and dynamic content generation through an integrated form system.</p>
+                    
+                    <p>The template serves as both a functional document generator and a demonstration of modern web technologies applied to traditional document formats. All content maintains proper typography and spacing for professional presentation.</p>
+                </div>
+            </div>
+
+            <!-- Web-Only Section (No Print) -->
+            <div class="web-only-section">
+                <h2 class="web-only-title">⚡ WEB-ONLY CONTENT ⚡</h2>
+                <p class="web-only-text">This section demonstrates web-only content that disappears during printing!</p>
+                <p style="margin-top: 10px; font-size: 14px;">Perfect for interactive elements, navigation aids, or temporary notices 🎨</p>
+            </div>
+
+            <!-- Document Footer -->
+            <div class="document-footer">
+                <p>Page 1 of 1 | Generated: June 2025 | Professional Document Template</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* === NAVIGATION FUNCTIONS === */
+        function navigateToWordFleet() {
+            window.location.href = 'https://the-game-bureau.github.io/WordFleet/index.html';
+        }
+
+        /* === MODAL MANAGEMENT === */
+        function openTrackerGenerator() {
+            document.getElementById('trackerGeneratorModal').style.display = 'block';
+        }
+
+        function closeTrackerGenerator() {
+            document.getElementById('trackerGeneratorModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('trackerGeneratorModal');
+            if (event.target === modal) {
+                closeTrackerGenerator();
+            }
+        });
+
+        /* === DOCUMENT GENERATION === */
+        function generateNewDocument() {
+            const formData = new FormData(document.getElementById('documentGeneratorForm'));
+            const config = {
+                title: formData.get('documentTitle'),
+                type: formData.get('projectType'),
+                teamSize: parseInt(formData.get('teamSize')),
+                priority: formData.get('priority')
+            };
+
+            // Project-specific task definitions
+            const taskLibrary = {
+                software: ['API Development', 'Frontend Implementation', 'Database Migration', 'Security Audit', 'Mobile App Development', 'Testing Framework', 'DevOps Pipeline', 'Code Review', 'Performance Optimization', 'Documentation'],
+                marketing: ['Social Media Campaign', 'Email Marketing', 'Brand Strategy', 'Content Creation', 'SEO Optimization', 'Market Research', 'Ad Campaign', 'Influencer Outreach', 'Analytics Setup', 'Lead Generation'],
+                research: ['User Research', 'Market Analysis', 'Competitive Study', 'Data Collection', 'Survey Design', 'Focus Groups', 'Report Writing', 'Literature Review', 'Data Analysis', 'Presentation Prep'],
+                design: ['UI/UX Design', 'Logo Creation', 'Website Mockup', 'Brand Guidelines', 'Print Materials', 'Icon Design', 'Prototype Development', 'User Journey Mapping', 'Visual Design', 'Design System'],
+                operations: ['Process Improvement', 'Training Program', 'Quality Assurance', 'Documentation', 'Workflow Optimization', 'Team Coordination', 'Resource Planning', 'Policy Development', 'System Integration', 'Performance Review'],
+                consulting: ['Strategy Development', 'Client Assessment', 'Implementation Plan', 'Change Management', 'Stakeholder Alignment', 'Best Practices Review', 'Risk Assessment', 'Solution Design', 'Knowledge Transfer', 'Project Closure'],
+                custom: ['Project Alpha', 'Initiative Beta', 'Task Gamma', 'Milestone Delta', 'Phase Epsilon', 'Component Zeta', 'Module Eta', 'Feature Theta', 'System Iota', 'Process Kappa']
+            };
+
+            // Priority-based status and timeline configuration
+            const priorityConfig = {
+                high: {
+                    statuses: ['Critical', 'In Progress', 'Complete', 'Urgent Review'],
+                    maxDays: 14
+                },
+                medium: {
+                    statuses: ['In Progress', 'Complete', 'Pending', 'Under Review', 'Scheduled'],
+                    maxDays: 30
+                },
+                low: {
+                    statuses: ['Not Started', 'In Progress', 'Pending', 'On Hold', 'Planned'],
+                    maxDays: 60
+                }
+            };
+
+            const teamMembers = [
+                'John Smith', 'Jane Doe', 'Mike Johnson', 'Sarah Wilson', 'Tom Brown', 
+                'Lisa Davis', 'Chris Lee', 'Amy Chen', 'David Park', 'Emma White',
+                'Alex Rivera', 'Maria Garcia', 'Kevin Chang', 'Rachel Green', 'James Wilson'
+            ];
+
+            // Update document title and subtitle
+            document.querySelector('.document-title').textContent = config.title;
+            document.querySelector('.section-title').textContent = config.title;
+            
+            // Generate timeline based on priority
+            const timelineConfig = priorityConfig[config.priority];
+            const generateDueDate = () => {
+                const today = new Date();
+                const randomDays = Math.floor(Math.random() * timelineConfig.maxDays);
+                const dueDate = new Date(today.getTime() + randomDays * 24 * 60 * 60 * 1000);
+                return dueDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            };
+
+            // Clear and populate main table
+            const tableBody = document.querySelector('#mainStatusTable tbody');
+            const tasks = taskLibrary[config.type];
+            tableBody.innerHTML = '';
+
+            // Generate specified number of rows
+            for (let i = 0; i < config.teamSize; i++) {
+                const row = document.createElement('tr');
+                const taskName = tasks[i % tasks.length];
+                const status = timelineConfig.statuses[Math.floor(Math.random() * timelineConfig.statuses.length)];
+                const dueDate = generateDueDate();
+                const assignee = teamMembers[Math.floor(Math.random() * teamMembers.length)];
+
+                row.innerHTML = `
+                    <td>${taskName}</td>
+                    <td>${status}</td>
+                    <td>${dueDate}</td>
+                    <td>${assignee}</td>
+                `;
+                tableBody.appendChild(row);
+            }
+
+            // Update document subtitle with generation timestamp
+            const now = new Date();
+            const timestamp = `Generated: ${now.toLocaleDateString('en-US', { 
+                month: 'long', 
+                day: 'numeric', 
+                year: 'numeric' 
+            })} at ${now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            })}`;
+            document.querySelector('.document-subtitle').textContent = timestamp;
+
+            // Visual feedback for successful generation
+            tableBody.style.background = '#e8f5e8';
+            setTimeout(() => {
+                tableBody.style.background = '';
+            }, 800);
+
+            // Close modal
+            closeTrackerGenerator();
+        }
+
+        /* === INITIALIZATION === */
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form submission handling
+            document.getElementById('documentGeneratorForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                generateNewDocument();
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(event) {
+                if (event.ctrlKey && event.key === 'p') {
+                    event.preventDefault();
+                    window.print();
+                }
+                if (event.key === 'Escape') {
+                    closeTrackerGenerator();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
