@@ -280,121 +280,119 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             padding: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
             z-index: 1000;
-            display: flex;
-            gap: 8px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .toolbar:hover {
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border: 2px solid #3498db;
         }
 
         .toolbar-btn {
-            color: #000000;
-            text-decoration: none;
-            padding: 10px 18px;
-            background: #f5f5f5;
-            border: 1px solid #cccccc;
-            border-radius: 50px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 600;
-            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            border: 1px solid #3498db;
+            padding: min(16px, 4vw) min(24px, 6vw);
+            margin: min(8px, 2vw);
+            border-radius: 8px;
             cursor: pointer;
-            font-family: inherit;
-            white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            display: flex;
+            font-size: min(14px, 3.5vw);
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            min-height: 44px;
+            min-width: 44px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .toolbar-btn:hover,
-        .toolbar-btn:focus {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            outline: none;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        .toolbar-btn:hover {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.6);
         }
 
-        .dialog-btn {
-            color: #000000;
-            text-decoration: none;
-            padding: 10px 18px;
-            background: #f5f5f5;
-            border: 1px solid #cccccc;
-            border-radius: 50px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 600;
-            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            font-family: inherit;
-            white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
+        .toolbar-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Print Dialog */
+        .print-dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
             justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .print-dialog {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
             text-align: center;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-            min-width: 140px;
+            position: relative;
         }
 
-        .dialog-btn:hover {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            outline: none;
+        .print-dialog h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
         }
 
-        .dialog-btn.primary {
-            background: #f5f5f5;
-            color: #000000;
-            border: 1px solid #cccccc;
-        }
-
-        .dialog-btn.primary:hover {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
-        }
-
-        .dialog-btn.secondary {
-            background: #f5f5f5;
-            color: #000000;
-            border: 1px solid #cccccc;
-        }
-
-        .dialog-btn.secondary:hover {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
+        .print-dialog p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
         .dialog-buttons {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
-            margin-top: 24px;
-            flex-wrap: wrap;
-            padding: 0 12px;
+            margin-top: 20px;
+        }
+
+        .dialog-btn {
+            padding: min(16px, 4vw) min(24px, 6vw);
+            border: none;
+            border-radius: 8px;
+            font-size: min(14px, 3.5vw);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 44px;
+            min-width: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .dialog-btn.primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .dialog-btn.primary:hover {
+            background: #0056b3;
+        }
+
+        .dialog-btn.secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .dialog-btn.secondary:hover {
+            background: #545b62;
         }
 
         .letter-manifest {
@@ -496,109 +494,6 @@
         .defense-manifest-count {
             font-size: 11px;
             color: #666;
-        }
-
-        /* Print Dialog */
-        .print-dialog-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-
-        .print-dialog {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            position: relative;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .print-dialog:hover {
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .print-dialog h3 {
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
-            font-weight: 700;
-            color: #ffffff;
-            text-align: center;
-            margin: 0 0 20px 0;
-            padding-bottom: 12px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.4);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .print-instructions {
-            margin: 24px 0;
-            text-align: left;
-        }
-
-        .instruction-heading {
-            color: #ffffff;
-            font-weight: 600;
-            font-size: clamp(0.9rem, 3vw, 1rem);
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .instruction-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 20px 0;
-        }
-
-        .instruction-list li {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-            padding: 8px 0;
-            padding-left: 24px;
-            position: relative;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .instruction-list li::before {
-            content: "•";
-            position: absolute;
-            left: 8px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .confirmation-text {
-            color: #ffffff;
-            font-weight: 600;
-            font-size: clamp(0.9rem, 3vw, 1rem);
-            margin: 20px 0 0 0;
-            text-align: center;
-            letter-spacing: 0.5px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .dialog-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 24px;
-            flex-wrap: wrap;
-            padding: 0 12px;
         }
     </style>
 </head>
@@ -815,18 +710,16 @@
     <div class="print-dialog-overlay" id="printDialogOverlay">
         <div class="print-dialog">
             <h3>⚠️ Important Print Settings</h3>
-            <div class="print-instructions">
-                <p class="instruction-heading">To ensure perfect printing:</p>
-                <ul class="instruction-list">
-                    <li>In your printer dialog, set Margins to "None" or "Minimum"</li>
-                    <li>Turn off "Headers and footers"</li>
-                    <li>Set Scale to 100%</li>
-                    <li>Select "More settings" if needed to find these options</li>
-                </ul>
-                <p class="confirmation-text">Ready to print with correct settings?</p>
-            </div>
+            <p><strong>To ensure perfect printing:</strong></p>
+            <p style="text-align: left; margin: 15px 0;">
+                1. In your printer dialog, set <strong>Margins to "None"</strong> or "Minimum"<br>
+                2. Turn off <strong>"Headers and footers"</strong><br>
+                3. Set <strong>Scale to 100%</strong><br>
+                4. Select <strong>"More settings"</strong> if needed to find these options
+            </p>
+            <p>Ready to print with correct settings?</p>
             <div class="dialog-buttons">
-                <button class="dialog-btn primary" onclick="proceedToPrint()">Print Now</button>
+                <button class="dialog-btn primary" onclick="proceedToPrint()">✓ Continue to Print</button>
                 <button class="dialog-btn secondary" onclick="closePrintDialog()">Cancel</button>
             </div>
         </div>

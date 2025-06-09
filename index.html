@@ -611,7 +611,7 @@
                 <div class="form-group">
                     <label for="player1Name">Name Your Fleet</label>
                     <div class="input-with-refresh">
-                        <input type="text" name="fleet" id="player1Name" value="Royal Armada" required pattern=".{0,30}" title="Fleet name can contain letters, numbers, spaces, special characters, and emojis (max 30 characters)">
+                        <input type="text" name="fleet" id="player1Name" value="Royal Armada" required pattern=".{0,20}" title="Fleet name can contain letters, numbers, spaces, special characters, and emojis (max 30 characters)">
                         <button type="button" class="refresh-btn" onclick="regenerateFleetName()" title="Generate new fleet name">
                             🔄
                         </button>
@@ -680,9 +680,15 @@
                 'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
                 'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition'
             ];
-            const randomFirstName = fleetFirstNames[Math.floor(Math.random() * fleetFirstNames.length)];
-            const randomNavalTerm = navalTerms[Math.floor(Math.random() * navalTerms.length)];
-            return `${randomFirstName} ${randomNavalTerm}`;
+
+            let fleetName;
+            do {
+                const randomFirstName = fleetFirstNames[Math.floor(Math.random() * fleetFirstNames.length)];
+                const randomNavalTerm = navalTerms[Math.floor(Math.random() * navalTerms.length)];
+                fleetName = `${randomFirstName} ${randomNavalTerm}`;
+            } while (fleetName.length > 30);
+            
+            return fleetName;
         }
 
         // Function to regenerate fleet name
