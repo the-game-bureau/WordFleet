@@ -267,6 +267,9 @@
             text-transform: uppercase;
             color: #333;
             font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .defense-grid {
@@ -439,7 +442,7 @@
             justify-content: center;
             width: 2.5in;
             height: 4.2in;
-            padding: 0.15in;
+            padding: 0.1in;
             border: 1px solid #ddd;
             box-sizing: border-box;
         }
@@ -447,7 +450,7 @@
         .offense-manifest-list {
             display: flex;
             flex-direction: column;
-            gap: 0.1in;
+            gap: 0.06in;
             width: 100%;
             height: 100%;
             justify-content: space-between;
@@ -456,30 +459,43 @@
         .offense-manifest-row {
             display: flex;
             justify-content: center;
-            gap: 0.08in;
+            gap: 0.04in;
         }
 
+        /* Updated split tile styles for offense manifest */
         .offense-manifest-item {
-            width: 0.35in;
-            height: 0.35in;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-            font-weight: bold;
-            color: #333;
+            width: 0.42in;
+            height: 0.42in;
+            position: relative;
             border: 1px solid #ddd;
-            line-height: 1;
             box-sizing: border-box;
+            overflow: hidden;
         }
 
-        .offense-manifest-item[data-vowel="true"] {
-            background-color: #f5f5f5;
+        .offense-manifest-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, white 50%, white 50%);
+            z-index: 1;
+        }
+
+        .offense-manifest-item[data-vowel="true"]::before {
+            background: linear-gradient(135deg, #d0d0d0 50%, white 50%);
         }
 
         .offense-manifest-letter {
-            margin-bottom: 2px;
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            z-index: 2;
+            line-height: 1;
         }
 
         .defense-letter-manifest {
@@ -501,7 +517,7 @@
             justify-content: center;
             width: 2.5in;
             height: 4.2in;
-            padding: 0.15in;
+            padding: 0.1in;
             border: 1px solid #ddd;
             box-sizing: border-box;
         }
@@ -509,7 +525,7 @@
         .defense-manifest-list {
             display: flex;
             flex-direction: column;
-            gap: 0.1in;
+            gap: 0.06in;
             width: 100%;
             height: 100%;
             justify-content: space-between;
@@ -518,35 +534,55 @@
         .defense-manifest-row {
             display: flex;
             justify-content: center;
-            gap: 0.08in;
+            gap: 0.04in;
         }
 
+        /* Updated split tile styles for defense manifest */
         .defense-manifest-item {
-            width: 0.35in;
-            height: 0.35in;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-            font-weight: bold;
-            color: #333;
+            width: 0.42in;
+            height: 0.42in;
+            position: relative;
             border: 1px solid #ddd;
-            line-height: 1;
             box-sizing: border-box;
+            overflow: hidden;
         }
 
-        .defense-manifest-item[data-vowel="true"] {
-            background-color: #f5f5f5;
+        .defense-manifest-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, white 50%, white 50%);
+            z-index: 1;
+        }
+
+        .defense-manifest-item[data-vowel="true"]::before {
+            background: linear-gradient(135deg, #d0d0d0 50%, white 50%);
         }
 
         .defense-manifest-letter {
-            margin-bottom: 2px;
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            z-index: 2;
+            line-height: 1;
         }
 
         .defense-manifest-count {
-            font-size: 11px;
-            color: #666;
+            position: absolute;
+            bottom: 20%;
+            right: 20%;
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+            z-index: 2;
+            line-height: 1;
+            transform: translate(50%, 50%);
         }
 
         /* Print Dialog */
@@ -642,15 +678,6 @@
             letter-spacing: 0.5px;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
-
-        .dialog-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 24px;
-            flex-wrap: wrap;
-            padding: 0 12px;
-        }
     </style>
 </head>
 <body>
@@ -689,7 +716,7 @@
                 </div>
             </div>            
             <div class="offense-letter-manifest">
-                <div class="offense-manifest-title">FIRED LETTERS</div>
+                <div class="offense-manifest-title">LETTER COUNT RECON</div>
                 <div class="offense-manifest-container">
                     <div class="offense-manifest-list">
                         <div class="offense-manifest-row">
@@ -804,7 +831,14 @@
         <!-- Defense Section -->        
         <div class="defense">            
             <div class="defense-grid-section">
-                <div class="defense-grid-label">DEFENSE GRID</div>
+                <div class="defense-grid-label">
+                    DEFENSE GRID
+                    <span class="bubble-number">5</span>
+                    <span class="bubble-number">4</span>
+                    <span class="bubble-number">3</span>
+                    <span class="bubble-number">3</span>
+                    <span class="bubble-number">2</span>
+                </div>
                 <div class="defense-grid">
                     <!-- 121 cells (11x11) -->
                     <div class="defense-cell"></div><div class="defense-cell">A</div><div class="defense-cell">B</div><div class="defense-cell">C</div><div class="defense-cell">D</div><div class="defense-cell">E</div><div class="defense-cell">F</div><div class="defense-cell">G</div><div class="defense-cell">H</div><div class="defense-cell">I</div><div class="defense-cell">J</div>
@@ -820,7 +854,7 @@
                     <div class="defense-cell">10</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>                </div>
             </div>            
             <div class="defense-letter-manifest">
-                <div class="defense-manifest-title">LETTER MANIFEST</div>
+                <div class="defense-manifest-title">LETTER COUNT MANIFEST</div>
                 <div class="defense-manifest-container">
                     <div class="defense-manifest-list">
                         <div class="defense-manifest-row">
@@ -1134,7 +1168,7 @@
             manifestItems.forEach(item => {
                 const letter = item.querySelector('.defense-manifest-letter').textContent;
                 const countSpan = item.querySelector('.defense-manifest-count');
-                countSpan.textContent = showWords ? (letterCounts[letter] || 0) : '___';
+                countSpan.textContent = showWords ? (letterCounts[letter] || 0) : '';
             });
             
             // Update word ship display
@@ -1145,7 +1179,9 @@
             } else {
                 wordBox.classList.add('hidden');
             }
-        }        function generateNewTracker() {
+        }        
+
+        function generateNewTracker() {
             // Redirect to index.html with highlight parameter and preserve existing params
             const currentParams = new URLSearchParams(window.location.search);
             currentParams.append('highlight', 'form');
