@@ -2,7 +2,10 @@
 <html lang="en">
 <head>    <meta charset="UTF-8">
     <title>Word Fleet • Battle Tracker</title>
-    <link rel="icon" type="image/x-icon" href="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet.ico">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../media/WF_apple.png">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../media/WF.ico">
     <style>
         * {
             margin: 0;
@@ -172,6 +175,19 @@
             font-size: 11px;
         }
 
+        .word-ship {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+
+        .ship-bullet {
+            color: #333;
+            margin: 0 4px;
+        }
+
         /* Middle Header */
         .middle-header {
             width: 8.5in;
@@ -200,6 +216,19 @@
             line-height: 1.2;
             white-space: nowrap;
             font-family: Arial, sans-serif;
+        }
+
+        .header-line-1.launch-codes {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 4px 12px;
+            background: #8b8b8b;
+            color: #fff;
+            border-radius: 2px;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }.header-line-2 {
             font-size: 18px;
             font-weight: 900;
@@ -269,7 +298,20 @@
             font-family: Arial, sans-serif;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 8px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .defense-grid-title {
+            flex-shrink: 0;
+        }
+
+        .defense-grid-ships {
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .defense-grid {
@@ -820,24 +862,29 @@
 
         <!-- Middle Header -->
         <div class="middle-header">
-            <div class="header-line-1">WORD FLEET • Pen & Paper Edition • by Kevin Kolb • thegamebureau.com</div>
+            <div class="header-line-1 launch-codes">LAUNCH CODES: VVV WWW XXX YYY ZZZ</div>
             <div class="header-line-2" id="battleTracker">BATTLE TRACKER</div>
             <div class="header-line-3">
-                <span class="code-box word-box">MY WORD-SHIPS: XXXXX • XXXX • XXX • XXX • XX</span>
-                <span class="code-box">LAUNCH CODES: VVV WWW XXX YYY ZZZ</span>
+                <span style="font-family: Arial, sans-serif; font-size: 13px; font-weight: normal; text-transform: uppercase; letter-spacing: 1px; color: #000; padding: 0 0.5in 2px 0.5in; line-height: 1.2; white-space: nowrap;">WORD FLEET • Pen & Paper Edition • by Kevin Kolb • thegamebureau.com</span>
             </div>
         </div>
 
         <!-- Defense Section -->        
         <div class="defense">            
             <div class="defense-grid-section">
-                <div class="defense-grid-label">
-                    DEFENSE GRID
-                    <span class="bubble-number">5</span>
-                    <span class="bubble-number">4</span>
-                    <span class="bubble-number">3</span>
-                    <span class="bubble-number">3</span>
-                    <span class="bubble-number">2</span>
+                <div class="defense-grid-label" id="defenseGridLabel">
+                    <span class="defense-grid-title">DEFENSE GRID</span>
+                    <div class="defense-grid-ships">
+                        <span class="word-ship" id="ship5">__________</span>
+                        <span class="ship-bullet">•</span>
+                        <span class="word-ship" id="ship4">________</span>
+                        <span class="ship-bullet">•</span>
+                        <span class="word-ship" id="ship3a">______</span>
+                        <span class="ship-bullet">•</span>
+                        <span class="word-ship" id="ship3b">______</span>
+                        <span class="ship-bullet">•</span>
+                        <span class="word-ship" id="ship2">____</span>
+                    </div>
                 </div>
                 <div class="defense-grid">
                     <!-- 121 cells (11x11) -->
@@ -1134,16 +1181,6 @@
             const text = fleetParam ? fleetParam.toUpperCase() + ' BATTLE TRACKER' : 'BATTLE TRACKER';
             battleTrackerElement.textContent = text;
             
-            // Generate random launch codes
-            const codes = [
-                generateLaunchCode(),
-                generateLaunchCode(),
-                generateLaunchCode(),
-                generateLaunchCode(),
-                generateLaunchCode()
-            ];
-            document.querySelector('.header-line-3 .code-box:last-child').textContent = `LAUNCH CODES: ${codes.join(' ')}`;
-            
             // Load words from XML
             const wordsList = await loadWordsFromXML();
             
@@ -1159,11 +1196,21 @@
             }
             const twoLetterWord = getRandomWord(wordsList, 2);
             
+            // Generate random launch codes and update the header-line-1 with launch codes styling
+            const codes = [
+                generateLaunchCode(),
+                generateLaunchCode(),
+                generateLaunchCode(),
+                generateLaunchCode(),
+                generateLaunchCode()
+            ];
+            document.querySelector('.header-line-1').textContent = `LAUNCH CODES: ${codes.join(' ')}`;
+            
             // Count letters in just the selected words
             const gameWords = [fiveLetterWord, fourLetterWord, threeLetterWord1, threeLetterWord2, twoLetterWord];
             const letterCounts = countLetterOccurrences(gameWords);
             
-            // Update manifest counts based on URL parameter
+            // Update manifest counts and word visibility based on URL parameter
             const manifestItems = document.querySelectorAll('.defense-manifest-item');
             manifestItems.forEach(item => {
                 const letter = item.querySelector('.defense-manifest-letter').textContent;
@@ -1171,13 +1218,19 @@
                 countSpan.textContent = showWords ? (letterCounts[letter] || 0) : '';
             });
             
-            // Update word ship display
-            const wordBox = document.querySelector('.word-box');
+            // Update defense grid label with word-ships (only if showing words)
             if (showWords) {
-                wordBox.classList.remove('hidden');
-                wordBox.textContent = `MY WORD-SHIPS: ${fiveLetterWord} • ${fourLetterWord} • ${threeLetterWord1} • ${threeLetterWord2} • ${twoLetterWord}`;
+                document.getElementById('ship5').textContent = fiveLetterWord;
+                document.getElementById('ship4').textContent = fourLetterWord;
+                document.getElementById('ship3a').textContent = threeLetterWord1;
+                document.getElementById('ship3b').textContent = threeLetterWord2;
+                document.getElementById('ship2').textContent = twoLetterWord;
             } else {
-                wordBox.classList.add('hidden');
+                document.getElementById('ship5').textContent = '__________';
+                document.getElementById('ship4').textContent = '________';
+                document.getElementById('ship3a').textContent = '______';
+                document.getElementById('ship3b').textContent = '______';
+                document.getElementById('ship2').textContent = '____';
             }
         }        
 
