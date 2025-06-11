@@ -113,7 +113,6 @@
             align-items: flex-start;
             gap: 0.5in;
             padding-top: 0.25in;
-            border: 1px solid #ddd;
         }
 
         .offense-grid-section {
@@ -188,77 +187,181 @@
             margin: 0 4px;
         }
 
+        /* Rubber Stamp Styles */
+        .launch-codes-stamp {
+            position: absolute;
+            left: 5.1in;
+            bottom: 0.2in;
+            width: 1.1in;
+            height: 1.1in;
+            transform: rotate(-8deg);
+            z-index: 10;
+        }
+
+        .stamp-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: 3px solid #1a1a1a;
+            border-radius: 50%;
+            box-shadow: 
+                inset 0 0 0 1px #1a1a1a,
+                0 1px 2px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .stamp-container::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 1px dotted #1a1a1a;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .stamp-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .stamp-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            font-weight: bold;
+            color: #1a1a1a;
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: 0px;
+            width: 70%;
+        }
+
+        .stamp-label {
+            font-size: 8px;
+            margin-bottom: 3px;
+            letter-spacing: 0px;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stamp-codes {
+            font-size: 13px;
+            letter-spacing: 0px;
+            font-weight: 900;
+            display: block;
+            margin-top: 3px;
+        }
+
         /* Middle Header */
         .middle-header {
-            width: 8.5in;
+            width: 8in;
             height: 1in;
             position: absolute;
             top: 5in;
-            left: 0;
-            display: flex;            flex-direction: column;
-            justify-content: space-between;
+            left: 0.25in;
+            display: flex;            
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
             text-align: center;
-            border-top: 2px solid #000;
-            border-bottom: 2px solid #000;
-            padding: 0.15in 0;
             background: white;
+            border: 2px solid #333;
+            border-radius: 8px;
             box-sizing: border-box;
-        }        .header-line-1 {
-            font-size: 13px;
-            font-weight: normal;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #000;
-            border-bottom: 1px solid #000;
-            padding: 0 0.5in 2px 0.5in;
-            margin: 0;
-            line-height: 1.2;
-            white-space: nowrap;
-            font-family: Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
         }
 
-        .header-line-1.launch-codes {
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            font-weight: bold;
-            padding: 4px 12px;
-            background: #8b8b8b;
-            color: #fff;
-            border-radius: 2px;
-            border: none;
+        .middle-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.03) 2px,
+                    rgba(0, 0, 0, 0.03) 4px
+                );
+            pointer-events: none;
+        }
+
+        .middle-header::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .system-status {
+            font-family: 'Courier New', 'Andale Mono', 'Lucida Console', 'Liberation Mono', monospace;
+            font-size: 9px;
+            color: #333;
             text-transform: uppercase;
-            letter-spacing: 1px;
-        }.header-line-2 {
-            font-size: 18px;
+            letter-spacing: 2px;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .header-line-2 {
+            font-family: 'Courier New', 'Andale Mono', 'Lucida Console', 'Liberation Mono', monospace;
+            font-size: 22px;
             font-weight: 900;
             margin: 0;
             padding: 0;
             line-height: 1;
             white-space: nowrap;
-            letter-spacing: 0.5px;
+            letter-spacing: 3px;
             color: #000;
-            font-family: Arial, sans-serif;
+            text-transform: uppercase;
             max-width: 8in;
             overflow: hidden;
             text-overflow: ellipsis;
-        }        .header-line-3 {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            align-items: center;
+        }        
+
+        .system-info {
+            font-family: 'Courier New', 'Andale Mono', 'Lucida Console', 'Liberation Mono', monospace;
+            font-size: 12pt;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin: 0;
-            line-height: 1;
-            white-space: nowrap;
-        }        .code-box {
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
             font-weight: bold;
-            padding: 4px 12px;
-            background: #8b8b8b;
-            color: #fff;
-            border-radius: 2px;
-        }
+        }        
 
         .word-box {
             display: block;
@@ -280,7 +383,6 @@
             align-items: flex-start;
             gap: 0.5in;
             padding-top: 0.25in;
-            border: 1px solid #ddd;
         }
 
         .defense-grid-section {
@@ -757,6 +859,18 @@
                     <div class="offense-cell">10</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
                 </div>
             </div>            
+            
+            <!-- Launch Codes Rubber Stamp -->
+            <div class="launch-codes-stamp">
+                <div class="stamp-container">
+                    <div class="stamp-text">
+                        <div class="stamp-label">LAUNCH</div>
+                        <div class="stamp-label">CODES</div>
+                        <div class="stamp-codes" id="stampCodes">VVV WWW XXX YYY ZZZ</div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="offense-letter-manifest">
                 <div class="offense-manifest-title">LETTER COUNT RECON</div>
                 <div class="offense-manifest-container">
@@ -862,10 +976,9 @@
 
         <!-- Middle Header -->
         <div class="middle-header">
-            <div class="header-line-1 launch-codes">LAUNCH CODES: VVV WWW XXX YYY ZZZ</div>
-            <div class="header-line-2" id="battleTracker">BATTLE TRACKER</div>
-            <div class="header-line-3">
-                <span style="font-family: Arial, sans-serif; font-size: 13px; font-weight: normal; text-transform: uppercase; letter-spacing: 1px; color: #000; padding: 0 0.5in 2px 0.5in; line-height: 1.2; white-space: nowrap;">WORD FLEET • Pen & Paper Edition • by Kevin Kolb • thegamebureau.com</span>
+            <div class="header-content">
+                <div class="header-line-2" id="battleTracker">BATTLE TRACKER</div>
+                <div class="system-info">WORD FLEET • Pen & Paper Edition • by Kevin Kolb • thegamebureau.com</div>
             </div>
         </div>
 
@@ -1196,7 +1309,7 @@
             }
             const twoLetterWord = getRandomWord(wordsList, 2);
             
-            // Generate random launch codes and update the header-line-1 with launch codes styling
+            // Generate random launch codes and update the stamp
             const codes = [
                 generateLaunchCode(),
                 generateLaunchCode(),
@@ -1204,7 +1317,7 @@
                 generateLaunchCode(),
                 generateLaunchCode()
             ];
-            document.querySelector('.header-line-1').textContent = `LAUNCH CODES: ${codes.join(' ')}`;
+            document.getElementById('stampCodes').textContent = codes.join(' ');
             
             // Count letters in just the selected words
             const gameWords = [fiveLetterWord, fourLetterWord, threeLetterWord1, threeLetterWord2, twoLetterWord];
