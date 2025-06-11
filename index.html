@@ -16,6 +16,9 @@
     <meta name="twitter:image" content="media/wordfleet-social.png">
     <meta name="description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
     <link href="https://fonts.cdnfonts.com/css/clear-sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/lcd-7" rel="stylesheet">
     <style>
         :root {
             --battleship-gray: #4a535a;
@@ -42,43 +45,69 @@
             /* Much more height to show full image */
         }
 
-        /* Header matches cards styling */
+        /* Sleek modern header */
         .wordle-header {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 0 0 12px 12px;
-            padding: 24px 0 20px 0;
+            background: rgba(18, 18, 19, 0.85);
+            border: 1px solid #3a3a3c;
+            border-radius: 0;
+            padding: 20px 0 16px 0;
             text-align: center;
             width: 100%;
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                0 8px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wordle-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.03), 
+                transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         .wordle-title {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
             flex-wrap: wrap;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .wordle-word {
             display: flex;
-            gap: 0px;
-            margin: 0 12px;
+            gap: 4px;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .wordle-word:hover {
+            transform: translateY(-2px);
         }
 
         .wordle-tile {
-            width: clamp(40px, 8vw, 60px);
-            height: clamp(40px, 8vw, 60px);
+            width: clamp(36px, 7vw, 52px);
+            height: clamp(36px, 7vw, 52px);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(18px, 4vw, 28px);
+            font-size: clamp(16px, 3.5vw, 24px);
             font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
             font-weight: 700;
             border-radius: 0px;
@@ -86,51 +115,41 @@
             color: #ffffff;
             text-transform: uppercase;
             border: none;
-            margin: 1px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wordle-tile.blank {
+            background: transparent;
+            border: 2px solid #3a3a3c;
+            color: transparent;
         }
 
         .header-tagline {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: clamp(0.9rem, 3.2vw, 1.1rem);
+            margin-top: 12px;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: none;
+            font-family: 'LCD7', 'Pixelify Sans', monospace;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-tagline a {
             color: rgba(255, 255, 255, 0.9);
-            font-size: clamp(0.8rem, 3vw, 0.95rem);
-            margin-top: 8px;
-            margin-bottom: 12px;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-family: inherit;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .header-rules-btn {
-            color: #000000;
             text-decoration: none;
-            padding: 8px 16px;
-            background: #ffffff;
-            border: 1px solid #cccccc;
-            border-radius: 50px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 600;
-            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            font-family: inherit;
-            white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+            transition: color 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 1px;
         }
 
-        .header-rules-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
-            color: #000000;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        .header-tagline a:hover {
+            color: #ffffff;
+            border-bottom-color: rgba(255, 255, 255, 0.6);
         }
 
         .main-container {
@@ -151,40 +170,73 @@
             padding: 0 24px;
         }
 
-        /* More transparent glass effect with blur */
+        /* Enhanced glass effect cards with modern touches */
         .form-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             max-width: 400px;
             width: 100%;
             margin: 0 auto;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
             position: relative;
+            overflow: hidden;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                transparent);
         }
 
         .form-card:hover {
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
         }
 
         .form-title {
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            font-size: clamp(1.1rem, 3.8vw, 1.4rem);
             font-weight: 700;
             color: #ffffff;
             text-align: center;
             margin: 0;
-            padding-bottom: 12px;
-            border-bottom: 2px solid rgba(200, 200, 200, 0.25);
-            letter-spacing: 1px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+            letter-spacing: 1.2px;
             text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #6aaa64, #5a9454);
+            border-radius: 1px;
         }
 
         .form-group {
@@ -371,65 +423,80 @@
             margin-top: 4px;
         }
 
-        /* Updated button styles to match print.html */
+        /* Modern enhanced buttons */
         .action-btn,
-        .print-btn,
-        .rules-btn {
+        .print-btn {
             color: #000000;
             text-decoration: none;
-            padding: 10px 18px;
-            background: #f5f5f5;
-            border: 1px solid #cccccc;
-            border-radius: 50px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 600;
             font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
             cursor: pointer;
             font-family: inherit;
             white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             text-transform: uppercase;
             width: 100%;
-            margin: 8px 0 0 0;
+            margin: 12px 0 0 0;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before,
+        .print-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                transparent);
+            transition: left 0.5s;
+        }
+
+        .action-btn:hover::before,
+        .print-btn:hover::before {
+            left: 100%;
         }
 
         .action-btn:hover,
-        .action-btn:focus {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            outline: none;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-        }
-
+        .action-btn:focus,
         .print-btn:hover,
-        .rules-btn:hover,
-        .print-btn:focus,
-        .rules-btn:focus {
-            background: #e5e5e5;
-            border-color: #999999;
+        .print-btn:focus {
+            background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+            border-color: rgba(255, 255, 255, 0.5);
             color: #000000;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
             outline: none;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
 
-        .header-rules-btn:hover {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn:disabled::before {
+            display: none;
         }
 
         .form-divider {
@@ -452,195 +519,6 @@
             border: 0;
         }
 
-        /* Modal Styles - Matching Card Design */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-content {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin: 5% auto;
-            padding: 0;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            animation: slideIn 0.3s ease;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .modal-header {
-            padding: 24px;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 16px 16px 0 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            text-align: center;
-            padding-bottom: 12px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.4);
-        }
-
-        .modal-body {
-            padding: 24px;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.6;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-
-        .modal-footer {
-            padding: 16px 24px 24px 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 0 0 16px 16px;
-        }
-
-        .modal-print-btn {
-            color: #000000;
-            text-decoration: none;
-            padding: 8px 16px;
-            background: #ffffff;
-            border: 1px solid #cccccc;
-            border-radius: 50px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 600;
-            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            font-family: inherit;
-            white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-        }
-
-        .modal-print-btn:hover {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-        }
-
-        .modal-body h1, .modal-body h2, .modal-body h3 {
-            color: #ffffff;
-            margin-top: 24px;
-            margin-bottom: 12px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        .modal-body p {
-            margin-bottom: 16px;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-            font-size: clamp(0.9rem, 3vw, 1rem);
-        }
-
-        .modal-body ul, .modal-body ol {
-            margin-bottom: 16px;
-            padding-left: 24px;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .modal-body li {
-            margin-bottom: 8px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-            font-size: clamp(0.9rem, 3vw, 1rem);
-        }
-
-        .modal-body strong, .modal-body b {
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .modal-body em, .modal-body i {
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        .close-modal {
-            color: #ffffff;
-            background: none;
-            border: none;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: opacity 0.2s ease;
-            line-height: 1;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-            position: absolute;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            padding: 0;
-        }
-
-        .close-modal:hover,
-        .close-modal:focus {
-            opacity: 0.8;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
         /* Responsive design */
         @media (max-width: 1200px) {
             .forms-container {
@@ -659,26 +537,23 @@
 
         @media (max-width: 768px) {
             .wordle-header {
-                padding: 20px 0 16px 0;
+                padding: 16px 0 12px 0;
+                border-radius: 0;
             }
             
             .wordle-word {
-                gap: 3px;
-                margin: 0 6px;
+                gap: 1px;
+                margin: 0 4px;
             }
             
             .wordle-title {
-                gap: 6px;
+                gap: 8px;
             }
 
             .header-tagline {
-                font-size: clamp(0.7rem, 2.5vw, 0.85rem);
-                margin-bottom: 10px;
-            }
-
-            .header-rules-btn {
-                font-size: clamp(0.65rem, 2vw, 0.75rem);
-                padding: 6px 12px;
+                font-size: clamp(0.65rem, 2.2vw, 0.8rem);
+                margin-top: 10px;
+                letter-spacing: 1px;
             }
 
             .forms-container {
@@ -688,29 +563,12 @@
             }
             
             .form-card {
-                padding: 20px 16px;
+                padding: 24px 20px;
+                border-radius: 18px;
             }
             
             .main-container {
                 padding: 20px 0;
-            }
-
-            .modal-content {
-                width: 95%;
-                margin: 2% auto;
-                max-height: 90vh;
-            }
-
-            .modal-header {
-                padding: 16px 20px;
-            }
-
-            .modal-header h2 {
-                font-size: 1.2rem;
-            }
-
-            .modal-body {
-                padding: 20px;
             }
         }
 
@@ -806,6 +664,7 @@
                 <div class="wordle-tile">R</div>
                 <div class="wordle-tile">D</div>
             </div>
+            <div class="wordle-tile blank"></div>
             <div class="wordle-word">
                 <div class="wordle-tile">F</div>
                 <div class="wordle-tile">L</div>
@@ -814,8 +673,7 @@
                 <div class="wordle-tile">T</div>
             </div>
         </div>
-        <p class="header-tagline">by Kevin M. Kolb • <a href="https://thegamebureau.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">thegamebureau.com</a></p>
-        <button class="header-rules-btn" onclick="showRulesModal()">Rules of Engagement</button>
+        <p class="header-tagline">by Kevin M. Kolb • <a href="https://thegamebureau.com/wrdflt" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">thegamebureau.com/wrdflt</a></p>
     </header>
 
     <div class="main-container">
@@ -848,34 +706,18 @@
                 <button type="submit" class="action-btn" id="printBtn">Print Your Battle Tracker</button>
             </form>
             
-            <!-- Head to Head Battle -->
+            <!-- Rules of Engagement -->
             <div class="form-card">
-                <h2 class="form-title">Head to Head Battle</h2>
-                <p class="info-text">Battle in real-time naval word combat via LAN, Text or App.</p>
-                <p class="info-text">Coming soon.</p>
+                <h2 class="form-title">Rules of Engagement</h2>
+                <p class="info-text">Like Battleship meets Wordle - sink enemy fleets by spelling words with their coordinates. Each correct letter reveals if you hit, missed, or sunk a ship!</p>
+                <button type="button" class="action-btn" disabled style="opacity: 0.6; cursor: not-allowed;">View Full Rules</button>
             </div>
             
-            <!-- Battle A Bot -->
+            <!-- Future Deployments -->
             <div class="form-card">
-                <h2 class="form-title">Battle A Bot</h2>
-                <p class="info-text">Test your skills against an AI opponent.</p>
-                <p class="info-text">Coming soon.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Rules Modal -->
-    <div id="rulesModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Rules of Engagement</h2>
-                <span class="close-modal" onclick="closeRulesModal()">&times;</span>
-            </div>
-            <div class="modal-body" id="rulesContent">
-                <p>Loading rules...</p>
-            </div>
-            <div class="modal-footer">
-                <button class="modal-print-btn" onclick="printRules()">Print Rules</button>
+                <h2 class="form-title">Future Deployments</h2>
+                <p class="info-text">Head-to-head multiplayer battles, AI opponents, tournaments, and mobile app versions are charting course for deployment.</p>
+                <p class="info-text">Stay tuned, Admiral.</p>
             </div>
         </div>
     </div>
@@ -979,63 +821,6 @@
                 }
             });
         });
-
-        // Modal Functions
-        function showRulesModal() {
-            const modal = document.getElementById('rulesModal');
-            const rulesContent = document.getElementById('rulesContent');
-            
-            // Show the modal
-            modal.style.display = 'block';
-            
-            // Fetch the rules content
-            fetch('src/html/rules.html')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to load rules');
-                    }
-                    return response.text();
-                })
-                .then(html => {
-                    // Extract just the body content from the HTML
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const bodyContent = doc.body.innerHTML;
-                    
-                    // Insert the content
-                    rulesContent.innerHTML = bodyContent;
-                })
-                .catch(error => {
-                    console.error('Error loading rules:', error);
-                    rulesContent.innerHTML = '<p>Sorry, unable to load the rules. Please try again later.</p>';
-                });
-        }
-
-        function closeRulesModal() {
-            const modal = document.getElementById('rulesModal');
-            modal.style.display = 'none';
-        }
-
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            const modal = document.getElementById('rulesModal');
-            if (event.target == modal) {
-                closeRulesModal();
-            }
-        }
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeRulesModal();
-            }
-        });
-
-        // Print rules function
-        function printRules() {
-            // Open the rules page in a new window for printing
-            window.open('src/html/rules.html', '_blank');
-        }
     </script>
 </body>
 </html>
