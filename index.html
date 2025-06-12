@@ -45,7 +45,6 @@
             background-position: center top;
             background-repeat: no-repeat;
             min-height: 300vh;
-            /* Much more height to show full image */
         }
 
         /* Sleek modern header */
@@ -63,25 +62,6 @@
             overflow: hidden;
         }
 
-        .wordle-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.03), 
-                transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
         .wordle-title {
             display: flex;
             justify-content: center;
@@ -97,11 +77,6 @@
             display: flex;
             gap: 4px;
             filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
-            transition: transform 0.3s ease;
-        }
-
-        .wordle-word:hover {
-            transform: translateY(-2px);
         }
 
         .wordle-tile {
@@ -118,7 +93,6 @@
             color: #ffffff;
             text-transform: uppercase;
             border: none;
-            transition: all 0.2s ease;
             position: relative;
             overflow: hidden;
         }
@@ -133,10 +107,10 @@
             color: rgba(255, 255, 255, 0.85);
             font-size: clamp(0.9rem, 3.2vw, 1.1rem);
             margin-top: 12px;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            text-transform: none;
-            font-family: 'LCD7', 'Pixelify Sans', monospace;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
             position: relative;
             z-index: 1;
@@ -165,10 +139,10 @@
 
         .forms-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 48px;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1080px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -184,10 +158,9 @@
             box-shadow: 
                 0 12px 40px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            max-width: 400px;
+            max-width: 540px;
             width: 100%;
             margin: 0 auto;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -195,58 +168,35 @@
             overflow: hidden;
         }
 
-        .form-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.4), 
-                transparent);
-        }
-
-        .form-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.25);
-        }
-
-        /* Highlight effect for the form card */
+        /* Highlight effect for the form card - NAVAL GOLD VERSION */
         .form-card.highlight {
-            animation: highlightPulse 2s ease-in-out;
-            border-color: rgba(255, 215, 0, 0.6) !important;
+            border: 3px solid #d4af37 !important;
+            background: rgba(212, 175, 55, 0.08) !important;
             box-shadow: 
-                0 20px 60px rgba(255, 215, 0, 0.3),
-                0 0 40px rgba(255, 215, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+                0 0 25px rgba(212, 175, 55, 0.7) !important,
+                0 0 50px rgba(212, 175, 55, 0.4) !important,
+                0 0 75px rgba(212, 175, 55, 0.2) !important;
+            animation: navalGoldPulse 3s ease-in-out !important;
         }
 
-        @keyframes highlightPulse {
+        @keyframes overlayGlow {
             0% {
-                border-color: rgba(255, 215, 0, 0.6);
-                box-shadow: 
-                    0 20px 60px rgba(255, 215, 0, 0.3),
-                    0 0 40px rgba(255, 215, 0, 0.4),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                background: rgba(106, 170, 100, 0);
             }
-            50% {
-                border-color: rgba(255, 215, 0, 0.9);
-                box-shadow: 
-                    0 25px 80px rgba(255, 215, 0, 0.5),
-                    0 0 60px rgba(255, 215, 0, 0.6),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            20% {
+                background: rgba(106, 170, 100, 0.7);
+            }
+            40% {
+                background: rgba(106, 170, 100, 0);
+            }
+            60% {
+                background: rgba(106, 170, 100, 0.7);
+            }
+            80% {
+                background: rgba(106, 170, 100, 0);
             }
             100% {
-                border-color: rgba(255, 215, 0, 0.6);
-                box-shadow: 
-                    0 20px 60px rgba(255, 215, 0, 0.3),
-                    0 0 40px rgba(255, 215, 0, 0.4),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                background: rgba(106, 170, 100, 0);
             }
         }
 
@@ -274,11 +224,34 @@
             height: 2px;
             background: linear-gradient(90deg, #6aaa64, #5a9454);
             border-radius: 1px;
+            animation: greenLineBounce 3s ease-in-out infinite;
+        }
+
+        @keyframes greenLineBounce {
+            0% {
+                left: 20%;
+                transform: translateX(0);
+            }
+            50% {
+                left: 80%;
+                transform: translateX(-100%);
+            }
+            100% {
+                left: 20%;
+                transform: translateX(0);
+            }
         }
 
         .form-group {
             margin: 0;
             text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .form-group label {
@@ -302,7 +275,6 @@
             color: #000000;
             outline: none;
             font-family: inherit;
-            /* Remove box-shadow and border-color transitions */
             transition: none;
         }
 
@@ -360,12 +332,18 @@
             justify-content: center;
             gap: 4px;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             position: relative;
-            width: 240px;
+            width: 100%;
             margin-left: auto;
             margin-right: auto;
             white-space: nowrap;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .toggle-group-label {
@@ -374,6 +352,7 @@
             font-weight: 600;
             letter-spacing: 0.5px;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            white-space: nowrap;
         }
 
         .toggle-switch {
@@ -469,7 +448,6 @@
             background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 600;
             font-size: clamp(0.8rem, 2.5vw, 0.9rem);
             letter-spacing: 0.8px;
@@ -491,49 +469,10 @@
             overflow: hidden;
         }
 
-        .action-btn::before,
-        .print-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.4), 
-                transparent);
-            transition: left 0.5s;
-        }
-
-        .action-btn:hover::before,
-        .print-btn:hover::before {
-            left: 100%;
-        }
-
-        .action-btn:hover,
-        .action-btn:focus,
-        .print-btn:hover,
-        .print-btn:focus {
-            background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
-            border-color: rgba(255, 255, 255, 0.5);
-            color: #000000;
-            transform: translateY(-3px);
-            box-shadow: 
-                0 8px 24px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9);
-            outline: none;
-        }
-
         .action-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none !important;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .action-btn:disabled::before {
-            display: none;
         }
 
         .form-divider {
@@ -555,6 +494,8 @@
             white-space: nowrap;
             border: 0;
         }
+
+
 
         /* Responsive design */
         @media (max-width: 1200px) {
@@ -676,11 +617,162 @@
         .input-with-refresh input:hover,
         .refresh-btn:focus,
         .refresh-btn:active,
-        .refresh-btn:hover {
+        .refresh-btn:hover,
+        .input-with-refresh:focus,
+        .input-with-refresh:active,
+        .input-with-refresh:hover,
+        .form-group:focus,
+        .form-group:active,
+        .form-group:hover {
             transform: none !important;
             box-shadow: none !important;
         }
 
+        /* Keep all form cards completely still */
+        .form-card {
+            transform: none !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        }
+
+        /* ONLY background glow - absolutely nothing else */
+        #penPaperForm.highlight {
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            position: relative;
+        }
+
+        /* Overlay effect instead of background change */
+        #penPaperForm.highlight::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            animation: overlayGlow 3s ease-in-out !important;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Rules modal styles */
+        .rules-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .rules-modal.active {
+            display: flex;
+        }
+
+        .rules-content {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .rules-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .rules-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .rules-title {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+            margin: 0;
+        }
+
+        .print-rules-btn {
+            color: #000000;
+            text-decoration: none;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+        }
+
+        .rules-section {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .rules-section h3 {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .rules-section ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .rules-section li {
+            margin-bottom: 8px;
         /* Info text styling */
         .info-text {
             color: rgba(255, 255, 255, 0.9);
@@ -693,6 +785,56 @@
     </style>
 </head>
 <body>
+    <!-- Rules Modal -->
+    <div class="rules-modal" id="rulesModal">
+        <div class="rules-content">
+            <button class="rules-close" onclick="closeRulesModal()">&times;</button>
+            
+            <div class="rules-header">
+                <h2 class="rules-title">WORD FLEET: RULES OF ENGAGEMENT</h2>
+                <button class="print-rules-btn" onclick="printRules()">Print Rules</button>
+            </div>
+            
+            <div class="rules-section">
+                <h3>🚢 Overview</h3>
+                <p>Word Fleet combines the strategy of Battleship with the word-building challenge of Wordle. Deploy your fleet of words across the battlefield and sink your opponent's ships by launching precise letter strikes!</p>
+            </div>
+
+            <div class="rules-section">
+                <h3>⚓ Fleet Deployment</h3>
+                <ul>
+                    <li><strong>Ship Types:</strong> Deploy 5 ships of varying lengths (2-6 letters)</li>
+                    <li><strong>Word Ships:</strong> Each ship is a real English word</li>
+                    <li><strong>Placement:</strong> Ships can be placed horizontally or vertically</li>
+                    <li><strong>No Overlap:</strong> Ships cannot touch or overlap</li>
+                </ul>
+            </div>
+
+            <div class="rules-section">
+                <h3>🎯 Combat Phase</h3>
+                <ul>
+                    <li><strong>Letter Strikes:</strong> Attack enemy positions by calling out letters</li>
+                    <li><strong>Coordinate Strikes:</strong> Target specific grid coordinates (A1, B5, etc.)</li>
+                    <li><strong>Hit Confirmation:</strong> Enemy must confirm hits and reveal struck letters</li>
+                    <li><strong>Word Discovery:</strong> Deduce enemy words from hit patterns</li>
+                </ul>
+            </div>
+
+            <div class="rules-section">
+                <h3>🏆 Victory Conditions</h3>
+                <ul>
+                    <li><strong>Total Annihilation:</strong> Sink all enemy ships to claim victory</li>
+                    <li><strong>Word Completion:</strong> Correctly guess an entire enemy word to sink that ship</li>
+                    <li><strong>Strategic Advantage:</strong> Use linguistic knowledge to predict word patterns</li>
+                </ul>
+            </div>
+
+            <div class="rules-section">
+                <h3>⚔️ Advanced Tactics</h3>
+                <p>Master tacticians will use common word patterns, letter frequency, and strategic placement to outmaneuver their opponents. Every letter matters in this battle of wits and words!</p>
+            </div>
+        </div>
+    </div>
     <header class="wordle-header">
         <div class="wordle-title">
             <div class="wordle-word">
@@ -730,7 +872,7 @@
                     </div>
                 </div>
                 <div class="toggle-group">
-                    <span class="toggle-group-label">(Word) Ships</span>
+                    <span class="toggle-group-label">Word-Ships</span>
                     <div class="toggle-container">
                         <span class="toggle-label" id="pickWordsLabel">Pick Your Own</span>
                         <label class="toggle-switch">
@@ -741,21 +883,15 @@
                     </div>
                 </div>
                 <button type="submit" class="action-btn" id="printBtn">Print Your Battle Tracker</button>
+                <button type="button" class="action-btn" onclick="openRulesModal()">Rules of Engagement</button>
             </form>
             
-            <!-- Rules of Engagement -->
-            <div class="form-card">
-                <h2 class="form-title">Rules of Engagement</h2>
-                <p class="info-text">Like Battleship meets Wordle—sink enemy fleets by launching missile strikes with letters or coordinates!</p>
-                <button type="button" class="action-btn" disabled style="opacity: 0.6; cursor: not-allowed;">View Full Rules</button>
-            </div>
             
             <!-- Future Deployments -->
             <div class="form-card">
                 <h2 class="form-title">Future Deployments</h2>
                 <p class="info-text"><strong>The Word Fleet Simulator Mode</strong> will soon be underway, putting your tactical mastery of words to the test in head-to-head battles against friends or foes. You'll also face legendary captains raised from the depths of history by AI, ready for war—where every letter is a shot across the bow.</p>
                 <p class="info-text">Tournaments. Wi-Fi. Phone apps. SMS combat. We're preparing a full complement of weapons for launch!</p>
-
             </div>
         </div>
     </div>
@@ -766,7 +902,102 @@
     <div class="mobile-image-footer">
         <img src="src/media/word_fleet_banner_1600x400.png" alt="Word Fleet Banner">
     </div>
+
     <script>
+        // Function to print rules
+        function printRules() {
+            const rulesContent = `
+                <html>
+                <head>
+                    <title>Word Fleet - Rules of Engagement</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+                        h1 { text-align: center; margin-bottom: 30px; }
+                        h2 { color: #333; margin-top: 25px; margin-bottom: 15px; }
+                        ul { margin-bottom: 20px; }
+                        li { margin-bottom: 5px; }
+                        p { margin-bottom: 15px; }
+                    </style>
+                </head>
+                <body>
+                    <h1>WORD FLEET: RULES OF ENGAGEMENT</h1>
+                    
+                    <h2>🚢 Overview</h2>
+                    <p>Word Fleet combines the strategy of Battleship with the word-building challenge of Wordle. Deploy your fleet of words across the battlefield and sink your opponent's ships by launching precise letter strikes!</p>
+                    
+                    <h2>⚓ Fleet Deployment</h2>
+                    <ul>
+                        <li><strong>Ship Types:</strong> Deploy 5 ships of varying lengths (2-6 letters)</li>
+                        <li><strong>Word Ships:</strong> Each ship is a real English word</li>
+                        <li><strong>Placement:</strong> Ships can be placed horizontally or vertically</li>
+                        <li><strong>No Overlap:</strong> Ships cannot touch or overlap</li>
+                    </ul>
+                    
+                    <h2>🎯 Combat Phase</h2>
+                    <ul>
+                        <li><strong>Letter Strikes:</strong> Attack enemy positions by calling out letters</li>
+                        <li><strong>Coordinate Strikes:</strong> Target specific grid coordinates (A1, B5, etc.)</li>
+                        <li><strong>Hit Confirmation:</strong> Enemy must confirm hits and reveal struck letters</li>
+                        <li><strong>Word Discovery:</strong> Deduce enemy words from hit patterns</li>
+                    </ul>
+                    
+                    <h2>🏆 Victory Conditions</h2>
+                    <ul>
+                        <li><strong>Total Annihilation:</strong> Sink all enemy ships to claim victory</li>
+                        <li><strong>Word Completion:</strong> Correctly guess an entire enemy word to sink that ship</li>
+                        <li><strong>Strategic Advantage:</strong> Use linguistic knowledge to predict word patterns</li>
+                    </ul>
+                    
+                    <h2>⚔️ Advanced Tactics</h2>
+                    <p>Master tacticians will use common word patterns, letter frequency, and strategic placement to outmaneuver their opponents. Every letter matters in this battle of wits and words!</p>
+                </body>
+                </html>
+            `;
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(rulesContent);
+            printWindow.document.close();
+            printWindow.print();
+            printWindow.close();
+        }
+
+        // Function to open rules modal
+        function openRulesModal() {
+            document.getElementById('rulesModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close rules modal
+        function closeRulesModal() {
+            document.getElementById('rulesModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside content
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('rulesModal');
+            if (e.target === modal) {
+                closeRulesModal();
+            }
+        });
+
+        // Test function to manually trigger highlight
+        function testHighlight() {
+            console.log('Manual highlight test triggered');
+            const penPaperForm = document.getElementById('penPaperForm');
+            if (penPaperForm) {
+                console.log('Adding highlight class manually');
+                penPaperForm.classList.add('highlight');
+                
+                setTimeout(() => {
+                    console.log('Removing highlight class manually');
+                    penPaperForm.classList.remove('highlight');
+                }, 3000);
+            } else {
+                console.log('Form not found!');
+            }
+        }
+
         // Function to get random fleet name
         function getRandomFleetName() {
             const fleetFirstNames = [
@@ -806,12 +1037,21 @@
 
         // Function to check for highlight parameter and apply highlighting
         function checkForHighlight() {
+            console.log('Checking for highlight parameter...');
+            console.log('Current URL:', window.location.href);
+            
             const urlParams = new URLSearchParams(window.location.search);
             const highlightParam = urlParams.get('highlight');
             
+            console.log('Highlight parameter value:', highlightParam);
+            
             if (highlightParam === 'form') {
+                console.log('Highlight parameter matches "form"');
                 const penPaperForm = document.getElementById('penPaperForm');
+                console.log('Found form element:', penPaperForm);
+                
                 if (penPaperForm) {
+                    console.log('Adding highlight class...');
                     // Add highlight class
                     penPaperForm.classList.add('highlight');
                     
@@ -823,14 +1063,19 @@
                     
                     // Remove highlight class after animation completes
                     setTimeout(() => {
+                        console.log('Removing highlight class...');
                         penPaperForm.classList.remove('highlight');
-                    }, 2000);
+                    }, 3000);
                     
                     // Clean up URL by removing the highlight parameter
                     urlParams.delete('highlight');
                     const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
                     window.history.replaceState({}, '', newUrl);
+                } else {
+                    console.log('ERROR: penPaperForm not found!');
                 }
+            } else {
+                console.log('No highlight parameter found or value does not match "form"');
             }
         }
 
@@ -858,12 +1103,12 @@
         }
 
         // Auto-generate toggle for Print & Play
-        const autoGenToggle = document.getElementById('autoGen');
-        const pickWordsLabel = document.getElementById('pickWordsLabel');
-        const autoGenLabel = document.getElementById('autoGenLabel');
-
         function updateToggleLabels() {
-            if (autoGenToggle.checked) {
+            const autoGenToggle = document.getElementById('autoGen');
+            const pickWordsLabel = document.getElementById('pickWordsLabel');
+            const autoGenLabel = document.getElementById('autoGenLabel');
+            
+            if (autoGenToggle && autoGenToggle.checked) {
                 pickWordsLabel.classList.remove('active');
                 autoGenLabel.classList.add('active');
             } else {
@@ -875,20 +1120,11 @@
         // Initialize toggle labels on page load
         window.addEventListener('DOMContentLoaded', function() {
             updateToggleLabels();
-            autoGenToggle.addEventListener('change', updateToggleLabels);
+            const autoGenToggle = document.getElementById('autoGen');
+            if (autoGenToggle) {
+                autoGenToggle.addEventListener('change', updateToggleLabels);
+            }
         });
-
-        // Optional: Add hover/focus effects to inputs
-        const inputs = document.querySelectorAll('input[type="text"], select');
-        inputs.forEach(function(input) {
-            input.addEventListener('focus', function() {
-                if (this.parentElement) {
-                    this.parentElement.style.transform = 'scale(1.02)';
-                }
-            });
-            input.addEventListener('blur', function() {
-                if (this.parentElement) {
-                    this.parentElement.style.transform = 'scale(1)';
-                }
-            });
-        });
+    </script>
+</body>
+</html>
