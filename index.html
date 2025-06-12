@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="src/media/wf.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="src/media/wf_apple.png">
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../media/WF.ico">
+    <link rel="icon" type="image/x-icon" href="src/media/wf.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WORD FLEET</title>
@@ -214,6 +214,40 @@
                 0 20px 60px rgba(0, 0, 0, 0.5),
                 inset 0 1px 0 rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Highlight effect for the form card */
+        .form-card.highlight {
+            animation: highlightPulse 2s ease-in-out;
+            border-color: rgba(255, 215, 0, 0.6) !important;
+            box-shadow: 
+                0 20px 60px rgba(255, 215, 0, 0.3),
+                0 0 40px rgba(255, 215, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+        }
+
+        @keyframes highlightPulse {
+            0% {
+                border-color: rgba(255, 215, 0, 0.6);
+                box-shadow: 
+                    0 20px 60px rgba(255, 215, 0, 0.3),
+                    0 0 40px rgba(255, 215, 0, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            }
+            50% {
+                border-color: rgba(255, 215, 0, 0.9);
+                box-shadow: 
+                    0 25px 80px rgba(255, 215, 0, 0.5),
+                    0 0 60px rgba(255, 215, 0, 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+            100% {
+                border-color: rgba(255, 215, 0, 0.6);
+                box-shadow: 
+                    0 20px 60px rgba(255, 215, 0, 0.3),
+                    0 0 40px rgba(255, 215, 0, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            }
         }
 
         .form-title {
@@ -683,7 +717,7 @@
         <span class="sr-only">Word Fleet - Naval word combat strategy game</span>
         <div class="forms-container">
             <!-- Print & Play Mode -->
-            <form class="form-card" action="src/html/print.html" method="GET" onsubmit="return handlePrintSubmit(event)">
+            <form class="form-card" id="penPaperForm" action="src/html/print.html" method="GET" onsubmit="return handlePrintSubmit(event)">
                 <h2 class="form-title">Pen &amp; Paper Mode</h2>
                 <p class="info-text">So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!</p>
                 <div class="form-group">
@@ -719,8 +753,8 @@
             <!-- Future Deployments -->
             <div class="form-card">
                 <h2 class="form-title">Future Deployments</h2>
-                <p class="info-text"><strong>The Word Fleet Simulator Mode</strong> will soon be underway, putting your tactical mastery of words to the test in head-to-head battles against friends or foes. You’ll also face legendary captains raised from the depths of history by AI, ready for war—where every letter is a shot across the bow.</p>
-                <p class="info-text">Tournaments. Wi-Fi. Phone apps. SMS combat. We’re preparing a full complement of weapons for launch!</p>
+                <p class="info-text"><strong>The Word Fleet Simulator Mode</strong> will soon be underway, putting your tactical mastery of words to the test in head-to-head battles against friends or foes. You'll also face legendary captains raised from the depths of history by AI, ready for war—where every letter is a shot across the bow.</p>
+                <p class="info-text">Tournaments. Wi-Fi. Phone apps. SMS combat. We're preparing a full complement of weapons for launch!</p>
 
             </div>
         </div>
@@ -770,10 +804,43 @@
             fleetInput.value = getRandomFleetName();
         }
 
-        // Set random fleet name on page load
+        // Function to check for highlight parameter and apply highlighting
+        function checkForHighlight() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const highlightParam = urlParams.get('highlight');
+            
+            if (highlightParam === 'form') {
+                const penPaperForm = document.getElementById('penPaperForm');
+                if (penPaperForm) {
+                    // Add highlight class
+                    penPaperForm.classList.add('highlight');
+                    
+                    // Scroll to the form smoothly
+                    penPaperForm.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                    
+                    // Remove highlight class after animation completes
+                    setTimeout(() => {
+                        penPaperForm.classList.remove('highlight');
+                    }, 2000);
+                    
+                    // Clean up URL by removing the highlight parameter
+                    urlParams.delete('highlight');
+                    const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+                    window.history.replaceState({}, '', newUrl);
+                }
+            }
+        }
+
+        // Set random fleet name on page load and check for highlight
         window.addEventListener('DOMContentLoaded', function() {
             const fleetInput = document.getElementById('player1Name');
             fleetInput.value = getRandomFleetName();
+            
+            // Check for highlight parameter
+            checkForHighlight();
         });
 
         // Handle form submission with default values
@@ -825,6 +892,3 @@
                 }
             });
         });
-    </script>
-</body>
-</html>
