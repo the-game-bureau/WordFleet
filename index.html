@@ -2,7 +2,22 @@
 <html lang="en">
 <head>
     <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="src/media/wf_apple.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="src/media/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="src/media/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="src/media/apple-touch-icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="src/media/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="src/media/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="src/media/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="src/media/apple-touch-icon-57x57.png">
+    <!-- Precomposed versions (no iOS effects) -->
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="src/media/apple-touch-icon-180x180-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="167x167" href="src/media/apple-touch-icon-167x167-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="src/media/apple-touch-icon-152x152-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="src/media/apple-touch-icon-120x120-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="src/media/apple-touch-icon-76x76-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="src/media/apple-touch-icon-57x57-precomposed.png">
+    <!-- Safari Pinned Tab -->
+    <link rel="mask-icon" href="src/media/safari-pinned-tab.svg" color="#5bbad5">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="src/media/wf.ico">
     <meta charset="UTF-8">
@@ -315,10 +330,6 @@
             transform: rotate(-180deg);
         }
 
-        .form-group input:hover, .form-group select:hover {
-            border-color: #000000;
-        }
-
         .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: #000000;
@@ -622,16 +633,13 @@
         /* Prevent bounce/scale on focus/blur for input and emoji button */
         .input-with-refresh input:focus,
         .input-with-refresh input:active,
-        .input-with-refresh input:hover,
         .refresh-btn:focus,
         .refresh-btn:active,
         .refresh-btn:hover,
         .input-with-refresh:focus,
         .input-with-refresh:active,
-        .input-with-refresh:hover,
         .form-group:focus,
-        .form-group:active,
-        .form-group:hover {
+        .form-group:active {
             transform: none !important;
             box-shadow: none !important;
         }
