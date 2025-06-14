@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="src/media/apple-touch-icon.png">
+    <!-- Apple Touch Icon (Deduplicated) -->
     <link rel="apple-touch-icon" sizes="180x180" href="src/media/apple-touch-icon-180x180.png">
     <link rel="apple-touch-icon" sizes="167x167" href="src/media/apple-touch-icon-167x167.png">
     <link rel="apple-touch-icon" sizes="152x152" href="src/media/apple-touch-icon-152x152.png">
@@ -31,8 +30,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="WORD FLEET">
     <meta name="twitter:description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
-    <meta name="twitter:image" content="media/wordfleet-social.png">
+    <meta name="twitter:image" content="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet-social.png">
     <meta name="description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
+    <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/clear-sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -59,7 +59,25 @@
             background-size: cover;
             background-position: center top;
             background-repeat: no-repeat;
-            min-height: 300vh;
+            min-height: 100vh;
+        }
+
+        /* Debug console - only visible in debugging mode */
+        #debugConsole {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ff00;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-width: 300px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 9999;
+            display: none;
         }
 
         /* Sleek modern header */
@@ -148,7 +166,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 0 200vh 0;
+            padding: 40px 0;
             min-height: calc(100vh - 120px);
         }
 
@@ -183,36 +201,21 @@
             overflow: hidden;
         }
 
-        /* Highlight effect for the form card - NAVAL GOLD VERSION */
+        /* Highlight effect for the form card */
         .form-card.highlight {
             border: 3px solid #d4af37 !important;
             background: rgba(212, 175, 55, 0.08) !important;
             box-shadow: 
-                0 0 25px rgba(212, 175, 55, 0.7) !important,
-                0 0 50px rgba(212, 175, 55, 0.4) !important,
-                0 0 75px rgba(212, 175, 55, 0.2) !important;
-            animation: navalGoldPulse 3s ease-in-out !important;
+                0 0 25px rgba(212, 175, 55, 0.7),
+                0 0 50px rgba(212, 175, 55, 0.4),
+                0 0 75px rgba(212, 175, 55, 0.2);
+            animation: navalGoldPulse 3s ease-in-out;
         }
 
-        @keyframes overlayGlow {
-            0% {
-                background: rgba(106, 170, 100, 0);
-            }
-            20% {
-                background: rgba(106, 170, 100, 0.7);
-            }
-            40% {
-                background: rgba(106, 170, 100, 0);
-            }
-            60% {
-                background: rgba(106, 170, 100, 0.7);
-            }
-            80% {
-                background: rgba(106, 170, 100, 0);
-            }
-            100% {
-                background: rgba(106, 170, 100, 0);
-            }
+        @keyframes navalGoldPulse {
+            0% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.7), 0 0 50px rgba(212, 175, 55, 0.4), 0 0 75px rgba(212, 175, 55, 0.2); }
+            50% { box-shadow: 0 0 35px rgba(212, 175, 55, 0.9), 0 0 70px rgba(212, 175, 55, 0.6), 0 0 105px rgba(212, 175, 55, 0.3); }
+            100% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.7), 0 0 50px rgba(212, 175, 55, 0.4), 0 0 75px rgba(212, 175, 55, 0.2); }
         }
 
         .form-title {
@@ -243,18 +246,9 @@
         }
 
         @keyframes greenLineBounce {
-            0% {
-                left: 20%;
-                transform: translateX(0);
-            }
-            50% {
-                left: 80%;
-                transform: translateX(-100%);
-            }
-            100% {
-                left: 20%;
-                transform: translateX(0);
-            }
+            0% { left: 20%; transform: translateX(0); }
+            50% { left: 80%; transform: translateX(-100%); }
+            100% { left: 20%; transform: translateX(0); }
         }
 
         .form-group {
@@ -290,7 +284,7 @@
             color: #000000;
             outline: none;
             font-family: inherit;
-            transition: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .input-with-refresh {
@@ -311,29 +305,24 @@
             cursor: pointer;
             padding: 4px;
             border-radius: 4px;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, transform 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 16px;
         }
 
-        .refresh-btn:hover,
-        .refresh-btn:focus,
-        .refresh-btn:active {
-            background: #fff !important;
-            border: none !important;
-            box-shadow: none !important;
+        .refresh-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
         }
 
         .refresh-btn:active {
-            transform: rotate(-180deg);
+            transform: rotate(180deg);
         }
 
         .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #000000;
-            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+            border-color: #6aaa64;
+            box-shadow: 0 0 0 2px rgba(106, 170, 100, 0.2);
         }
 
         .toggle-group {
@@ -478,11 +467,21 @@
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
             position: relative;
             overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover,
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
         }
 
         .action-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
         }
 
@@ -514,160 +513,6 @@
             text-align: center;
             margin: 8px 0;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        /* Responsive design */
-        @media (max-width: 1200px) {
-            .forms-container {
-                grid-template-columns: 1fr;
-                gap: 24px;
-                padding: 0 20px;
-                width: 100%;
-                max-width: 500px;
-                margin: 0 auto;
-            }
-            .form-card {
-                max-width: 100%;
-                padding: 24px 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .wordle-header {
-                padding: 16px 0 12px 0;
-                border-radius: 0;
-            }
-            
-            .wordle-word {
-                gap: 1px;
-                margin: 0 4px;
-            }
-            
-            .wordle-title {
-                gap: 1px;
-            }
-
-            .header-tagline {
-                font-size: clamp(0.65rem, 2.2vw, 0.8rem);
-                margin-top: 10px;
-                letter-spacing: 1px;
-            }
-
-            .forms-container {
-                padding: 0 16px;
-                width: 100%;
-                max-width: 400px;
-            }
-            
-            .form-card {
-                padding: 24px 20px;
-                border-radius: 18px;
-            }
-            
-            .main-container {
-                padding: 20px 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                min-height: 100vh;
-                height: auto;
-                background: var(--battleship-gray) !important;
-                background-image: none !important;
-                overflow-y: auto;
-                padding: 0;
-                margin: 0;
-            }
-            .main-container {
-                padding-bottom: 0;
-                margin-bottom: 0;
-            }
-            .forms-container {
-                gap: 24px;
-                padding-bottom: 40px; /* Added padding for mobile spacing */
-            }
-            .mobile-image-footer {
-                display: block;
-                width: 100vw;
-                max-width: 100vw;
-                margin: 24px auto 0 auto;
-                text-align: center;
-            }
-            .mobile-image-footer img {
-                width: 100vw;
-                max-width: 100vw;
-                height: auto;
-                display: block;
-                margin: 0 auto;
-                border-radius: 0 0 16px 16px;
-                box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
-            }
-        }
-
-        /* Hide mobile image footer by default */
-        .mobile-image-footer {
-            display: none;
-        }
-
-        @media screen and (orientation: landscape) and (max-width: 900px) {
-            body > *:not(.force-portrait-message) {
-                display: none !important;
-            }
-            .force-portrait-message {
-                display: flex !important;
-                align-items: center;
-                justify-content: center;
-                min-height: 100vh;
-                color: #fff;
-                background: var(--battleship-gray, #333);
-                font-size: 1.5rem;
-                text-align: center;
-                padding: 32px;
-            }
-        }
-        .force-portrait-message {
-            display: none;
-        }
-
-        /* Prevent bounce/scale on focus/blur for input and emoji button */
-        .input-with-refresh input:focus,
-        .input-with-refresh input:active,
-        .refresh-btn:focus,
-        .refresh-btn:active,
-        .refresh-btn:hover,
-        .input-with-refresh:focus,
-        .input-with-refresh:active,
-        .form-group:focus,
-        .form-group:active {
-            transform: none !important;
-            box-shadow: none !important;
-        }
-
-        /* Keep all form cards completely still */
-        .form-card {
-            transform: none !important;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        }
-
-        /* ONLY background glow - absolutely nothing else */
-        #penPaperForm.highlight {
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
-            position: relative;
-        }
-
-        /* Overlay effect instead of background change */
-        #penPaperForm.highlight::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 20px;
-            animation: overlayGlow 3s ease-in-out !important;
-            pointer-events: none;
-            z-index: 1;
         }
 
         /* Rules modal styles */
@@ -730,6 +575,11 @@
             color: rgba(255, 255, 255, 0.8);
             cursor: pointer;
             padding: 5px 10px;
+            transition: color 0.2s ease;
+        }
+
+        .rules-close:hover {
+            color: #ffffff;
         }
 
         .rules-header {
@@ -765,6 +615,14 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.8);
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
             text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .print-rules-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
         }
 
         .rules-section {
@@ -790,9 +648,134 @@
         .rules-section li {
             margin-bottom: 8px;
         }
+
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .forms-container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 0 20px;
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            .form-card {
+                max-width: 100%;
+                padding: 24px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .wordle-header {
+                padding: 16px 0 12px 0;
+                border-radius: 0;
+            }
+            
+            .wordle-word {
+                gap: 1px;
+                margin: 0 4px;
+            }
+            
+            .wordle-title {
+                gap: 1px;
+            }
+
+            .header-tagline {
+                font-size: clamp(0.65rem, 2.2vw, 0.8rem);
+                margin-top: 10px;
+                letter-spacing: 1px;
+            }
+
+            .forms-container {
+                padding: 0 16px;
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .form-card {
+                padding: 24px 20px;
+                border-radius: 18px;
+            }
+            
+            .main-container {
+                padding: 20px 0;
+            }
+
+            .rules-content {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .rules-title {
+                font-size: 1.8rem;
+            }
+
+            .rules-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                background: var(--battleship-gray);
+                background-image: none;
+            }
+            
+            .forms-container {
+                gap: 24px;
+                padding-bottom: 40px;
+            }
+            
+            .mobile-image-footer {
+                display: block;
+                width: 100vw;
+                max-width: 100vw;
+                margin: 24px auto 0 auto;
+                text-align: center;
+            }
+            
+            .mobile-image-footer img {
+                width: 100vw;
+                max-width: 100vw;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+                border-radius: 0 0 16px 16px;
+                box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
+            }
+        }
+
+        /* Hide mobile image footer by default */
+        .mobile-image-footer {
+            display: none;
+        }
+
+        @media screen and (orientation: landscape) and (max-width: 900px) {
+            body > *:not(.force-portrait-message) {
+                display: none !important;
+            }
+            .force-portrait-message {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                color: #fff;
+                background: var(--battleship-gray, #333);
+                font-size: 1.5rem;
+                text-align: center;
+                padding: 32px;
+            }
+        }
+        .force-portrait-message {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <!-- Debug Console -->
+    <div id="debugConsole"></div>
+
     <!-- Rules Modal -->
     <div class="rules-modal" id="rulesModal">
         <div class="rules-content">
@@ -843,6 +826,7 @@
             </div>
         </div>
     </div>
+    
     <header class="wordle-header">
         <div class="wordle-title">
             <div class="wordle-word">
@@ -892,7 +876,6 @@
                 <button type="button" class="action-btn" onclick="openRulesModal()">Rules of Engagement</button>
             </form>
             
-            
             <!-- Future Deployments -->
             <div class="form-card">
                 <h2 class="form-title">Future Deployments</h2>
@@ -910,73 +893,136 @@
     </div>
 
     <script>
+        // Debug functionality
+        let debugMode = false;
+        let debugLog = [];
+
+        function debugWrite(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            debugLog.push(logEntry);
+            
+            if (debugMode) {
+                const debugConsole = document.getElementById('debugConsole');
+                if (debugConsole) {
+                    debugConsole.innerHTML = debugLog.slice(-10).join('<br>');
+                    debugConsole.scrollTop = debugConsole.scrollHeight;
+                }
+            }
+            
+            console.log(logEntry);
+        }
+
+        // Toggle debug mode with Ctrl+Shift+D
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+                debugMode = !debugMode;
+                const debugConsole = document.getElementById('debugConsole');
+                if (debugConsole) {
+                    debugConsole.style.display = debugMode ? 'block' : 'none';
+                    if (debugMode) {
+                        debugConsole.innerHTML = debugLog.slice(-10).join('<br>');
+                    }
+                }
+                debugWrite(`Debug mode ${debugMode ? 'enabled' : 'disabled'}`);
+            }
+        });
+
         // Function to print rules
         function printRules() {
-            const rulesContent = `
-                <html>
-                <head>
-                    <title>Word Fleet - Rules of Engagement</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
-                        h1 { text-align: center; margin-bottom: 30px; }
-                        h2 { color: #333; margin-top: 25px; margin-bottom: 15px; }
-                        ul { margin-bottom: 20px; }
-                        li { margin-bottom: 5px; }
-                        p { margin-bottom: 15px; }
-                    </style>
-                </head>
-                <body>
-                    <h1>WORD FLEET: RULES OF ENGAGEMENT</h1>
-                    
-                    <h2>🚢 Overview</h2>
-                    <p>Word Fleet combines the strategy of Battleship with the word-building challenge of Wordle. Deploy your fleet of words across the battlefield and sink your opponent's ships by launching precise letter strikes!</p>
-                    
-                    <h2>⚓ Fleet Deployment</h2>
-                    <ul>
-                        <li><strong>Ship Types:</strong> Deploy 5 ships of varying lengths (2-6 letters)</li>
-                        <li><strong>Word Ships:</strong> Each ship is a real English word</li>
-                        <li><strong>Placement:</strong> Ships can be placed horizontally or vertically</li>
-                        <li><strong>No Overlap:</strong> Ships cannot touch or overlap</li>
-                    </ul>
-                    
-                    <h2>🎯 Combat Phase</h2>
-                    <ul>
-                        <li><strong>Letter Strikes:</strong> Attack enemy positions by calling out letters</li>
-                        <li><strong>Coordinate Strikes:</strong> Target specific grid coordinates (A1, B5, etc.)</li>
-                        <li><strong>Hit Confirmation:</strong> Enemy must confirm hits and reveal struck letters</li>
-                        <li><strong>Word Discovery:</strong> Deduce enemy words from hit patterns</li>
-                    </ul>
-                    
-                    <h2>🏆 Victory Conditions</h2>
-                    <ul>
-                        <li><strong>Total Annihilation:</strong> Sink all enemy ships to claim victory</li>
-                        <li><strong>Word Completion:</strong> Correctly guess an entire enemy word to sink that ship</li>
-                        <li><strong>Strategic Advantage:</strong> Use linguistic knowledge to predict word patterns</li>
-                    </ul>
-                    
-                    <h2>⚔️ Advanced Tactics</h2>
-                    <p>Master tacticians will use common word patterns, letter frequency, and strategic placement to outmaneuver their opponents. Every letter matters in this battle of wits and words!</p>
-                </body>
-                </html>
-            `;
-            
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(rulesContent);
-            printWindow.document.close();
-            printWindow.print();
-            printWindow.close();
+            debugWrite('Print rules function called');
+            try {
+                const rulesContent = `
+                    <html>
+                    <head>
+                        <title>Word Fleet - Rules of Engagement</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+                            h1 { text-align: center; margin-bottom: 30px; }
+                            h2 { color: #333; margin-top: 25px; margin-bottom: 15px; }
+                            ul { margin-bottom: 20px; }
+                            li { margin-bottom: 5px; }
+                            p { margin-bottom: 15px; }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>WORD FLEET: RULES OF ENGAGEMENT</h1>
+                        
+                        <h2>🚢 Overview</h2>
+                        <p>Word Fleet combines the strategy of Battleship with the word-building challenge of Wordle. Deploy your fleet of words across the battlefield and sink your opponent's ships by launching precise letter strikes!</p>
+                        
+                        <h2>⚓ Fleet Deployment</h2>
+                        <ul>
+                            <li><strong>Ship Types:</strong> Deploy 5 ships of varying lengths (2-6 letters)</li>
+                            <li><strong>Word Ships:</strong> Each ship is a real English word</li>
+                            <li><strong>Placement:</strong> Ships can be placed horizontally or vertically</li>
+                            <li><strong>No Overlap:</strong> Ships cannot touch or overlap</li>
+                        </ul>
+                        
+                        <h2>🎯 Combat Phase</h2>
+                        <ul>
+                            <li><strong>Letter Strikes:</strong> Attack enemy positions by calling out letters</li>
+                            <li><strong>Coordinate Strikes:</strong> Target specific grid coordinates (A1, B5, etc.)</li>
+                            <li><strong>Hit Confirmation:</strong> Enemy must confirm hits and reveal struck letters</li>
+                            <li><strong>Word Discovery:</strong> Deduce enemy words from hit patterns</li>
+                        </ul>
+                        
+                        <h2>🏆 Victory Conditions</h2>
+                        <ul>
+                            <li><strong>Total Annihilation:</strong> Sink all enemy ships to claim victory</li>
+                            <li><strong>Word Completion:</strong> Correctly guess an entire enemy word to sink that ship</li>
+                            <li><strong>Strategic Advantage:</strong> Use linguistic knowledge to predict word patterns</li>
+                        </ul>
+                        
+                        <h2>⚔️ Advanced Tactics</h2>
+                        <p>Master tacticians will use common word patterns, letter frequency, and strategic placement to outmaneuver their opponents. Every letter matters in this battle of wits and words!</p>
+                    </body>
+                    </html>
+                `;
+                
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(rulesContent);
+                printWindow.document.close();
+                printWindow.print();
+                printWindow.close();
+                debugWrite('Rules printed successfully');
+            } catch (error) {
+                debugWrite(`Error printing rules: ${error.message}`);
+            }
         }
 
         // Function to open rules modal
         function openRulesModal() {
-            document.getElementById('rulesModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
+            debugWrite('Opening rules modal');
+            try {
+                const modal = document.getElementById('rulesModal');
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    debugWrite('Rules modal opened successfully');
+                } else {
+                    debugWrite('ERROR: Rules modal element not found');
+                }
+            } catch (error) {
+                debugWrite(`Error opening rules modal: ${error.message}`);
+            }
         }
 
         // Function to close rules modal
         function closeRulesModal() {
-            document.getElementById('rulesModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
+            debugWrite('Closing rules modal');
+            try {
+                const modal = document.getElementById('rulesModal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    debugWrite('Rules modal closed successfully');
+                } else {
+                    debugWrite('ERROR: Rules modal element not found');
+                }
+            } catch (error) {
+                debugWrite(`Error closing rules modal: ${error.message}`);
+            }
         }
 
         // Close modal when clicking outside content
@@ -987,149 +1033,236 @@
             }
         });
 
-        // Test function to manually trigger highlight
-        function testHighlight() {
-            console.log('Manual highlight test triggered');
-            const penPaperForm = document.getElementById('penPaperForm');
-            if (penPaperForm) {
-                console.log('Adding highlight class manually');
-                penPaperForm.classList.add('highlight');
-                
-                setTimeout(() => {
-                    console.log('Removing highlight class manually');
-                    penPaperForm.classList.remove('highlight');
-                }, 3000);
-            } else {
-                console.log('Form not found!');
+        // ESC key to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeRulesModal();
             }
-        }
+        });
 
         // Function to get random fleet name
         function getRandomFleetName() {
-            const fleetFirstNames = [
-                'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged',
-                'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
-                'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
-                'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
-                'Battle-Ready', 'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
-                'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached', 'Iron-Fisted', 'Cannon-Heavy',
-                'Gun-Blazing', 'Torpedo-Laden', 'Skull & Crossbones', 'Merciless', 'Fearsome',
-                'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed', 'Eye-Patched',
-                'Beard-Braided', 'Compass-Spinning', 'Ghost Ship', 'Kraken\'s', 'Siren\'s',
-                'Poseidon\'s', 'Davy Jones\'', 'Cursed', 'Phantom', 'Half-Sunk', 'Listing',
-                'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
-            ];
-            const navalTerms = [
-                'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force',
-                'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
-                'Cohort', 'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit',
-                'Force', 'Command', 'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard',
-                'Reserve', 'Guard', 'Watch', 'Blockade', 'Tide', 'Current', 'Wake', 'Waves',
-                'Storm', 'Tempest', 'Gale', 'Maelstrom', 'Admiralty', 'Authority', 'Order',
-                'Legion', 'Brotherhood', 'Alliance', 'Coalition', 'Depth', 'Trench', 'Reef',
-                'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
-                'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition'
-            ];
-            const randomFirstName = fleetFirstNames[Math.floor(Math.random() * fleetFirstNames.length)];
-            const randomNavalTerm = navalTerms[Math.floor(Math.random() * navalTerms.length)];
-            return `${randomFirstName} ${randomNavalTerm}`;
+            debugWrite('Generating random fleet name');
+            try {
+                const fleetFirstNames = [
+                    'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged',
+                    'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
+                    'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
+                    'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
+                    'Battle-Ready', 'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
+                    'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached', 'Iron-Fisted', 'Cannon-Heavy',
+                    'Gun-Blazing', 'Torpedo-Laden', 'Skull & Crossbones', 'Merciless', 'Fearsome',
+                    'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed', 'Eye-Patched',
+                    'Beard-Braided', 'Compass-Spinning', 'Ghost Ship', 'Kraken\'s', 'Siren\'s',
+                    'Poseidon\'s', 'Davy Jones\'', 'Cursed', 'Phantom', 'Half-Sunk', 'Listing',
+                    'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
+                ];
+                const navalTerms = [
+                    'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force',
+                    'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
+                    'Cohort', 'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit',
+                    'Force', 'Command', 'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard',
+                    'Reserve', 'Guard', 'Watch', 'Blockade', 'Tide', 'Current', 'Wake', 'Waves',
+                    'Storm', 'Tempest', 'Gale', 'Maelstrom', 'Admiralty', 'Authority', 'Order',
+                    'Legion', 'Brotherhood', 'Alliance', 'Coalition', 'Depth', 'Trench', 'Reef',
+                    'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
+                    'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition'
+                ];
+                const randomFirstName = fleetFirstNames[Math.floor(Math.random() * fleetFirstNames.length)];
+                const randomNavalTerm = navalTerms[Math.floor(Math.random() * navalTerms.length)];
+                const newName = `${randomFirstName} ${randomNavalTerm}`;
+                debugWrite(`Generated fleet name: ${newName}`);
+                return newName;
+            } catch (error) {
+                debugWrite(`Error generating fleet name: ${error.message}`);
+                return 'Royal Armada'; // fallback
+            }
         }
 
         // Function to regenerate fleet name
         function regenerateFleetName() {
-            const fleetInput = document.getElementById('player1Name');
-            fleetInput.value = getRandomFleetName();
+            debugWrite('Regenerate fleet name button clicked');
+            try {
+                const fleetInput = document.getElementById('player1Name');
+                if (fleetInput) {
+                    const newName = getRandomFleetName();
+                    fleetInput.value = newName;
+                    debugWrite(`Fleet name updated to: ${newName}`);
+                } else {
+                    debugWrite('ERROR: Fleet name input element not found');
+                }
+            } catch (error) {
+                debugWrite(`Error regenerating fleet name: ${error.message}`);
+            }
         }
 
         // Function to check for highlight parameter and apply highlighting
         function checkForHighlight() {
-            console.log('Checking for highlight parameter...');
-            console.log('Current URL:', window.location.href);
-            
-            const urlParams = new URLSearchParams(window.location.search);
-            const highlightParam = urlParams.get('highlight');
-            
-            console.log('Highlight parameter value:', highlightParam);
-            
-            if (highlightParam === 'form') {
-                console.log('Highlight parameter matches "form"');
-                const penPaperForm = document.getElementById('penPaperForm');
-                console.log('Found form element:', penPaperForm);
+            debugWrite('Checking for highlight parameter...');
+            try {
+                const currentUrl = window.location.href;
+                debugWrite(`Current URL: ${currentUrl}`);
                 
-                if (penPaperForm) {
-                    console.log('Adding highlight class...');
-                    // Add highlight class
-                    penPaperForm.classList.add('highlight');
+                const urlParams = new URLSearchParams(window.location.search);
+                const highlightParam = urlParams.get('highlight');
+                
+                debugWrite(`Highlight parameter value: ${highlightParam}`);
+                
+                if (highlightParam === 'form') {
+                    debugWrite('Highlight parameter matches "form"');
+                    const penPaperForm = document.getElementById('penPaperForm');
                     
-                    // Scroll to the form smoothly
-                    penPaperForm.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'center' 
-                    });
-                    
-                    // Remove highlight class after animation completes
-                    setTimeout(() => {
-                        console.log('Removing highlight class...');
-                        penPaperForm.classList.remove('highlight');
-                    }, 3000);
-                    
-                    // Clean up URL by removing the highlight parameter
-                    urlParams.delete('highlight');
-                    const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
-                    window.history.replaceState({}, '', newUrl);
+                    if (penPaperForm) {
+                        debugWrite('Found form element, applying highlight');
+                        // Add highlight class
+                        penPaperForm.classList.add('highlight');
+                        
+                        // Scroll to the form smoothly
+                        penPaperForm.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                        
+                        debugWrite('Highlight applied, will remove after 3 seconds');
+                        
+                        // Remove highlight class after animation completes
+                        setTimeout(() => {
+                            debugWrite('Removing highlight class...');
+                            penPaperForm.classList.remove('highlight');
+                        }, 3000);
+                        
+                        // Clean up URL by removing the highlight parameter
+                        urlParams.delete('highlight');
+                        const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+                        window.history.replaceState({}, '', newUrl);
+                        debugWrite(`URL cleaned: ${newUrl}`);
+                    } else {
+                        debugWrite('ERROR: penPaperForm element not found!');
+                    }
                 } else {
-                    console.log('ERROR: penPaperForm not found!');
+                    debugWrite('No highlight parameter found or value does not match "form"');
                 }
-            } else {
-                console.log('No highlight parameter found or value does not match "form"');
+            } catch (error) {
+                debugWrite(`Error checking highlight parameter: ${error.message}`);
             }
         }
 
-        // Set random fleet name on page load and check for highlight
-        window.addEventListener('DOMContentLoaded', function() {
-            const fleetInput = document.getElementById('player1Name');
-            fleetInput.value = getRandomFleetName();
-            
-            // Check for highlight parameter
-            checkForHighlight();
-        });
-
         // Handle form submission with default values
         function handlePrintSubmit(event) {
-            event.preventDefault();
-            const form = event.target;
-            const fleet1 = form.fleet.value.trim() || 'Fleet';
-            const words = form.words.checked ? 'yes' : 'no';
-            const params = new URLSearchParams({
-                fleet: fleet1,
-                words: words
-            });
-            window.location.href = form.action + '?' + params.toString();
-            return false;
+            debugWrite('Form submission started');
+            try {
+                event.preventDefault();
+                const form = event.target;
+                const fleet1 = form.fleet.value.trim() || 'Fleet';
+                const words = form.words.checked ? 'yes' : 'no';
+                
+                debugWrite(`Form data - Fleet: ${fleet1}, Words: ${words}`);
+                
+                const params = new URLSearchParams({
+                    fleet: fleet1,
+                    words: words
+                });
+                
+                const targetUrl = form.action + '?' + params.toString();
+                debugWrite(`Redirecting to: ${targetUrl}`);
+                
+                window.location.href = targetUrl;
+                return false;
+            } catch (error) {
+                debugWrite(`Error handling form submission: ${error.message}`);
+                return false;
+            }
         }
 
         // Auto-generate toggle for Print & Play
         function updateToggleLabels() {
-            const autoGenToggle = document.getElementById('autoGen');
-            const pickWordsLabel = document.getElementById('pickWordsLabel');
-            const autoGenLabel = document.getElementById('autoGenLabel');
-            
-            if (autoGenToggle && autoGenToggle.checked) {
-                pickWordsLabel.classList.remove('active');
-                autoGenLabel.classList.add('active');
-            } else {
-                pickWordsLabel.classList.add('active');
-                autoGenLabel.classList.remove('active');
+            debugWrite('Updating toggle labels');
+            try {
+                const autoGenToggle = document.getElementById('autoGen');
+                const pickWordsLabel = document.getElementById('pickWordsLabel');
+                const autoGenLabel = document.getElementById('autoGenLabel');
+                
+                if (autoGenToggle && pickWordsLabel && autoGenLabel) {
+                    if (autoGenToggle.checked) {
+                        pickWordsLabel.classList.remove('active');
+                        autoGenLabel.classList.add('active');
+                        debugWrite('Toggle labels updated - Auto-Generated active');
+                    } else {
+                        pickWordsLabel.classList.add('active');
+                        autoGenLabel.classList.remove('active');
+                        debugWrite('Toggle labels updated - Pick Your Own active');
+                    }
+                } else {
+                    debugWrite('ERROR: Toggle elements not found');
+                }
+            } catch (error) {
+                debugWrite(`Error updating toggle labels: ${error.message}`);
             }
         }
 
-        // Initialize toggle labels on page load
-        window.addEventListener('DOMContentLoaded', function() {
-            updateToggleLabels();
-            const autoGenToggle = document.getElementById('autoGen');
-            if (autoGenToggle) {
-                autoGenToggle.addEventListener('change', updateToggleLabels);
+        // Test function to manually trigger highlight
+        function testHighlight() {
+            debugWrite('Manual highlight test triggered');
+            const penPaperForm = document.getElementById('penPaperForm');
+            if (penPaperForm) {
+                debugWrite('Adding highlight class manually');
+                penPaperForm.classList.add('highlight');
+                
+                setTimeout(() => {
+                    debugWrite('Removing highlight class manually');
+                    penPaperForm.classList.remove('highlight');
+                }, 3000);
+            } else {
+                debugWrite('Form not found!');
             }
+        }
+
+        // Make testHighlight available globally for debugging
+        window.testHighlight = testHighlight;
+
+        // Initialize everything on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            debugWrite('DOM Content Loaded - Initializing page');
+            
+            try {
+                // Set random fleet name
+                const fleetInput = document.getElementById('player1Name');
+                if (fleetInput) {
+                    fleetInput.value = getRandomFleetName();
+                    debugWrite('Initial fleet name set');
+                } else {
+                    debugWrite('ERROR: Fleet input not found on page load');
+                }
+                
+                // Initialize toggle labels
+                updateToggleLabels();
+                
+                // Add event listener for toggle changes
+                const autoGenToggle = document.getElementById('autoGen');
+                if (autoGenToggle) {
+                    autoGenToggle.addEventListener('change', updateToggleLabels);
+                    debugWrite('Toggle event listener added');
+                } else {
+                    debugWrite('ERROR: Auto-gen toggle not found');
+                }
+                
+                // Check for highlight parameter
+                checkForHighlight();
+                
+                debugWrite('Page initialization complete');
+            } catch (error) {
+                debugWrite(`Error during page initialization: ${error.message}`);
+            }
+        });
+
+        // Additional error handling for window load
+        window.addEventListener('load', function() {
+            debugWrite('Window fully loaded');
+        });
+
+        // Handle any uncaught errors
+        window.addEventListener('error', function(e) {
+            debugWrite(`Uncaught error: ${e.message} at ${e.filename}:${e.lineno}`);
         });
     </script>
 </body>
