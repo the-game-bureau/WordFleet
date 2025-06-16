@@ -1,5 +1,3 @@
-this is the latest set of rules
-
 # Word Fleet
 ## Rules of Engagement
 
@@ -17,7 +15,7 @@ You are a naval commander in a battle of wits and words. Deploy your fleet, then
 
 ### Deploy Your Fleet
 
-Your **Defense Grid** is 10×10 (A–J horizontally, 1–10 vertically) located at the bottom of your Battle Tracker. Place your 5 Word-Ships (listed above the grid on the right) by writing one letter per coordinate. Ships must be real English words placed horizontally or vertically. Ships cannot overlap but may touch. No proper nouns, abbreviations, or words requiring punctuation. Keep your grid hidden.
+Your **Defense Grid** is 10×10 (A–J horizontally, 1–10 vertically) located at the **bottom** of your Battle Tracker. Place your 5 Word Ships (listed above the grid on the right) by writing one letter per coordinate. Ships must be real English words placed horizontally or vertically. Ships cannot overlap but may touch. No proper nouns, abbreviations, or words requiring punctuation. Keep your grid hidden.
 
 - **KETCH:** 5-letter word (example: STORM)
 - **SHIP:** 4-letter word (example: WAVE)
@@ -28,7 +26,7 @@ Your **Defense Grid** is 10×10 (A–J horizontally, 1–10 vertically) located 
 The **Classified Manifest** (located beside your **Defense Grid**) speeds up gameplay. After placing your ships, count how many of each letter appears across your entire fleet and record these totals. You'll use this for quick responses when opponents gather intelligence.
 
 ### The Battle Begins
-On your turn, you must choose **ONE** of the following actions:
+On your turn, you must choose **ONE** of the following:
 
 **GATHER INTELLIGENCE**
 Name any letter of the alphabet
@@ -45,13 +43,13 @@ Call out Coordinates AND a Letter
 
 "B4 - T" Opponent: "Hit" (there's a ship at B4, but it's not a T)
 
-
-
 ### Intelligence Tracking
+The two devices at the top of your Battle Tracker will help you find your opponents Word Ships location and the words that make them up.
 
 #### Attack Grid (Top Left)
 
-Use this grid to track all attacks on your opponent:
+Use this grid to track the location and :
+
 - Mark bullseyes with the correct letter in a circle
 - Mark hits with an X and note which letter you guessed
 - Mark misses with dots
@@ -69,7 +67,7 @@ Track your Intelligence Gathering systematically:
 
 **The first captain to sink all five enemy ships wins the battle!**
 
-Ships sink when all their letters are correctly identified through attacks. Track your progress and deduce the enemy words from the pattern of bullseyes!
+Word Ships sink when all their letters are correctly identified through attacks. Track your progress and deduce the enemy words from the pattern of bullseyes!
 
 ### Contingency Tactics
 
