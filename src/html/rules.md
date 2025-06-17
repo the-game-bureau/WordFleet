@@ -1,13 +1,11 @@
-# ⚓ WORD FLEET ⚓
-### *Rules of Engagement*
-
----
+<h1><center>WORD FLEET</center>
+<center>Rules of Engagement</center>
 
 ## 🗺️ Mission Overview
 
 You are a naval commander in a battle of wits and words. Deploy your fleet, then hunt down the enemy using strategic attacks. When the smoke clears, only one fleet remains afloat.
 
-Each commander places their fleet of 5 word-ships on a 10×10 grid, then takes turns either gathering intelligence about the opponent's letters or launching direct attacks at specific coordinates. Victory comes to the first player who sinks all enemy ships by correctly identifying every letter in their opponent's fleet.
+Each commander places their fleet of 5 word-ships on a 10×10 grid, then takes turns either gathering intelligence about the opponent's letters or launching direct attacks at specific coordinates. Victory comes to the first player who sinks all enemy word-ships by correctly identifying every letter in their opponent's fleet.
 
 ## ⚓ Prepare for Battle
 
@@ -24,7 +22,7 @@ Your **Defense Grid** is a 10×10 grid (A–J horizontally, 1–10 vertically) l
 
 Before deploying, both commanders must agree on **one** method:
 - **Auto-Generated:** Use the pre-selected words printed on your tracker
-- **Choose Your Own:** Select your own words following ship size requirements
+- **Choose Your Own:** Select your own words following word-ship size requirements
 
 > **Important:** Both players must use the same method—no mixing allowed!
 
@@ -90,7 +88,7 @@ Each turn, choose **ONE** action:
 - **💥 Hit:** Coordinate is part of a Word-Ship, but different letter → trace or highlight the border
 - **🌊 Miss:** Empty water → place a dot in the center
 
-**Example:** *"B4 - T" → "Hit" (ship at B4, but not a T)*
+**Example:** *"B4 - T" → "Hit" (word-ship at B4, but not a T)*
 
 ### Your Battle Station Layout
 
@@ -108,6 +106,6 @@ Track intelligence gathering:
 
 ## 🏆 Victory Conditions
 
-**The first commander to sink all five enemy ships wins!**
+**The first commander to sink all five enemy word-ships wins!**
 
 Ships sink when all their letters are correctly identified through bullseyes. Track your progress and deduce enemy words from successful attack patterns.
