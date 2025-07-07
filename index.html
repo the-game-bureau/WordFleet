@@ -187,6 +187,9 @@
             max-width: 380px;
             box-sizing: border-box;
             z-index: 1;
+            overflow: unset !important;
+            isolation: isolate;
+            position: relative;
         }
 
         .rules-card {
@@ -199,6 +202,9 @@
             justify-content: stretch;
             height: auto;
             box-sizing: border-box;
+            overflow: unset !important;
+            isolation: isolate;
+            position: relative;
         }
 
         @media (max-width: 1200px) {
@@ -217,7 +223,9 @@
                 padding: 20px 12px;
                 height: auto !important;
                 min-height: 0 !important;
-                overflow: visible !important;
+                overflow: unset !important;
+                isolation: isolate;
+                position: relative;
                 box-sizing: border-box;
             }
         }
@@ -234,33 +242,55 @@
                 width: 100%;
                 height: auto !important;
                 min-height: 0 !important;
-                overflow: visible !important;
+                overflow: unset !important;
+                isolation: isolate;
+                position: relative;
+                box-sizing: border-box;
+            }
+            #rulesContent, .card-content {
+                max-height: 220px !important;
+                padding: 8px 4px !important;
+                font-size: 0.93em !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-card, .rules-card {
+                padding: 24px 20px;
+                border-radius: 18px;
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                height: auto !important;
+                min-height: 0 !important;
+                overflow: unset !important;
+                isolation: isolate;
+                position: relative;
+                box-sizing: border-box;
+            }
+            #rulesContent, .card-content {
+                max-height: 180px !important;
+                padding: 6px 2px !important;
+                font-size: 0.91em !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-card, .rules-card {
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                height: auto !important;
+                min-height: 0 !important;
+                overflow: unset !important;
+                isolation: isolate;
+                position: relative;
                 box-sizing: border-box;
             }
         }
 
         /* Enhanced glass effect cards with modern touches */
-        .form-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 16px 12px;
-            box-shadow: 
-                0 12px 40px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            max-width: 700px;
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            position: relative;
-            overflow: visible !important;
-            height: auto !important;
-            min-height: 0 !important;
-        }
+        /* .form-card block removed to prevent override of mobile-friendly settings */
 
         /* Highlight effect for the form card */
         .form-card.highlight {
@@ -762,7 +792,9 @@
                 min-width: 0;
                 height: auto !important;
                 min-height: 0 !important;
-                overflow: visible !important;
+                overflow: unset !important;
+                isolation: isolate;
+                position: relative;
                 box-sizing: border-box;
             }
             .main-container {
@@ -799,7 +831,9 @@
                 min-width: 0;
                 height: auto !important;
                 min-height: 0 !important;
-                overflow: visible !important;
+                overflow: unset !important;
+                isolation: isolate;
+                position: relative;
                 box-sizing: border-box;
             }
             
@@ -846,6 +880,35 @@
         .force-portrait-message {
             display: none;
         }
+
+        .card-content {
+            font-size: 0.97em;
+            color: #fff;
+            background: rgba(255,255,255,0.22);
+            border-radius: 12px;
+            padding: 12px 10px;
+            margin-bottom: 0;
+            box-shadow: none;
+            max-height: 340px;
+            overflow-y: auto;
+            font-family: inherit;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        @media (max-width: 900px) {
+            #rulesContent, .card-content {
+                max-height: 220px !important;
+                padding: 8px 4px !important;
+                font-size: 0.93em !important;
+            }
+        }
+        @media (max-width: 768px) {
+            #rulesContent, .card-content {
+                max-height: 180px !important;
+                padding: 6px 2px !important;
+                font-size: 0.91em !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -876,40 +939,45 @@
             <!-- Print & Play Mode -->
             <form class="form-card" id="penPaperForm" action="src/html/print.html" method="GET" onsubmit="return handlePrintSubmit(event)">
                 <h2 class="form-title">Pen &amp; Paper Mode</h2>
-                <p class="info-text">So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!</p>
-                <div class="form-group">
-                    <label for="player1Name">Name Your Fleet</label>
-                    <div class="input-with-refresh">
-                        <input type="text" name="fleet" id="player1Name" value="Royal Armada" required pattern=".{0,30}" title="Fleet name can contain letters, numbers, spaces, special characters, and emojis (max 30 characters)">
-                        <button type="button" class="refresh-btn" onclick="regenerateFleetName()" title="Generate new fleet name">
-                            🔄
-                        </button>
+                <div class="card-content">
+                    <p class="info-text">So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!</p>
+                    <div class="form-group">
+                        <label for="player1Name">Name Your Fleet</label>
+                        <div class="input-with-refresh">
+                            <input type="text" name="fleet" id="player1Name" value="" autocomplete="off" required pattern=".{0,30}" title="Fleet name can contain letters, numbers, spaces, special characters, and emojis (max 30 characters)">
+                            <button type="button" class="refresh-btn" onclick="regenerateFleetName()" title="Generate new fleet name">
+                                🔄
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="toggle-group">
-                    <span class="toggle-group-label">Word-Ships</span>
-                    <div class="toggle-container">
-                        <span class="toggle-label" id="pickWordsLabel">Pick Your Own</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" name="words" id="autoGen" class="toggle-input" value="true" checked>
-                            <span class="toggle-slider"></span>
-                        </label>
-                        <span class="toggle-label" id="autoGenLabel">Auto-Generated</span>
+                    <div class="toggle-group">
+                        <span class="toggle-group-label">Word-Ships</span>
+                        <div class="toggle-container">
+                            <span class="toggle-label" id="pickWordsLabel">Pick Your Own</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" name="words" id="autoGen" class="toggle-input" value="true" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label" id="autoGenLabel">Auto-Generated</span>
+                        </div>
                     </div>
+                    <button type="submit" class="action-btn" id="printBtn">Print Your Battle Tracker</button>
+                    <!-- Rules of Engagement button removed -->
                 </div>
-                <button type="submit" class="action-btn" id="printBtn">Print Your Battle Tracker</button>
-                <!-- Rules of Engagement button removed -->
             </form>
 
             <div class="form-card" id="futureDeployments">
                 <h2 class="form-title">Future Deployments</h2>
-                <p class="info-text"><strong>The Word Fleet Simulator Mode</strong> will soon be underway, putting your tactical mastery of words to the test in head-to-head battles against friends or foes. You'll also face legendary captains raised from the depths of history by AI, ready for war—where every letter is a shot across the bow.</p>
-                <p class="info-text">Tournaments. Wi-Fi. Phone apps. SMS combat. We're preparing a full complement of weapons for launch!</p>
+                <div class="card-content">
+                    <p class="info-text" style="margin-bottom: 1em;"><strong>The Word Fleet Simulator Mode</strong> will soon be underway, putting your tactical mastery of words to the test in head-to-head battles against friends or foes. You'll also face legendary captains raised from the depths of history by AI, ready for war—where every letter is a shot across the bow.</p>
+                    <div style="height:1em;"></div>
+                    <p class="info-text">Tournaments. Wi-Fi. Phone apps. SMS combat. We're preparing a full complement of weapons for launch!</p>
+                </div>
             </div>
             
             <div class="form-card rules-card" id="rulesCard">
                 <h2 class="form-title">Rules of Engagement</h2>
-                <div id="rulesContent" style="font-size:1.01em; color:#1a2a2a; background:rgba(255,255,255,0.13); border:1px solid #b5c7c7; border-radius:12px; padding:18px 16px; margin-bottom:0; box-shadow:none; max-height:420px; overflow-y:auto;">
+                <div id="rulesContent" style="font-size:0.97em; background:rgba(255,255,255,0.22); border-radius:12px; padding:12px 10px; margin-bottom:0; box-shadow:none; max-height:340px; overflow-y:auto; color:#fff; font-family:inherit; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);">
 <div class="example-box" style="margin-bottom:32px;">
   <strong>🚢 Overview</strong><br>
   Word Fleet combines the strategy of Battleship with the word-building challenge of Wordle. Deploy your fleet of words across the battlefield and sink your opponent's ships by launching precise letter strikes!
@@ -1105,7 +1173,43 @@
     </div>
 
     <script>
-        // ...existing code...
+        // --- Fleet Name Regeneration ---
+        function regenerateFleetName() {
+            const adjectives = [
+                "Royal", "Ironclad", "Sea", "Storm", "Night", "Wave", "Thunder", "Valiant", "Eternal", "Silent", "Golden", "Shadow", "Crimson", "Emerald", "Silver", "Swift", "Tempest", "Lone", "Grand", "Phantom",
+                "Mighty", "Brave", "Fierce", "Noble", "Stealthy", "Bold", "Radiant", "Lucky", "Resolute", "Majestic", "Fearless", "Daring", "Gallant", "Cunning", "Vigilant", "Glorious", "Dreadnought", "Spectral", "Celestial", "Arcane", "Obsidian",
+                "Azure", "Scarlet", "Ivory", "Onyx", "Titanic", "Venerable", "Ancient", "Invincible", "Merciless", "Relentless", "Unyielding", "Indomitable", "Black", "Mercury", "Meteor", "Solar", "Lunar", "Polar", "Arctic", "Savage",
+                "Ruthless", "Raging", "Roving", "Raucous", "Reckless", "Raucous", "Wild", "Wily", "Wicked", "Scarred", "Salty", "Seaworthy", "Fearsome", "Infamous", "Legendary", "Notorious", "Bold", "Dreaded", "Merciless", "Cursed", "Grim", "Stormy", "Iron", "Crimson", "Golden", "Silver", "Black", "Red", "Blue", "Green", "White", "Grey", "Dusky", "Shadowy", "Ghostly", "Spectral", "Hidden", "Secret", "Lost", "Wandering", "Free", "Untamed", "Unruly", "Savage", "Vicious", "Treacherous", "Gallant", "Heroic", "Loyal", "Resolute", "Intrepid", "Dauntless", "Bold", "Swift", "Fleetfoot", "Fleetwing", "Windward", "Leeward", "Highborn", "Lowborn", "Ironhand", "Stormborn", "Waveborn", "Sunken", "Sunlit", "Moonlit", "Starborn", "Frosty", "Frostbitten", "Icy", "Frozen", "Burning", "Blazing", "Fiery", "Thunderous", "Howling", "Roaring", "Rumbling", "Silent", "Quiet", "Clever", "Cunning", "Sly", "Sneaky", "Shadowed", "Masked", "Masked", "Masked", "Masked"
+            ];
+            const nouns = [
+                "Fleets", "Flotillas", "Squadrons", "Convoys", "Task Forces", "Armadas", "Divisions", "Wings", "Patrols", "Wolfpacks", "Lines", "Columns", "Battlegroups", "Expeditions", "Regattas", "Cohorts", "Escorts", "Detachments", "Sections", "Groups",
+                "Companies", "Trains", "Clusters", "Assemblies", "Gatherings", "Formations", "Arrays", "Bands", "Packs", "Parties", "Troops",
+                "Crews", "Brotherhoods", "Brotherhoods of the Coast", "Corsairs", "Raiders", "Freebooters", "Brethren", "Pirates", "Privateers", "Buccaneers", "Cutthroats", "Marauders", "Sea Dogs", "Rogues", "Scallywags", "Brigands", "Outlaws", "Plunderers",
+                "Serpents", "Victories", "Riders", "Breakers", "Watches", "Vanguards", "Tempests", "Corsairs", "Leviathans", "Auroras", "Sovereigns", "Odysseys", "Invincibles", "Thunderbolts", "Liberties", "Endeavours", "Falcons", "Sentinels", "Voyagers",
+                "Mariners", "Dragons", "Titans", "Guardians", "Wardens", "Crusaders", "Pioneers", "Navigators", "Explorers", "Champions", "Defenders", "Raiders", "Hunters", "Rangers", "Scouts", "Bastions", "Beacons", "Phoenixes", "Eagles", "Wolves", "Krakens",
+                "Galleons", "Clippers", "Frigates", "Destroyers", "Carriers", "Monitors", "Bulwarks", "Outriders", "Banners", "Spears", "Swords", "Tridents", "Hammers", "Anvils", "Comets", "Meteors", "Stars", "Novas", "Galaxies", "Nebulas", "Krewes"
+            ];
+            const input = document.getElementById('player1Name');
+            if (input) {
+                // Always generate a new name when called (for refresh button and on load)
+                let tries = 0;
+                let next = "";
+                let current = input.value;
+                do {
+                    const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+                    const noun = nouns[Math.floor(Math.random() * nouns.length)];
+                    next = adj + " " + noun;
+                    tries++;
+                } while (next === current && tries < 10);
+                input.value = next;
+            }
+        }
+
+        // Set a random fleet name on page load (only once)
+        window.addEventListener('DOMContentLoaded', function() {
+            regenerateFleetName();
+        });
+        // End of fleet name logic
 
         // --- Rules Expand/Collapse ---
         (function() {
@@ -1130,7 +1234,6 @@
                 });
             }
         })();
-    </script>
     </script>
 </body>
 </html>
