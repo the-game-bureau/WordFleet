@@ -777,52 +777,9 @@
 
     <!-- Rules Modal -->
     <div class="rules-modal" id="rulesModal">
-        <div class="rules-content">
+        <div class="rules-content" id="rulesContentDynamic">
             <button class="rules-close" onclick="closeRulesModal()">&times;</button>
-            
-            <div class="rules-header">
-                <h2 class="rules-title">WORD FLEET: RULES OF ENGAGEMENT</h2>
-                <button class="print-rules-btn" onclick="printRules()">Print Rules</button>
-            </div>
-            
-            <div class="rules-section">
-                <h3>🚢 Overview</h3>
-                <p>Word Fleet combines the strategy of Battleship with the word-building challenge of Wordle. Deploy your fleet of words across the battlefield and sink your opponent's ships by launching precise letter strikes!</p>
-            </div>
-
-            <div class="rules-section">
-                <h3>⚓ Fleet Deployment</h3>
-                <ul>
-                    <li><strong>Ship Types:</strong> Deploy 5 ships of varying lengths (2-6 letters)</li>
-                    <li><strong>Word Ships:</strong> Each ship is a real English word</li>
-                    <li><strong>Placement:</strong> Ships can be placed horizontally or vertically</li>
-                    <li><strong>No Overlap:</strong> Ships cannot touch or overlap</li>
-                </ul>
-            </div>
-
-            <div class="rules-section">
-                <h3>🎯 Combat Phase</h3>
-                <ul>
-                    <li><strong>Letter Strikes:</strong> Attack enemy positions by calling out letters</li>
-                    <li><strong>Coordinate Strikes:</strong> Target specific grid coordinates (A1, B5, etc.)</li>
-                    <li><strong>Hit Confirmation:</strong> Enemy must confirm hits and reveal struck letters</li>
-                    <li><strong>Word Discovery:</strong> Deduce enemy words from hit patterns</li>
-                </ul>
-            </div>
-
-            <div class="rules-section">
-                <h3>🏆 Victory Conditions</h3>
-                <ul>
-                    <li><strong>Total Annihilation:</strong> Sink all enemy ships to claim victory</li>
-                    <li><strong>Word Completion:</strong> Correctly guess an entire enemy word to sink that ship</li>
-                    <li><strong>Strategic Advantage:</strong> Use linguistic knowledge to predict word patterns</li>
-                </ul>
-            </div>
-
-            <div class="rules-section">
-                <h3>⚔️ Advanced Tactics</h3>
-                <p>Master tacticians will use common word patterns, letter frequency, and strategic placement to outmaneuver their opponents. Every letter matters in this battle of wits and words!</p>
-            </div>
+            <div id="rulesLoading" style="color:#fff;text-align:center;margin:40px 0;">Loading rules...</div>
         </div>
     </div>
     
@@ -943,12 +900,31 @@
             debugWrite('Opening rules modal');
             try {
                 const modal = document.getElementById('rulesModal');
-                if (modal) {
+                const rulesContent = document.getElementById('rulesContentDynamic');
+                const rulesLoading = document.getElementById('rulesLoading');
+                if (modal && rulesContent && rulesLoading) {
                     modal.classList.add('active');
                     document.body.style.overflow = 'hidden';
-                    debugWrite('Rules modal opened successfully');
+                    // Fetch rules.html and inject main content into modal
+                    fetch('src/html/rules.html')
+                        .then(response => response.text())
+                        .then(html => {
+                            // Extract the .container div from rules.html
+                            const tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = html;
+                            const container = tempDiv.querySelector('.container');
+                            if (container) {
+                                rulesContent.innerHTML = '<button class="rules-close" onclick="closeRulesModal()">&times;</button>' + container.outerHTML;
+                            } else {
+                                rulesContent.innerHTML = '<button class="rules-close" onclick="closeRulesModal()">&times;</button><div style="color:#fff;text-align:center;margin:40px 0;">Failed to load rules content.</div>';
+                            }
+                        })
+                        .catch(() => {
+                            rulesContent.innerHTML = '<button class="rules-close" onclick="closeRulesModal()">&times;</button><div style="color:#fff;text-align:center;margin:40px 0;">Failed to load rules content.</div>';
+                        });
+                    debugWrite('Rules modal opened and loading started');
                 } else {
-                    debugWrite('ERROR: Rules modal element not found');
+                    debugWrite('ERROR: Rules modal or content element not found');
                 }
             } catch (error) {
                 debugWrite(`Error opening rules modal: ${error.message}`);
