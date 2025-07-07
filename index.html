@@ -164,20 +164,65 @@
 
         .main-container {
             display: flex;
-            align-items: center;
+            align-items: stretch;
             justify-content: center;
             padding: 16px 0;
             min-height: unset;
         }
 
         .forms-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            display: flex;
+            flex-wrap: nowrap;
             gap: 20px;
             width: 100%;
-            max-width: 1080px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 8px;
+            align-items: stretch;
+        }
+
+        .form-card {
+            flex: 1 1 320px;
+            min-width: 260px;
+            max-width: 380px;
+        }
+
+        .rules-card {
+            flex: 1 1 320px;
+            min-width: 260px;
+            max-width: 380px;
+            margin-left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+            height: 100%;
+        }
+
+        @media (max-width: 1200px) {
+            .forms-container {
+                flex-direction: column;
+                gap: 24px;
+                padding: 0 12px;
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .form-card, .rules-card {
+                max-width: 100%;
+                min-width: 0;
+                padding: 20px 12px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .forms-container {
+                flex-direction: column;
+                gap: 24px;
+            }
+            .form-card, .rules-card {
+                max-width: 100%;
+                min-width: 0;
+            }
         }
 
         /* Enhanced glass effect cards with modern touches */
@@ -191,7 +236,7 @@
             box-shadow: 
                 0 12px 40px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            max-width: 540px;
+            max-width: 700px;
             width: 100%;
             margin: 0 auto;
             display: flex;
@@ -199,6 +244,7 @@
             gap: 10px;
             position: relative;
             overflow: hidden;
+            height: 100%;
         }
 
         /* Highlight effect for the form card */
@@ -821,14 +867,201 @@
                     </div>
                 </div>
                 <button type="submit" class="action-btn" id="printBtn">Print Your Battle Tracker</button>
-                <a href="src/html/rules.html" class="action-btn" target="_blank" rel="noopener">Rules of Engagement</a>
+                <!-- Rules of Engagement button removed -->
             </form>
-            
-            <!-- Future Deployments -->
-            <div class="form-card">
+
+            <div class="form-card" id="futureDeployments">
                 <h2 class="form-title">Future Deployments</h2>
                 <p class="info-text"><strong>The Word Fleet Simulator Mode</strong> will soon be underway, putting your tactical mastery of words to the test in head-to-head battles against friends or foes. You'll also face legendary captains raised from the depths of history by AI, ready for war—where every letter is a shot across the bow.</p>
                 <p class="info-text">Tournaments. Wi-Fi. Phone apps. SMS combat. We're preparing a full complement of weapons for launch!</p>
+            </div>
+            
+            <div class="form-card rules-card" id="rulesCard">
+                <h2 class="form-title">Rules of Engagement</h2>
+                <div id="rulesContent" style="font-size:1.01em; color:#1a2a2a; background:rgba(255,255,255,0.13); border:1px solid #b5c7c7; border-radius:12px; padding:18px 16px; margin-bottom:0; box-shadow:none; max-height:420px; overflow-y:auto;">
+<div class="example-box" style="margin-bottom:32px;">
+  <strong>🚢 Overview</strong><br>
+  Word Fleet combines the strategy of Battleship with the word-building challenge of Wordle. Deploy your fleet of words across the battlefield and sink your opponent's ships by launching precise letter strikes!
+</div>
+<div class="ship-list" style="margin-bottom:32px;">
+  <strong>⚓ Fleet Deployment</strong>
+  <ul>
+    <li>Ship Types: Deploy 5 Word Ships of specific lengths (see below)</li>
+    <li>Word Ships: Each ship must be a valid English word</li>
+    <li>Placement: Place ships horizontally (left to right) or vertically (top to bottom)</li>
+    <li>No Overlap: Word Ships cannot overlap, but may touch at edges</li>
+  </ul>
+  <div style="margin-top:12px; font-size:1.05em; color:#b6ffb6;">
+    <strong>Note:</strong> Your fleet must include exactly five Word Ships, one of each length: <strong>5, 4, 3, 3, and 2 letters</strong> (see below for ship types). This matches the layout and requirements of the Battle Tracker.
+  </div>
+</div>
+<div style="margin-bottom:32px;">
+  <strong>🎯 Combat Phase</strong><br>
+  <ul>
+    <li>Letter Sweep: Ask about a letter to learn how many times it appears in the enemy fleet</li>
+    <li>Coordinate Attack: Target a specific grid coordinate (e.g., A1, B5) and guess a letter</li>
+    <li>Hit Confirmation: Opponent must confirm hits and reveal struck letters</li>
+    <li>Word Deduction: Use revealed letters and patterns to deduce enemy Word Ships</li>
+  </ul>
+  <strong>🏆 Victory Conditions</strong><br>
+  <ul>
+    <li>Total Annihilation: Sink all enemy Word Ships to win</li>
+    <li>Word Completion: Correctly identify all letters in an enemy Word Ship to sink it</li>
+    <li>Strategic Advantage: Use word knowledge and deduction to outmaneuver your opponent</li>
+  </ul>
+</div>
+<div class="important" style="margin-bottom:32px;">
+  ⚔️ <strong>Advanced Tactics:</strong> Master tacticians use common word patterns, letter frequency, and strategic placement to outmaneuver their opponent. Every letter matters in this battle of wits and words!
+</div>
+<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Mission Overview</div>
+<p>You are a Fleet Commander in a battle of wits and words. Deploy your Word Ships on your grid, then hunt down the enemy fleet using strategic attacks. When the smoke clears, only one fleet remains afloat.</p>
+<ul>
+  <li>Each commander places their fleet of 5 Word Ships on a 10×10 grid (A–J, 1–10).</li>
+  <li>On your turn, choose to perform a Letter Sweep (ask about a letter) or a Coordinate Attack (guess a letter at a coordinate).</li>
+  <li>Victory: The first commander to sink all enemy Word Ships by correctly identifying every letter in their opponent's fleet wins.</li>
+</ul>
+<div class="example-box">
+  <strong>Example:</strong> On your turn, you might ask, "How many R's are in your fleet?" or attack with "B4 - T".
+</div>
+<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Battle Planning</div>
+<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Requisition the Following</div>
+<ul>
+  <li>One Battle Tracker sheet for each commander (print from <a href="https://thegamebureau.com/wrdflt" target="_blank">thegamebureau.com/wrdflt</a>)</li>
+  <li>2 pens or pencils</li>
+  <li>Optional: highlighters</li>
+</ul>
+<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Word Selection</div>
+<p>Before starting, agree with your opponent on one method:</p>
+<ul>
+  <li><strong>Auto-Generated Words:</strong> Use the pre-selected words printed on your Battle Tracker</li>
+  <li><strong>Choose Your Own:</strong> Select your own words following the Word Ship size requirements</li>
+</ul>
+<p><em>Both commanders must use the same method—no mixing allowed!</em></p>
+<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Deploy Your Fleet</div>
+<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Grid Setup & Placement Rules</div>
+<p>Your Defense Grid is 10×10, labeled A–J horizontally and 1–10 vertically. Place your fleet of 5 Word Ships by writing one letter per coordinate. Follow these rules when placing your Word Ships:</p>
+<ul>
+  <li>Each Word Ship must be a valid English word</li>
+  <li>Place ships horizontally (left to right) or vertically (top to bottom)</li>
+  <li>Word Ships cannot overlap, but may touch at edges</li>
+  <li>No proper nouns, abbreviations, prefixes, suffixes, or words requiring a hyphen/apostrophe</li>
+  <li>Keep your Defense Grid hidden from your opponent</li>
+</ul>
+<div class="ship-list">
+  <p><strong>Your Fleet Consists of:</strong></p>
+  <ul>
+    <li><strong>KETCH:</strong> 5-letter word (example: STORM)</li>
+    <li><strong>SHIP:</strong> 4-letter word (example: WAVE)</li>
+    <li><strong>SUB:</strong> 3-letter word (example: FOG)</li>
+    <li><strong>ARK:</strong> 3-letter word (example: SEA)</li>
+    <li><strong>PT:</strong> 2-letter word (example: GO)</li>
+  </ul>
+</div>
+<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Placement Rules</div>
+<ul>
+  <li>Each Word Ship must be a valid English word. No words that are always capitalized, no abbreviations, no prefixes or suffixes standing alone, and no words requiring a hyphen or apostrophe.</li>
+  <li>Place horizontally (left to right) or vertically (top to bottom)</li>
+  <li>Word Ships cannot overlap, but may touch at edges</li>
+  <li>Keep your Defense Grid hidden from your opponent</li>
+</ul>
+<div class="battle-tracker-note">
+  <p><strong>Classified Manifest (Defense Grid):</strong> After placing your Word Ships, count how many times each letter appears in your fleet. Fill in these counts in the Classified Manifest section of your Battle Tracker. This helps you quickly answer Letter Sweeps and is required for gameplay.</p>
+</div>
+<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Launch Sequence</div>
+<p>Determine who strikes first using the launch codes on your Battle Tracker.</p>
+<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Reading Your Launch Codes</div>
+<p>Your Battle Tracker displays 5 three-digit launch codes (like 142, 087, 953). These codes determine turn order through a bidding system.</p>
+<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">The Bidding War</div>
+<ol>
+  <li><strong>Opening Bid:</strong> You or your opponent claims to have a specific launch code (real or bluffed)</li>
+  <li><strong>Response Options:</strong>
+    <ul>
+      <li>Concede and let them go first</li>
+      <li>Challenge their claim (call their bluff)</li>
+      <li>Counter with a higher bid (a rarer code)</li>
+    </ul>
+  </li>
+  <li><strong>Challenge Results:</strong>
+    <ul>
+      <li>If bluffing: Challenger gets TWO opening turns</li>
+      <li>If truthful: Original bidder gets TWO opening turns</li>
+    </ul>
+  </li>
+</ol>
+<div class="important">
+  Once bidding ends, ALL gameplay must be honest—no more bluffing allowed!
+</div>
+<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Gameplay</div>
+<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Choose Your Move</div>
+<p>On your turn, choose ONE of the following actions:</p>
+<div style="margin-bottom:32px;">
+  <strong>Letter Sweep</strong><br>
+  <span>Ask about a letter's frequency in the enemy fleet</span>
+  <ul>
+    <li>Name any letter of the alphabet</li>
+    <li>Opponent reveals total count in their fleet</li>
+    <li>Each letter can only be asked ONCE per game</li>
+    <li>Mark the count in your Recon Log</li>
+  </ul>
+  <strong>Coordinate Attack</strong><br>
+  <span>Call out a grid coordinate AND a letter</span>
+  <ul>
+    <li>Example: "C7 - S"</li>
+    <li><strong>Bullseye:</strong> Your letter matches exactly</li>
+    <li><strong>Hit:</strong> There's a Word Ship there, but wrong letter</li>
+    <li><strong>Miss:</strong> Empty water</li>
+  </ul>
+</div>
+<div class="example-box">
+  <strong>Example Turns:</strong><br>
+  Letter Sweep: "How many R's are in your fleet?" Opponent: "I have 2 R's."<br>
+  Coordinate Attack: "B4 - T" Opponent: "Hit" (there's a Word Ship at B4, but it's not a T)
+</div>
+<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Your Battle Station Layout</div>
+<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Attack Grid (Top Left)</div>
+<p>Use this grid to track all Coordinate Attacks on your opponent:</p>
+<ul>
+  <li>Mark bullseyes with the correct letter in a circle</li>
+  <li>Mark hits with an X and note which letter you guessed</li>
+  <li>Mark misses with dots</li>
+  <li>Draw lines through confirmed sunken Word Ships when all letters are found</li>
+</ul>
+<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Recon Log (Top Right)</div>
+<p>Track your Letter Sweeps systematically:</p>
+<ul>
+  <li>Circle letters that exist in opponent's fleet</li>
+  <li>Cross out letters with zero count</li>
+  <li>Write the exact count next to each letter asked about</li>
+  <li>Vowels are highlighted as high-priority targets</li>
+</ul>
+<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Victory Conditions</div>
+<div class="important">The first commander to sink all five enemy Word Ships wins the battle!</div>
+<p>Word Ships sink when all their letters are correctly identified through Coordinate Attacks. Track your progress and deduce the enemy words from the pattern of bullseyes!</p>
+<div class="game-variations">
+  <div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Contingency Tactics</div>
+  <p><strong>Silent Service:</strong> When answering Letter Sweeps, don't reveal which Word Ships contain the letter—only the total count.</p>
+  <p><strong>Themed Fleets:</strong> Both commanders must use words from agreed categories (animals, colors, military terms, etc.).</p>
+  <p><strong>Minefield:</strong> Each commander places 1 mine on their Defense Grid. If the opponent hits it, the defending commander immediately gets two full turns in a row. The mine is revealed when struck.</p>
+</div>
+<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Final Briefing</div>
+<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Turn Summary</div>
+<ol>
+  <li>Choose: Letter Sweep OR Coordinate Attack</li>
+  <li>Record all information on your Battle Tracker</li>
+  <li>Pass turn to your opponent</li>
+</ol>
+<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Common Mistakes to Avoid</div>
+<ul>
+  <li>Asking about the same letter twice</li>
+  <li>Forgetting to track letter counts</li>
+  <li>Not recording whether attacks were bullseyes, hits, or misses</li>
+  <li>Placing Word Ships diagonally (not allowed)</li>
+</ul>
+<h2 class="visually-hidden">Final Quote</h2>
+<div class="final-quote" style="margin-top:32px;">
+  <em>"In the fog of war, every letter tells a story. Listen carefully, strike decisively, and may fair winds fill your sails, Captain."</em>
+</div>
+                </div>
             </div>
         </div>
     </div>
@@ -841,276 +1074,32 @@
     </div>
 
     <script>
-        // Debug functionality
-        let debugMode = false;
-        let debugLog = [];
+        // ...existing code...
 
-        function debugWrite(message) {
-            const timestamp = new Date().toLocaleTimeString();
-            const logEntry = `[${timestamp}] ${message}`;
-            debugLog.push(logEntry);
-            
-            if (debugMode) {
-                const debugConsole = document.getElementById('debugConsole');
-                if (debugConsole) {
-                    debugConsole.innerHTML = debugLog.slice(-10).join('<br>');
-                    debugConsole.scrollTop = debugConsole.scrollHeight;
-                }
-            }
-            
-            console.log(logEntry);
-        }
-
-        // Toggle debug mode with Ctrl+Shift+D
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.shiftKey && e.key === 'D') {
-                debugMode = !debugMode;
-                const debugConsole = document.getElementById('debugConsole');
-                if (debugConsole) {
-                    debugConsole.style.display = debugMode ? 'block' : 'none';
-                    if (debugMode) {
-                        debugConsole.innerHTML = debugLog.slice(-10).join('<br>');
-                    }
-                }
-                debugWrite(`Debug mode ${debugMode ? 'enabled' : 'disabled'}`);
-            }
-        });
-
-        // Function to print rules
-        function printRules() {
-            debugWrite('Print button: opening print.html in new tab');
-            try {
-                window.open('src/html/print.html', '_blank');
-                debugWrite('print.html opened in new tab');
-            } catch (error) {
-                debugWrite(`Error opening print.html: ${error.message}`);
-            }
-        }
-
-        // Function to get random fleet name
-        function getRandomFleetName() {
-            debugWrite('Generating random fleet name');
-            try {
-                const fleetFirstNames = [
-                    'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged',
-                    'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
-                    'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
-                    'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
-                    'Battle-Ready', 'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
-                    'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached', 'Iron-Fisted', 'Cannon-Heavy',
-                    'Gun-Blazing', 'Torpedo-Laden', 'Skull & Crossbones', 'Merciless', 'Fearsome',
-                    'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed', 'Eye-Patched',
-                    'Beard-Braided', 'Compass-Spinning', 'Ghost Ship', 'Kraken\'s', 'Siren\'s',
-                    'Poseidon\'s', 'Davy Jones\'', 'Cursed', 'Phantom', 'Half-Sunk', 'Listing',
-                    'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
-                ];
-                const navalTerms = [
-                    'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force',
-                    'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
-                    'Cohort', 'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit',
-                    'Force', 'Command', 'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard',
-                    'Reserve', 'Guard', 'Watch', 'Blockade', 'Tide', 'Current', 'Wake', 'Waves',
-                    'Storm', 'Tempest', 'Gale', 'Maelstrom', 'Admiralty', 'Authority', 'Order',
-                    'Legion', 'Brotherhood', 'Alliance', 'Coalition', 'Depth', 'Trench', 'Reef',
-                    'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
-                    'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition'
-                ];
-                const randomFirstName = fleetFirstNames[Math.floor(Math.random() * fleetFirstNames.length)];
-                const randomNavalTerm = navalTerms[Math.floor(Math.random() * navalTerms.length)];
-                const newName = `${randomFirstName} ${randomNavalTerm}`;
-                debugWrite(`Generated fleet name: ${newName}`);
-                return newName;
-            } catch (error) {
-                debugWrite(`Error generating fleet name: ${error.message}`);
-                return 'Royal Armada'; // fallback
-            }
-        }
-
-        // Function to regenerate fleet name
-        function regenerateFleetName() {
-            debugWrite('Regenerate fleet name button clicked');
-            try {
-                const fleetInput = document.getElementById('player1Name');
-                if (fleetInput) {
-                    const newName = getRandomFleetName();
-                    fleetInput.value = newName;
-                    debugWrite(`Fleet name updated to: ${newName}`);
-                } else {
-                    debugWrite('ERROR: Fleet name input element not found');
-                }
-            } catch (error) {
-                debugWrite(`Error regenerating fleet name: ${error.message}`);
-            }
-        }
-
-        // Function to check for highlight parameter and apply highlighting
-        function checkForHighlight() {
-            debugWrite('Checking for highlight parameter...');
-            try {
-                const currentUrl = window.location.href;
-                debugWrite(`Current URL: ${currentUrl}`);
-                
-                const urlParams = new URLSearchParams(window.location.search);
-                const highlightParam = urlParams.get('highlight');
-                
-                debugWrite(`Highlight parameter value: ${highlightParam}`);
-                
-                if (highlightParam === 'form') {
-                    debugWrite('Highlight parameter matches "form"');
-                    const penPaperForm = document.getElementById('penPaperForm');
-                    
-                    if (penPaperForm) {
-                        debugWrite('Found form element, applying highlight');
-                        // Add highlight class
-                        penPaperForm.classList.add('highlight');
-                        
-                        // Scroll to the form smoothly
-                        penPaperForm.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'center' 
-                        });
-                        
-                        debugWrite('Highlight applied, will remove after 3 seconds');
-                        
-                        // Remove highlight class after animation completes
-                        setTimeout(() => {
-                            debugWrite('Removing highlight class...');
-                            penPaperForm.classList.remove('highlight');
-                        }, 3000);
-                        
-                        // Clean up URL by removing the highlight parameter
-                        urlParams.delete('highlight');
-                        const newUrl = window.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
-                        window.history.replaceState({}, '', newUrl);
-                        debugWrite(`URL cleaned: ${newUrl}`);
+        // --- Rules Expand/Collapse ---
+        (function() {
+            const expandBtn = document.getElementById('expandRulesBtn');
+            const rulesFull = document.getElementById('rulesFull');
+            const rulesCard = document.getElementById('rulesCard');
+            let expanded = false;
+            if (expandBtn && rulesFull && rulesCard) {
+                expandBtn.addEventListener('click', function() {
+                    if (!expanded) {
+                        rulesFull.style.display = 'block';
+                        expandBtn.textContent = 'Hide Full Rules';
+                        rulesCard.style.maxHeight = '2000px';
+                        expanded = true;
+                        setTimeout(() => rulesCard.scrollIntoView({behavior:'smooth', block:'center'}), 200);
                     } else {
-                        debugWrite('ERROR: penPaperForm element not found!');
+                        rulesFull.style.display = 'none';
+                        expandBtn.textContent = 'Show Full Rules';
+                        rulesCard.style.maxHeight = '320px';
+                        expanded = false;
                     }
-                } else {
-                    debugWrite('No highlight parameter found or value does not match "form"');
-                }
-            } catch (error) {
-                debugWrite(`Error checking highlight parameter: ${error.message}`);
-            }
-        }
-
-        // Handle form submission with default values
-        function handlePrintSubmit(event) {
-            debugWrite('Form submission started');
-            try {
-                event.preventDefault();
-                const form = event.target;
-                const fleet1 = form.fleet.value.trim() || 'Fleet';
-                const words = form.words.checked ? 'yes' : 'no';
-                
-                debugWrite(`Form data - Fleet: ${fleet1}, Words: ${words}`);
-                
-                const params = new URLSearchParams({
-                    fleet: fleet1,
-                    words: words
                 });
-                
-                const targetUrl = form.action + '?' + params.toString();
-                debugWrite(`Redirecting to: ${targetUrl}`);
-                
-                window.location.href = targetUrl;
-                return false;
-            } catch (error) {
-                debugWrite(`Error handling form submission: ${error.message}`);
-                return false;
             }
-        }
-
-        // Auto-generate toggle for Print & Play
-        function updateToggleLabels() {
-            debugWrite('Updating toggle labels');
-            try {
-                const autoGenToggle = document.getElementById('autoGen');
-                const pickWordsLabel = document.getElementById('pickWordsLabel');
-                const autoGenLabel = document.getElementById('autoGenLabel');
-                
-                if (autoGenToggle && pickWordsLabel && autoGenLabel) {
-                    if (autoGenToggle.checked) {
-                        pickWordsLabel.classList.remove('active');
-                        autoGenLabel.classList.add('active');
-                        debugWrite('Toggle labels updated - Auto-Generated active');
-                    } else {
-                        pickWordsLabel.classList.add('active');
-                        autoGenLabel.classList.remove('active');
-                        debugWrite('Toggle labels updated - Pick Your Own active');
-                    }
-                } else {
-                    debugWrite('ERROR: Toggle elements not found');
-                }
-            } catch (error) {
-                debugWrite(`Error updating toggle labels: ${error.message}`);
-            }
-        }
-
-        // Test function to manually trigger highlight
-        function testHighlight() {
-            debugWrite('Manual highlight test triggered');
-            const penPaperForm = document.getElementById('penPaperForm');
-            if (penPaperForm) {
-                debugWrite('Adding highlight class manually');
-                penPaperForm.classList.add('highlight');
-                
-                setTimeout(() => {
-                    debugWrite('Removing highlight class manually');
-                    penPaperForm.classList.remove('highlight');
-                }, 3000);
-            } else {
-                debugWrite('Form not found!');
-            }
-        }
-
-        // Make testHighlight available globally for debugging
-        window.testHighlight = testHighlight;
-
-        // Initialize everything on page load
-        window.addEventListener('DOMContentLoaded', function() {
-            debugWrite('DOM Content Loaded - Initializing page');
-            
-            try {
-                // Set random fleet name
-                const fleetInput = document.getElementById('player1Name');
-                if (fleetInput) {
-                    fleetInput.value = getRandomFleetName();
-                    debugWrite('Initial fleet name set');
-                } else {
-                    debugWrite('ERROR: Fleet input not found on page load');
-                }
-                
-                // Initialize toggle labels
-                updateToggleLabels();
-                
-                // Add event listener for toggle changes
-                const autoGenToggle = document.getElementById('autoGen');
-                if (autoGenToggle) {
-                    autoGenToggle.addEventListener('change', updateToggleLabels);
-                    debugWrite('Toggle event listener added');
-                } else {
-                    debugWrite('ERROR: Auto-gen toggle not found');
-                }
-                
-                // Check for highlight parameter
-                checkForHighlight();
-                
-                debugWrite('Page initialization complete');
-            } catch (error) {
-                debugWrite(`Error during page initialization: ${error.message}`);
-            }
-        });
-
-        // Additional error handling for window load
-        window.addEventListener('load', function() {
-            debugWrite('Window fully loaded');
-        });
-
-        // Handle any uncaught errors
-        window.addEventListener('error', function(e) {
-            debugWrite(`Uncaught error: ${e.message} at ${e.filename}:${e.lineno}`);
-        });
+        })();
+    </script>
     </script>
 </body>
 </html>
