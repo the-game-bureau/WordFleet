@@ -331,46 +331,92 @@
 </head>
 <body>
   <div class="container">
-    <h1>Word Fleet<br><span>Rules of Engagement</span></h1>
+    <h1>WORD FLEET<br><span>RULES OF ENGAGEMENT</span></h1>
 
     <div class="print-button-container">
       <button onclick="window.location.href='https://the-game-bureau.github.io/WordFleet/index.html'" class="print-button">[RETREAT]</button>
       <button onclick="window.print()" class="print-button">[PRINT RULES]</button>
     </div>
 
+    <div class="example-box" style="margin-bottom:32px;">
+      <strong>🚢 Overview</strong><br>
+      Word Fleet combines the strategy of Battleship with the word-building challenge of Wordle. Deploy your fleet of words across the battlefield and sink your opponent's ships by launching precise letter strikes!
+    </div>
+
+    <div class="ship-list" style="margin-bottom:32px;">
+      <strong>⚓ Fleet Deployment</strong>
+      <ul>
+        <li>Ship Types: Deploy 5 Word Ships of specific lengths (see below)</li>
+        <li>Word Ships: Each ship must be a valid English word</li>
+        <li>Placement: Place ships horizontally (left to right) or vertically (top to bottom)</li>
+        <li>No Overlap: Word Ships cannot overlap, but may touch at edges</li>
+      </ul>
+      <div style="margin-top:12px; font-size:1.05em; color:#b6ffb6;">
+        <strong>Note:</strong> Your fleet must include exactly five Word Ships, one of each length: <strong>5, 4, 3, 3, and 2 letters</strong> (see below for ship types). This matches the layout and requirements of the Battle Tracker.
+      </div>
+    </div>
+
+    <div class="attack-boxes" style="margin-bottom:32px;">
+      <div class="attack-box">
+        <strong>🎯 Combat Phase</strong>
+        <ul>
+          <li>Letter Sweep: Ask about a letter to learn how many times it appears in the enemy fleet</li>
+          <li>Coordinate Attack: Target a specific grid coordinate (e.g., A1, B5) and guess a letter</li>
+          <li>Hit Confirmation: Opponent must confirm hits and reveal struck letters</li>
+          <li>Word Deduction: Use revealed letters and patterns to deduce enemy Word Ships</li>
+        </ul>
+      </div>
+      <div class="attack-box">
+        <strong>🏆 Victory Conditions</strong>
+        <ul>
+          <li>Total Annihilation: Sink all enemy Word Ships to win</li>
+          <li>Word Completion: Correctly identify all letters in an enemy Word Ship to sink it</li>
+          <li>Strategic Advantage: Use word knowledge and deduction to outmaneuver your opponent</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="important" style="margin-bottom:32px;">
+      ⚔️ <strong>Advanced Tactics:</strong> Master tacticians use common word patterns, letter frequency, and strategic placement to outmaneuver their opponent. Every letter matters in this battle of wits and words!
+    </div>
+
     <div class="section-header">Mission Overview<span class="cursor">_</span></div>
-    <p>You are a naval commander in a battle of wits and words. Deploy your fleet of Word Ships on your grid, then hunt down the enemy fleet using strategic attacks. When the smoke clears, only one fleet remains afloat.</p>
+    <p>You are a Fleet Commander in a battle of wits and words. Deploy your Word Ships on your grid, then hunt down the enemy fleet using strategic attacks. When the smoke clears, only one fleet remains afloat.</p>
+    <ul>
+      <li>Each commander places their fleet of 5 Word Ships on a 10×10 grid (A–J, 1–10).</li>
+      <li>On your turn, choose to perform a Letter Sweep (ask about a letter) or a Coordinate Attack (guess a letter at a coordinate).</li>
+      <li>Victory: The first commander to sink all enemy Word Ships by correctly identifying every letter in their opponent's fleet wins.</li>
+    </ul>
+    <div class="example-box">
+      <strong>Example:</strong> On your turn, you might ask, "How many R's are in your fleet?" or attack with "B4 - T".
+    </div>
 
     <div class="section-header">Battle Planning</div>
     <div class="subsection-header">Requisition the Following</div>
-    <p>Print battle trackers from <a href="https://thegamebureau.com/wrdflt" target="_blank">thegamebureau.com/wrdflt</a>. You'll need:</p>
     <ul>
-      <li>One battle tracker sheet for each captain</li>
-      <li>2 Pens or Pencils</li>
-      <li>Optional: Highlighters</li>
+      <li>One Battle Tracker sheet for each commander (print from <a href="https://thegamebureau.com/wrdflt" target="_blank">thegamebureau.com/wrdflt</a>)</li>
+      <li>2 pens or pencils</li>
+      <li>Optional: highlighters</li>
     </ul>
 
     <div class="subsection-header">Word Selection</div>
     <p>Before starting, agree with your opponent on one method:</p>
     <ul>
-      <li><strong>Auto-Generated Words:</strong> Use the pre-selected words printed on your tracker</li>
-      <li><strong>Choose Your Own:</strong> Select your own words following the ship size requirements</li>
+      <li><strong>Auto-Generated Words:</strong> Use the pre-selected words printed on your Battle Tracker</li>
+      <li><strong>Choose Your Own:</strong> Select your own words following the Word Ship size requirements</li>
     </ul>
-    <p><em>Both players must use the same method—no mixing allowed!</em></p>
+    <p><em>Both commanders must use the same method—no mixing allowed!</em></p>
 
     <div class="section-header">Deploy Your Fleet</div>
-
     <div class="subsection-header">Grid Setup & Placement Rules</div>
-    <p>Your defense grid is 10×10, labeled A–J horizontally and 1–10 vertically. Place your fleet of 5 Word Ships by writing one letter per coordinate. Follow these rules when placing your ships:</p>
-
+    <p>Your Defense Grid is 10×10, labeled A–J horizontally and 1–10 vertically. Place your fleet of 5 Word Ships by writing one letter per coordinate. Follow these rules when placing your Word Ships:</p>
     <ul>
-      <li>Words must be real English words</li>
+      <li>Each Word Ship must be a valid English word</li>
       <li>Place ships horizontally (left to right) or vertically (top to bottom)</li>
-      <li>Ships cannot overlap</li>
-      <li>Ships may touch each other (share adjacent squares)</li>
-      <li>Keep your defense grid hidden from your opponent</li>
+      <li>Word Ships cannot overlap, but may touch at edges</li>
+      <li>No proper nouns, abbreviations, prefixes, suffixes, or words requiring a hyphen/apostrophe</li>
+      <li>Keep your Defense Grid hidden from your opponent</li>
     </ul>
-
     <div class="ship-list">
       <p><strong>Your Fleet Consists of:</strong></p>
       <ul>
@@ -381,27 +427,22 @@
         <li><strong>PT:</strong> 2-letter word (example: GO)</li>
       </ul>
     </div>
-
     <div class="subsection-header">Placement Rules</div>
     <ul>
-      <li>Words must be real English words. No words that are always capitalized, no abbreviations, no prefixes or suffixes standing alone, and no words requiring a hyphen or apostrophe.</li>
+      <li>Each Word Ship must be a valid English word. No words that are always capitalized, no abbreviations, no prefixes or suffixes standing alone, and no words requiring a hyphen or apostrophe.</li>
       <li>Place horizontally (left to right) or vertically (top to bottom)</li>
-      <li>Ships cannot overlap</li>
-      <li>Ships MAY touch each other (share adjacent squares)</li>
-      <li>Keep your defense grid hidden from your opponent</li>
+      <li>Word Ships cannot overlap, but may touch at edges</li>
+      <li>Keep your Defense Grid hidden from your opponent</li>
     </ul>
-
     <div class="battle-tracker-note">
-      <p><strong>Classified Manifest (Defense Grid):</strong> After placing your ships, count how many times each letter appears in your fleet. Fill in these counts in the Classified Manifest. This helps you quickly answer Alpha Sweeps.</p>
+      <p><strong>Classified Manifest (Defense Grid):</strong> After placing your Word Ships, count how many times each letter appears in your fleet. Fill in these counts in the Classified Manifest section of your Battle Tracker. This helps you quickly answer Letter Sweeps and is required for gameplay.</p>
     </div>
 
     <div class="launch-sequence-container">
       <div class="section-header">Launch Sequence</div>
-      <p>Determine who strikes first using the launch codes on your battle tracker.</p>
-
+      <p>Determine who strikes first using the launch codes on your Battle Tracker.</p>
       <div class="subsection-header">Reading Your Launch Codes</div>
-      <p>Your tracker displays 5 three-digit launch codes (like 142, 087, 953). These codes determine turn order through a bidding system.</p>
-
+      <p>Your Battle Tracker displays 5 three-digit launch codes (like 142, 087, 953). These codes determine turn order through a bidding system.</p>
       <div class="subsection-header">The Bidding War</div>
       <ol>
         <li><strong>Opening Bid:</strong> You or your opponent claims to have a specific launch code (real or bluffed)</li>
@@ -419,20 +460,18 @@
           </ul>
         </li>
       </ol>
-
       <div class="important">
         Once bidding ends, ALL gameplay must be honest—no more bluffing allowed!
       </div>
     </div>
 
-    <div class="section-header">The Battle Begins</div>
+    <div class="section-header">Gameplay</div>
     <div class="subsection-header">Choose Your Move</div>
-    <p>On your turn, you must choose ONE of the following actions:</p>
-
+    <p>On your turn, choose ONE of the following actions:</p>
     <div class="attack-boxes">
       <div class="attack-box">
-        <h3>Gather Intelligence</h3>
-        <p>Ask about letter frequency</p>
+        <h3>Letter Sweep</h3>
+        <p>Ask about a letter's frequency in the enemy fleet</p>
         <ul>
           <li>Name any letter of the alphabet</li>
           <li>Opponent reveals total count in their fleet</li>
@@ -440,37 +479,34 @@
           <li>Mark the count in your Recon Log</li>
         </ul>
       </div>
-
       <div class="attack-box">
-        <h3>Attack</h3>
-        <p>Call out Coordinates AND a Letter</p>
+        <h3>Coordinate Attack</h3>
+        <p>Call out a grid coordinate AND a letter</p>
         <ul>
           <li>Example: "C7 - S"</li>
           <li><strong>Bullseye:</strong> Your letter matches exactly</li>
-          <li><strong>Hit:</strong> There's a ship there, but wrong letter</li>
+          <li><strong>Hit:</strong> There's a Word Ship there, but wrong letter</li>
           <li><strong>Miss:</strong> Empty water</li>
         </ul>
       </div>
     </div>
-
     <div class="example-box">
       <p><strong>Example Turns:</strong><br>
-      Intelligence: "How many R's are in your fleet?" Opponent: "I have 2 R's."<br>
-      Attack: "B4 - T" Opponent: "Hit" (there's a ship at B4, but it's not a T)</p>
+      Letter Sweep: "How many R's are in your fleet?" Opponent: "I have 2 R's."<br>
+      Coordinate Attack: "B4 - T" Opponent: "Hit" (there's a Word Ship at B4, but it's not a T)</p>
     </div>
 
-    <div class="section-header">Intelligence Tracking</div>
+    <div class="section-header">Your Battle Station Layout</div>
     <div class="subsection-header">Attack Grid (Top Left)</div>
-    <p>Use this grid to track all attacks on your opponent:</p>
+    <p>Use this grid to track all Coordinate Attacks on your opponent:</p>
     <ul>
       <li>Mark bullseyes with the correct letter in a circle</li>
       <li>Mark hits with an X and note which letter you guessed</li>
       <li>Mark misses with dots</li>
-      <li>Draw lines through confirmed sunken ships when all letters are found</li>
+      <li>Draw lines through confirmed sunken Word Ships when all letters are found</li>
     </ul>
-
     <div class="subsection-header">Recon Log (Top Right)</div>
-    <p>Track your Intelligence Gathering systematically:</p>
+    <p>Track your Letter Sweeps systematically:</p>
     <ul>
       <li>Circle letters that exist in opponent's fleet</li>
       <li>Cross out letters with zero count</li>
@@ -478,56 +514,31 @@
       <li>Vowels are highlighted as high-priority targets</li>
     </ul>
 
-    <div class="section-header">Mission Accomplished</div>
-    <div class="important">The first captain to sink all five enemy ships wins the battle!</div>
-    <p>Ships sink when all their letters are correctly identified through attacks. Track your progress and deduce the enemy words from the pattern of bullseyes!</p>
-
-    <!-- <div class="section-header">Mission Tactics</div>
-    <div class="subsection-header">Early Game (Turns 1–10)</div>
-    <ul>
-      <li>Start with vowel sweeps (A, E, I, O, U) for maximum information</li>
-      <li>Sweep common consonants like R, S, T, N</li>
-      <li>Space out initial Coordinate Attacks to find ships</li>
-      <li>Track which letters you've swept to avoid wasting turns</li>
-    </ul>
-
-    <div class="subsection-header">Mid Game (Turns 11–25)</div>
-    <ul>
-      <li>Focus Coordinate Attacks around confirmed hits</li>
-      <li>Look for word patterns based on revealed letters</li>
-      <li>Use letter counts to eliminate impossible word placements</li>
-    </ul>
-
-    <div class="subsection-header">Late Game (Turns 26+)</div>
-    <ul>
-      <li>Combine all intelligence for educated Kill Shots</li>
-      <li>Double-check your letter math before attempting Kill Shots</li>
-      <li>Remember the 2-letter ship is hardest to find</li>
-    </ul> -->
+    <div class="section-header">Victory Conditions</div>
+    <div class="important">The first commander to sink all five enemy Word Ships wins the battle!</div>
+    <p>Word Ships sink when all their letters are correctly identified through Coordinate Attacks. Track your progress and deduce the enemy words from the pattern of bullseyes!</p>
 
     <div class="game-variations">
       <div class="subsection-header">Contingency Tactics</div>
-      <p><strong>Silent Service:</strong> When answering Alpha Sweeps, don't reveal which ships contain the letter—only the total count.</p>
-      <p><strong>Themed Fleets:</strong> Both players must use words from agreed categories (animals, colors, military terms, etc.).</p>
-      <p><strong>Minefield:</strong> Each player places 1 mine on their defense grid. If the opponent hits it, the defending captain immediately gets two full turns in a row. The mine is revealed when struck.</p>
+      <p><strong>Silent Service:</strong> When answering Letter Sweeps, don't reveal which Word Ships contain the letter—only the total count.</p>
+      <p><strong>Themed Fleets:</strong> Both commanders must use words from agreed categories (animals, colors, military terms, etc.).</p>
+      <p><strong>Minefield:</strong> Each commander places 1 mine on their Defense Grid. If the opponent hits it, the defending commander immediately gets two full turns in a row. The mine is revealed when struck.</p>
     </div>
 
     <div class="section-header">Final Briefing</div>
     <div class="subsection-header">Turn Summary</div>
     <ol>
-      <li>Choose: Gather Intelligence OR Attack</li>
-      <li>Record all information on your trackers</li>
-      <li>Pass turn to opponent</li>
+      <li>Choose: Letter Sweep OR Coordinate Attack</li>
+      <li>Record all information on your Battle Tracker</li>
+      <li>Pass turn to your opponent</li>
     </ol>
-
     <div class="subsection-header">Common Mistakes to Avoid</div>
     <ul>
       <li>Asking about the same letter twice</li>
       <li>Forgetting to track letter counts</li>
       <li>Not recording whether attacks were bullseyes, hits, or misses</li>
-      <li>Placing ships diagonally (not allowed)</li>
+      <li>Placing Word Ships diagonally (not allowed)</li>
     </ul>
-
     <h2 class="visually-hidden">Final Quote</h2>
     <div class="final-quote">
       <em>"In the fog of war, every letter tells a story. Listen carefully, strike decisively, and may fair winds fill your sails, Captain."</em>

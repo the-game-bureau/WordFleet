@@ -51,51 +51,78 @@
                 box-shadow: none;
                 border-radius: 0;
                 margin: 0;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                width: 100% !important;
+                max-width: 8.5in !important;
             }
-            
             * {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-
             html, body {
                 margin: 0;
                 padding: 0;
-                width: 8.5in;
-                height: 11in;
-                background: white;
-                display: block;
+                width: 100% !important;
+                height: auto !important;
+                background: #fff !important;
+                min-height: auto;
+                color: #000 !important;
             }
-
-            .page {
-                width: 8.5in;
-                height: 11in;
-                margin: 0;
-                padding: 0;
-                position: relative;
+            .middle-header, .offense, .defense {
+                position: static !important;
+                width: 100% !important;
+                height: auto !important;
+                left: auto !important;
+                top: auto !important;
+                background: #fff !important;
+                color: #000 !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
-
-            .offense {
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-
             .middle-header {
-                position: absolute;
-                top: 5in;
-                left: 0;
+                border: 2px solid #333 !important;
+                border-radius: 8px !important;
+                background: #fff !important;
             }
-
-            .defense {
-                position: absolute;
-                top: 6in;
-                left: 0;
+            .middle-header::before,
+            .middle-header::after {
+                background: none !important;
+                border: none !important;
+                content: none !important;
             }
-
-            .toolbar,
-            .print-dialog-overlay {
+            .header-content, .header-line-2, .system-info {
+                color: #000 !important;
+                background: #fff !important;
+                text-shadow: none !important;
+            }
+            .defense-grid, .offense-grid {
+                width: 100% !important;
+                height: auto !important;
+                background: #fff !important;
+                box-shadow: none !important;
+            }
+            .defense-cell, .offense-cell {
+                background: #fff !important;
+                color: #000 !important;
+                border-color: #000 !important;
+            }
+            .defense-manifest-item, .offense-manifest-item {
+                background: #fff !important;
+                color: #000 !important;
+                border-color: #000 !important;
+            }
+            .defense-manifest-item[data-vowel="true"]::before,
+            .offense-manifest-item[data-vowel="true"]::before {
+                background: #eee !important;
+            }
+            .toolbar, .print-dialog-overlay, .print-dialog {
                 display: none !important;
+            }
+            @page {
+                size: A4 portrait;
+                margin: 0.25in;
             }
         }
 

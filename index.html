@@ -929,64 +929,12 @@
 
         // Function to print rules
         function printRules() {
-            debugWrite('Print rules function called');
+            debugWrite('Print button: opening print.html in new tab');
             try {
-                const rulesContent = `
-                    <html>
-                    <head>
-                        <title>Word Fleet - Rules of Engagement</title>
-                        <style>
-                            body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
-                            h1 { text-align: center; margin-bottom: 30px; }
-                            h2 { color: #333; margin-top: 25px; margin-bottom: 15px; }
-                            ul { margin-bottom: 20px; }
-                            li { margin-bottom: 5px; }
-                            p { margin-bottom: 15px; }
-                        </style>
-                    </head>
-                    <body>
-                        <h1>WORD FLEET: RULES OF ENGAGEMENT</h1>
-                        
-                        <h2>🚢 Overview</h2>
-                        <p>Word Fleet combines the strategy of Battleship with the word-building challenge of Wordle. Deploy your fleet of words across the battlefield and sink your opponent's ships by launching precise letter strikes!</p>
-                        
-                        <h2>⚓ Fleet Deployment</h2>
-                        <ul>
-                            <li><strong>Ship Types:</strong> Deploy 5 ships of varying lengths (2-6 letters)</li>
-                            <li><strong>Word Ships:</strong> Each ship is a real English word</li>
-                            <li><strong>Placement:</strong> Ships can be placed horizontally or vertically</li>
-                            <li><strong>No Overlap:</strong> Ships cannot touch or overlap</li>
-                        </ul>
-                        
-                        <h2>🎯 Combat Phase</h2>
-                        <ul>
-                            <li><strong>Letter Strikes:</strong> Attack enemy positions by calling out letters</li>
-                            <li><strong>Coordinate Strikes:</strong> Target specific grid coordinates (A1, B5, etc.)</li>
-                            <li><strong>Hit Confirmation:</strong> Enemy must confirm hits and reveal struck letters</li>
-                            <li><strong>Word Discovery:</strong> Deduce enemy words from hit patterns</li>
-                        </ul>
-                        
-                        <h2>🏆 Victory Conditions</h2>
-                        <ul>
-                            <li><strong>Total Annihilation:</strong> Sink all enemy ships to claim victory</li>
-                            <li><strong>Word Completion:</strong> Correctly guess an entire enemy word to sink that ship</li>
-                            <li><strong>Strategic Advantage:</strong> Use linguistic knowledge to predict word patterns</li>
-                        </ul>
-                        
-                        <h2>⚔️ Advanced Tactics</h2>
-                        <p>Master tacticians will use common word patterns, letter frequency, and strategic placement to outmaneuver their opponents. Every letter matters in this battle of wits and words!</p>
-                    </body>
-                    </html>
-                `;
-                
-                const printWindow = window.open('', '_blank');
-                printWindow.document.write(rulesContent);
-                printWindow.document.close();
-                printWindow.print();
-                printWindow.close();
-                debugWrite('Rules printed successfully');
+                window.open('src/html/print.html', '_blank');
+                debugWrite('print.html opened in new tab');
             } catch (error) {
-                debugWrite(`Error printing rules: ${error.message}`);
+                debugWrite(`Error opening print.html: ${error.message}`);
             }
         }
 
