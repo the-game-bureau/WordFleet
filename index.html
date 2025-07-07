@@ -775,14 +775,6 @@
     <!-- Debug Console -->
     <div id="debugConsole"></div>
 
-    <!-- Rules Modal -->
-    <div class="rules-modal" id="rulesModal">
-        <div class="rules-content" id="rulesContentDynamic">
-            <button class="rules-close" onclick="closeRulesModal()">&times;</button>
-            <div id="rulesLoading" style="color:#fff;text-align:center;margin:40px 0;">Loading rules...</div>
-        </div>
-    </div>
-    
     <header class="wordle-header">
         <div class="wordle-title">
             <div class="wordle-word">
@@ -829,7 +821,7 @@
                     </div>
                 </div>
                 <button type="submit" class="action-btn" id="printBtn">Print Your Battle Tracker</button>
-                <button type="button" class="action-btn" onclick="openRulesModal()">Rules of Engagement</button>
+                <a href="src/html/rules.html" class="action-btn" target="_blank" rel="noopener">Rules of Engagement</a>
             </form>
             
             <!-- Future Deployments -->
@@ -894,74 +886,6 @@
                 debugWrite(`Error opening print.html: ${error.message}`);
             }
         }
-
-        // Function to open rules modal
-        function openRulesModal() {
-            debugWrite('Opening rules modal');
-            try {
-                const modal = document.getElementById('rulesModal');
-                const rulesContent = document.getElementById('rulesContentDynamic');
-                const rulesLoading = document.getElementById('rulesLoading');
-                if (modal && rulesContent && rulesLoading) {
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                    // Fetch rules.html and inject main content into modal
-                    fetch('src/html/rules.html')
-                        .then(response => response.text())
-                        .then(html => {
-                            // Extract the .container div from rules.html
-                            const tempDiv = document.createElement('div');
-                            tempDiv.innerHTML = html;
-                            const container = tempDiv.querySelector('.container');
-                            if (container) {
-                                rulesContent.innerHTML = '<button class="rules-close" onclick="closeRulesModal()">&times;</button>' + container.outerHTML;
-                            } else {
-                                rulesContent.innerHTML = '<button class="rules-close" onclick="closeRulesModal()">&times;</button><div style="color:#fff;text-align:center;margin:40px 0;">Failed to load rules content.</div>';
-                            }
-                        })
-                        .catch(() => {
-                            rulesContent.innerHTML = '<button class="rules-close" onclick="closeRulesModal()">&times;</button><div style="color:#fff;text-align:center;margin:40px 0;">Failed to load rules content.</div>';
-                        });
-                    debugWrite('Rules modal opened and loading started');
-                } else {
-                    debugWrite('ERROR: Rules modal or content element not found');
-                }
-            } catch (error) {
-                debugWrite(`Error opening rules modal: ${error.message}`);
-            }
-        }
-
-        // Function to close rules modal
-        function closeRulesModal() {
-            debugWrite('Closing rules modal');
-            try {
-                const modal = document.getElementById('rulesModal');
-                if (modal) {
-                    modal.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                    debugWrite('Rules modal closed successfully');
-                } else {
-                    debugWrite('ERROR: Rules modal element not found');
-                }
-            } catch (error) {
-                debugWrite(`Error closing rules modal: ${error.message}`);
-            }
-        }
-
-        // Close modal when clicking outside content
-        document.addEventListener('click', function(e) {
-            const modal = document.getElementById('rulesModal');
-            if (e.target === modal) {
-                closeRulesModal();
-            }
-        });
-
-        // ESC key to close modal
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeRulesModal();
-            }
-        });
 
         // Function to get random fleet name
         function getRandomFleetName() {
