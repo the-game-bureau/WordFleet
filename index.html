@@ -21,7 +21,7 @@
     <link rel="icon" type="image/x-icon" href="src/media/wf.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WORD FLEET</title>
+    <title>WORD FLEET - Naval Combat Strategy Meets Word Mastery</title>
     <meta property="og:title" content="WORD FLEET">
     <meta property="og:description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
     <meta property="og:image" content="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet-social.png">
@@ -43,6 +43,10 @@
             --ocean-blue: #22303c;
             --tile-green: #6aaa64;
             --white: #ffffff;
+            --gold: #d4af37;
+            --navy-blue: #1a2a3a;
+            --emerald: #50c878;
+            --crimson: #dc143c;
         }
 
         * { 
@@ -54,45 +58,70 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: 
-                linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(34, 48, 60, 0.4) 100%),
+                linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(26, 42, 58, 0.6) 100%),
+                radial-gradient(ellipse at top, rgba(80, 200, 120, 0.1) 0%, transparent 50%),
                 url('src/media/word_fleet_banner_1600x400.png');
-            background-size: cover;
-            background-position: center -200px;
+            background-size: cover, cover, cover;
+            background-position: center, center, center -200px;
             background-repeat: no-repeat;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Debug console - only visible in debugging mode */
-        #debugConsole {
+        /* Animated background waves */
+        body::before {
+            content: '';
             position: fixed;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            color: #00ff00;
-            padding: 10px;
-            border-radius: 5px;
-            font-family: monospace;
-            font-size: 12px;
-            max-width: 300px;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 9999;
-            display: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 0%, rgba(106, 170, 100, 0.05) 50%, transparent 100%);
+            animation: waveFlow 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
         }
 
-        /* Sleek modern header */
+        @keyframes waveFlow {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        /* Header */
         .wordle-header {
-            background: rgba(18, 18, 19, 0.85);
-            border: 1px solid #3a3a3c;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.12);
             border-radius: 0;
-            padding: 12px 0 8px 0;
+            padding: 16px 0 12px 0;
             text-align: center;
             width: 100%;
             box-shadow: 
-                0 8px 40px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12),
+                0 0 0 1px rgba(106, 170, 100, 0.08);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+        }
+
+        .wordle-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(106, 170, 100, 0.1) 50%, transparent 100%);
+            animation: headerShimmer 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes headerShimmer {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
         }
 
         .wordle-title {
@@ -109,35 +138,70 @@
         .wordle-word {
             display: flex;
             gap: 4px;
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
         }
 
         .wordle-tile {
-            width: clamp(36px, 7vw, 52px);
-            height: clamp(36px, 7vw, 52px);
+            width: clamp(38px, 7vw, 54px);
+            height: clamp(38px, 7vw, 54px);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(16px, 3.5vw, 24px);
+            font-size: clamp(18px, 3.5vw, 26px);
             font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
             font-weight: 700;
-            border-radius: 0px;
-            background: #6aaa64;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #6aaa64 0%, #5a9454 100%);
             color: #ffffff;
             text-transform: uppercase;
-            border: none;
+            border: 2px solid rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
+            transition: transform 0.3s ease;
+            animation: tileFloat 3s ease-in-out infinite;
+            animation-delay: calc(var(--index) * 0.1s);
+        }
+
+        .wordle-tile:nth-child(1) { --index: 0; }
+        .wordle-tile:nth-child(2) { --index: 1; }
+        .wordle-tile:nth-child(3) { --index: 2; }
+        .wordle-tile:nth-child(4) { --index: 3; }
+        .wordle-tile:nth-child(5) { --index: 4; }
+        .wordle-tile:nth-child(6) { --index: 5; }
+        .wordle-tile:nth-child(7) { --index: 6; }
+        .wordle-tile:nth-child(8) { --index: 7; }
+        .wordle-tile:nth-child(9) { --index: 8; }
+        .wordle-tile:nth-child(10) { --index: 9; }
+
+        @keyframes tileFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-2px); }
+        }
+
+        .wordle-tile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+            transition: left 0.6s ease;
+        }
+
+        .wordle-tile:hover::before {
+            left: 100%;
         }
 
         .wordle-tile.blank {
             background: transparent;
             border: 0;
             color: transparent;
+            animation: none;
         }
 
         .header-tagline {
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(255, 255, 255, 0.9);
             font-size: clamp(0.9rem, 3.2vw, 1.1rem);
             margin-top: 12px;
             font-weight: 700;
@@ -152,172 +216,140 @@
         .header-tagline a {
             color: rgba(255, 255, 255, 0.9);
             text-decoration: none;
-            transition: color 0.2s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
             padding-bottom: 1px;
         }
 
         .header-tagline a:hover {
-            color: #ffffff;
-            border-bottom-color: rgba(255, 255, 255, 0.6);
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
+        /* Header Navigation */
+        .header-nav {
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .rules-nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: clamp(0.85rem, 2.8vw, 0.95rem);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rules-nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+            transition: left 0.6s ease;
+        }
+
+        .rules-nav-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(212, 175, 55, 0.15);
+            border-color: rgba(212, 175, 55, 0.4);
+            color: var(--gold);
+            box-shadow: 
+                0 12px 35px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(212, 175, 55, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .rules-nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-icon {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .nav-text {
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .nav-chevron {
+            font-size: 0.9em;
+            opacity: 0.7;
+            transition: transform 0.3s ease;
+        }
+
+        .rules-nav-btn:hover .nav-chevron {
+            transform: translateX(3px);
+            opacity: 1;
+        }
+
+        /* Main Content */
         .main-container {
             display: flex;
-            align-items: stretch;
             justify-content: center;
-            padding: 16px 0;
-            min-height: unset;
-        }
-
-        .forms-container {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 20px;
+            align-items: center;
+            padding: 40px 20px;
             width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 8px;
-            align-items: stretch;
         }
 
         .form-card {
-            flex: 1 1 320px;
-            min-width: 260px;
-            max-width: 380px;
-            box-sizing: border-box;
-            z-index: 1;
-            overflow: unset !important;
-            isolation: isolate;
-            position: relative;
-        }
-
-        .rules-card {
-            flex: 1 1 320px;
-            min-width: 260px;
-            max-width: 380px;
-            margin-left: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: stretch;
-            height: auto;
-            box-sizing: border-box;
-            overflow: unset !important;
-            isolation: isolate;
-            position: relative;
-        }
-
-        @media (max-width: 1200px) {
-            .forms-container {
-                flex-direction: column;
-                gap: 24px;
-                padding: 0 12px;
-                width: 100%;
-                max-width: 400px;
-                margin: 0 auto;
-                align-items: flex-start;
-            }
-            .form-card, .rules-card {
-                max-width: 100%;
-                min-width: 0;
-                padding: 20px 12px;
-                height: auto !important;
-                min-height: 0 !important;
-                overflow: unset !important;
-                isolation: isolate;
-                position: relative;
-                box-sizing: border-box;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .forms-container {
-                flex-direction: column;
-                gap: 24px;
-                align-items: flex-start;
-            }
-            .form-card, .rules-card {
-                max-width: 100%;
-                min-width: 0;
-                width: 100%;
-                height: auto !important;
-                min-height: 0 !important;
-                overflow: unset !important;
-                isolation: isolate;
-                position: relative;
-                box-sizing: border-box;
-            }
-            #rulesContent, .card-content {
-                max-height: 220px !important;
-                padding: 8px 4px !important;
-                font-size: 0.93em !important;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .form-card, .rules-card {
-                padding: 24px 20px;
-                border-radius: 18px;
-                width: 100%;
-                max-width: 100%;
-                min-width: 0;
-                height: auto !important;
-                min-height: 0 !important;
-                overflow: unset !important;
-                isolation: isolate;
-                position: relative;
-                box-sizing: border-box;
-            }
-            #rulesContent, .card-content {
-                max-height: 180px !important;
-                padding: 6px 2px !important;
-                font-size: 0.91em !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .form-card, .rules-card {
-                width: 100%;
-                max-width: 100%;
-                min-width: 0;
-                height: auto !important;
-                min-height: 0 !important;
-                overflow: unset !important;
-                isolation: isolate;
-                position: relative;
-                box-sizing: border-box;
-            }
-        }
-
-        /* Enhanced glass effect cards with modern touches */
-        /* .form-card block removed to prevent override of mobile-friendly settings */
-
-        /* Highlight effect for the form card */
-        .form-card.highlight {
-            border: 3px solid #d4af37 !important;
-            background: rgba(212, 175, 55, 0.08) !important;
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 32px 28px;
             box-shadow: 
-                0 0 25px rgba(212, 175, 55, 0.7),
-                0 0 50px rgba(212, 175, 55, 0.4),
-                0 0 75px rgba(212, 175, 55, 0.2);
-            animation: navalGoldPulse 3s ease-in-out;
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                0 0 0 1px rgba(106, 170, 100, 0.1);
+            transition: all 0.4s ease;
         }
 
-        @keyframes navalGoldPulse {
-            0% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.7), 0 0 50px rgba(212, 175, 55, 0.4), 0 0 75px rgba(212, 175, 55, 0.2); }
-            50% { box-shadow: 0 0 35px rgba(212, 175, 55, 0.9), 0 0 70px rgba(212, 175, 55, 0.6), 0 0 105px rgba(212, 175, 55, 0.3); }
-            100% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.7), 0 0 50px rgba(212, 175, 55, 0.4), 0 0 75px rgba(212, 175, 55, 0.2); }
+        .form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 25px 80px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 0 1px rgba(106, 170, 100, 0.2);
+            border-color: rgba(255, 255, 255, 0.25);
         }
 
         .form-title {
-            font-size: clamp(1.1rem, 3.8vw, 1.4rem);
+            font-size: clamp(1.2rem, 3.8vw, 1.5rem);
             font-weight: 700;
             color: #ffffff;
             text-align: center;
-            margin: 0 0 4px 0;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-            letter-spacing: 1.2px;
+            margin: 0 0 8px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+            letter-spacing: 1.4px;
             text-transform: uppercase;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
             position: relative;
@@ -326,55 +358,87 @@
         .form-title::after {
             content: '';
             position: absolute;
-            bottom: -2px;
+            bottom: -3px;
             left: 20%;
-            width: 40px;
-            height: 1px;
-            background: linear-gradient(90deg, #6aaa64, #5a9454);
-            border-radius: 1px;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--emerald), var(--tile-green));
+            border-radius: 2px;
             animation: greenLineBounce 3s ease-in-out infinite;
         }
 
         @keyframes greenLineBounce {
             0% { left: 20%; }
-            50% { left: 80%; }
+            50% { left: calc(80% - 60px); }
             100% { left: 20%; }
         }
 
-        .form-group {
-            margin: 0 0 6px 0;
-            text-align: left;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .card-content {
+            font-size: 0.98em;
+            color: #fff;
+            background: rgba(255,255,255,0.12);
             border-radius: 16px;
-            padding: 10px 12px;
+            padding: 16px 14px;
+            margin-bottom: 0;
             box-shadow: 
-                0 4px 16px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 4px 12px rgba(0, 0, 0, 0.1);
+            font-family: inherit;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-text {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            line-height: 1.6;
+            text-align: center;
+            margin: 8px 0;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .form-group {
+            margin: 0 0 12px 0;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            padding: 14px 16px;
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .form-group:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 600;
             color: #ffffff;
-            font-size: clamp(0.9rem, 3vw, 1rem);
-            letter-spacing: 0.5px;
+            font-size: clamp(0.95rem, 3vw, 1.05rem);
+            letter-spacing: 0.6px;
             text-align: center;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
-        .form-group input, .form-group select {
+        .form-group input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: clamp(0.9rem, 3vw, 1rem);
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: clamp(0.95rem, 3vw, 1.05rem);
             background: #ffffff;
             color: #000000;
             outline: none;
             font-family: inherit;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .input-with-refresh {
@@ -384,35 +448,36 @@
         }
 
         .input-with-refresh input {
-            padding-right: 40px;
+            padding-right: 50px;
         }
 
         .refresh-btn {
             position: absolute;
-            right: 8px;
+            right: 10px;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 4px;
-            border-radius: 4px;
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 18px;
+            color: #666;
         }
 
         .refresh-btn:hover {
-            background: rgba(0, 0, 0, 0.1);
-        }
-
-        .refresh-btn:active {
+            background: rgba(106, 170, 100, 0.2);
             transform: rotate(180deg);
+            color: var(--tile-green);
         }
 
-        .form-group input:focus, .form-group select:focus {
-            border-color: #6aaa64;
-            box-shadow: 0 0 0 2px rgba(106, 170, 100, 0.2);
+        .form-group input:focus {
+            border-color: var(--tile-green);
+            box-shadow: 
+                0 0 0 3px rgba(106, 170, 100, 0.2),
+                0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .toggle-group {
@@ -420,35 +485,37 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2px;
-            margin: 0 0 6px 0;
-            padding: 10px 12px;
+            gap: 6px;
+            margin: 0 0 12px 0;
+            padding: 14px 16px;
             position: relative;
             width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            white-space: nowrap;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
             box-shadow: 
-                0 4px 16px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                0 6px 20px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .toggle-group:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
         }
 
         .toggle-group-label {
-            font-size: clamp(0.9rem, 3vw, 1rem);
+            font-size: clamp(0.95rem, 3vw, 1.05rem);
             color: #ffffff;
             font-weight: 600;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-            white-space: nowrap;
         }
 
         .toggle-switch {
             position: relative;
-            width: 40px;
-            height: 22px;
+            width: 50px;
+            height: 28px;
             display: inline-block;
             flex-shrink: 0;
         }
@@ -467,40 +534,43 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #ffffff;
-            transition: 0.2s;
-            border-radius: 22px;
-            border: 1px solid #e0e0e0;
+            background: linear-gradient(135deg, #f0f0f0, #ffffff);
+            transition: all 0.3s ease;
+            border-radius: 28px;
+            border: 2px solid #e0e0e0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .toggle-slider:before {
             position: absolute;
             content: "";
-            height: 18px;
-            width: 18px;
-            left: 1px;
-            bottom: 1px;
-            background-color: #000000;
-            transition: 0.2s;
+            height: 22px;
+            width: 22px;
+            left: 2px;
+            bottom: 2px;
+            background: linear-gradient(135deg, #2a2a2a, #000000);
+            transition: all 0.3s ease;
             border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
 
         .toggle-input:checked + .toggle-slider { 
-            background-color: #000000;
-            border-color: #000000;
+            background: linear-gradient(135deg, #2a2a2a, #000000);
+            border-color: #333;
         }
 
         .toggle-input:checked + .toggle-slider:before { 
-            transform: translateX(18px);
-            background-color: #ffffff;
+            transform: translateX(22px);
+            background: linear-gradient(135deg, #f0f0f0, #ffffff);
+            box-shadow: 0 2px 6px rgba(255, 255, 255, 0.3);
         }
 
         .toggle-label {
-            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
             color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
-            transition: color 0.2s ease;
-            width: 100px;
+            transition: all 0.3s ease;
+            width: 110px;
             text-align: center;
             white-space: nowrap;
             display: inline-block;
@@ -510,79 +580,371 @@
         .toggle-label.active {
             color: #ffffff;
             font-weight: 600;
-        }
-
-        #pickWordsLabel {
-            text-align: right;
-        }
-
-        #autoGenLabel {
-            text-align: left;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
         }
 
         .toggle-container {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             width: 100%;
             justify-content: center;
-            margin-top: 4px;
+            margin-top: 6px;
         }
 
-        /* Modern enhanced buttons */
-        .action-btn,
-        .print-btn {
+        .action-btn {
             color: #000000;
             text-decoration: none;
-            padding: 8px 12px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 16px;
-            font-weight: 600;
-            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-            letter-spacing: 0.8px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 18px;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            letter-spacing: 1px;
             cursor: pointer;
             font-family: inherit;
             white-space: nowrap;
             box-shadow: 
-                0 4px 16px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+                0 6px 20px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             text-transform: uppercase;
             width: 100%;
-            margin: 6px 0 0 0;
+            margin: 0;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
             position: relative;
             overflow: hidden;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
-        .action-btn:hover,
-        .print-btn:hover {
-            transform: translateY(-2px);
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(106, 170, 100, 0.2) 50%, transparent 100%);
+            transition: left 0.6s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
             box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+                0 10px 30px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border-color: rgba(106, 170, 100, 0.4);
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
         }
 
         .action-btn:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
             transform: none;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
-        .form-divider {
-            border: none;
-            border-top: 2px solid rgba(200,200,200,0.25);
-            margin: 14px 0 10px 0;
+        /* Future Deployments Footer */
+        .future-deployments-footer {
+            margin-top: 60px;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .future-deployments-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 0%, rgba(80, 200, 120, 0.05) 50%, transparent 100%),
+                linear-gradient(-45deg, transparent 0%, rgba(212, 175, 55, 0.05) 50%, transparent 100%);
+            animation: footerWave 12s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes footerWave {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            gap: 12px;
+        }
+
+        .divider-line {
+            height: 2px;
+            flex: 1;
+            max-width: 100px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .divider-icon {
+            font-size: 1.2rem;
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .footer-title {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            font-weight: 700;
+            color: var(--tile-green);
+            margin-bottom: 16px;
+            text-shadow: 0 2px 10px rgba(106, 170, 100, 0.3); /* soft green glow */
+            letter-spacing: 1px;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+            line-height: 1.6;
+            margin-bottom: 28px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .coming-soon-text {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .coming-soon-text p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+            margin-bottom: 8px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .footer-battle-cry {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: clamp(0.9rem, 2.3vw, 1rem);
+            font-style: italic;
+            margin-bottom: 32px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .footer-cta {
+            display: flex;
+            justify-content: center;
+        }
+
+        .notify-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 24px;
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notify-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+            transition: left 0.6s ease;
         }
 
-        /* Fallback image for accessibility */
+        .notify-btn:hover {
+            background: rgba(212, 175, 55, 0.25);
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 12px 35px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .notify-btn:hover::before {
+            left: 100%;
+        }
+
+        .notify-icon {
+            font-size: 1.1em;
+        }
+
+        .notify-text {
+            white-space: nowrap;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header-nav {
+                margin-top: 12px;
+            }
+            
+            .rules-nav-btn {
+                padding: 10px 16px;
+                font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+                gap: 6px;
+                border-radius: 16px;
+            }
+
+            .main-container {
+                padding: 24px 16px;
+            }
+            
+            .form-card > *:not(:last-child) {
+                margin-bottom: 20px;
+        }
+
+            .future-deployments-footer {
+                margin-top: 40px;
+                padding: 32px 16px;
+            }
+            
+            .coming-soon-text {
+                margin-bottom: 24px;
+            }
+            
+            .coming-soon-text p {
+                font-size: clamp(0.85rem, 2.3vw, 0.95rem);
+                margin-bottom: 6px;
+            }
+            
+            .footer-title {
+                margin-bottom: 12px;
+            }
+            
+            .footer-description {
+                margin-bottom: 20px;
+            }
+            
+            .footer-battle-cry {
+                margin-bottom: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-nav {
+                margin-top: 8px;
+            }
+            
+            .rules-nav-btn {
+                padding: 8px 12px;
+                font-size: clamp(0.7rem, 2.2vw, 0.8rem);
+                gap: 4px;
+                border-radius: 12px;
+                letter-spacing: 0.5px;
+            }
+            
+            .nav-icon {
+                font-size: 1em;
+            }
+
+            .main-container {
+                padding: 16px 12px;
+            }
+            
+            .form-card {
+                padding: 20px 16px;
+                border-radius: 16px;
+            }
+
+            .future-deployments-footer {
+                margin-top: 32px;
+                padding: 24px 12px;
+            }
+            
+            .coming-soon-text {
+                margin-bottom: 20px;
+            }
+            
+            .coming-soon-text p {
+                font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+                margin-bottom: 4px;
+            }
+            
+            .notify-btn {
+                padding: 12px 18px;
+                font-size: clamp(0.8rem, 2.8vw, 0.9rem);
+            }
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success/Error States */
+        .form-card.success {
+            border-color: var(--emerald) !important;
+            background: rgba(80, 200, 120, 0.1) !important;
+            animation: successPulse 2s ease-in-out;
+        }
+
+        .form-card.error {
+            border-color: var(--crimson) !important;
+            background: rgba(220, 20, 60, 0.1) !important;
+            animation: errorShake 0.5s ease-in-out;
+        }
+
+        @keyframes successPulse {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(80, 200, 120, 0.3);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(80, 200, 120, 0.6);
+            }
+        }
+
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Accessibility */
         .sr-only {
             position: absolute;
             width: 1px;
@@ -595,326 +957,30 @@
             border: 0;
         }
 
-        /* Info text styling */
-        .info-text {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-            line-height: 1.5;
-            text-align: center;
-            margin: 4px 0;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        *:focus {
+            outline: 2px solid var(--tile-green);
+            outline-offset: 2px;
         }
 
-        /* Rules modal styles */
-        .rules-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: auto !important;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 20px;
-        }
-
-        .rules-modal.active {
-            display: flex;
-        }
-
-        .rules-content {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 1200px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            animation: modalSlideIn 0.3s ease-out;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
-
-        .rules-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 30px;
-            color: rgba(255, 255, 255, 0.8);
-            cursor: pointer;
-            padding: 5px 10px;
-            transition: color 0.2s ease;
-        }
-
-        .rules-close:hover {
-            color: #ffffff;
-        }
-
-        .rules-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .rules-title {
-            color: #ffffff;
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-            margin: 0;
-        }
-
-        .print-rules-btn {
-            color: #000000;
-            text-decoration: none;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 0.8px;
-            cursor: pointer;
-            font-family: inherit;
-            white-space: nowrap;
-            box-shadow: 
-                0 4px 16px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-            text-transform: uppercase;
-            transition: all 0.2s ease;
-        }
-
-        .print-rules-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        }
-
-        .rules-section {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-
-        .rules-section h3 {
-            color: #ffffff;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-        }
-
-        .rules-section ul {
-            padding-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .rules-section li {
-            margin-bottom: 8px;
-        }
-
-        /* Responsive design */
-        @media (max-width: 1200px) {
-            .forms-container {
-                grid-template-columns: 1fr;
-                gap: 24px;
-                padding: 0 20px;
-                width: 100%;
-                max-width: 500px;
-                margin: 0 auto;
-            }
-            .form-card {
-                max-width: 100%;
-                padding: 24px 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .wordle-header {
-                padding: 16px 0 12px 0;
-                border-radius: 0;
-            }
-            
-            .wordle-word {
-                gap: 1px;
-                margin: 0 4px;
-            }
-            
-            .wordle-title {
-                gap: 1px;
-            }
-
-            .header-tagline {
-                font-size: clamp(0.65rem, 2.2vw, 0.8rem);
-                margin-top: 10px;
-                letter-spacing: 1px;
-            }
-
-            .forms-container {
-                padding: 0 16px;
-                width: 100%;
-                max-width: 400px;
-                flex-direction: column;
-                gap: 24px;
-                align-items: flex-start;
-            }
-            .form-card, .rules-card {
-                padding: 24px 20px;
-                border-radius: 18px;
-                width: 100%;
-                max-width: 100%;
-                min-width: 0;
-                height: auto !important;
-                min-height: 0 !important;
-                overflow: unset !important;
-                isolation: isolate;
-                position: relative;
-                box-sizing: border-box;
-            }
-            .main-container {
-                padding: 20px 0;
-            }
-            .rules-content {
-                padding: 30px 20px;
-                margin: 10px;
-            }
-            .rules-title {
-                font-size: 1.8rem;
-            }
-            .rules-header {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                background: var(--battleship-gray);
-                background-image: none;
-            }
-            
-            .forms-container {
-                gap: 24px;
-                padding-bottom: 40px;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .form-card, .rules-card {
-                width: 100%;
-                max-width: 100%;
-                min-width: 0;
-                height: auto !important;
-                min-height: 0 !important;
-                overflow: unset !important;
-                isolation: isolate;
-                position: relative;
-                box-sizing: border-box;
-            }
-            
-            .mobile-image-footer {
-                display: block;
-                width: 100vw;
-                max-width: 100vw;
-                margin: 24px auto 0 auto;
-                text-align: center;
-            }
-            
-            .mobile-image-footer img {
-                width: 100vw;
-                max-width: 100vw;
-                height: auto;
-                display: block;
-                margin: 0 auto;
-                border-radius: 0 0 16px 16px;
-                box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
-            }
-        }
-
-        /* Hide mobile image footer by default */
-        .mobile-image-footer {
-            display: none;
-        }
-
-        @media screen and (orientation: landscape) and (max-width: 900px) {
-            body > *:not(.force-portrait-message) {
-                display: none !important;
-            }
-            .force-portrait-message {
-                display: flex !important;
-                align-items: center;
-                justify-content: center;
-                min-height: 100vh;
-                color: #fff;
-                background: var(--battleship-gray, #333);
-                font-size: 1.5rem;
-                text-align: center;
-                padding: 32px;
-            }
-        }
-        .force-portrait-message {
-            display: none;
-        }
-
-        .card-content {
-            font-size: 0.97em;
-            color: #fff;
-            background: rgba(255,255,255,0.22);
-            border-radius: 12px;
-            padding: 12px 10px;
-            margin-bottom: 0;
-            box-shadow: none;
-            max-height: 340px;
-            overflow-y: auto;
-            font-family: inherit;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-        @media (max-width: 900px) {
-            #rulesContent, .card-content {
-                max-height: 220px !important;
-                padding: 8px 4px !important;
-                font-size: 0.93em !important;
-            }
-        }
-        @media (max-width: 768px) {
-            #rulesContent, .card-content {
-                max-height: 180px !important;
-                padding: 6px 2px !important;
-                font-size: 0.91em !important;
-            }
-        }
+        .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 12px;
+}
     </style>
 </head>
 <body>
-    <!-- Debug Console -->
-    <div id="debugConsole"></div>
-
     <header class="wordle-header">
         <div class="wordle-title">
             <div class="wordle-word">
@@ -930,310 +996,227 @@
                 <div class="wordle-tile">T</div>
             </div>
         </div>
-        <p class="header-tagline">by Kevin Kolb • <a href="https://thegamebureau.com/wrdflt" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">thegamebureau.com/wrdflt</a></p>
+        <p class="header-tagline">by Kevin Kolb • <a href="https://thegamebureau.com/wrdflt" target="_blank" rel="noopener">thegamebureau.com/wrdflt</a></p>
     </header>
 
-    <div class="main-container">
+    <main class="main-container">
         <span class="sr-only">Word Fleet - Naval word combat strategy game</span>
-        <div class="forms-container">
-            <!-- Print & Play Mode -->
-            <form class="form-card" id="penPaperForm" action="src/html/print.html" method="GET" onsubmit="return handlePrintSubmit(event)">
-                <h2 class="form-title">Pen &amp; Paper Mode</h2>
-                <div class="card-content">
-                    <p class="info-text">So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!</p>
-                    <div class="form-group">
-                        <label for="player1Name">Name Your Fleet</label>
-                        <div class="input-with-refresh">
-                            <input type="text" name="fleet" id="player1Name" value="" autocomplete="off" required pattern=".{0,30}" title="Fleet name can contain letters, numbers, spaces, special characters, and emojis (max 30 characters)">
-                            <button type="button" class="refresh-btn" onclick="regenerateFleetName()" title="Generate new fleet name">
-                                🔄
-                            </button>
-                        </div>
+        
+        <form class="form-card" id="penPaperForm" action="src/html/print.html" method="GET" onsubmit="return handlePrintSubmit(event)">
+            <h2 class="form-title">📋 Pen &amp; Paper Mode</h2>
+            <div class="card-content">
+                <p class="info-text">So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!</p>
+                
+                <div class="form-group">
+                    <label for="player1Name">Name Your Fleet</label>
+                    <div class="input-with-refresh">
+                        <input type="text" name="fleet" id="player1Name" value="" autocomplete="off" required pattern=".{0,30}" title="Fleet name can contain letters, numbers, spaces, special characters, and emojis (max 30 characters)" placeholder="Enter your fleet name...">
+                        <button type="button" class="refresh-btn" onclick="regenerateFleetName()" title="Generate new fleet name" aria-label="Generate new fleet name">
+                            🔄
+                        </button>
                     </div>
-                    <div class="toggle-group">
-                        <span class="toggle-group-label">Word-Ships</span>
-                        <div class="toggle-container">
-                            <span class="toggle-label" id="pickWordsLabel">Pick Your Own</span>
-                            <label class="toggle-switch">
-                                <input type="checkbox" name="words" id="autoGen" class="toggle-input" value="true" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                            <span class="toggle-label" id="autoGenLabel">Auto-Generated</span>
-                        </div>
-                    </div>
-                    <button type="submit" class="action-btn" id="printBtn">Print Your Battle Tracker</button>
-                    <!-- Rules of Engagement button removed -->
                 </div>
-            </form>
+                
+                <div class="toggle-group">
+                    <span class="toggle-group-label">Word-Ships</span>
+                    <div class="toggle-container">
+                        <span class="toggle-label" id="pickWordsLabel">Pick Your Own</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" name="words" id="autoGen" class="toggle-input" value="true" checked aria-describedby="wordship-help">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label active" id="autoGenLabel">Auto-Generated</span>
+                    </div>
+                </div>
+                
+<div class="button-group">
+    <button type="submit" class="action-btn" id="printBtn">
+        <span>Launch Battle Tracker</span>
+    </button>
 
-            <div class="form-card" id="futureDeployments">
-                <h2 class="form-title">Future Deployments</h2>
-                <div class="card-content">
-                    <p class="info-text" style="margin-bottom: 1em;"><strong>The Word Fleet Simulator Mode</strong> will soon be underway, putting your tactical mastery of words to the test in head-to-head battles against friends or foes. You'll also face legendary captains raised from the depths of history by AI, ready for war—where every letter is a shot across the bow.</p>
-                    <div style="height:1em;"></div>
-                    <p class="info-text">Tournaments. Wi-Fi. Phone apps. SMS combat. We're preparing a full complement of weapons for launch!</p>
-                </div>
+    <a href="src/html/rules.html" class="action-btn" title="Learn the complete rules of naval word combat">
+        <span>Rules of Engagement</span>
+    </a>
+</div>
+            </div>
+        </form>
+    </main>
+
+    <footer class="future-deployments-footer">
+        <div class="footer-content">
+            <div class="footer-divider">
+                <div class="divider-line"></div>
+                <div class="divider-icon">🔱</div>
+                <div class="divider-line"></div>
             </div>
             
-            <div class="form-card rules-card" id="rulesCard">
-                <h2 class="form-title">Rules of Engagement</h2>
-                <div id="rulesContent" style="font-size:0.97em; background:rgba(255,255,255,0.22); border-radius:12px; padding:12px 10px; margin-bottom:0; box-shadow:none; max-height:340px; overflow-y:auto; color:#fff; font-family:inherit; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);">
-<div class="example-box" style="margin-bottom:32px;">
-  <strong>🚢 Overview</strong><br>
-  Word Fleet combines the strategy of Battleship with the word-building challenge of Wordle. Deploy your fleet of words across the battlefield and sink your opponent's ships by launching precise letter strikes!
-</div>
-<div class="ship-list" style="margin-bottom:32px;">
-  <strong>⚓ Fleet Deployment</strong>
-  <ul>
-    <li>Ship Types: Deploy 5 Word Ships of specific lengths (see below)</li>
-    <li>Word Ships: Each ship must be a valid English word</li>
-    <li>Placement: Place ships horizontally (left to right) or vertically (top to bottom)</li>
-    <li>No Overlap: Word Ships cannot overlap, but may touch at edges</li>
-  </ul>
-  <div style="margin-top:12px; font-size:1.05em; color:#b6ffb6;">
-    <strong>Note:</strong> Your fleet must include exactly five Word Ships, one of each length: <strong>5, 4, 3, 3, and 2 letters</strong> (see below for ship types). This matches the layout and requirements of the Battle Tracker.
-  </div>
-</div>
-<div style="margin-bottom:32px;">
-  <strong>🎯 Combat Phase</strong><br>
-  <ul>
-    <li>Letter Sweep: Ask about a letter to learn how many times it appears in the enemy fleet</li>
-    <li>Coordinate Attack: Target a specific grid coordinate (e.g., A1, B5) and guess a letter</li>
-    <li>Hit Confirmation: Opponent must confirm hits and reveal struck letters</li>
-    <li>Word Deduction: Use revealed letters and patterns to deduce enemy Word Ships</li>
-  </ul>
-  <strong>🏆 Victory Conditions</strong><br>
-  <ul>
-    <li>Total Annihilation: Sink all enemy Word Ships to win</li>
-    <li>Word Completion: Correctly identify all letters in an enemy Word Ship to sink it</li>
-    <li>Strategic Advantage: Use word knowledge and deduction to outmaneuver your opponent</li>
-  </ul>
-</div>
-<div class="important" style="margin-bottom:32px;">
-  ⚔️ <strong>Advanced Tactics:</strong> Master tacticians use common word patterns, letter frequency, and strategic placement to outmaneuver their opponent. Every letter matters in this battle of wits and words!
-</div>
-<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Mission Overview</div>
-<p>You are a Fleet Commander in a battle of wits and words. Deploy your Word Ships on your grid, then hunt down the enemy fleet using strategic attacks. When the smoke clears, only one fleet remains afloat.</p>
-<ul>
-  <li>Each commander places their fleet of 5 Word Ships on a 10×10 grid (A–J, 1–10).</li>
-  <li>On your turn, choose to perform a Letter Sweep (ask about a letter) or a Coordinate Attack (guess a letter at a coordinate).</li>
-  <li>Victory: The first commander to sink all enemy Word Ships by correctly identifying every letter in their opponent's fleet wins.</li>
-</ul>
-<div class="example-box">
-  <strong>Example:</strong> On your turn, you might ask, "How many R's are in your fleet?" or attack with "B4 - T".
-</div>
-<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Battle Planning</div>
-<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Requisition the Following</div>
-<ul>
-  <li>One Battle Tracker sheet for each commander (print from <a href="https://thegamebureau.com/wrdflt" target="_blank">thegamebureau.com/wrdflt</a>)</li>
-  <li>2 pens or pencils</li>
-  <li>Optional: highlighters</li>
-</ul>
-<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Word Selection</div>
-<p>Before starting, agree with your opponent on one method:</p>
-<ul>
-  <li><strong>Auto-Generated Words:</strong> Use the pre-selected words printed on your Battle Tracker</li>
-  <li><strong>Choose Your Own:</strong> Select your own words following the Word Ship size requirements</li>
-</ul>
-<p><em>Both commanders must use the same method—no mixing allowed!</em></p>
-<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Deploy Your Fleet</div>
-<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Grid Setup & Placement Rules</div>
-<p>Your Defense Grid is 10×10, labeled A–J horizontally and 1–10 vertically. Place your fleet of 5 Word Ships by writing one letter per coordinate. Follow these rules when placing your Word Ships:</p>
-<ul>
-  <li>Each Word Ship must be a valid English word</li>
-  <li>Place ships horizontally (left to right) or vertically (top to bottom)</li>
-  <li>Word Ships cannot overlap, but may touch at edges</li>
-  <li>No proper nouns, abbreviations, prefixes, suffixes, or words requiring a hyphen/apostrophe</li>
-  <li>Keep your Defense Grid hidden from your opponent</li>
-</ul>
-<div class="ship-list">
-  <p><strong>Your Fleet Consists of:</strong></p>
-  <ul>
-    <li><strong>KETCH:</strong> 5-letter word (example: STORM)</li>
-    <li><strong>SHIP:</strong> 4-letter word (example: WAVE)</li>
-    <li><strong>SUB:</strong> 3-letter word (example: FOG)</li>
-    <li><strong>ARK:</strong> 3-letter word (example: SEA)</li>
-    <li><strong>PT:</strong> 2-letter word (example: GO)</li>
-  </ul>
-</div>
-<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Placement Rules</div>
-<ul>
-  <li>Each Word Ship must be a valid English word. No words that are always capitalized, no abbreviations, no prefixes or suffixes standing alone, and no words requiring a hyphen or apostrophe.</li>
-  <li>Place horizontally (left to right) or vertically (top to bottom)</li>
-  <li>Word Ships cannot overlap, but may touch at edges</li>
-  <li>Keep your Defense Grid hidden from your opponent</li>
-</ul>
-<div class="battle-tracker-note">
-  <p><strong>Classified Manifest (Defense Grid):</strong> After placing your Word Ships, count how many times each letter appears in your fleet. Fill in these counts in the Classified Manifest section of your Battle Tracker. This helps you quickly answer Letter Sweeps and is required for gameplay.</p>
-</div>
-<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Launch Sequence</div>
-<p>Determine who strikes first using the launch codes on your Battle Tracker.</p>
-<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Reading Your Launch Codes</div>
-<p>Your Battle Tracker displays 5 three-digit launch codes (like 142, 087, 953). These codes determine turn order through a bidding system.</p>
-<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">The Bidding War</div>
-<ol>
-  <li><strong>Opening Bid:</strong> You or your opponent claims to have a specific launch code (real or bluffed)</li>
-  <li><strong>Response Options:</strong>
-    <ul>
-      <li>Concede and let them go first</li>
-      <li>Challenge their claim (call their bluff)</li>
-      <li>Counter with a higher bid (a rarer code)</li>
-    </ul>
-  </li>
-  <li><strong>Challenge Results:</strong>
-    <ul>
-      <li>If bluffing: Challenger gets TWO opening turns</li>
-      <li>If truthful: Original bidder gets TWO opening turns</li>
-    </ul>
-  </li>
-</ol>
-<div class="important">
-  Once bidding ends, ALL gameplay must be honest—no more bluffing allowed!
-</div>
-<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Gameplay</div>
-<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Choose Your Move</div>
-<p>On your turn, choose ONE of the following actions:</p>
-<div style="margin-bottom:32px;">
-  <strong>Letter Sweep</strong><br>
-  <span>Ask about a letter's frequency in the enemy fleet</span>
-  <ul>
-    <li>Name any letter of the alphabet</li>
-    <li>Opponent reveals total count in their fleet</li>
-    <li>Each letter can only be asked ONCE per game</li>
-    <li>Mark the count in your Recon Log</li>
-  </ul>
-  <strong>Coordinate Attack</strong><br>
-  <span>Call out a grid coordinate AND a letter</span>
-  <ul>
-    <li>Example: "C7 - S"</li>
-    <li><strong>Bullseye:</strong> Your letter matches exactly</li>
-    <li><strong>Hit:</strong> There's a Word Ship there, but wrong letter</li>
-    <li><strong>Miss:</strong> Empty water</li>
-  </ul>
-</div>
-<div class="example-box">
-  <strong>Example Turns:</strong><br>
-  Letter Sweep: "How many R's are in your fleet?" Opponent: "I have 2 R's."<br>
-  Coordinate Attack: "B4 - T" Opponent: "Hit" (there's a Word Ship at B4, but it's not a T)
-</div>
-<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Your Battle Station Layout</div>
-<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Attack Grid (Top Left)</div>
-<p>Use this grid to track all Coordinate Attacks on your opponent:</p>
-<ul>
-  <li>Mark bullseyes with the correct letter in a circle</li>
-  <li>Mark hits with an X and note which letter you guessed</li>
-  <li>Mark misses with dots</li>
-  <li>Draw lines through confirmed sunken Word Ships when all letters are found</li>
-</ul>
-<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Recon Log (Top Right)</div>
-<p>Track your Letter Sweeps systematically:</p>
-<ul>
-  <li>Circle letters that exist in opponent's fleet</li>
-  <li>Cross out letters with zero count</li>
-  <li>Write the exact count next to each letter asked about</li>
-  <li>Vowels are highlighted as high-priority targets</li>
-</ul>
-<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Victory Conditions</div>
-<div class="important">The first commander to sink all five enemy Word Ships wins the battle!</div>
-<p>Word Ships sink when all their letters are correctly identified through Coordinate Attacks. Track your progress and deduce the enemy words from the pattern of bullseyes!</p>
-<div class="game-variations">
-  <div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Contingency Tactics</div>
-  <p><strong>Silent Service:</strong> When answering Letter Sweeps, don't reveal which Word Ships contain the letter—only the total count.</p>
-  <p><strong>Themed Fleets:</strong> Both commanders must use words from agreed categories (animals, colors, military terms, etc.).</p>
-  <p><strong>Minefield:</strong> Each commander places 1 mine on their Defense Grid. If the opponent hits it, the defending commander immediately gets two full turns in a row. The mine is revealed when struck.</p>
-</div>
-<div class="section-header" style="font-size:1.3em; color:#1a2a2a; margin:32px 0 12px 0;">Final Briefing</div>
-<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Turn Summary</div>
-<ol>
-  <li>Choose: Letter Sweep OR Coordinate Attack</li>
-  <li>Record all information on your Battle Tracker</li>
-  <li>Pass turn to your opponent</li>
-</ol>
-<div class="subsection-header" style="font-size:1.1em; color:#1a2a2a; margin:18px 0 8px 0;">Common Mistakes to Avoid</div>
-<ul>
-  <li>Asking about the same letter twice</li>
-  <li>Forgetting to track letter counts</li>
-  <li>Not recording whether attacks were bullseyes, hits, or misses</li>
-  <li>Placing Word Ships diagonally (not allowed)</li>
-</ul>
-<h2 class="visually-hidden">Final Quote</h2>
-<div class="final-quote" style="margin-top:32px;">
-  <em>"In the fog of war, every letter tells a story. Listen carefully, strike decisively, and may fair winds fill your sails, Captain."</em>
-</div>
-                </div>
+            <h3 class="footer-title">Future Deployments</h3>
+            <div class="coming-soon-text">
+                <p><strong>🎮 Simulator Mode</strong></p>
+                <p><strong>🏆 Tournament Mode</strong></p>
+                <p><strong>📱 Mobile App Combat</strong></p>
+                <p><strong>💬 SMS Battle System</strong></p>
+                <p><strong>🤖 AI Admiral Challenges</strong></p>
+                <p><strong>🌐 Online Multiplayer</strong></p>
+                <p><strong>⚔️ Ranked Battles</strong></p>
             </div>
+            <p class="footer-battle-cry">
+                <strong>Word Fleet: Where Battleship Meets Wordle!</strong>
+            </p>
         </div>
-    </div>
-
-    <div class="force-portrait-message">
-        Please rotate your device to portrait mode for the best Word Fleet experience.
-    </div>
-    <div class="mobile-image-footer">
-        <img src="src/media/word_fleet_banner_1600x400.png" alt="Word Fleet Banner">
-    </div>
-
+    </footer>
     <script>
-        // --- Fleet Name Regeneration ---
+        // Enhanced Fleet Name Generation
         function regenerateFleetName() {
             const adjectives = [
-                "Royal", "Ironclad", "Sea", "Storm", "Night", "Wave", "Thunder", "Valiant", "Eternal", "Silent", "Golden", "Shadow", "Crimson", "Emerald", "Silver", "Swift", "Tempest", "Lone", "Grand", "Phantom",
-                "Mighty", "Brave", "Fierce", "Noble", "Stealthy", "Bold", "Radiant", "Lucky", "Resolute", "Majestic", "Fearless", "Daring", "Gallant", "Cunning", "Vigilant", "Glorious", "Dreadnought", "Spectral", "Celestial", "Arcane", "Obsidian",
-                "Azure", "Scarlet", "Ivory", "Onyx", "Titanic", "Venerable", "Ancient", "Invincible", "Merciless", "Relentless", "Unyielding", "Indomitable", "Black", "Mercury", "Meteor", "Solar", "Lunar", "Polar", "Arctic", "Savage",
-                "Ruthless", "Raging", "Roving", "Raucous", "Reckless", "Raucous", "Wild", "Wily", "Wicked", "Scarred", "Salty", "Seaworthy", "Fearsome", "Infamous", "Legendary", "Notorious", "Bold", "Dreaded", "Merciless", "Cursed", "Grim", "Stormy", "Iron", "Crimson", "Golden", "Silver", "Black", "Red", "Blue", "Green", "White", "Grey", "Dusky", "Shadowy", "Ghostly", "Spectral", "Hidden", "Secret", "Lost", "Wandering", "Free", "Untamed", "Unruly", "Savage", "Vicious", "Treacherous", "Gallant", "Heroic", "Loyal", "Resolute", "Intrepid", "Dauntless", "Bold", "Swift", "Fleetfoot", "Fleetwing", "Windward", "Leeward", "Highborn", "Lowborn", "Ironhand", "Stormborn", "Waveborn", "Sunken", "Sunlit", "Moonlit", "Starborn", "Frosty", "Frostbitten", "Icy", "Frozen", "Burning", "Blazing", "Fiery", "Thunderous", "Howling", "Roaring", "Rumbling", "Silent", "Quiet", "Clever", "Cunning", "Sly", "Sneaky", "Shadowed", "Masked", "Masked", "Masked", "Masked"
+                "Royal", "Ironclad", "Storm", "Thunder", "Valiant", "Silent", "Golden", "Shadow", "Crimson", "Emerald", 
+                "Swift", "Tempest", "Grand", "Phantom", "Mighty", "Fierce", "Noble", "Stealthy", "Bold", "Radiant",
+                "Majestic", "Fearless", "Gallant", "Vigilant", "Glorious", "Spectral", "Celestial", "Obsidian", "Azure",
+                "Scarlet", "Titanic", "Ancient", "Invincible", "Relentless", "Indomitable", "Mercury", "Solar", "Lunar",
+                "Arctic", "Savage", "Legendary", "Notorious", "Dreaded", "Cursed", "Ghostly", "Secret", "Wandering",
+                "Untamed", "Treacherous", "Heroic", "Intrepid", "Dauntless", "Windward", "Starborn", "Blazing", "Thunderous"
             ];
+            
             const nouns = [
-                "Fleets", "Flotillas", "Squadrons", "Convoys", "Task Forces", "Armadas", "Divisions", "Wings", "Patrols", "Wolfpacks", "Lines", "Columns", "Battlegroups", "Expeditions", "Regattas", "Cohorts", "Escorts", "Detachments", "Sections", "Groups",
-                "Companies", "Trains", "Clusters", "Assemblies", "Gatherings", "Formations", "Arrays", "Bands", "Packs", "Parties", "Troops",
-                "Crews", "Brotherhoods", "Brotherhoods of the Coast", "Corsairs", "Raiders", "Freebooters", "Brethren", "Pirates", "Privateers", "Buccaneers", "Cutthroats", "Marauders", "Sea Dogs", "Rogues", "Scallywags", "Brigands", "Outlaws", "Plunderers",
-                "Serpents", "Victories", "Riders", "Breakers", "Watches", "Vanguards", "Tempests", "Corsairs", "Leviathans", "Auroras", "Sovereigns", "Odysseys", "Invincibles", "Thunderbolts", "Liberties", "Endeavours", "Falcons", "Sentinels", "Voyagers",
-                "Mariners", "Dragons", "Titans", "Guardians", "Wardens", "Crusaders", "Pioneers", "Navigators", "Explorers", "Champions", "Defenders", "Raiders", "Hunters", "Rangers", "Scouts", "Bastions", "Beacons", "Phoenixes", "Eagles", "Wolves", "Krakens",
-                "Galleons", "Clippers", "Frigates", "Destroyers", "Carriers", "Monitors", "Bulwarks", "Outriders", "Banners", "Spears", "Swords", "Tridents", "Hammers", "Anvils", "Comets", "Meteors", "Stars", "Novas", "Galaxies", "Nebulas", "Krewes"
+                "Fleet", "Armada", "Squadron", "Flotilla", "Task Force", "Division", "Wing", "Patrol", "Wolfpack",
+                "Battlegroup", "Expedition", "Convoy", "Formation", "Brotherhood", "Corsairs", "Raiders", "Privateers",
+                "Mariners", "Navigators", "Voyagers", "Defenders", "Guardians", "Sentinels", "Champions", "Titans",
+                "Dragons", "Eagles", "Wolves", "Phoenixes", "Leviathans", "Serpents", "Riders", "Vanguard", "Tempest",
+                "Thunder", "Storm", "Lightning", "Tide", "Wave", "Depths", "Horizon", "Destiny", "Victory", "Honor",
+                "Glory", "Legacy", "Dynasty", "Empire", "Dominion", "Reign", "Saga", "Legend", "Myth", "Force"
             ];
+            
             const input = document.getElementById('player1Name');
             if (input) {
-                // Always generate a new name when called (for refresh button and on load)
-                let tries = 0;
-                let next = "";
-                let current = input.value;
-                do {
-                    const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-                    const noun = nouns[Math.floor(Math.random() * nouns.length)];
-                    next = adj + " " + noun;
-                    tries++;
-                } while (next === current && tries < 10);
-                input.value = next;
+                const refreshBtn = document.querySelector('.refresh-btn');
+                
+                // Add loading state
+                if (refreshBtn) {
+                    refreshBtn.style.transform = 'rotate(180deg)';
+                    refreshBtn.style.color = 'var(--tile-green)';
+                }
+                
+                // Generate new name
+                setTimeout(() => {
+                    let attempts = 0;
+                    let newName = "";
+                    const currentName = input.value;
+                    
+                    do {
+                        const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+                        const noun = nouns[Math.floor(Math.random() * nouns.length)];
+                        newName = adj + " " + noun;
+                        attempts++;
+                    } while (newName === currentName && attempts < 10);
+                    
+                    // Animate the input change
+                    input.style.transition = 'all 0.3s ease';
+                    input.style.transform = 'scale(0.95)';
+                    
+                    setTimeout(() => {
+                        input.value = newName;
+                        input.style.transform = 'scale(1)';
+                        
+                        // Reset refresh button
+                        if (refreshBtn) {
+                            refreshBtn.style.transform = '';
+                            refreshBtn.style.color = '';
+                        }
+                    }, 150);
+                }, 200);
             }
         }
 
-        // Set a random fleet name on page load (only once)
-        window.addEventListener('DOMContentLoaded', function() {
-            regenerateFleetName();
-        });
-        // End of fleet name logic
+        // Enhanced form submission with better UX
+        function handlePrintSubmit(event) {
+            const form = event.target;
+            const submitBtn = form.querySelector('.action-btn');
+            const fleetInput = form.querySelector('#player1Name');
+            
+            // Validation
+            if (!fleetInput.value.trim()) {
+                event.preventDefault();
+                form.classList.add('error');
+                fleetInput.focus();
+                
+                setTimeout(() => {
+                    form.classList.remove('error');
+                }, 500);
+                
+                return false;
+            }
+            
+            // Add loading state
+            if (submitBtn) {
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<span>🚀 Deploying Fleet...</span><div class="loading-spinner"></div>';
+                submitBtn.disabled = true;
+                
+                // Add success state
+                form.classList.add('success');
+                
+                // Reset after delay (in case of navigation issues)
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    form.classList.remove('success');
+                }, 3000);
+            }
+            
+            return true;
+        }
 
-        // --- Rules Expand/Collapse ---
-        (function() {
-            const expandBtn = document.getElementById('expandRulesBtn');
-            const rulesFull = document.getElementById('rulesFull');
-            const rulesCard = document.getElementById('rulesCard');
-            let expanded = false;
-            if (expandBtn && rulesFull && rulesCard) {
-                expandBtn.addEventListener('click', function() {
-                    if (!expanded) {
-                        rulesFull.style.display = 'block';
-                        expandBtn.textContent = 'Hide Full Rules';
-                        rulesCard.style.maxHeight = '2000px';
-                        expanded = true;
-                        setTimeout(() => rulesCard.scrollIntoView({behavior:'smooth', block:'center'}), 200);
+        // Enhanced toggle functionality
+        function setupToggle() {
+            const toggle = document.getElementById('autoGen');
+            const pickLabel = document.getElementById('pickWordsLabel');
+            const autoLabel = document.getElementById('autoGenLabel');
+            
+            if (toggle && pickLabel && autoLabel) {
+                function updateLabels() {
+                    if (toggle.checked) {
+                        autoLabel.classList.add('active');
+                        pickLabel.classList.remove('active');
                     } else {
-                        rulesFull.style.display = 'none';
-                        expandBtn.textContent = 'Show Full Rules';
-                        rulesCard.style.maxHeight = '320px';
-                        expanded = false;
+                        pickLabel.classList.add('active');
+                        autoLabel.classList.remove('active');
+                    }
+                }
+                
+                toggle.addEventListener('change', updateLabels);
+                updateLabels(); // Set initial state
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate initial fleet name
+            regenerateFleetName();
+            
+            // Setup toggle
+            setupToggle();
+            
+            // Add form validation
+            const fleetInput = document.getElementById('player1Name');
+            if (fleetInput) {
+                fleetInput.addEventListener('input', function() {
+                    const form = this.closest('.form-card');
+                    if (this.value.length > 30) {
+                        this.value = this.value.substring(0, 30);
+                    }
+                    
+                    // Remove error state on valid input
+                    if (this.value.trim()) {
+                        form.classList.remove('error');
                     }
                 });
             }
-        })();
+        });
+
+        // Enhanced error handling
+        window.addEventListener('error', function(e) {
+            console.warn('Word Fleet:', e.message);
+        });
     </script>
 </body>
 </html>
