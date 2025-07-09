@@ -8,54 +8,64 @@ Word Fleet combines the strategy of Battleship® with the word-building challeng
 
 ---
 
-## 📋 Setup
+## All Hands On Deck!
 
 ### What You Need
 - 2 Battle Tracker sheets from thegamebureau.com/wrdflt
 - 2 pens or pencils
 - 2 highlighters (optional) for enhanced tracking
 
-### Fleet Composition
-Place 5 word ships on your Battle Tracker Defense Grid (bottom left):
+### Fleet Deployment
+Place 5 Word Ships on your Battle Tracker Defense Grid (bottom left). Choose auto-generated or player-chosen Word Ships. Both players must choose the same type..
 
-- **KETCH:** 5-letter word (e.g., PIANO)
-- **SHIP:** 4-letter word (e.g., JUMP)
-- **SUB:** 3-letter word (e.g., BED)
-- **ARK:** 3-letter word (e.g., RUN)
-- **PT:** 2-letter word (e.g., IF)
+KETCH: 5-letter word (e.g., PIANO)
+SHIP: 4-letter word (e.g., JUMP)
+SUB: 3-letter word (e.g., BED)
+ARK: 3-letter word (e.g., RUN)
+PT: 2-letter word (e.g., IF)
 
-*Note: Ship names are just fun naval-themed labels—they don't affect gameplay and simply correspond to word lengths!*
+Note: Ship names are just naval-themed labels—they don't affect gameplay and simply correspond to word lengths!
+Placement Rules:
 
-- Ships must be valid English words
-- Place horizontally or vertically only
-- Ships may touch edges but cannot overlap
-- No diagonals, proper nouns, abbreviations, hyphenated words, or suffixes
+Word ships must be valid English words
+Place left to right horizontally or top to bottom vertically only
+Ships may touch edges but cannot overlap
+No diagonals, proper nouns, abbreviations, hyphenated words, or suffixes
 
-### Choosing Your Fleet
+### Classified Manifest (right side)
+- Count each letter in your full fleet
+- Record totals after placing your ships
+- Used to answer Letter Sweeps quickly and accurately
 
-Each player places five word ships with lengths: 5, 4, 3, 3, and 2 letters.
+### Gameplay
 
-*The ship type names (KETCH, SHIP, SUB, ARK, PT) are just playful naval-themed nicknames for different word lengths—use any valid words you want!*
+Captains take turns launching attacks.
 
-#### Option A: Quick Start
-- Use pre-selected words printed on the Battle Tracker
-- Good for beginners or fast games
+Call out a grid coordinate.
 
-#### Option B: Custom Fleet
-- Choose your own words
-- Can use themed categories (see Optional Rules)
-- All words must follow placement rules
+**Possible results:**
+- **Miss:** No ship present, no information given
+- **Bullseye:** Correct letter in correct spot
+- **Hit & Yes:** Wrong letter in that spot, but letter exists in fleet (opponent states count)
+- **Hit & No:** Wrong letter and letter not in fleet (opponent states 0)
 
-**Note:** Both players must use the same option.
 
-### Battle Tracker Guide
 
-### Attack Grid (top left)
+
+
+
 Track your attacks on your opponent:
 - **Bullseyes:** Write correct letter in a circle
 - **Hits:** X with guessed letter (wrong letter, correct location)
 - **Misses:** Use a dot
 - Cross out completed ships once fully revealed
+
+
+
+### Recording Results
+- Use colors or symbols to record attack results
+- Track letter confirmations, misses, and hits on your Attack Grid
+
 
 ### Recon Log (top right)
 Record Letter Sweep results:
@@ -64,29 +74,12 @@ Record Letter Sweep results:
 - Note exact counts next to each letter
 - Prioritize vowels for early sweeps
 
-### Classified Manifest (right side)
-- Count each letter in your full fleet
-- Record totals after placing your ships
-- Used to answer Letter Sweeps quickly and accurately
+
 
 ---
 
-## 🚢 Choosing Your Fleet
 
-Each player places five word ships with lengths: 5, 4, 3, 3, and 2 letters.
 
-*The ship type names (KETCH, SHIP, SUB, ARK, PT) are just playful naval-themed nicknames for different word lengths—use any valid words you want!*
-
-### Option A: Quick Start
-- Use pre-selected words printed on the Battle Tracker
-- Good for beginners or fast games
-
-### Option B: Custom Fleet
-- Choose your own words
-- Can use themed categories (see Optional Rules)
-- All words must follow placement rules
-
-**Note:** Both players must use the same option.
 
 ---
 
@@ -111,29 +104,9 @@ Use launch codes and cunning to negotiate who fires the opening round!
 
 ## 🎯 Gameplay
 
-### Turn Options
 
-Each turn, choose one of the following:
 
-#### Coordinate Attack
-Call out a grid coordinate and a letter (e.g., "C7 - M")
 
-**Possible results:**
-- **Miss:** No ship present, no information given
-- **Bullseye:** Correct letter in correct spot
-- **Hit & Yes:** Wrong letter in that spot, but letter exists in fleet (opponent states count)
-- **Hit & No:** Wrong letter and letter not in fleet (opponent states 0)
-
-#### Letter Sweep
-Ask how many of a specific letter are in the opponent's fleet
-- Example: "How many L's are in your fleet?"
-- Opponent replies with exact count
-- Cannot repeat the same letter sweep
-
-### Recording Results
-- Use colors or symbols to record attack results
-- Track letter confirmations, misses, and hits on your Attack Grid
-- Update your Recon Log with Letter Sweep information
 
 ---
 
