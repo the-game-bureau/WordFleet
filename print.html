@@ -967,7 +967,7 @@
 <body>
     <!-- Floating Toolbar -->
     <div class="toolbar">
-        <button class="toolbar-btn" onclick="window.location.href='../../index.html'">RETREAT</button>
+        <button class="toolbar-btn" onclick="window.location.href='index.html'">RETREAT</button>
         <button class="toolbar-btn" onclick="generateNewTracker()">GENERATE NEW TRACKER</button>
         <button class="toolbar-btn" onclick="showPrintDialog()">PRINT</button>
     </div>
@@ -1492,7 +1492,7 @@
             // Redirect to index.html with highlight parameter and preserve existing params
             const currentParams = new URLSearchParams(window.location.search);
             currentParams.append('highlight', 'form');
-            window.location.href = `../../index.html?${currentParams.toString()}`;
+            window.location.href = `index.html?${currentParams.toString()}`;
         }
 
         function showPrintDialog() {

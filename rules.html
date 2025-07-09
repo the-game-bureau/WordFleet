@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USS WORD FLEET - Combat Operations Manual</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+
+        :root {
+            --submarine-green: #00ff41;
+            --sonar-amber: #ffaa00;
+            --warning-red: #ff0033;
+            --deep-blue: #001122;
+            --panel-gray: #2a3440;
+            --steel-blue: #334455;
+            --phosphor-green: #33ff66;
+            --radar-sweep: #00ffcc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 170, 0, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #001122 0%, #0a1628 50%, #1a2638 100%);
+            color: var(--submarine-green);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Control Panel Header */
+        .control-header {
+            background: 
+                linear-gradient(135deg, 
+                    #3a4550 0%, 
+                    #2a3440 30%,
+                    #1a2530 70%,
+                    #141c28 100%
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 1px,
+                    rgba(0, 255, 65, 0.02) 1px,
+                    rgba(0, 255, 65, 0.02) 2px
+                );
+            border: 2px solid #4a5560;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 2px solid #0a1218;
+            border-radius: 8px;
+            margin: 20px;
+            padding: 18px 22px;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 65, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(0, 255, 65, 0.06) 50%,
+                transparent 100%
+            );
+            animation: scanLine 4s ease-in-out infinite;
+        }
+
+        @keyframes scanLine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .submarine-hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hud-left {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .hud-right {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .vessel-info {
+            text-align: left;
+        }
+
+        .vessel-name {
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            font-weight: 700;
+            color: var(--submarine-green);
+            text-shadow: 
+                0 0 8px var(--submarine-green),
+                1px 1px 2px rgba(0, 0, 0, 0.8);
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .vessel-class {
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            color: var(--sonar-amber);
+            font-family: 'Courier Prime', monospace;
+            letter-spacing: 1px;
+            text-shadow: 
+                0 0 6px var(--sonar-amber),
+                1px 1px 1px rgba(0, 0, 0, 0.8);
+            position: relative;
+            z-index: 3;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .status-indicators {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .status-light {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-family: 'Courier Prime', monospace;
+            color: rgba(255, 255, 255, 0.85);
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+            padding: 3px 6px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 
+                0 0 8px currentColor,
+                inset 0 0 4px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .indicator.green { background: var(--submarine-green); color: var(--submarine-green); }
+        .indicator.amber { background: var(--sonar-amber); color: var(--sonar-amber); }
+        .indicator.red { background: var(--warning-red); color: var(--warning-red); }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Navigation Controls */
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            justify-content: flex-end;
+        }
+
+        .nav-btn {
+            background: 
+                linear-gradient(135deg, 
+                    #3a4550 0%, 
+                    #2a3440 50%,
+                    #1a2530 100%
+                );
+            border: 1px solid #4a5560;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid #0a1218;
+            color: var(--submarine-green);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 8px rgba(0, 255, 65, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+                0 1px 3px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 0 6px var(--submarine-green);
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(0, 255, 65, 0.2) 50%, transparent 100%);
+            transition: left 0.5s ease;
+        }
+
+        .nav-btn:hover {
+            box-shadow: 0 0 20px var(--submarine-green);
+            text-shadow: 0 0 10px var(--submarine-green);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Main Content Panels */
+        .mission-briefing {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 20px;
+        }
+
+        .control-panel {
+            background: linear-gradient(135deg, var(--panel-gray) 0%, var(--steel-blue) 100%);
+            border: 2px solid var(--submarine-green);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 
+                0 0 15px rgba(0, 255, 65, 0.2),
+                inset 0 0 15px rgba(0, 255, 65, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-panel::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--submarine-green), var(--sonar-amber), var(--warning-red));
+            animation: statusBar 4s ease-in-out infinite;
+        }
+
+        @keyframes statusBar {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        .panel-icon {
+            font-size: 1.5rem;
+            color: var(--sonar-amber);
+            text-shadow: 0 0 10px var(--sonar-amber);
+        }
+
+        .panel-title {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-weight: 700;
+            color: var(--submarine-green);
+            text-shadow: 0 0 8px var(--submarine-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .panel-content {
+            font-family: 'Courier Prime', monospace;
+            line-height: 1.6;
+            color: rgba(0, 255, 65, 0.9);
+        }
+
+        .panel-content h3 {
+            color: var(--sonar-amber);
+            margin: 15px 0 10px 0;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .panel-content h4 {
+            color: var(--phosphor-green);
+            margin: 12px 0 8px 0;
+            font-size: 1rem;
+        }
+
+        .panel-content ul, .panel-content ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .panel-content li {
+            margin: 5px 0;
+            position: relative;
+        }
+
+        .panel-content li::marker {
+            color: var(--sonar-amber);
+        }
+
+        /* Tactical Display Table */
+        .tactical-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: rgba(0, 17, 34, 0.8);
+            border: 1px solid var(--submarine-green);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tactical-table th {
+            background: linear-gradient(135deg, var(--submarine-green) 0%, var(--phosphor-green) 100%);
+            color: var(--deep-blue);
+            padding: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .tactical-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+            color: var(--submarine-green);
+        }
+
+        .tactical-table tr:hover {
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        /* Command Response Boxes */
+        .command-response {
+            background: linear-gradient(135deg, rgba(255, 170, 0, 0.1) 0%, rgba(255, 170, 0, 0.05) 100%);
+            border: 1px solid var(--sonar-amber);
+            border-left: 4px solid var(--sonar-amber);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-family: 'Courier Prime', monospace;
+            position: relative;
+        }
+
+        .command-response::before {
+            content: ">>> ";
+            color: var(--sonar-amber);
+            font-weight: 700;
+        }
+
+        .response-title {
+            color: var(--sonar-amber);
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Special Alert Boxes */
+        .tactical-note {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1) 0%, rgba(0, 255, 65, 0.05) 100%);
+            border: 1px solid var(--submarine-green);
+            border-left: 4px solid var(--submarine-green);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .tactical-note::before {
+            content: "⚠ TACTICAL NOTE: ";
+            color: var(--submarine-green);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .mission-example {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.1) 0%, rgba(0, 255, 204, 0.05) 100%);
+            border: 1px solid var(--radar-sweep);
+            border-left: 4px solid var(--radar-sweep);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-family: 'Courier Prime', monospace;
+            font-style: italic;
+        }
+
+        .mission-example::before {
+            content: "SIMULATION: ";
+            color: var(--radar-sweep);
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        /* Victory Conditions */
+        .victory-panel {
+            background: linear-gradient(135deg, rgba(255, 0, 51, 0.15) 0%, rgba(255, 0, 51, 0.05) 100%);
+            border: 2px solid var(--warning-red);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: victoryPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes victoryPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 51, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 0, 51, 0.6); }
+        }
+
+        .victory-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-conic-gradient(from 0deg, transparent 0deg, rgba(255, 0, 51, 0.1) 2deg, transparent 4deg);
+            animation: radarSweep 8s linear infinite;
+        }
+
+        @keyframes radarSweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .victory-title {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            color: var(--warning-red);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px var(--warning-red);
+            position: relative;
+            z-index: 1;
+            margin-bottom: 15px;
+        }
+
+        .victory-content {
+            font-family: 'Courier Prime', monospace;
+            color: rgba(255, 0, 51, 0.9);
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Sonar Display */
+        .sonar-display {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 120px;
+            height: 120px;
+            border: 2px solid var(--submarine-green);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.1) 0%, rgba(0, 17, 34, 0.9) 70%);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .sonar-sweep {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 50%;
+            background: linear-gradient(to bottom, var(--submarine-green), transparent);
+            transform-origin: bottom center;
+            transform: translate(-50%, -100%) rotate(0deg);
+            animation: sonarRotate 4s linear infinite;
+        }
+
+        @keyframes sonarRotate {
+            0% { transform: translate(-50%, -100%) rotate(0deg); }
+            100% { transform: translate(-50%, -100%) rotate(360deg); }
+        }
+
+        .sonar-blip {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--sonar-amber);
+            border-radius: 50%;
+            animation: blipPulse 2s ease-in-out infinite;
+        }
+
+        .sonar-blip:nth-child(2) { top: 30%; left: 60%; animation-delay: 0.5s; }
+        .sonar-blip:nth-child(3) { top: 60%; left: 30%; animation-delay: 1s; }
+        .sonar-blip:nth-child(4) { top: 70%; left: 70%; animation-delay: 1.5s; }
+
+        @keyframes blipPulse {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .submarine-hud {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hud-left {
+                align-items: center;
+            }
+
+            .hud-right {
+                align-items: center;
+            }
+
+            .status-indicators {
+                justify-content: center;
+            }
+
+            .nav-controls {
+                justify-content: center;
+            }
+
+            .nav-btn {
+                font-size: 0.65rem;
+                padding: 8px 12px;
+            }
+
+            .sonar-display {
+                width: 80px;
+                height: 80px;
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .tactical-table {
+                font-size: 0.8rem;
+            }
+
+            .tactical-table th,
+            .tactical-table td {
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mission-briefing {
+                margin: 10px;
+            }
+
+            .control-panel {
+                padding: 15px;
+            }
+
+            .panel-header {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .vessel-name {
+                font-size: 1.5rem;
+            }
+
+            .sonar-display {
+                display: none;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="control-header">
+        <div class="submarine-hud">
+            <div class="hud-left">
+                <div class="vessel-info">
+                    <h1 class="vessel-name">WORD FLEET</h1>
+                    <div class="vessel-class">Rules of Engagement</div>
+                </div>
+            </div>
+            <div class="hud-right">
+                <div class="status-indicators">
+                    <div class="status-light">
+                        <div class="indicator green"></div>
+                        <span>SYSTEMS ONLINE</span>
+                    </div>
+                    <div class="status-light">
+                        <div class="indicator amber"></div>
+                        <span>MISSION READY</span>
+                    </div>
+                    <div class="status-light">
+                        <div class="indicator green"></div>
+                        <span>DEPTH: 150M</span>
+                    </div>
+                </div>
+                <div class="nav-controls">
+                    <button class="nav-btn" onclick="window.location.href='index.html'">Retreat</button>
+                    <button class="nav-btn" onclick="showPrintInfo()">Print</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="mission-briefing">
+        <span class="sr-only">Word Fleet Combat Operations Manual - Naval word combat strategy game rules</span>
+
+        <section class="control-panel">
+            <div class="panel-header">
+                <div class="panel-icon">📋</div>
+                <h2 class="panel-title">Combat Overview</h2>
+            </div>
+            <div class="panel-content">
+                <p><strong>PERSONNEL:</strong> 2 Operators | <strong>MINIMUM AGE:</strong> 10 | <strong>MISSION DURATION:</strong> 15-30 minutes</p>
+                
+                <div class="mission-example">
+                    Word Fleet combines the strategy of Battleship® with the linguistic challenge of Wordle®.
+                </div>
+
+                <h3>Requisition</h3>
+                <ul>
+                    <li>2 Battle Tracker sheets from thegamebureau.com/wrdflt</li>
+                    <li>2 marking instruments (pen/pencil)</li>
+                    <li>2 highlighters (optional tactical enhancement)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="control-panel">
+            <div class="panel-header">
+                <div class="panel-icon">🚢</div>
+                <h2 class="panel-title">Fleet Deployment Protocol</h2>
+            </div>
+            <div class="panel-content">
+                <p>Choose deployment method: auto-generated or operator-selected Word Ships. Both commanders must use identical protocols. Deploy 5 Word Ships on Defense Grid (lower section).</p>
+
+                <table class="tactical-table">
+                    <thead>
+                        <tr>
+                            <th>Vessel Class</th>
+                            <th>Length</th>
+                            <th>Example Designation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>KETCH</td><td>5 letters</td><td>PIANO</td></tr>
+                        <tr><td>SHIP</td><td>4 letters</td><td>JUMP</td></tr>
+                        <tr><td>SUB</td><td>3 letters</td><td>BED</td></tr>
+                        <tr><td>ARK</td><td>3 letters</td><td>RUN</td></tr>
+                        <tr><td>PT</td><td>2 letters</td><td>IF</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="tactical-note">
+                    Vessel classifications are operational designations only—they correspond to word length and do not affect tactical capabilities.
+                </div>
+
+                <h4>Deployment Restrictions:</h4>
+                <ul>
+                    <li>Horizontal (left-to-right) or vertical (top-to-bottom) orientation only, no diagonals</li>
+                    <li>Ships may touch edges but cannot overlap</li>
+                    <li>All words must be in agreed upon language</li>
+                    <li>No proper nouns, abbreviations, hyphenated words, or suffixes</li>
+                </ul>
+
+                <h4>Defense Manifest Completion:</h4>
+                <p>Inventory each letter in your fleet and record totals in your Defense Manifest (lower right) if it has not been done for you. This will help speed up combat.</p>
+            </div>
+        </section>
+
+        <section class="control-panel">
+            <div class="panel-header">
+                <div class="panel-icon">📡</div>
+                <h2 class="panel-title">Hailing the Enemy - A Mini Game</h2>
+            </div>
+            <div class="panel-content">
+                <p>Use launch codes and cunning to negotiate who fires the opening round!</p>
+
+                <h3>Opening Gambit Sequence</h3>
+                <p><strong>Opening Gambit</strong> — One captain (the Initiator) calls out a real or fake launch code.</p>
+                <p><strong>Response</strong> — The other captain (the Defender) has three choices:</p>
+                <ul>
+                    <li><strong>Concede</strong> — The Initiator goes first.</li>
+                    <li><strong>Challenge</strong> — If it was a real code, the Initiator goes first. If not, the Defender goes first.</li>
+                    <li><strong>Counter</strong> — The Defender calls out a higher launch code (real or fake) and becomes the new Initiator.</li>
+                </ul>
+                <p><strong>Resolution</strong> — The process repeats until someone concedes or challenges.</p>
+
+                <div class="tactical-note">
+                    Launch codes are the five 3-digit authentication sequences printed on your Battle Tracker.
+                </div>
+            </div>
+        </section>
+
+        <section class="control-panel">
+            <div class="panel-header">
+                <div class="panel-icon">🎯</div>
+                <h2 class="panel-title">Combat Operations</h2>
+            </div>
+            <div class="panel-content">
+                <p>On your operational turn, transmit grid coordinates for target acquisition.</p>
+
+                <div class="mission-example">EXAMPLE TRANSMISSION: "F9!"</div>
+
+                <p>Enemy operator responds based on coordinate analysis:</p>
+
+                <div class="command-response">
+                    <div class="response-title">"Miss!"</div>
+                    <p>No Word Ship detected at specified coordinates.</p>
+                </div>
+
+                <div class="command-response">
+                    <div class="response-title">"Hit!"</div>
+                    <p>Word Ship confirmed at target coordinates.</p>
+                </div>
+
+                <h4>After Letter Transmission:</h4>
+                <div class="command-response">
+                    <div class="response-title">"Bullseye!"</div>
+                    <p>Letter confirmed at exact specified coordinates</p>
+                </div>
+
+                <div class="command-response">
+                    <div class="response-title">"[Number] total"</div>
+                    <p>Frequency count of specified letter across entire enemy fleet</p>
+                </div>
+
+                <h3>Vessel Destruction Protocol</h3>
+                <p>When confident of complete word identification, announce full designation instead of coordinates. Correct identification results in vessel destruction. Incorrect attempts terminate your turn and prevent future attempts on that word designation.</p>
+            </div>
+        </section>
+
+        <section class="control-panel">
+            <div class="panel-header">
+                <div class="panel-icon">🛡️</div>
+                <h2 class="panel-title">Defense Operations</h2>
+            </div>
+            <div class="panel-content">
+                <ul>
+                    <li>Mark <strong>dots</strong> for enemy misses on Defense Grid</li>
+                    <li><strong>Highlight perimeters</strong> for confirmed hits on Defense Grid</li>
+                    <li>Cross out destroyed vessels upon enemy word identification</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="victory-panel">
+            <h2 class="victory-title">🏆 Mission Success</h2>
+            <div class="victory-content">
+                Achieve victory by completely identifying and destroying all five enemy Word Ships through precise letter detection and word reconstruction.
+            </div>
+        </section>
+
+        <section class="control-panel">
+            <div class="panel-header">
+                <div class="panel-icon">⚙️</div>
+                <h2 class="panel-title">Alternative Mission Protocols</h2>
+            </div>
+            <div class="panel-content">
+                <h3>Themed Fleet Operations</h3>
+                <ul>
+                    <li>Biological (ZEBRA, FROG, COW, BAT, OX)</li>
+                    <li>Nutritional (PASTA, MILK, PIE, TEA, EGG)</li>
+                    <li>Environmental (CLOUD, TREE, SUN, SKY, ICE)</li>
+                </ul>
+
+                <h3>Asymmetric Warfare Protocol</h3>
+                <p>One operator deploys custom-selected high-difficulty words while opponent uses auto-generated standard designations.</p>
+
+                <h3>Additional Protocols</h3>
+                <div class="command-response">
+                    Have you developed a new tactical protocol? Transmit to: <a href="mailto:missioncontrol@thegamebureau.com">missioncontrol@thegamebureau.com</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Sonar Display -->
+    <div class="sonar-display">
+        <div class="sonar-sweep"></div>
+        <div class="sonar-blip"></div>
+        <div class="sonar-blip"></div>
+        <div class="sonar-blip"></div>
+        <div class="sonar-blip"></div>
+    </div>
+
+    <script>
+        // Submarine Control Panel Interactive Effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add random electrical interference effects
+            function addInterference() {
+                const panels = document.querySelectorAll('.control-panel');
+                const randomPanel = panels[Math.floor(Math.random() * panels.length)];
+                
+                randomPanel.style.filter = 'brightness(1.2) contrast(1.1)';
+                setTimeout(() => {
+                    randomPanel.style.filter = '';
+                }, 150);
+            }
+
+            // Random interference every 8-15 seconds
+            setInterval(() => {
+                if (Math.random() < 0.3) addInterference();
+            }, Math.random() * 7000 + 8000);
+
+            // Sonar ping sound effect simulation (visual only)
+            function sonarPing() {
+                const sonar = document.querySelector('.sonar-display');
+                if (sonar) {
+                    sonar.style.boxShadow = '0 0 30px var(--submarine-green)';
+                    setTimeout(() => {
+                        sonar.style.boxShadow = '';
+                    }, 200);
+                }
+            }
+
+            // Sonar ping every 4 seconds (matching sweep animation)
+            setInterval(sonarPing, 4000);
+
+            // Add typing effect to panel titles
+            function typeWriter(element, text, speed = 100) {
+                element.innerHTML = '';
+                let i = 0;
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    }
+                }
+                type();
+            }
+
+            // Status light cycling
+            function cycleStatusLights() {
+                const indicators = document.querySelectorAll('.indicator');
+                indicators.forEach((indicator, index) => {
+                    setTimeout(() => {
+                        indicator.style.animation = 'none';
+                        setTimeout(() => {
+                            indicator.style.animation = 'pulse 2s ease-in-out infinite';
+                        }, 50);
+                    }, index * 500);
+                });
+            }
+
+            // Cycle status lights every 10 seconds
+            setInterval(cycleStatusLights, 10000);
+
+            // Add random blip generation to sonar
+            function addRandomBlip() {
+                const sonar = document.querySelector('.sonar-display');
+                if (sonar && Math.random() < 0.4) {
+                    const blip = document.createElement('div');
+                    blip.className = 'sonar-blip';
+                    blip.style.top = Math.random() * 80 + 10 + '%';
+                    blip.style.left = Math.random() * 80 + 10 + '%';
+                    blip.style.animationDelay = '0s';
+                    sonar.appendChild(blip);
+                    
+                    setTimeout(() => {
+                        if (blip.parentNode) blip.remove();
+                    }, 2000);
+                }
+            }
+
+            // Add random sonar blips
+            setInterval(addRandomBlip, 3000);
+
+            // Keyboard shortcuts for navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 'h':
+                            e.preventDefault();
+                            window.location.href = 'index.html';
+                            break;
+                        case 'p':
+                            e.preventDefault();
+                            window.print();
+                            break;
+                    }
+                }
+            });
+
+            // Add emergency lighting effect on panel hover
+            const panels = document.querySelectorAll('.control-panel');
+            panels.forEach(panel => {
+                panel.addEventListener('mouseenter', function() {
+                    this.style.borderColor = 'var(--sonar-amber)';
+                    this.style.boxShadow = '0 0 25px rgba(255, 170, 0, 0.4), inset 0 0 15px rgba(255, 170, 0, 0.1)';
+                });
+                
+                panel.addEventListener('mouseleave', function() {
+                    this.style.borderColor = '';
+                    this.style.boxShadow = '';
+                });
+            });
+
+            // Console simulation
+            let consoleLines = [
+                'SONAR: Contact bearing 045°',
+                'NAVIGATION: Course steady 270°',
+                'COMMUNICATIONS: Encrypted channel active',
+                'WEAPONS: All systems nominal',
+                'ENGINEERING: Reactor at 75% capacity',
+                'PERISCOPE: Surface clear',
+                'HYDROPHONES: Passive listening mode',
+                'BALLAST: Maintaining depth 150m'
+            ];
+
+            function addConsoleMessage() {
+                if (Math.random() < 0.2) {
+                    const message = consoleLines[Math.floor(Math.random() * consoleLines.length)];
+                    console.log(`[${new Date().toLocaleTimeString()}] ${message}`);
+                }
+            }
+
+            // Random console messages
+            setInterval(addConsoleMessage, 5000);
+
+            // Add subtle screen flicker effect
+            function screenFlicker() {
+                if (Math.random() < 0.1) {
+                    document.body.style.filter = 'brightness(1.1) contrast(0.9)';
+                    setTimeout(() => {
+                        document.body.style.filter = '';
+                    }, 50);
+                }
+            }
+
+            setInterval(screenFlicker, 2000);
+
+            console.log('🚢 WORD FLEET - Control systems online');
+            console.log('📡 All stations report ready');
+            console.log('⚓ Welcome aboard, Commander');
+        });
+
+        // Print info popup function
+        function showPrintInfo() {
+            window.open('print_manual.html', '_blank');
+        }
+
+        // Emergency surface function
+        function emergencySurface() {
+            const confirmation = confirm('EMERGENCY SURFACE PROTOCOL\n\nAre you sure you want to surface immediately?');
+            if (confirmation) {
+                document.body.style.animation = 'surfacing 2s ease-out forwards';
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            }
+        }
+
+        // Add emergency surface keyframes
+        const emergencyStyle = document.createElement('style');
+        emergencyStyle.textContent = `
+            @keyframes surfacing {
+                0% { 
+                    filter: brightness(0.8) hue-rotate(0deg);
+                    transform: translateY(0);
+                }
+                50% { 
+                    filter: brightness(1.2) hue-rotate(180deg);
+                    transform: translateY(-20px);
+                }
+                100% { 
+                    filter: brightness(2) hue-rotate(360deg);
+                    transform: translateY(-100vh);
+                }
+            }
+        `;
+        document.head.appendChild(emergencyStyle);
+
+        // Add double-click emergency surface to header
+        document.querySelector('.control-header').addEventListener('dblclick', emergencySurface);
+    </script>
+</body>
+</html>
