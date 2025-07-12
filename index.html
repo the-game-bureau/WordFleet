@@ -1,1221 +1,814 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Apple Touch Icon (Deduplicated) -->
-    <link rel="apple-touch-icon" sizes="180x180" href="src/media/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="src/media/apple-touch-icon-167x167.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="src/media/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="src/media/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="src/media/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="57x57" href="src/media/apple-touch-icon-57x57.png">
-    <!-- Precomposed versions (no iOS effects) -->
-    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="src/media/apple-touch-icon-180x180-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="167x167" href="src/media/apple-touch-icon-167x167-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="src/media/apple-touch-icon-152x152-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="src/media/apple-touch-icon-120x120-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="src/media/apple-touch-icon-76x76-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="src/media/apple-touch-icon-57x57-precomposed.png">
-    <!-- Safari Pinned Tab -->
-    <link rel="mask-icon" href="src/media/safari-pinned-tab.svg" color="#5bbad5">
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="src/media/wf.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WORD FLEET - Naval Combat Strategy Meets Word Mastery</title>
-    <meta property="og:title" content="WORD FLEET">
-    <meta property="og:description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
-    <meta property="og:image" content="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet-social.png">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://the-game-bureau.github.io/WordFleet/">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="WORD FLEET">
-    <meta name="twitter:description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
-    <meta name="twitter:image" content="https://the-game-bureau.github.io/WordFleet/src/media/wordfleet-social.png">
-    <meta name="description" content="The timeless appeal of naval combat strategy meets modern word puzzle mastery. Every letter is a weapon. Every word is an attack. Every victory demands both tactical brilliance and linguistic skill.">
+    <title>WORD FLEET - Pen & Paper Mode</title>
+    <link rel="icon" type="image/x-icon" href="src/media/wf.ico">
+    
     <!-- Fonts -->
-    <link href="https://fonts.cdnfonts.com/css/clear-sans" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/lcd-7" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
-        :root {
-            --battleship-gray: #4a535a;
-            --ocean-blue: #22303c;
-            --tile-green: #6aaa64;
-            --white: #ffffff;
-            --gold: #d4af37;
-            --navy-blue: #1a2a3a;
-            --emerald: #50c878;
-            --crimson: #dc143c;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
+        :root {
+            --green-50: #f0fdf4;
+            --green-100: #dcfce7;
+            --green-500: #6aaa64;
+            --green-600: #5a9454;
+            --green-700: #4a7c59;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --gold: #d4af37;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: 
-                linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(26, 42, 58, 0.6) 100%),
-                radial-gradient(ellipse at top, rgba(80, 200, 120, 0.1) 0%, transparent 50%),
-                url('src/media/word_fleet_banner_1600x400.png');
-            background-size: cover, cover, cover;
-            background-position: center, center, center -200px;
-            background-repeat: no-repeat;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--gray-900) 0%, #0f1419 100%);
+            color: white;
             min-height: 100vh;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Animated background waves */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, transparent 0%, rgba(106, 170, 100, 0.05) 50%, transparent 100%);
-            animation: waveFlow 8s ease-in-out infinite;
-            pointer-events: none;
-            z-index: -1;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
         }
 
-        @keyframes waveFlow {
-            0%, 100% { transform: translateX(-100%); }
-            50% { transform: translateX(100%); }
-        }
-
-        /* Header */
-        .wordle-header {
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 255, 255, 0.12);
-            border-radius: 0;
-            padding: 16px 0 12px 0;
+        .header {
             text-align: center;
-            width: 100%;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.12),
-                0 0 0 1px rgba(106, 170, 100, 0.08);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            margin-bottom: 3rem;
         }
 
-        .wordle-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent 0%, rgba(106, 170, 100, 0.1) 50%, transparent 100%);
-            animation: headerShimmer 6s ease-in-out infinite;
-            z-index: 0;
-        }
-
-        @keyframes headerShimmer {
-            0% { left: -100%; }
-            50% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        .wordle-title {
+        .logo-tiles {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap;
-            padding: 0 20px;
-            position: relative;
-            z-index: 1;
+            gap: 2px;
+            margin-bottom: 1.5rem;
+            flex-wrap: nowrap;
+            padding: 0 1rem;
         }
 
-        .wordle-word {
-            display: flex;
-            gap: 4px;
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
-        }
-
-        .wordle-tile {
-            width: clamp(38px, 7vw, 54px);
-            height: clamp(38px, 7vw, 54px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: clamp(18px, 3.5vw, 26px);
-            font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
-            font-weight: 700;
-            border-radius: 4px;
-            background: linear-gradient(135deg, #6aaa64 0%, #5a9454 100%);
-            color: #ffffff;
-            text-transform: uppercase;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            animation: tileFloat 3s ease-in-out infinite;
-            animation-delay: calc(var(--index) * 0.1s);
-        }
-
-        .wordle-tile:nth-child(1) { --index: 0; }
-        .wordle-tile:nth-child(2) { --index: 1; }
-        .wordle-tile:nth-child(3) { --index: 2; }
-        .wordle-tile:nth-child(4) { --index: 3; }
-        .wordle-tile:nth-child(5) { --index: 4; }
-        .wordle-tile:nth-child(6) { --index: 5; }
-        .wordle-tile:nth-child(7) { --index: 6; }
-        .wordle-tile:nth-child(8) { --index: 7; }
-        .wordle-tile:nth-child(9) { --index: 8; }
-        .wordle-tile:nth-child(10) { --index: 9; }
-
-        @keyframes tileFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-2px); }
-        }
-
-        .wordle-tile::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
-            transition: left 0.6s ease;
-        }
-
-        .wordle-tile:hover::before {
-            left: 100%;
-        }
-
-        .wordle-tile.blank {
-            background: transparent;
-            border: 0;
-            color: transparent;
-            animation: none;
-        }
-
-        .header-tagline {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: clamp(0.9rem, 3.2vw, 1.1rem);
-            margin-top: 12px;
-            font-weight: 700;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-            position: relative;
-            z-index: 1;
-        }
-
-        .header-tagline a {
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-            padding-bottom: 1px;
-        }
-
-        .header-tagline a:hover {
-            color: var(--gold);
-            border-bottom-color: var(--gold);
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
-
-        /* Header Navigation */
-        .header-nav {
-            margin-top: 16px;
-            display: flex;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .rules-nav-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: clamp(0.85rem, 2.8vw, 0.95rem);
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .rules-nav-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
-            transition: left 0.6s ease;
-        }
-
-        .rules-nav-btn:hover {
-            transform: translateY(-2px);
-            background: rgba(212, 175, 55, 0.15);
-            border-color: rgba(212, 175, 55, 0.4);
-            color: var(--gold);
-            box-shadow: 
-                0 12px 35px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(212, 175, 55, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .rules-nav-btn:hover::before {
-            left: 100%;
-        }
-
-        .nav-icon {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .nav-text {
-            font-family: inherit;
-            white-space: nowrap;
-        }
-
-        .nav-chevron {
-            font-size: 0.9em;
-            opacity: 0.7;
-            transition: transform 0.3s ease;
-        }
-
-        .rules-nav-btn:hover .nav-chevron {
-            transform: translateX(3px);
-            opacity: 1;
-        }
-
-        /* Main Content */
-        .main-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            width: 100%;
-        }
-
-        .form-card {
-            width: 100%;
-            max-width: 600px;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 32px 28px;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15),
-                0 0 0 1px rgba(106, 170, 100, 0.1);
-            transition: all 0.4s ease;
-        }
-
-        .form-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 
-                0 25px 80px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                0 0 0 1px rgba(106, 170, 100, 0.2);
-            border-color: rgba(255, 255, 255, 0.25);
-        }
-
-        .form-title {
-            font-size: clamp(1.2rem, 3.8vw, 1.5rem);
-            font-weight: 700;
-            color: #ffffff;
-            text-align: center;
-            margin: 0 0 8px 0;
-            padding-bottom: 12px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.15);
-            letter-spacing: 1.4px;
-            text-transform: uppercase;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-            position: relative;
-        }
-
-        .form-title::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 20%;
+        .tile {
             width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--emerald), var(--tile-green));
-            border-radius: 2px;
-            animation: greenLineBounce 3s ease-in-out infinite;
-        }
-
-        @keyframes greenLineBounce {
-            0% { left: 20%; }
-            50% { left: calc(80% - 60px); }
-            100% { left: 20%; }
-        }
-
-        .card-content {
-            font-size: 0.98em;
-            color: #fff;
-            background: rgba(255,255,255,0.12);
-            border-radius: 16px;
-            padding: 16px 14px;
-            margin-bottom: 0;
-            box-shadow: 
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 4px 12px rgba(0, 0, 0, 0.1);
-            font-family: inherit;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .info-text {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            line-height: 1.6;
-            text-align: center;
-            margin: 8px 0;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .form-group {
-            margin: 0 0 12px 0;
-            text-align: left;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 18px;
-            padding: 14px 16px;
-            box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        .form-group:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.25);
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #ffffff;
-            font-size: clamp(0.95rem, 3vw, 1.05rem);
-            letter-spacing: 0.6px;
-            text-align: center;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: clamp(0.95rem, 3vw, 1.05rem);
-            background: #ffffff;
-            color: #000000;
-            outline: none;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .input-with-refresh {
-            position: relative;
+            height: 60px;
+            background-color: #6aaa64;
+            color: white;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
             display: flex;
-            align-items: center;
-        }
-
-        .input-with-refresh input {
-            padding-right: 50px;
-        }
-
-        .refresh-btn {
-            position: absolute;
-            right: 10px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 18px;
-            color: #666;
-        }
-
-        .refresh-btn:hover {
-            background: rgba(106, 170, 100, 0.2);
-            transform: rotate(180deg);
-            color: var(--tile-green);
-        }
-
-        .form-group input:focus {
-            border-color: var(--tile-green);
-            box-shadow: 
-                0 0 0 3px rgba(106, 170, 100, 0.2),
-                0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .toggle-group {
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 6px;
-            margin: 0 0 12px 0;
-            padding: 14px 16px;
-            position: relative;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 18px;
-            box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        .toggle-group:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.25);
-        }
-
-        .toggle-group-label {
-            font-size: clamp(0.95rem, 3vw, 1.05rem);
-            color: #ffffff;
-            font-weight: 600;
-            letter-spacing: 0.6px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .toggle-switch {
-            position: relative;
-            width: 50px;
-            height: 28px;
-            display: inline-block;
+            border: 2px solid #000000;
+            margin: 0;
+            box-sizing: border-box;
+            animation: float 4s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.1s);
             flex-shrink: 0;
         }
 
-        .toggle-input { 
-            opacity: 0; 
-            width: 0; 
-            height: 0; 
-            position: absolute;
+        .tile.blank {
+            background: transparent;
+            border: none;
         }
 
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #f0f0f0, #ffffff);
-            transition: all 0.3s ease;
-            border-radius: 28px;
-            border: 2px solid #e0e0e0;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
         }
 
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 2px;
-            bottom: 2px;
-            background: linear-gradient(135deg, #2a2a2a, #000000);
-            transition: all 0.3s ease;
-            border-radius: 50%;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        .tagline {
+            color: var(--gray-400);
+            font-size: 1rem;
+            margin-bottom: 1rem;
         }
 
-        .toggle-input:checked + .toggle-slider { 
-            background: linear-gradient(135deg, #2a2a2a, #000000);
-            border-color: #333;
+        .tagline a {
+            color: var(--green-500);
+            text-decoration: none;
         }
 
-        .toggle-input:checked + .toggle-slider:before { 
-            transform: translateX(22px);
-            background: linear-gradient(135deg, #f0f0f0, #ffffff);
-            box-shadow: 0 2px 6px rgba(255, 255, 255, 0.3);
+        .tagline a:hover {
+            text-decoration: underline;
         }
 
-        .toggle-label {
-            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            width: 110px;
-            text-align: center;
-            white-space: nowrap;
-            display: inline-block;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        .description {
+            color: var(--gray-300);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .toggle-label.active {
-            color: #ffffff;
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .label {
+            display: block;
+            font-size: 0.875rem;
             font-weight: 600;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            color: var(--gray-300);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .input-container {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem;
+            background: var(--gray-800);
+            border: 1px solid var(--gray-600);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--green-500);
+            box-shadow: 0 0 0 3px rgba(106, 170, 100, 0.1);
+        }
+
+        .input-button {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            background: var(--green-500);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-button:hover {
+            background: var(--green-600);
+            transform: translateY(-50%) scale(1.05);
         }
 
         .toggle-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            justify-content: center;
-            margin-top: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
         }
 
-        .action-btn {
-            color: #000000;
-            text-decoration: none;
-            padding: 14px 24px;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            border-radius: 18px;
-            font-weight: 700;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            letter-spacing: 1px;
-            cursor: pointer;
-            font-family: inherit;
-            white-space: nowrap;
-            box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            text-transform: uppercase;
-            width: 100%;
-            margin: 0;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent 0%, rgba(106, 170, 100, 0.2) 50%, transparent 100%);
-            transition: left 0.6s ease;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9);
-            border-color: rgba(106, 170, 100, 0.4);
-        }
-
-        .action-btn:hover::before {
-            left: 100%;
-        }
-
-        .action-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Future Deployments Footer */
-        .future-deployments-footer {
-            margin-top: 60px;
-            padding: 40px 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .future-deployments-footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(45deg, transparent 0%, rgba(80, 200, 120, 0.05) 50%, transparent 100%),
-                linear-gradient(-45deg, transparent 0%, rgba(212, 175, 55, 0.05) 50%, transparent 100%);
-            animation: footerWave 12s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes footerWave {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-            gap: 12px;
-        }
-
-        .divider-line {
-            height: 2px;
-            flex: 1;
-            max-width: 100px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-        }
-
-        .divider-icon {
-            font-size: 1.2rem;
-            color: var(--gold);
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
-
-        .footer-title {
-            font-size: clamp(1.3rem, 4vw, 1.8rem);
-            font-weight: 700;
-            color: var(--tile-green);
-            margin-bottom: 16px;
-            text-shadow: 0 2px 10px rgba(106, 170, 100, 0.3); /* soft green glow */
-            letter-spacing: 1px;
-        }
-
-        .footer-description {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
-            line-height: 1.6;
-            margin-bottom: 28px;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-        }
-
-        .coming-soon-text {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-
-        .coming-soon-text p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
-            margin-bottom: 8px;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-        }
-
-        .footer-battle-cry {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: clamp(0.9rem, 2.3vw, 1rem);
-            font-style: italic;
-            margin-bottom: 32px;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-        }
-
-        .footer-cta {
-            display: flex;
-            justify-content: center;
-        }
-
-        .notify-btn {
-            display: flex;
-            align-items: center;
+        .toggle-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 8px;
-            padding: 14px 24px;
-            background: rgba(212, 175, 55, 0.15);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            border-radius: 20px;
-            color: var(--gold);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            letter-spacing: 0.5px;
+            background: var(--gray-800);
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 0;
+        }
+
+        .toggle-btn {
+            padding: 0.75rem 1rem;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            color: var(--gray-400);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
             transition: all 0.3s ease;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-btn.active {
+            background: var(--green-500);
+            color: white;
+        }
+
+        .toggle-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--gray-300);
+        }
+
+        .manual-words {
+            display: none;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .manual-words.show {
+            display: grid;
+        }
+
+        .word-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .word-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-400);
+            text-transform: uppercase;
+        }
+
+        .word-input {
+            padding: 0.75rem;
+            background: var(--gray-800);
+            border: 1px solid var(--gray-600);
+            border-radius: 6px;
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .word-input:focus {
+            outline: none;
+            border-color: var(--green-500);
+        }
+
+        .btn {
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--green-500);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--green-600);
+            transform: translateY(-2px);
+        }
+
+        .preview-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            height: fit-content;
+        }
+
+        .preview-image {
+            width: 120px;
+            height: 155px;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-buttons {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .floating-btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .floating-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
         }
 
-        .notify-btn::before {
+        .floating-btn:hover {
+            background: var(--green-500);
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(106, 170, 100, 0.3);
+        }
+
+        .floating-btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.6s ease;
         }
 
-        .notify-btn:hover {
-            background: rgba(212, 175, 55, 0.25);
-            border-color: rgba(212, 175, 55, 0.5);
-            transform: translateY(-2px);
-            box-shadow: 
-                0 12px 35px rgba(0, 0, 0, 0.3),
-                0 0 20px rgba(212, 175, 55, 0.4);
-        }
-
-        .notify-btn:hover::before {
+        .floating-btn:hover::before {
             left: 100%;
         }
 
-        .notify-icon {
-            font-size: 1.1em;
-        }
-
-        .notify-text {
+        .floating-label {
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            line-height: 1.2;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             white-space: nowrap;
         }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .header-nav {
-                margin-top: 12px;
-            }
-            
-            .rules-nav-btn {
-                padding: 10px 16px;
-                font-size: clamp(0.75rem, 2.5vw, 0.85rem);
-                gap: 6px;
-                border-radius: 16px;
-            }
-
-            .main-container {
-                padding: 24px 16px;
-            }
-            
-            .form-card > *:not(:last-child) {
-                margin-bottom: 20px;
+        .footer-image {
+            margin-top: 3rem;
+            border-radius: 16px;
+            overflow: hidden;
+            opacity: 0.6;
+            width: 100%;
+            max-width: 100%;
         }
 
-            .future-deployments-footer {
-                margin-top: 40px;
-                padding: 32px 16px;
+        .footer-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .floating-buttons {
+                top: 1rem;
+                right: 1rem;
+                gap: 0.75rem;
             }
             
-            .coming-soon-text {
-                margin-bottom: 24px;
+            .floating-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 1rem;
             }
             
-            .coming-soon-text p {
-                font-size: clamp(0.85rem, 2.3vw, 0.95rem);
-                margin-bottom: 6px;
+            .floating-label {
+                font-size: 0.55rem;
             }
             
-            .footer-title {
-                margin-bottom: 12px;
+            .container {
+                padding: 1rem 0.75rem;
             }
             
-            .footer-description {
-                margin-bottom: 20px;
+            .header {
+                margin-bottom: 2rem;
             }
             
-            .footer-battle-cry {
-                margin-bottom: 24px;
+            .logo-tiles {
+                gap: 1px;
+                margin-bottom: 1rem;
+                padding: 0 0.5rem;
+            }
+            
+            .tile {
+                width: 48px;
+                height: 48px;
+                font-size: 2rem;
+                margin: 0;
+                flex-shrink: 0;
+            }
+            
+            .tagline {
+                font-size: 0.85rem;
+                margin-bottom: 0.75rem;
+                padding: 0 0.5rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+                padding: 0 0.5rem;
+            }
+            
+            .main-content {
+                gap: 1.5rem;
+            }
+            
+            .form-section,
+            .preview-section {
+                padding: 1.25rem;
+            }
+            
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+            
+            .label {
+                font-size: 0.8rem;
+                margin-bottom: 0.6rem;
+            }
+            
+            .input-container,
+            .toggle-container {
+                padding: 1.25rem;
+            }
+            
+            .input {
+                padding: 0.875rem 3rem 0.875rem 0.875rem;
+                font-size: 0.9rem;
+            }
+            
+            .input-button {
+                width: 32px;
+                height: 32px;
+                right: 6px;
+                font-size: 14px;
+            }
+            
+            .toggle-btn {
+                padding: 0.6rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            
+            .word-label {
+                font-size: 0.7rem;
+            }
+            
+            .word-input {
+                padding: 0.625rem;
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 0.875rem 1.25rem;
+                font-size: 0.9rem;
+            }
+            
+            .preview-image {
+                width: 100px;
+                height: 130px;
+            }
+            
+            .footer-image {
+                margin-top: 3rem;
+                border-radius: 12px;
             }
         }
 
         @media (max-width: 480px) {
-            .header-nav {
-                margin-top: 8px;
+            .container {
+                padding: 0.75rem 0.5rem;
             }
             
-            .rules-nav-btn {
-                padding: 8px 12px;
-                font-size: clamp(0.7rem, 2.2vw, 0.8rem);
-                gap: 4px;
-                border-radius: 12px;
-                letter-spacing: 0.5px;
+            .logo-tiles {
+                gap: 1px;
+                padding: 0 0.25rem;
             }
             
-            .nav-icon {
-                font-size: 1em;
-            }
-
-            .main-container {
-                padding: 16px 12px;
-            }
-            
-            .form-card {
-                padding: 20px 16px;
-                border-radius: 16px;
-            }
-
-            .future-deployments-footer {
-                margin-top: 32px;
-                padding: 24px 12px;
+            .tile {
+                width: 42px;
+                height: 42px;
+                font-size: 1.8rem;
+                margin: 0;
+                flex-shrink: 0;
             }
             
-            .coming-soon-text {
-                margin-bottom: 20px;
+            .tagline {
+                font-size: 0.75rem;
+                line-height: 1.4;
             }
             
-            .coming-soon-text p {
-                font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-                margin-bottom: 4px;
+            .description {
+                font-size: 0.9rem;
+                line-height: 1.5;
             }
             
-            .notify-btn {
-                padding: 12px 18px;
-                font-size: clamp(0.8rem, 2.8vw, 0.9rem);
+            .main-content {
+                gap: 1.25rem;
+            }
+            
+            .form-section,
+            .preview-section {
+                padding: 1rem;
+            }
+            
+            .input-container,
+            .toggle-container {
+                padding: 1rem;
+            }
+            
+            .input {
+                padding: 0.75rem 2.75rem 0.75rem 0.75rem;
+                font-size: 0.85rem;
+            }
+            
+            .input-button {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+            
+            .toggle-btn {
+                padding: 0.5rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            
+            .word-input {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+            
+            .btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .preview-image {
+                width: 85px;
+                height: 110px;
+            }
+            
+            .floating-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+            
+            .floating-label {
+                font-size: 0.5rem;
             }
         }
-
-        /* Loading Animation */
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-left: 8px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Success/Error States */
-        .form-card.success {
-            border-color: var(--emerald) !important;
-            background: rgba(80, 200, 120, 0.1) !important;
-            animation: successPulse 2s ease-in-out;
-        }
-
-        .form-card.error {
-            border-color: var(--crimson) !important;
-            background: rgba(220, 20, 60, 0.1) !important;
-            animation: errorShake 0.5s ease-in-out;
-        }
-
-        @keyframes successPulse {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(80, 200, 120, 0.3);
-            }
-            50% { 
-                box-shadow: 0 0 40px rgba(80, 200, 120, 0.6);
-            }
-        }
-
-        @keyframes errorShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        /* Accessibility */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        *:focus {
-            outline: 2px solid var(--tile-green);
-            outline-offset: 2px;
-        }
-
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-        .button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 12px;
-}
     </style>
 </head>
 <body>
-    <header class="wordle-header">
-        <div class="wordle-title">
-            <div class="wordle-word">
-                <div class="wordle-tile">W</div>
-                <div class="wordle-tile">O</div>
-                <div class="wordle-tile">R</div>
-                <div class="wordle-tile">D</div>
-                <div class="wordle-tile blank"></div>
-                <div class="wordle-tile">F</div>
-                <div class="wordle-tile">L</div>
-                <div class="wordle-tile">E</div>
-                <div class="wordle-tile">E</div>
-                <div class="wordle-tile">T</div>
-            </div>
-        </div>
-        <p class="header-tagline">by Kevin Kolb • <a href="https://thegamebureau.com/wrdflt" target="_blank" rel="noopener">thegamebureau.com/wrdflt</a></p>
-    </header>
-
-    <main class="main-container">
-        <span class="sr-only">Word Fleet - Naval word combat strategy game</span>
-        
-        <form class="form-card" id="penPaperForm" action="tracker.html" method="GET" onsubmit="return handlePrintSubmit(event)">
-            <h2 class="form-title">📋 Pen &amp; Paper Mode</h2>
-            <div class="card-content">
-                <p class="info-text">So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!</p>
-                
-                <div class="form-group">
-                    <label for="player1Name">Name Your Fleet</label>
-                    <div class="input-with-refresh">
-                        <input type="text" name="fleet" id="player1Name" value="" autocomplete="off" required pattern=".{0,30}" title="Fleet name can contain letters, numbers, spaces, special characters, and emojis (max 30 characters)" placeholder="Enter your fleet name...">
-                        <button type="button" class="refresh-btn" onclick="regenerateFleetName()" title="Generate new fleet name" aria-label="Generate new fleet name">
-                            🔄
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="toggle-group">
-                    <span class="toggle-group-label">Word-Ships</span>
-                    <div class="toggle-container">
-                        <span class="toggle-label" id="pickWordsLabel">Pick Your Own</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" name="words" id="autoGen" class="toggle-input" value="true" checked aria-describedby="wordship-help">
-                            <span class="toggle-slider"></span>
-                        </label>
-                        <span class="toggle-label active" id="autoGenLabel">Auto-Generated</span>
-                    </div>
-                </div>
-                
-<div class="button-group">
-    <button type="submit" class="action-btn" id="printBtn">
-        <span>Launch Battle Tracker</span>
-    </button>
-
-    <a href="rules.html" class="action-btn" title="Learn the complete rules of naval word combat">
-        <span>Rules of Engagement</span>
-    </a>
-</div>
-            </div>
-        </form>
-    </main>
-
-    <footer class="future-deployments-footer">
-        <div class="footer-content">
-            <div class="footer-divider">
-                <div class="divider-line"></div>
-                <div class="divider-icon">🔱</div>
-                <div class="divider-line"></div>
+    <div class="container">
+        <header class="header">
+            <div class="logo-tiles">
+                <div class="tile" style="--i: 0">W</div>
+                <div class="tile" style="--i: 1">O</div>
+                <div class="tile" style="--i: 2">R</div>
+                <div class="tile" style="--i: 3">D</div>
+                <div class="tile blank" style="--i: 4"></div>
+                <div class="tile" style="--i: 5">F</div>
+                <div class="tile" style="--i: 6">L</div>
+                <div class="tile" style="--i: 7">E</div>
+                <div class="tile" style="--i: 8">E</div>
+                <div class="tile" style="--i: 9">T</div>
             </div>
             
-            <h3 class="footer-title">Future Deployments</h3>
-            <div class="coming-soon-text">
-                <p><strong>🎮 Simulator Mode</strong></p>
-                <p><strong>🏆 Tournament Mode</strong></p>
-                <p><strong>📱 Mobile App Combat</strong></p>
-                <p><strong>💬 SMS Battle System</strong></p>
-                <p><strong>🤖 AI Admiral Challenges</strong></p>
-                <p><strong>🌐 Online Multiplayer</strong></p>
-                <p><strong>⚔️ Ranked Battles</strong></p>
-            </div>
-            <p class="footer-battle-cry">
-                <strong>Word Fleet: Where Battleship Meets Wordle!</strong>
+            <p class="tagline">
+                Pen & Paper Mode • by Kevin Kolb • 
+                <a href="https://the-game-bureau.github.io/WordFleet" target="_blank">the-game-bureau.github.io/WordFleet</a>
             </p>
-        </div>
-    </footer>
-    <script>
-        // Enhanced Fleet Name Generation
-        function regenerateFleetName() {
-            const adjectives = [
-                "Royal", "Ironclad", "Storm", "Thunder", "Valiant", "Silent", "Golden", "Shadow", "Crimson", "Emerald", 
-                "Swift", "Tempest", "Grand", "Phantom", "Mighty", "Fierce", "Noble", "Stealthy", "Bold", "Radiant",
-                "Majestic", "Fearless", "Gallant", "Vigilant", "Glorious", "Spectral", "Celestial", "Obsidian", "Azure",
-                "Scarlet", "Titanic", "Ancient", "Invincible", "Relentless", "Indomitable", "Mercury", "Solar", "Lunar",
-                "Arctic", "Savage", "Legendary", "Notorious", "Dreaded", "Cursed", "Ghostly", "Secret", "Wandering",
-                "Untamed", "Treacherous", "Heroic", "Intrepid", "Dauntless", "Windward", "Starborn", "Blazing", "Thunderous"
-            ];
             
-            const nouns = [
-                "Fleet", "Armada", "Squadron", "Flotilla", "Task Force", "Division", "Wing", "Patrol", "Wolfpack",
-                "Battlegroup", "Expedition", "Convoy", "Formation", "Brotherhood", "Corsairs", "Raiders", "Privateers",
-                "Mariners", "Navigators", "Voyagers", "Defenders", "Guardians", "Sentinels", "Champions", "Titans",
-                "Dragons", "Eagles", "Wolves", "Phoenixes", "Leviathans", "Serpents", "Riders", "Vanguard", "Tempest",
-                "Thunder", "Storm", "Lightning", "Tide", "Wave", "Depths", "Horizon", "Destiny", "Victory", "Honor",
-                "Glory", "Legacy", "Dynasty", "Empire", "Dominion", "Reign", "Saga", "Legend", "Myth", "Force"
-            ];
-            
-            const input = document.getElementById('player1Name');
-            if (input) {
-                const refreshBtn = document.querySelector('.refresh-btn');
-                
-                // Add loading state
-                if (refreshBtn) {
-                    refreshBtn.style.transform = 'rotate(180deg)';
-                    refreshBtn.style.color = 'var(--tile-green)';
-                }
-                
-                // Generate new name
-                setTimeout(() => {
-                    let attempts = 0;
-                    let newName = "";
-                    const currentName = input.value;
-                    
-                    do {
-                        const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-                        const noun = nouns[Math.floor(Math.random() * nouns.length)];
-                        newName = adj + " " + noun;
-                        attempts++;
-                    } while (newName === currentName && attempts < 10);
-                    
-                    // Animate the input change
-                    input.style.transition = 'all 0.3s ease';
-                    input.style.transform = 'scale(0.95)';
-                    
-                    setTimeout(() => {
-                        input.value = newName;
-                        input.style.transform = 'scale(1)';
+            <p class="description">
+                So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!
+            </p>
+        </header>
+
+        <div class="main-content">
+            <form class="form-section" id="gameForm" action="tracker.html" method="GET" onsubmit="return handleSubmit(event)">
+                <div class="form-group">
+                    <label for="fleetName" class="label">Fleet Name</label>
+                    <div class="input-container">
+                        <div class="input-group">
+                            <input 
+                                type="text" 
+                                id="fleetName" 
+                                name="fleet" 
+                                class="input" 
+                                placeholder="Enter your fleet name..."
+                                maxlength="30"
+                                required
+                            >
+                            <button type="button" class="input-button" onclick="generateFleetName()" title="Generate random fleet name">
+                                🎲
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Word-Ships Configuration</label>
+                    <div class="toggle-container">
+                        <div class="toggle-buttons">
+                            <button type="button" class="toggle-btn active" id="autoBtn" onclick="setMode('auto')">
+                                Auto-Generated
+                            </button>
+                            <button type="button" class="toggle-btn" id="manualBtn" onclick="setMode('manual')">
+                                Manual Selection
+                            </button>
+                        </div>
                         
-                        // Reset refresh button
-                        if (refreshBtn) {
-                            refreshBtn.style.transform = '';
-                            refreshBtn.style.color = '';
-                        }
-                    }, 150);
-                }, 200);
+                        <div class="manual-words" id="manualWords">
+                            <div class="word-group">
+                                <label class="word-label">KETCH • 5-Letter Wordship</label>
+                                <input type="text" class="word-input" maxlength="5" placeholder="Enter 5 letters..." name="word5">
+                            </div>
+                            <div class="word-group">
+                                <label class="word-label">SHIP • 4-Letter Wordship</label>
+                                <input type="text" class="word-input" maxlength="4" placeholder="Enter 4 letters..." name="word4">
+                            </div>
+                            <div class="word-group">
+                                <label class="word-label">SUB • 3-Letter Wordship</label>
+                                <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3a">
+                            </div>
+                            <div class="word-group">
+                                <label class="word-label">ARK • 3-Letter Wordship</label>
+                                <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3b">
+                            </div>
+                            <div class="word-group">
+                                <label class="word-label">PT • 2-Letter Wordship</label>
+                                <input type="text" class="word-input" maxlength="2" placeholder="Enter 2 letters..." name="word2">
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" id="wordsMode" name="words" value="true">
+                    </div>
+                </div>
+            </form>
+
+            <div class="preview-section">
+                <div class="preview-image">
+                    <img src="src/media/preview.png" alt="Battle Tracker Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                </div>
+                
+                <button type="submit" form="gameForm" class="btn btn-primary" style="margin-top: 1.5rem; width: 100%;">
+                    🚀 Launch Battle Tracker
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-buttons">
+        <div class="floating-btn-container">
+            <a href="rules.html" class="floating-btn">
+                📖
+            </a>
+            <div class="floating-label">Rules</div>
+        </div>
+        <div class="floating-btn-container">
+            <button class="floating-btn" onclick="showFutureDeployments()">
+                🚀
+            </button>
+            <div class="floating-label">Future</div>
+        </div>
+    </div>
+
+    <div class="footer-image">
+        <img src="src/media/word_fleet_banner_1600x400.png" alt="Word Fleet Naval Battle Scene">
+    </div>
+
+    <script>
+        const fleetNames = {
+            adjectives: [
+                "Storm", "Thunder", "Lightning", "Tempest", "Royal", "Imperial", 
+                "Shadow", "Phantom", "Crimson", "Golden", "Iron", "Steel", 
+                "Swift", "Rapid", "Legendary", "Mythical", "Arctic", "Solar"
+            ],
+            nouns: [
+                "Fleet", "Armada", "Squadron", "Flotilla", "Battlegroup", 
+                "Division", "Raiders", "Corsairs", "Guardians", "Titans", 
+                "Eagles", "Wolves", "Storm", "Thunder", "Voyagers"
+            ]
+        };
+
+        let currentMode = 'auto';
+
+        function generateFleetName() {
+            const adj = fleetNames.adjectives[Math.floor(Math.random() * fleetNames.adjectives.length)];
+            const noun = fleetNames.nouns[Math.floor(Math.random() * fleetNames.nouns.length)];
+            const input = document.getElementById('fleetName');
+            const button = document.querySelector('.input-button');
+            
+            button.style.transform = 'translateY(-50%) rotate(180deg) scale(1.2)';
+            
+            setTimeout(() => {
+                input.value = `${adj} ${noun}`;
+                button.style.transform = 'translateY(-50%)';
+            }, 200);
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            const manualBtn = document.getElementById('manualBtn');
+            const autoBtn = document.getElementById('autoBtn');
+            const manualWords = document.getElementById('manualWords');
+            const wordsMode = document.getElementById('wordsMode');
+            
+            if (mode === 'manual') {
+                manualBtn.classList.add('active');
+                autoBtn.classList.remove('active');
+                manualWords.classList.add('show');
+                wordsMode.value = 'false';
+            } else {
+                autoBtn.classList.add('active');
+                manualBtn.classList.remove('active');
+                manualWords.classList.remove('show');
+                wordsMode.value = 'true';
             }
         }
 
-        // Enhanced form submission with better UX
-        function handlePrintSubmit(event) {
-            const form = event.target;
-            const submitBtn = form.querySelector('.action-btn');
-            const fleetInput = form.querySelector('#player1Name');
+        function handleSubmit(event) {
+            const fleetInput = document.getElementById('fleetName');
+            const submitBtn = event.target.querySelector('.btn-primary');
             
-            // Validation
             if (!fleetInput.value.trim()) {
                 event.preventDefault();
-                form.classList.add('error');
                 fleetInput.focus();
-                
-                setTimeout(() => {
-                    form.classList.remove('error');
-                }, 500);
-                
+                fleetInput.style.borderColor = '#ef4444';
+                setTimeout(() => fleetInput.style.borderColor = '', 2000);
                 return false;
             }
             
-            // Add loading state
-            if (submitBtn) {
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<span>🚀 Deploying Fleet...</span><div class="loading-spinner"></div>';
-                submitBtn.disabled = true;
-                
-                // Add success state
-                form.classList.add('success');
-                
-                // Reset after delay (in case of navigation issues)
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                    form.classList.remove('success');
-                }, 3000);
-            }
+            submitBtn.innerHTML = '🚀 Deploying Fleet...';
+            submitBtn.style.opacity = '0.7';
             
             return true;
         }
 
-        // Enhanced toggle functionality
-        function setupToggle() {
-            const toggle = document.getElementById('autoGen');
-            const pickLabel = document.getElementById('pickWordsLabel');
-            const autoLabel = document.getElementById('autoGenLabel');
-            
-            if (toggle && pickLabel && autoLabel) {
-                function updateLabels() {
-                    if (toggle.checked) {
-                        autoLabel.classList.add('active');
-                        pickLabel.classList.remove('active');
-                    } else {
-                        pickLabel.classList.add('active');
-                        autoLabel.classList.remove('active');
-                    }
-                }
-                
-                toggle.addEventListener('change', updateLabels);
-                updateLabels(); // Set initial state
-            }
+        function showFutureDeployments() {
+            alert('🚀 Future Deployments Coming Soon!\n\n• 🎮 Simulator Mode\n• 🏆 Tournament Mode\n• 📱 Mobile App Combat\n• 💬 SMS Battle System\n• 🤖 AI Admiral Challenges\n• 🌐 Online Multiplayer\n• ⚔️ Ranked Battles\n\nStay tuned for updates!');
         }
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Generate initial fleet name
-            regenerateFleetName();
-            
-            // Setup toggle
-            setupToggle();
-            
-            // Add form validation
-            const fleetInput = document.getElementById('player1Name');
-            if (fleetInput) {
-                fleetInput.addEventListener('input', function() {
-                    const form = this.closest('.form-card');
-                    if (this.value.length > 30) {
-                        this.value = this.value.substring(0, 30);
-                    }
-                    
-                    // Remove error state on valid input
-                    if (this.value.trim()) {
-                        form.classList.remove('error');
-                    }
-                });
-            }
-        });
-
-        // Enhanced error handling
-        window.addEventListener('error', function(e) {
-            console.warn('Word Fleet:', e.message);
+        document.addEventListener('DOMContentLoaded', () => {
+            generateFleetName();
+            setMode('auto');
         });
     </script>
 </body>

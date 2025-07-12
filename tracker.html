@@ -1,152 +1,1645 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>WORD FLEET • Pen & Paper Mode • Attack Tracker</title>
-  <link rel="icon" type="image/x-icon" href="/src/media/wf.ico">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      width: 8.5in;
-      background: #f0f0f0;
-      font-family: Arial, sans-serif;
-    }
-    .page {
-      width: 8.5in;
-      height: 5in;
-      margin: 1in auto;
-      background: white;
-      position: relative;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .offense {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5in;
-    }
-    .offense-grid {
-      display: grid;
-      grid-template-columns: repeat(11, 1fr);
-      grid-template-rows: repeat(11, 1fr);
-      border: 1px solid #ccc;
-      width: 4.5in;
-      height: 4.2in;
-    }
-    .offense-cell {
-      border: 1px solid #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 16px;
-    }
-    .bubble-number {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background-color: white;
-      border: 2px solid #333;
-      font-weight: bold;
-      font-size: 11px;
-    }
-    .launch-codes-stamp {
-      width: 1.2in;
-      height: 1.2in;
-      border: 2px solid black;
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: Courier New, monospace;
-      font-size: 12px;
-      transform: rotate(-8deg);
-    }
-    .toolbar {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: white;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      padding: 12px;
-      display: flex;
-      gap: 10px;
-      z-index: 100;
-    }
-    .toolbar-btn {
-      padding: 8px 16px;
-      font-size: 14px;
-      cursor: pointer;
-      background: #eee;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    .toolbar-btn:hover {
-      background: #ddd;
-    }
-    @media print {
-      .toolbar { display: none !important; }
-      .stamp-text {
-        color: #000 !important;
-        background: none !important;
-        z-index: 9999 !important;
-        font-weight: bold !important;
-        opacity: 1 !important;
-      }
-      .stamp-container {
-        background: none !important;
-        box-shadow: none !important;
-        border-color: #000 !important;
-      }
-      .stamp-inner-border {
-        display: none !important;
-      }
-      .launch-codes-stamp {
-        transform: none !important;
-      }
-    }
-  </style>
+<head>    <meta charset="UTF-8">
+    <title>WORD FLEET • Pen & Paper Mode • Battle Tracker</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/src/media/wf.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        
+        body {
+            width: 8.5in;
+            margin: 1.5in auto;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            min-height: 100vh;
+        }
+
+        .page {
+            width: 8.5in;
+            height: 11in;
+            margin: 0 auto;
+            padding: 0;
+            background: white;
+            position: relative;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            display: none; /* Hide the page content */
+        }
+
+        .toolbar {
+            display: none; /* Hide the toolbar */
+        }
+
+        /* Print Styles */
+        @media print {
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 8.5in;
+                background: white;
+                min-height: auto;
+            }
+
+            .page {
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                width: 100% !important;
+                max-width: 8.5in !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100% !important;
+                height: auto !important;
+                background: #fff !important;
+                min-height: auto;
+                color: #000 !important;
+            }
+            .middle-header, .offense, .defense {
+                position: static !important;
+                width: 100% !important;
+                height: auto !important;
+                left: auto !important;
+                top: auto !important;
+                background: #fff !important;
+                color: #000 !important;
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .middle-header {
+                border: 2px solid #333 !important;
+                border-radius: 8px !important;
+                background: #fff !important;
+            }
+            .middle-header::before,
+            .middle-header::after {
+                background: none !important;
+                border: none !important;
+                content: none !important;
+            }
+            .header-content, .header-line-2, .system-info {
+                color: #000 !important;
+                background: #fff !important;
+                text-shadow: none !important;
+            }
+            .defense-grid, .offense-grid {
+                width: 100% !important;
+                height: auto !important;
+                background: #fff !important;
+                box-shadow: none !important;
+            }
+            .defense-cell, .offense-cell {
+                background: #fff !important;
+                color: #000 !important;
+                border-color: #000 !important;
+            }
+            .defense-manifest-item, .offense-manifest-item {
+                background: #fff !important;
+                color: #000 !important;
+                border-color: #000 !important;
+            }
+            .defense-manifest-item[data-vowel="true"]::before,
+            .offense-manifest-item[data-vowel="true"]::before {
+                background: #eee !important;
+            }
+            .toolbar, .print-dialog-overlay, .print-dialog, .loading-overlay {
+                display: none !important;
+            }
+            @page {
+                size: A4 portrait;
+                margin: 0.25in;
+            }
+        }
+
+        /* Offense Section */
+        .offense {
+            width: 8.5in;
+            height: 5in;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0.5in;
+            padding-top: 0.25in;
+        }
+
+        .offense-grid-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.15in;
+        }
+
+        .offense-grid-label {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .offense-grid {
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            grid-template-rows: repeat(11, 1fr);
+            gap: 2px;
+            width: 4.5in;
+            height: 4.2in;
+            padding: 2px;
+            border: 1px solid #ddd;
+        }
+
+        .offense-cell {
+            background-color: white;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .offense-cell:first-child {
+            background-color: transparent !important;
+            background: none !important;
+            border: none;
+            box-shadow: none;
+        }
+
+        .bubble-number {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #333;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .word-ship {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+
+        .ship-bullet {
+            color: #333;
+            margin: 0 4px;
+        }
+
+        /* Rubber Stamp Styles */
+        .launch-codes-stamp {
+            position: absolute;
+            left: 5.1in;
+            bottom: 0.2in;
+            width: 1.1in;
+            height: 1.1in;
+            transform: rotate(-8deg);
+            z-index: 10;
+        }
+
+        .stamp-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: 3px solid #1a1a1a;
+            border-radius: 50%;
+            box-shadow: 
+                inset 0 0 0 1px #1a1a1a,
+                0 1px 2px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .stamp-container::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 1px dotted #1a1a1a;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .stamp-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .stamp-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            font-weight: bold;
+            color: #1a1a1a;
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: 0px;
+            width: 70%;
+        }
+
+        .stamp-label {
+            font-size: 8px;
+            margin-bottom: 3px;
+            letter-spacing: 0px;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stamp-codes {
+            font-size: 13px;
+            letter-spacing: 0px;
+            font-weight: 900;
+            display: block;
+            margin-top: 3px;
+        }
+
+        /* Middle Header */
+        .middle-header {
+            width: 8in;
+            height: 1in;
+            position: absolute;
+            top: 5in;
+            left: 0.25in;
+            display: flex;            
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 8px;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .middle-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.03) 2px,
+                    rgba(0, 0, 0, 0.03) 4px
+                );
+            pointer-events: none;
+        }
+
+        .middle-header::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .system-status {
+            font-family: 'Courier New', 'Andale Mono', 'Lucida Console', 'Liberation Mono', monospace;
+            font-size: 9px;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .header-line-2 {
+            font-family: 'Courier New', 'Andale Mono', 'Lucida Console', 'Liberation Mono', monospace;
+            font-size: 22px;
+            font-weight: 900;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+            white-space: nowrap;
+            letter-spacing: 3px;
+            color: #000;
+            text-transform: uppercase;
+            max-width: 8in;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }        
+
+        .system-info {
+            font-family: 'Courier New', 'Andale Mono', 'Lucida Console', 'Liberation Mono', monospace;
+            font-size: 12pt;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            font-weight: bold;
+        }        
+
+        .word-box {
+            display: block;
+        }
+
+        .word-box.hidden {
+            display: none;
+        }
+
+        /* Defense Section */
+        .defense {
+            width: 8.5in;
+            height: 5in;
+            position: absolute;
+            top: 6in;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0.5in;
+            padding-top: 0.25in;
+        }
+
+        .defense-grid-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.15in;
+        }
+
+        .defense-grid-label {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .defense-grid-title {
+            flex-shrink: 0;
+        }
+
+        .defense-grid-ships {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .defense-grid {
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            grid-template-rows: repeat(11, 1fr);
+            gap: 2px;
+            width: 4.5in;
+            height: 4.2in;
+            padding: 2px;
+            border: 1px solid #ddd;
+        }
+
+        .defense-cell {
+            background-color: white;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .defense-cell:first-child {
+            background-color: transparent !important;
+            background: none !important;
+            border: none;
+            box-shadow: none;
+        }
+
+        /* Floating Toolbar - MOBILE RESPONSIVE */
+        .toolbar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .toolbar:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .toolbar-btn {
+            color: #000000;
+            text-decoration: none;
+            padding: 10px 18px;
+            background: #f5f5f5;
+            border: 1px solid #cccccc;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .toolbar-btn:hover,
+        .toolbar-btn:focus {
+            background: #e5e5e5;
+            border-color: #999999;
+            color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            outline: none;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Mobile Responsive Styles for Toolbar */
+        @media screen and (max-width: 768px) {
+            .toolbar {
+                position: fixed;
+                bottom: 20px;
+                top: auto;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                flex-direction: column;
+                width: auto;
+                min-width: 200px;
+                max-width: 90vw;
+                padding: 16px;
+                gap: 12px;
+            }
+
+            .toolbar-btn {
+                width: 100%;
+                padding: 14px 20px;
+                font-size: 0.9rem;
+                border-radius: 12px;
+                white-space: normal;
+                text-align: center;
+                min-height: 48px;
+            }
+
+            .toolbar-btn:hover,
+            .toolbar-btn:focus {
+                transform: none;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .toolbar {
+                bottom: 15px;
+                left: 15px;
+                right: 15px;
+                transform: none;
+                width: auto;
+                max-width: none;
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .toolbar-btn {
+                padding: 12px 16px;
+                font-size: 0.8rem;
+                min-height: 44px;
+                border-radius: 10px;
+            }
+        }
+
+        /* Very small screens */
+        @media screen and (max-width: 360px) {
+            .toolbar {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .toolbar-btn {
+                padding: 10px 14px;
+                font-size: 0.75rem;
+                min-height: 40px;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        .dialog-btn {
+            color: #000000;
+            text-decoration: none;
+            padding: 10px 18px;
+            background: #f5f5f5;
+            border: 1px solid #cccccc;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+            min-width: 140px;
+        }
+
+        .dialog-btn:hover {
+            background: #e5e5e5;
+            border-color: #999999;
+            color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            outline: none;
+        }
+
+        .dialog-btn.primary {
+            background: #f5f5f5;
+            color: #000000;
+            border: 1px solid #cccccc;
+        }
+
+        .dialog-btn.primary:hover {
+            background: #e5e5e5;
+            border-color: #999999;
+            color: #000000;
+        }
+
+        .dialog-btn.secondary {
+            background: #f5f5f5;
+            color: #000000;
+            border: 1px solid #cccccc;
+        }
+
+        .dialog-btn.secondary:hover {
+            background: #e5e5e5;
+            border-color: #999999;
+            color: #000000;
+        }
+
+        .dialog-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            padding: 0 12px;
+        }
+
+        /* Mobile responsive styles for dialog buttons */
+        @media screen and (max-width: 480px) {
+            .dialog-buttons {
+                flex-direction: column;
+                gap: 10px;
+                padding: 0;
+            }
+
+            .dialog-btn {
+                min-width: auto;
+                width: 100%;
+                padding: 12px 16px;
+                font-size: 0.85rem;
+                border-radius: 10px;
+            }
+
+            .dialog-btn:hover {
+                transform: none;
+            }
+        }
+
+        .offense-letter-manifest {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.15in;
+            margin-top: 0.03in;
+        }
+
+        .offense-manifest-title {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+        }
+
+        .offense-manifest-container {
+            display: flex;
+            justify-content: center;
+            width: 2.5in;
+            height: 4.2in;
+            padding: 0.1in;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        .offense-manifest-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.06in;
+            width: 100%;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .offense-manifest-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.04in;
+        }
+
+        /* Updated split tile styles for offense manifest */
+        .offense-manifest-item {
+            width: 0.42in;
+            height: 0.42in;
+            position: relative;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .offense-manifest-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, white 50%, white 50%);
+            z-index: 1;
+        }
+
+        .offense-manifest-item[data-vowel="true"]::before {
+            background: linear-gradient(135deg, #d0d0d0 50%, white 50%);
+        }
+
+        .offense-manifest-letter {
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            z-index: 2;
+            line-height: 1;
+        }
+
+        .defense-letter-manifest {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.15in;
+        }
+
+        .defense-manifest-title {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+        }
+
+        .defense-manifest-container {
+            display: flex;
+            justify-content: center;
+            width: 2.5in;
+            height: 4.2in;
+            padding: 0.1in;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        .defense-manifest-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.06in;
+            width: 100%;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .defense-manifest-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.04in;
+        }
+
+        /* Updated split tile styles for defense manifest */
+        .defense-manifest-item {
+            width: 0.42in;
+            height: 0.42in;
+            position: relative;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .defense-manifest-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, white 50%, white 50%);
+            z-index: 1;
+        }
+
+        .defense-manifest-item[data-vowel="true"]::before {
+            background: linear-gradient(135deg, #d0d0d0 50%, white 50%);
+        }
+
+        .defense-manifest-letter {
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            z-index: 2;
+            line-height: 1;
+        }
+
+        .defense-manifest-count {
+            position: absolute;
+            bottom: 20%;
+            right: 20%;
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+            z-index: 2;
+            line-height: 1;
+            transform: translate(50%, 50%);
+        }
+
+        /* Loading overlay for download */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .loading-content {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px auto;
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Print Dialog */
+        .print-dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .print-dialog {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .print-dialog:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .print-dialog h3 {
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin: 0 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .print-instructions {
+            margin: 24px 0;
+            text-align: left;
+        }
+
+        .instruction-heading {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .instruction-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .instruction-list li {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .instruction-list li::before {
+            content: "•";
+            position: absolute;
+            left: 8px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .confirmation-text {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            margin: 20px 0 0 0;
+            text-align: center;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Mobile responsive styles for print dialog */
+        @media screen and (max-width: 480px) {
+            .print-dialog {
+                padding: 24px 20px;
+                border-radius: 12px;
+                margin: 20px;
+                width: calc(100% - 40px);
+            }
+
+            .print-instructions {
+                margin: 20px 0;
+            }
+
+            .instruction-list li {
+                padding: 6px 0;
+                padding-left: 20px;
+            }
+
+            .instruction-list li::before {
+                left: 6px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="toolbar">
-    <button class="toolbar-btn" onclick="window.location.href='index.html'">RETREAT</button>
-    <button class="toolbar-btn" onclick="generateNewTracker()">GENERATE NEW TRACKER</button>
-    <button class="toolbar-btn" onclick="window.print()">PRINT</button>
-  </div>
-  <div class="page">
-    <div class="offense">
-      <div>
-        <div class="offense-grid">
-          <div class="offense-cell"></div>
-          <div class="offense-cell">A</div><div class="offense-cell">B</div><div class="offense-cell">C</div><div class="offense-cell">D</div><div class="offense-cell">E</div><div class="offense-cell">F</div><div class="offense-cell">G</div><div class="offense-cell">H</div><div class="offense-cell">I</div><div class="offense-cell">J</div>
-          ${[...Array(10)].map((_, i) => `
-            <div class="offense-cell">${i + 1}</div>
-            ${[...Array(10)].map(() => '<div class="offense-cell"></div>').join('')}
-          `).join('')}
-        </div>
-      </div>
-      <div class="launch-codes-stamp">
-        <div>LAUNCH</div>
-        <div>CODES</div>
-        <div id="stampCodes">000 000 000 000 000</div>
-      </div>
+    <!-- Floating Toolbar -->
+    <div class="toolbar">
+        <button class="toolbar-btn" onclick="downloadAsPNG()">DOWNLOAD PNG</button>
     </div>
-  </div>
-  <script>
-    function generateLaunchCode() {
-      return Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-    }
-    function generateNewTracker() {
-      const codes = Array.from({ length: 5 }, generateLaunchCode);
-      document.getElementById('stampCodes').textContent = codes.join(' ');
-    }
-    window.addEventListener('load', generateNewTracker);
-  </script>
+
+    <div class="page">
+        <!-- Offense Section -->
+        <div class="offense">            
+            <div class="offense-grid-section">
+                <div class="offense-grid-label">
+                    ATTACK GRID 
+                    <span class="bubble-number">5</span>
+                    <span class="bubble-number">4</span>
+                    <span class="bubble-number">3</span>
+                    <span class="bubble-number">3</span>
+                    <span class="bubble-number">2</span>
+                </div>
+                <div class="offense-grid">
+                    <!-- 121 cells (11x11) -->
+                    <div class="offense-cell"></div><div class="offense-cell">A</div><div class="offense-cell">B</div><div class="offense-cell">C</div><div class="offense-cell">D</div><div class="offense-cell">E</div><div class="offense-cell">F</div><div class="offense-cell">G</div><div class="offense-cell">H</div><div class="offense-cell">I</div><div class="offense-cell">J</div>
+                    <div class="offense-cell">1</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">2</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">3</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">4</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">5</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">6</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">7</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">8</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">9</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                    <div class="offense-cell">10</div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div><div class="offense-cell"></div>
+                </div>
+            </div>            
+            
+            <!-- Launch Codes Rubber Stamp -->
+            <div class="launch-codes-stamp">
+                <div class="stamp-container">
+                    <div class="stamp-text">
+                        <div class="stamp-label">LAUNCH</div>
+                        <div class="stamp-label">CODES</div>
+                        <div class="stamp-codes" id="stampCodes">VVV WWW XXX YYY ZZZ</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="offense-letter-manifest">
+                <div class="offense-manifest-title">ATTACK MANIFEST</div>
+                <div class="offense-manifest-container">
+                    <div class="offense-manifest-list">
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item" data-vowel="true">
+                                <span class="offense-manifest-letter">A</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">B</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">C</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">D</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item" data-vowel="true">
+                                <span class="offense-manifest-letter">E</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">F</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">G</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">H</span>
+                            </div>
+                            <div class="offense-manifest-item" data-vowel="true">
+                                <span class="offense-manifest-letter">I</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">J</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">K</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">L</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">M</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">N</span>
+                            </div>
+                            <div class="offense-manifest-item" data-vowel="true">
+                                <span class="offense-manifest-letter">O</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">P</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">Q</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">R</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">S</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">T</span>
+                            </div>
+                            <div class="offense-manifest-item" data-vowel="true">
+                                <span class="offense-manifest-letter">U</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">V</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">W</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">X</span>
+                            </div>
+                        </div>
+                        <div class="offense-manifest-row">
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">Y</span>
+                            </div>
+                            <div class="offense-manifest-item">
+                                <span class="offense-manifest-letter">Z</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Header -->
+        <div class="middle-header">
+            <div class="header-content">
+                <div class="header-line-2" id="battleTracker">BATTLE TRACKER</div>
+                <div class="system-info">WORD FLEET • Pen & Paper Mode • by Kevin Kolb • thegamebureau.com</div>
+            </div>
+        </div>
+
+        <!-- Defense Section -->        
+        <div class="defense">            
+            <div class="defense-grid-section">
+                <div class="defense-grid-label" id="defenseGridLabel">
+                    <span class="defense-grid-title">DEFENSE GRID</span>
+                    <div class="defense-grid-ships">
+                        <span class="word-ship" id="ship5">__________</span>
+                        <span class="ship-bullet">•</span>
+                        <span class="word-ship" id="ship4">________</span>
+                        <span class="ship-bullet">•</span>
+                        <span class="word-ship" id="ship3a">______</span>
+                        <span class="ship-bullet">•</span>
+                        <span class="word-ship" id="ship3b">______</span>
+                        <span class="ship-bullet">•</span>
+                        <span class="word-ship" id="ship2">____</span>
+                    </div>
+                </div>
+                <div class="defense-grid">
+                    <!-- 121 cells (11x11) -->
+                    <div class="defense-cell"></div><div class="defense-cell">A</div><div class="defense-cell">B</div><div class="defense-cell">C</div><div class="defense-cell">D</div><div class="defense-cell">E</div><div class="defense-cell">F</div><div class="defense-cell">G</div><div class="defense-cell">H</div><div class="defense-cell">I</div><div class="defense-cell">J</div>
+                    <div class="defense-cell">1</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
+                    <div class="defense-cell">2</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
+                    <div class="defense-cell">3</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
+                    <div class="defense-cell">4</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
+                    <div class="defense-cell">5</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
+                    <div class="defense-cell">6</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
+                    <div class="defense-cell">7</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
+                    <div class="defense-cell">8</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
+                    <div class="defense-cell">9</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
+                    <div class="defense-cell">10</div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div><div class="defense-cell"></div>
+                </div>
+            </div>            
+            <div class="defense-letter-manifest">
+                <div class="defense-manifest-title">DEFENSE MANIFEST</div>
+                <div class="defense-manifest-container">
+                    <div class="defense-manifest-list">
+                        <div class="defense-manifest-row">
+                            <div class="defense-manifest-item" data-vowel="true">
+                                <span class="defense-manifest-letter">A</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">B</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">C</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">D</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                        </div>
+                        <div class="defense-manifest-row">
+                            <div class="defense-manifest-item" data-vowel="true">
+                                <span class="defense-manifest-letter">E</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">F</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">G</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                        </div>
+                        <div class="defense-manifest-row">
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">H</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item" data-vowel="true">
+                                <span class="defense-manifest-letter">I</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">J</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">K</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                        </div>
+                        <div class="defense-manifest-row">
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">L</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">M</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">N</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item" data-vowel="true">
+                                <span class="defense-manifest-letter">O</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">P</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                        </div>
+                        <div class="defense-manifest-row">
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">Q</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">R</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">S</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                        </div>
+                        <div class="defense-manifest-row">
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">T</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item" data-vowel="true">
+                                <span class="defense-manifest-letter">U</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">V</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                        </div>
+                        <div class="defense-manifest-row">
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">W</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">X</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                        </div>
+                        <div class="defense-manifest-row">
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">Y</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                            <div class="defense-manifest-item">
+                                <span class="defense-manifest-letter">Z</span>
+                                <span class="defense-manifest-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading overlay for download -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Generating PNG...</div>
+        </div>
+    </div>
+
+    <!-- Print Dialog -->
+    <div class="print-dialog-overlay" id="printDialogOverlay">
+        <div class="print-dialog">
+            <h3>⚠️ Important Print Settings</h3>
+            <div class="print-instructions">
+                <p class="instruction-heading">To ensure perfect printing:</p>
+                <ul class="instruction-list">
+                    <li>In your printer dialog, set Margins to "None" or "Minimum"</li>
+                    <li>Turn off "Headers and footers"</li>
+                    <li>Set Scale to 100%</li>
+                    <li>Select "More settings" if needed to find these options</li>
+                </ul>
+                <p class="confirmation-text">Ready to print with correct settings?</p>
+            </div>
+            <div class="dialog-buttons">
+                <button class="dialog-btn primary" onclick="proceedToPrint()">Print Now</button>
+                <button class="dialog-btn secondary" onclick="closePrintDialog()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // Generate random 3-digit codes with leading zeros
+        function generateLaunchCode() {
+            return Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+        }
+
+        // Download tracker as PNG
+        async function downloadAsPNG() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.style.display = 'flex';
+            
+            try {
+                // Show page temporarily for capture
+                const pageElement = document.querySelector('.page');
+                pageElement.style.display = 'block';
+                
+                // Wait a moment for the UI to render
+                await new Promise(resolve => setTimeout(resolve, 200));
+                
+                const canvas = await html2canvas(pageElement, {
+                    backgroundColor: '#ffffff',
+                    scale: 2, // Higher resolution
+                    useCORS: true,
+                    allowTaint: true,
+                    width: pageElement.offsetWidth,
+                    height: pageElement.offsetHeight,
+                    scrollX: 0,
+                    scrollY: 0
+                });
+                
+                // Hide page again after capture
+                pageElement.style.display = 'none';
+                
+                // Create download link
+                const link = document.createElement('a');
+                link.download = 'word-fleet-battle-tracker.png';
+                link.href = canvas.toDataURL('image/png');
+                
+                // Trigger download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+            } catch (error) {
+                console.error('Error generating PNG:', error);
+                alert('Error generating PNG. Please try again.');
+            } finally {
+                loadingOverlay.style.display = 'none';
+            }
+        }
+
+        // Load words from XML file
+        async function loadWordsFromXML() {
+            try {
+                console.log('Attempting to load XML from: ../dictionary/words.xml');
+                const response = await fetch('../dictionary/words.xml');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const xmlText = await response.text();
+                console.log('XML loaded successfully');
+                
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+                
+                // Check for XML parsing errors
+                const parserError = xmlDoc.getElementsByTagName('parsererror')[0];
+                if (parserError) {
+                    throw new Error('XML parsing error: ' + parserError.textContent);
+                }
+                
+                // Extract words by length using the Dictionary structure
+                const words = {
+                    2: [],
+                    3: [],
+                    4: [],
+                    5: []
+                };
+                
+                // Get all WordLength elements
+                const wordLengthElements = xmlDoc.getElementsByTagName('WordLength');
+                console.log('Found WordLength elements:', wordLengthElements.length);
+                
+                for (let lengthElement of wordLengthElements) {
+                    const length = parseInt(lengthElement.getAttribute('length'));
+                    console.log('Processing length:', length);
+                    
+                    if (words[length]) {
+                        const wordElements = lengthElement.getElementsByTagName('Word');
+                        console.log(`Found ${wordElements.length} words of length ${length}`);
+                        
+                        for (let wordElement of wordElements) {
+                            const word = wordElement.textContent.trim().toUpperCase();
+                            if (word.match(/^[A-Z]+$/)) {
+                                words[length].push(word);
+                            }
+                        }
+                    }
+                }
+                
+                console.log('Final word counts:', {
+                    '2': words[2].length,
+                    '3': words[3].length, 
+                    '4': words[4].length,
+                    '5': words[5].length
+                });
+                
+                // Check if we got any words
+                const totalWords = words[2].length + words[3].length + words[4].length + words[5].length;
+                if (totalWords === 0) {
+                    throw new Error('No words found in XML');
+                }
+                
+                return words;
+                
+            } catch (error) {
+                console.error('Could not load words.xml:', error);
+                // Fallback to embedded word lists
+                return {
+                    5: ['ARMOR', 'BLOCK', 'COVER', 'DODGE', 'EVADE', 'FORCE', 'GUARD', 'HAVEN'],
+                    4: ['ABLE', 'BEAR', 'CALL', 'DARK', 'EACH', 'FACE', 'GAME', 'HAND'],
+                    3: ['ACE', 'BAD', 'CAR', 'DOG', 'EAR', 'FAN', 'GUN', 'HAT'],
+                    2: ['AT', 'BE', 'DO', 'GO', 'HE', 'IF', 'IN', 'IS', 'IT', 'MY']
+                };
+            }
+        }
+
+        // Generate random word by length
+        function getRandomWord(wordsList, length) {
+            const words = wordsList[length];
+            if (!words || words.length === 0) return 'WORD';
+            return words[Math.floor(Math.random() * words.length)];
+        }        
+
+        // Count letter occurrences in the game words
+        function countLetterOccurrences(gameWords) {
+            const letterCounts = {};
+            // Initialize counts for all letters
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(letter => {
+                letterCounts[letter] = 0;
+            });
+            
+            // Count letters in just the game words
+            gameWords.forEach(word => {
+                word.split('').forEach(letter => {
+                    letterCounts[letter]++;
+                });
+            });
+            
+            return letterCounts;
+        }
+
+        // Update manifest counts in the UI
+        function updateManifestCounts(letterCounts) {
+            const manifestItems = document.querySelectorAll('.defense-manifest-item');
+            manifestItems.forEach(item => {
+                const letter = item.querySelector('.defense-manifest-letter').textContent;
+                const countSpan = item.querySelector('.defense-manifest-count');
+                countSpan.textContent = letterCounts[letter] || 0;
+            });
+        }        
+
+        // Update battle tracker and optionally load words from XML
+        async function updateBattleTracker() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const fleetParam = urlParams.get('fleet');
+            const wordsParam = urlParams.get('words');
+            const showWords = wordsParam !== 'no' && wordsParam !== null;
+            
+            const battleTrackerElement = document.getElementById('battleTracker');
+            const text = fleetParam ? fleetParam.toUpperCase() + ' BATTLE TRACKER' : 'BATTLE TRACKER';
+            battleTrackerElement.textContent = text;
+            
+            // Load words from XML
+            const wordsList = await loadWordsFromXML();
+            
+            // Generate defense word sequence
+            const fiveLetterWord = getRandomWord(wordsList, 5);
+            const fourLetterWord = getRandomWord(wordsList, 4);
+            const threeLetterWord1 = getRandomWord(wordsList, 3);
+            let threeLetterWord2 = getRandomWord(wordsList, 3);
+            
+            // Ensure the two 3-letter words are different
+            while (threeLetterWord2 === threeLetterWord1 && wordsList[3].length > 1) {
+                threeLetterWord2 = getRandomWord(wordsList, 3);
+            }
+            const twoLetterWord = getRandomWord(wordsList, 2);
+            
+            // Generate random launch codes and update the stamp
+            const codes = [
+                generateLaunchCode(),
+                generateLaunchCode(),
+                generateLaunchCode(),
+                generateLaunchCode(),
+                generateLaunchCode()
+            ];
+            document.getElementById('stampCodes').textContent = codes.join(' ');
+            
+            // Count letters in just the selected words
+            const gameWords = [fiveLetterWord, fourLetterWord, threeLetterWord1, threeLetterWord2, twoLetterWord];
+            const letterCounts = countLetterOccurrences(gameWords);
+            
+            // Update manifest counts and word visibility based on URL parameter
+            const manifestItems = document.querySelectorAll('.defense-manifest-item');
+            manifestItems.forEach(item => {
+                const letter = item.querySelector('.defense-manifest-letter').textContent;
+                const countSpan = item.querySelector('.defense-manifest-count');
+                countSpan.textContent = showWords ? (letterCounts[letter] || 0) : '';
+            });
+            
+            // Update defense grid label with word-ships (only if showing words)
+            if (showWords) {
+                document.getElementById('ship5').textContent = fiveLetterWord;
+                document.getElementById('ship4').textContent = fourLetterWord;
+                document.getElementById('ship3a').textContent = threeLetterWord1;
+                document.getElementById('ship3b').textContent = threeLetterWord2;
+                document.getElementById('ship2').textContent = twoLetterWord;
+            } else {
+                document.getElementById('ship5').textContent = '__________';
+                document.getElementById('ship4').textContent = '________';
+                document.getElementById('ship3a').textContent = '______';
+                document.getElementById('ship3b').textContent = '______';
+                document.getElementById('ship2').textContent = '____';
+            }
+        }        
+
+        function generateNewTracker() {
+            // Redirect to index.html with highlight parameter and preserve existing params
+            const currentParams = new URLSearchParams(window.location.search);
+            currentParams.append('highlight', 'form');
+            window.location.href = `index.html?${currentParams.toString()}`;
+        }
+
+        function showPrintDialog() {
+            document.getElementById('printDialogOverlay').style.display = 'flex';
+        }
+
+        function closePrintDialog() {
+            document.getElementById('printDialogOverlay').style.display = 'none';
+        }
+
+        function proceedToPrint() {
+            closePrintDialog();
+            setTimeout(() => {
+                window.print();
+            }, 100);
+        }
+
+        // Event listeners
+        document.getElementById('printDialogOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePrintDialog();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                showPrintDialog();
+            }
+            if (e.key === 'Escape') {
+                closePrintDialog();
+            }
+        });
+
+        // Initialize on page load
+        updateBattleTracker().then(() => {
+            // Auto-download after everything is loaded and rendered
+            setTimeout(() => {
+                downloadAsPNG();
+            }, 1000); // Small delay to ensure fonts/layout are ready
+        });
+    </script>
 </body>
 </html>
