@@ -1,10 +1,11 @@
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WORD FLEET - Operations Manual</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>WORD FLEET - Operations Manual</title>
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&amp;display=swap');
 
         :root {
             --paper-cream: #f8f6f0;
@@ -71,7 +72,6 @@
 
         .manual-header {
             text-align: center;
-            border-bottom: 3px double var(--ink-black);
             padding-bottom: 30px;
             margin-bottom: 40px;
             position: relative;
@@ -86,7 +86,6 @@
             font-size: 14pt;
             margin-bottom: 25px;
             display: inline-block;
-            border: 2px solid var(--typewriter-blue);
         }
 
         .manual-title {
@@ -118,7 +117,6 @@
             font-size: 13pt;
             margin-bottom: 25px;
             line-height: 2;
-            border: 1px solid var(--ink-black);
             padding: 15px;
             background: rgba(0,0,0,0.02);
             display: inline-block;
@@ -129,7 +127,6 @@
             font-size: 11pt;
             margin-top: 20px;
             color: #666;
-            border-top: 1px solid #ccc;
             padding-top: 15px;
         }
 
@@ -145,7 +142,6 @@
             letter-spacing: 1px;
             margin-bottom: 20px;
             padding-bottom: 8px;
-            border-bottom: 2px solid var(--ink-black);
             background: rgba(0,0,0,0.02);
             padding: 10px;
             margin: 0 -10px 20px -10px;
@@ -156,7 +152,6 @@
             font-weight: bold;
             margin: 25px 0 12px 0;
             text-transform: uppercase;
-            border-left: 4px solid var(--ink-black);
             padding-left: 10px;
         }
 
@@ -164,7 +159,6 @@
             font-size: 12pt;
             font-weight: bold;
             margin: 18px 0 10px 0;
-            text-decoration: underline;
         }
 
         .manual-table {
@@ -182,12 +176,10 @@
             text-align: left;
             font-weight: bold;
             text-transform: uppercase;
-            border: 1px solid var(--ink-black);
         }
 
         .manual-table td {
             padding: 10px 12px;
-            border: 1px solid var(--ink-black);
             vertical-align: top;
         }
 
@@ -210,7 +202,6 @@
         }
 
         .note-box {
-            border: 3px solid var(--ink-black);
             padding: 20px;
             margin: 20px 0;
             background: rgba(30, 58, 138, 0.05);
@@ -231,7 +222,6 @@
         }
 
         .example-box {
-            border: 2px dashed var(--ink-black);
             padding: 15px;
             margin: 15px 0;
             background: rgba(139, 69, 19, 0.05);
@@ -247,7 +237,6 @@
         }
 
         .response-box {
-            border-left: 6px solid var(--ink-black);
             padding: 12px 20px;
             margin: 15px 0;
             background: rgba(0,0,0,0.03);
@@ -263,7 +252,6 @@
 
         .victory-section {
             text-align: center;
-            border: 4px double var(--ink-black);
             padding: 25px;
             margin: 30px 0;
             background: rgba(30, 58, 138, 0.05);
@@ -345,162 +333,170 @@
             }
         }
     </style>
-</head>
-<body>
-    <!-- Navigation -->
-    <!-- Print button removed -->
-
-    <!-- Manual Content -->
-    <div class="manual-content">
-        <header class="manual-header">
-            <h1 class="manual-title">WORD FLEET</h1>
-            <div style="font-size: 11pt; font-family: 'Courier Prime', monospace; margin-bottom: 10px; white-space: nowrap;">
-                Pen &amp; Paper Mode • by Kevin Kolb • <a href="https://the-game-bureau.github.io/WordFleet" style="color: inherit; text-decoration: underline;">the-game-bureau.github.io/WordFleet</a>
-            </div>
-            <h2 class="manual-subtitle">Rules of Engagement</h2>
-            <div class="cover-details">
-                <div><strong>PERSONNEL:</strong> 2 Operators</div>
-                <div><strong>MINIMUM AGE:</strong> 10</div>
-                <div><strong>MISSION DURATION:</strong> 15-30 minutes</div></div></header><section class="manual-section">
-            
-            <div class="example-box">
-                Word Fleet combines the strategy of Battleship® with the linguistic challenge of Wordle®.
-            </div>
-
-            <h3 class="subsection-header">Requisition</h3>
-            <ul class="manual-list">
-                <li>2 Battle Tracker sheets from thegamebureau.com/wrdflt</li>
-                <li>2 marking instruments (pen/pencil)</li>
-                <li>2 highlighters (optional tactical enhancement)</li>
-            </ul>
-        </section>
-
-        <section class="manual-section">
-            <h2 class="section-header">Fleet Deployment Protocol</h2>
-            <p>Choose deployment method: auto-generated or operator-selected Word Ships. Both commanders must use identical protocols. Deploy 5 Word Ships on Defense Grid (lower section).</p>
-
-            <table class="manual-table">
-                <thead>
-                    <tr>
-                        <th>Vessel Class</th>
-                        <th>Length</th>
-                        <th>Example Designation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>KETCH</td><td>5 letters</td><td>PIANO</td></tr>
-                    <tr><td>SHIP</td><td>4 letters</td><td>JUMP</td></tr>
-                    <tr><td>SUB</td><td>3 letters</td><td>BED</td></tr>
-                    <tr><td>ARK</td><td>3 letters</td><td>RUN</td></tr>
-                    <tr><td>PT</td><td>2 letters</td><td>IF</td></tr>
-                </tbody>
-            </table>
-
-            <div class="note-box">
-                Vessel classifications are operational designations only—they correspond to word length and do not affect tactical capabilities.
-            </div>
-
-            <h3 class="subsubsection-header">Deployment Restrictions:</h3>
-            <ul class="manual-list">
-                <li>Horizontal (left-to-right) or vertical (top-to-bottom) orientation only, no diagonals</li>
-                <li>Ships may touch edges but cannot overlap</li>
-                <li>All words must be in agreed upon language</li>
-                <li>No proper nouns, abbreviations, hyphenated words, or suffixes</li>
-            </ul>
-
-            <h3 class="subsubsection-header">Defense Manifest Completion:</h3>
-            <p>Inventory each letter in your fleet and record totals in your Defense Manifest (lower right) if it has not been done for you. This will help speed up combat.</p>
-        </section>
-
-        <section class="manual-section">
-            <h2 class="section-header">Hailing the Enemy - A Mini Game</h2>
-            <p>Use launch codes and cunning to negotiate who fires the opening round!</p>
-
-            <h3 class="subsection-header">Opening Gambit Sequence</h3>
-            <p><strong>Opening Gambit</strong> — One captain (the Initiator) calls out a real or fake launch code.</p>
-            <p><strong>Response</strong> — The other captain (the Defender) has three choices:</p>
-            <ul class="manual-list">
-                <li><strong>Concede</strong> — The Initiator goes first.</li>
-                <li><strong>Challenge</strong> — If it was a real code, the Initiator goes first. If not, the Defender goes first.</li>
-                <li><strong>Counter</strong> — The Defender calls out a higher launch code (real or fake) and becomes the new Initiator.</li>
-            </ul>
-            <p><strong>Resolution</strong> — The process repeats until someone concedes or challenges.</p>
-
-            <div class="note-box">
-                Launch codes are the five 3-digit authentication sequences printed on your Battle Tracker.
-            </div>
-        </section>
-
-        <section class="manual-section">
-            <h2 class="section-header">Combat Operations</h2>
-            <p>On your operational turn, transmit grid coordinates for target acquisition.</p>
-
-            <div class="example-box">EXAMPLE TRANSMISSION: "F9!"</div>
-
-            <p>Enemy operator responds based on coordinate analysis:</p>
-
-            <div class="response-box">
-                <div class="response-title">"Miss!"</div>
-                <p>No Word Ship detected at specified coordinates.</p>
-            </div>
-
-            <div class="response-box">
-                <div class="response-title">"Hit!"</div>
-                <p>Word Ship confirmed at target coordinates.</p>
-            </div>
-
-            <h3 class="subsubsection-header">After Letter Transmission:</h3>
-            <div class="response-box">
-                <div class="response-title">"Bullseye!"</div>
-                <p>Letter confirmed at exact specified coordinates</p>
-            </div>
-
-            <div class="response-box">
-                <div class="response-title">"[Number] total"</div>
-                <p>Frequency count of specified letter across entire enemy fleet</p>
-            </div>
-
-            <h3 class="subsection-header">Vessel Destruction Protocol</h3>
-            <p>When confident of complete word identification, announce full designation instead of coordinates. Correct identification results in vessel destruction. Incorrect attempts terminate your turn and prevent future attempts on that word designation.</p>
-        </section>
-
-        <section class="manual-section">
-            <h2 class="section-header">Defense Operations</h2>
-            <ul class="manual-list">
-                <li>Mark <strong>dots</strong> for enemy misses on Defense Grid</li>
-                <li><strong>Highlight perimeters</strong> for confirmed hits on Defense Grid</li>
-                <li>Cross out destroyed vessels upon enemy word identification</li>
-            </ul>
-        </section>
-
-        <section class="victory-section">
-            <h2 class="victory-title">Mission Success</h2>
-            <p>Achieve victory by completely identifying and destroying all five enemy Word Ships through precise letter detection and word reconstruction.</p>
-        </section>
-
-        <section class="manual-section">
-            <h2 class="section-header">Alternative Mission Protocols</h2>
-
-            <h3 class="subsection-header">Themed Fleet Operations</h3>
-            <ul class="manual-list">
-                <li>Biological (ZEBRA, FROG, COW, BAT, OX)</li>
-                <li>Nutritional (PASTA, MILK, PIE, TEA, EGG)</li>
-                <li>Environmental (CLOUD, TREE, SUN, SKY, ICE)</li>
-            </ul>
-
-            <h3 class="subsection-header">Asymmetric Warfare Protocol</h3>
-            <p>One operator deploys custom-selected high-difficulty words while opponent uses auto-generated standard designations.</p>
-
-            <h3 class="subsection-header">Additional Protocols</h3>
-            <div class="response-box">
-                Have you developed a new tactical protocol? Transmit to: <a href="mailto:missioncontrol@thegamebureau.com">missioncontrol@thegamebureau.com</a>
-            </div>
-        </section>
-
-        <div class="page-number">- 1 -</div>
-    </div>
-
-    <script>
+    </head>
+    <body>
+        <!-- Navigation -->
+        <!-- Print button removed -->
+        <!-- Manual Content -->
+        <div class="manual-content">
+            <header class="manual-header">
+                <h1 class="manual-title">WORD FLEET</h1>
+                <div style="margin-bottom:10px;white-space:nowrap;font:normal normal 11pt/normal &quot;Courier Prime&quot;, monospace;">
+                    Pen &amp; Paper Mode • by Kevin Kolb •<a href="https://the-game-bureau.github.io/WordFleet" style="color:inherit;text-decoration:underline;">the-game-bureau.github.io/WordFleet</a>
+                </div>
+                <h2 class="manual-subtitle">Rules of Engagement</h2>
+                <div class="cover-details"><div>
+                    <strong>PERSONNEL:</strong>2 Captains
+                </div>                <div>
+                    <strong>MINIMUM AGE:</strong>10
+                </div>                <div>
+                    <strong>MISSION DURATION:</strong>15-30 minutes
+                </div></div>
+            </header>
+            <section class="manual-section">
+                <div class="example-box">Word Fleet combines the strategy of Battleship® with the linguistic challenge of Wordle®.</div>
+                <h3 class="subsection-header">Requisition</h3>
+                <ul class="manual-list">
+                    <li>2 Battle Tracker sheets from https://the-game-bureau.github.io/WordFleet</li>
+                    <li>2 marking instruments (pen/pencil)</li>
+                    <li>2 highlighters (optional tactical enhancement)</li>
+                </ul>
+            </section>
+            <section class="manual-section">
+                <h2 class="section-header">Fleet Deployment Protocol</h2>
+                <p>Choose deployment method: auto-generated or operator-selected Word Ships. Both commanders must use identical protocols. Deploy 5 Word Ships on Defense Grid (lower section).</p>
+                <table class="manual-table">
+                    <thead>
+                        <tr>
+                            <th>Vessel Class</th>
+                            <th>Length</th>
+                            <th>Example Designation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>KETCH</td>
+                            <td>5 letters</td>
+                            <td>PIANO</td>
+                        </tr>
+                        <tr>
+                            <td>SHIP</td>
+                            <td>4 letters</td>
+                            <td>JUMP</td>
+                        </tr>
+                        <tr>
+                            <td>SUB</td>
+                            <td>3 letters</td>
+                            <td>BED</td>
+                        </tr>
+                        <tr>
+                            <td>ARK</td>
+                            <td>3 letters</td>
+                            <td>RUN</td>
+                        </tr>
+                        <tr>
+                            <td>PT</td>
+                            <td>2 letters</td>
+                            <td>IF</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note-box">Vessel classifications are operational designations only—they correspond to word length and do not affect tactical capabilities.</div>
+                <h3 class="subsubsection-header">Deployment Restrictions:</h3>
+                <ul class="manual-list">
+                    <li>Horizontal (left-to-right) or vertical (top-to-bottom) orientation only, no diagonals</li>
+                    <li>Ships may touch edges but cannot overlap</li>
+                    <li>All words must be in agreed upon language</li>
+                    <li>No proper nouns, abbreviations, hyphenated words, or suffixes</li>
+                </ul>
+                <h3 class="subsubsection-header">Defense Manifest Completion:</h3>
+                <p>Inventory each letter in your fleet and record totals in your Defense Manifest (lower right) if it has not been done for you. This will help speed up combat.</p>
+            </section>
+            <section class="manual-section">
+                <h2 class="section-header">Hailing the Enemy - A Mini Game</h2>
+                <p>Use launch codes and cunning to negotiate who fires the opening round!</p>
+                <h3 class="subsection-header">Opening Gambit Sequence</h3>
+                <p>
+                    <strong>Opening Gambit</strong>— One captain (the Initiator) calls out a real or fake launch code.
+                </p>
+                <p>
+                    <strong>Response</strong>— The other captain (the Defender) has three choices:
+                </p>
+                <ul class="manual-list">
+                    <li>
+                        <strong>Concede</strong>— The Initiator goes first.
+                    </li>
+                    <li>
+                        <strong>Challenge</strong>— If it was a real code, the Initiator goes first. If not, the Defender goes first.
+                    </li>
+                    <li>
+                        <strong>Counter</strong>— The Defender calls out a higher launch code (real or fake) and becomes the new Initiator.
+                    </li>
+                </ul>
+                <p>
+                    <strong>Resolution</strong>— The process repeats until someone concedes or challenges.
+                </p>
+                <div class="note-box">Launch codes are the five 3-digit authentication sequences printed on your Battle Tracker.</div>
+            </section>
+            <section class="manual-section">
+                <h2 class="section-header">Combat Operations</h2>
+                <p>On your operational turn, transmit grid coordinates for target acquisition.</p>
+                <div class="example-box">EXAMPLE TRANSMISSION: "F9!"</div>
+                <p>Enemy operator responds based on coordinate analysis:</p>
+                <div class="response-box">
+                    <div class="response-title">"Miss!"</div>
+                    <p>No Word Ship detected at specified coordinates.</p>
+                </div>
+                <div class="response-box">
+                    <div class="response-title">"Hit!"</div>
+                    <p>Word Ship confirmed at target coordinates.</p>
+                </div>
+                <h3 class="subsubsection-header">After Letter Transmission:</h3>
+                <div class="response-box">
+                    <div class="response-title">"Bullseye!"</div>
+                    <p>Letter confirmed at exact specified coordinates</p>
+                </div>
+                <div class="response-box">
+                    <div class="response-title">"[Number] total"</div>
+                    <p>Frequency count of specified letter across entire enemy fleet</p>
+                </div>
+                <h3 class="subsection-header">Vessel Destruction Protocol</h3>
+                <p>When confident of complete word identification, announce full designation instead of coordinates. Correct identification results in vessel destruction. Incorrect attempts terminate your turn and prevent future attempts on that word designation.</p>
+            </section>
+            <section class="manual-section">
+                <h2 class="section-header">Defense Operations</h2>
+                <ul class="manual-list">
+                    <li>
+                        Mark<strong>dots</strong>for enemy misses on Defense Grid
+                    </li>
+                    <li>
+                        <strong>Highlight perimeters</strong>for confirmed hits on Defense Grid
+                    </li>
+                    <li>Cross out destroyed vessels upon enemy word identification</li>
+                </ul>
+            </section>
+            <section class="victory-section">
+                <h2 class="victory-title">Mission Success</h2>
+                <p>Achieve victory by completely identifying and destroying all five enemy Word Ships through precise letter detection and word reconstruction.</p>
+            </section>
+            <section class="manual-section">
+                <h2 class="section-header">Alternative Mission Protocols</h2>
+                <h3 class="subsection-header">Themed Fleet Operations</h3>
+                <ul class="manual-list">
+                    <li>Biological (ZEBRA, FROG, COW, BAT, OX)</li>
+                    <li>Nutritional (PASTA, MILK, PIE, TEA, EGG)</li>
+                    <li>Environmental (CLOUD, TREE, SUN, SKY, ICE)</li>
+                </ul>
+                <h3 class="subsection-header">Asymmetric Warfare Protocol</h3>
+                <p>One operator deploys custom-selected high-difficulty words while opponent uses auto-generated standard designations.</p>
+                <h3 class="subsection-header">Additional Protocols</h3>
+                <div class="response-box">
+                    Have you developed a new tactical protocol? Transmit to:<a href="mailto:missioncontrol@thegamebureau.com">missioncontrol@thegamebureau.com</a>
+                </div>
+            </section>
+            <div class="page-number">- 1 -</div>
+        </div>
+        <script>
         // Auto print on load if requested
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('autoprint') === 'true') {
@@ -509,5 +505,5 @@
             }, 1000);
         }
     </script>
-
-</body></html>
+    </body>
+</html>
