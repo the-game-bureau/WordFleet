@@ -1,16 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WORD FLEET - Pen & Paper Mode</title>
-    <link rel="icon" type="image/x-icon" href="src/media/wf.ico">
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WORD FLEET - Pen &amp; Paper Mode</title>
+<link href="src/media/wf.ico" rel="icon" type="image/x-icon"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -20,26 +19,30 @@
         :root {
             --green-50: #f0fdf4;
             --green-100: #dcfce7;
-            --green-500: #6aaa64;
-            --green-600: #5a9454;
-            --green-700: #4a7c59;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
-            --gold: #d4af37;
+            --green-500: #4a7c59;
+            --green-600: #3d6b4a;
+            --green-700: #2f5439;
+            --gray-50: #f8f9fa;
+            --gray-100: #e9ecef;
+            --gray-200: #adb5bd;
+            --gray-300: #6c757d;
+            --gray-400: #495057;
+            --gray-500: #343a40;
+            --gray-600: #2c3338;
+            --gray-700: #212529;
+            --gray-800: #1a1e23;
+            --gray-900: #0f1419;
+            --gold: #ffa500;
+            --naval-blue: #1e3a5f;
+            --storm-gray: #4a5568;
+            --ocean-dark: #2d3748;
+            --mist-light: #718096;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, var(--gray-900) 0%, #0f1419 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--naval-blue) 50%, var(--ocean-dark) 100%);
+            color: var(--mist-light);
             min-height: 100vh;
             line-height: 1.6;
             overflow-x: hidden;
@@ -68,7 +71,7 @@
         .tile {
             width: 60px;
             height: 60px;
-            background-color: #6aaa64;
+            background-color: var(--green-500);
             color: white;
             font-family: 'Arial Black', sans-serif;
             font-size: 2.5rem;
@@ -77,12 +80,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid #000000;
+            border: 2px solid var(--ocean-dark);
             margin: 0;
             box-sizing: border-box;
             animation: float 4s ease-in-out infinite;
             animation-delay: calc(var(--i) * 0.1s);
             flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .tile.blank {
@@ -96,22 +100,23 @@
         }
 
         .tagline {
-            color: var(--gray-400);
+            color: var(--mist-light);
             font-size: 1rem;
             margin-bottom: 1rem;
         }
 
         .tagline a {
-            color: var(--green-500);
+            color: var(--gold);
             text-decoration: none;
         }
 
         .tagline a:hover {
             text-decoration: underline;
+            color: #ffb84d;
         }
 
         .description {
-            color: var(--gray-300);
+            color: var(--gray-200);
             font-size: 1.1rem;
             max-width: 600px;
             margin: 0 auto;
@@ -125,11 +130,12 @@
         }
 
         .form-section {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 58, 95, 0.15);
+            border: 1px solid rgba(255, 165, 0, 0.2);
             border-radius: 16px;
             padding: 2rem;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .form-group {
@@ -144,15 +150,15 @@
             display: block;
             font-size: 0.875rem;
             font-weight: 600;
-            color: var(--gray-300);
+            color: var(--gray-200);
             margin-bottom: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
         .input-container {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(26, 30, 35, 0.6);
+            border: 1px solid rgba(255, 165, 0, 0.3);
             border-radius: 12px;
             padding: 1.5rem;
         }
@@ -165,17 +171,17 @@
             width: 100%;
             padding: 1rem 3rem 1rem 1rem;
             background: var(--gray-800);
-            border: 1px solid var(--gray-600);
+            border: 1px solid var(--storm-gray);
             border-radius: 8px;
-            color: white;
+            color: var(--mist-light);
             font-size: 1rem;
             transition: all 0.3s ease;
         }
 
         .input:focus {
             outline: none;
-            border-color: var(--green-500);
-            box-shadow: 0 0 0 3px rgba(106, 170, 100, 0.1);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.2);
         }
 
         .input-button {
@@ -200,8 +206,8 @@
         }
 
         .toggle-container {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(26, 30, 35, 0.6);
+            border: 1px solid rgba(255, 165, 0, 0.3);
             border-radius: 12px;
             padding: 1.5rem;
         }
@@ -221,7 +227,7 @@
             background: transparent;
             border: none;
             border-radius: 6px;
-            color: var(--gray-400);
+            color: var(--mist-light);
             font-size: 0.875rem;
             font-weight: 500;
             cursor: pointer;
@@ -234,8 +240,8 @@
         }
 
         .toggle-btn:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--gray-300);
+            background: rgba(255, 165, 0, 0.1);
+            color: var(--gray-200);
         }
 
         .manual-words {
@@ -259,16 +265,16 @@
         .word-label {
             font-size: 0.75rem;
             font-weight: 600;
-            color: var(--gray-400);
+            color: var(--mist-light);
             text-transform: uppercase;
         }
 
         .word-input {
             padding: 0.75rem;
             background: var(--gray-800);
-            border: 1px solid var(--gray-600);
+            border: 1px solid var(--storm-gray);
             border-radius: 6px;
-            color: white;
+            color: var(--mist-light);
             font-family: 'JetBrains Mono', monospace;
             text-transform: uppercase;
             transition: all 0.3s ease;
@@ -276,7 +282,8 @@
 
         .word-input:focus {
             outline: none;
-            border-color: var(--green-500);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.2);
         }
 
         .btn {
@@ -306,22 +313,13 @@
         }
 
         .preview-section {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 58, 95, 0.15);
+            border: 1px solid rgba(255, 165, 0, 0.2);
             border-radius: 16px;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
+            padding: 2rem;
+            backdrop-filter: blur(12px);
             height: fit-content;
-        }
-
-        .preview-image {
-            width: 120px;
-            height: 155px;
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-            margin: 0 auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .floating-buttons {
@@ -346,9 +344,9 @@
             height: 56px;
             border-radius: 50%;
             border: none;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            color: white;
+            background: rgba(30, 58, 95, 0.8);
+            backdrop-filter: blur(12px);
+            color: var(--mist-light);
             font-size: 1.25rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -356,15 +354,17 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 165, 0, 0.3);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
         .floating-btn:hover {
             background: var(--green-500);
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(106, 170, 100, 0.3);
+            box-shadow: 0 8px 25px rgba(74, 124, 89, 0.5);
+            border-color: var(--gold);
         }
 
         .floating-btn::before {
@@ -374,7 +374,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 165, 0, 0.3), transparent);
             transition: left 0.6s ease;
         }
 
@@ -418,7 +418,7 @@
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
             z-index: 10000;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             opacity: 0;
@@ -427,13 +427,14 @@
         }
 
         .modal-overlay.active {
+            display: flex;
             opacity: 1;
             visibility: visible;
         }
 
         .modal {
-            background: linear-gradient(135deg, var(--gray-900) 0%, #0f1419 100%);
-            border: 2px solid var(--green-500);
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--naval-blue) 50%, var(--ocean-dark) 100%);
+            border: 2px solid var(--gold);
             border-radius: 20px;
             max-width: 600px;
             width: 90%;
@@ -442,7 +443,7 @@
             position: relative;
             transform: scale(0.8) translateY(50px);
             transition: all 0.3s ease;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
 
         .modal-overlay.active .modal {
@@ -452,8 +453,8 @@
         .modal-header {
             padding: 2rem 2rem 1rem;
             text-align: center;
-            background: linear-gradient(135deg, rgba(106, 170, 100, 0.1) 0%, rgba(106, 170, 100, 0.05) 100%);
-            border-bottom: 1px solid rgba(106, 170, 100, 0.2);
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.3) 0%, rgba(74, 124, 89, 0.2) 100%);
+            border-bottom: 1px solid rgba(255, 165, 0, 0.3);
             position: relative;
         }
 
@@ -464,20 +465,20 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--green-500), transparent);
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
         }
 
         .modal-title {
             font-size: 1.75rem;
             font-weight: 700;
-            color: var(--green-500);
+            color: var(--gold);
             margin-bottom: 0.5rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
         .modal-subtitle {
-            color: var(--gray-400);
+            color: var(--mist-light);
             font-size: 0.9rem;
             font-weight: 500;
             text-transform: uppercase;
@@ -571,42 +572,6 @@
             background: var(--green-600);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(106, 170, 100, 0.3);
-        }
-
-        .modal-close-x {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 32px;
-            height: 32px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 50%;
-            color: var(--gray-400);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-close-x:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        .status-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--gold), #b8860b);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
         }
 
         @media (max-width: 1024px) {
@@ -720,11 +685,6 @@
                 font-size: 0.9rem;
             }
             
-            .preview-image {
-                width: 100px;
-                height: 130px;
-            }
-            
             .footer-image {
                 margin-top: 3rem;
                 border-radius: 0;
@@ -825,11 +785,6 @@
                 font-size: 0.85rem;
             }
             
-            .preview-image {
-                width: 85px;
-                height: 110px;
-            }
-            
             .floating-btn {
                 width: 40px;
                 height: 40px;
@@ -863,214 +818,144 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="logo-tiles">
-                <div class="tile" style="--i: 0">W</div>
-                <div class="tile" style="--i: 1">O</div>
-                <div class="tile" style="--i: 2">R</div>
-                <div class="tile" style="--i: 3">D</div>
-                <div class="tile blank" style="--i: 4"></div>
-                <div class="tile" style="--i: 5">F</div>
-                <div class="tile" style="--i: 6">L</div>
-                <div class="tile" style="--i: 7">E</div>
-                <div class="tile" style="--i: 8">E</div>
-                <div class="tile" style="--i: 9">T</div>
-            </div>
-            
-            <p class="tagline">
-                Pen & Paper Mode • by Kevin Kolb • 
+<div class="container">
+<header class="header">
+<div class="logo-tiles">
+<div class="tile" style="--i: 0">W</div>
+<div class="tile" style="--i: 1">O</div>
+<div class="tile" style="--i: 2">R</div>
+<div class="tile" style="--i: 3">D</div>
+<div class="tile blank" style="--i: 4"></div>
+<div class="tile" style="--i: 5">F</div>
+<div class="tile" style="--i: 6">L</div>
+<div class="tile" style="--i: 7">E</div>
+<div class="tile" style="--i: 8">E</div>
+<div class="tile" style="--i: 9">T</div>
+</div>
+<p class="tagline">
+                Pen &amp; Paper Mode • by Kevin Kolb • 
                 <a href="https://the-game-bureau.github.io/WordFleet" target="_blank">the-game-bureau.github.io/WordFleet</a>
-            </p>
-            
-            <p class="description">
+</p>
+<p class="description">
                 So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!
             </p>
-        </header>
-
-        <div class="main-content">
-            <form class="form-section" id="gameForm" action="tracker.html" method="GET" onsubmit="return handleSubmit(event)">
-                <div class="form-group">
-                    <label for="fleetName" class="label">Fleet Name</label>
-                    <div class="input-container">
-                        <div class="input-group">
-                            <input 
-                                type="text" 
-                                id="fleetName" 
-                                name="fleet" 
-                                class="input" 
-                                placeholder="Enter your fleet name..."
-                                maxlength="30"
-                                required
-                            >
-                            <button type="button" class="input-button" onclick="generateFleetName()" title="Generate random fleet name">
+</header>
+<div class="main-content">
+<form action="tracker.html" class="form-section" id="gameForm" method="GET" onsubmit="return handleSubmit(event)">
+<div class="form-group">
+<label class="label" for="fleetName">Fleet Name</label>
+<div class="input-container">
+<div class="input-group">
+<input class="input" id="fleetName" maxlength="30" name="fleet" placeholder="Enter your fleet name..." required="" type="text"/>
+<button class="input-button" onclick="generateFleetName()" title="Generate random fleet name" type="button">
                                 🎲
                             </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="label">Word-Ships Configuration</label>
-                    <div class="toggle-container">
-                        <div class="toggle-buttons">
-                            <button type="button" class="toggle-btn active" id="autoBtn" onclick="setMode('auto')">
+</div>
+</div>
+</div>
+<div class="form-group">
+<label class="label">Word-Ships Configuration</label>
+<div class="toggle-container">
+<div class="toggle-buttons">
+<button class="toggle-btn active" id="autoBtn" onclick="setMode('auto')" type="button">
                                 Auto-Generated
                             </button>
-                            <button type="button" class="toggle-btn" id="manualBtn" onclick="setMode('manual')">
+<button class="toggle-btn" id="manualBtn" onclick="setMode('manual')" type="button">
                                 Manual Selection
                             </button>
-                        </div>
-                        
-                        <div class="manual-words" id="manualWords">
-                            <div class="word-group">
-                                <label class="word-label">KETCH • 5-Letter Wordship</label>
-                                <input type="text" class="word-input" maxlength="5" placeholder="Enter 5 letters..." name="word5">
+</div>
+<div class="manual-words" id="manualWords">
+<div class="word-group">
+<label class="word-label">KETCH • 5-Letter Wordship</label>
+<input class="word-input" maxlength="5" name="word5" placeholder="Enter 5 letters..." type="text"/>
+</div>
+<div class="word-group">
+<label class="word-label">SHIP • 4-Letter Wordship</label>
+<input class="word-input" maxlength="4" name="word4" placeholder="Enter 4 letters..." type="text"/>
+</div>
+<div class="word-group">
+<label class="word-label">SUB • 3-Letter Wordship</label>
+<input class="word-input" maxlength="3" name="word3a" placeholder="Enter 3 letters..." type="text"/>
+</div>
+<div class="word-group">
+<label class="word-label">ARK • 3-Letter Wordship</label>
+<input class="word-input" maxlength="3" name="word3b" placeholder="Enter 3 letters..." type="text"/>
+</div>
+<div class="word-group">
+<label class="word-label">PT • 2-Letter Wordship</label>
+<input class="word-input" maxlength="2" name="word2" placeholder="Enter 2 letters..." type="text"/>
+</div>
+</div>
+<input id="wordsMode" name="words" type="hidden" value="true"/>
+</div>
+</div>
+</form>
+<div class="preview-section">
+<div class="form-group">
+<label class="label">Battle Tracker Preview</label>
+<div class="input-container">
+<div style="display: flex; justify-content: center;">
+<div id="previewContainer" style="width: 160px; height: 207px; border-radius: 4px; background: white; display: flex; align-items: center; justify-content: center; color: #666; font-size: 14px; text-align: center; padding: 20px; box-sizing: border-box;">
+                                Battle tracker preview will appear here
                             </div>
-                            <div class="word-group">
-                                <label class="word-label">SHIP • 4-Letter Wordship</label>
-                                <input type="text" class="word-input" maxlength="4" placeholder="Enter 4 letters..." name="word4">
-                            </div>
-                            <div class="word-group">
-                                <label class="word-label">SUB • 3-Letter Wordship</label>
-                                <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3a">
-                            </div>
-                            <div class="word-group">
-                                <label class="word-label">ARK • 3-Letter Wordship</label>
-                                <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3b">
-                            </div>
-                            <div class="word-group">
-                                <label class="word-label">PT • 2-Letter Wordship</label>
-                                <input type="text" class="word-input" maxlength="2" placeholder="Enter 2 letters..." name="word2">
-                            </div>
-                        </div>
-                        
-                        <input type="hidden" id="wordsMode" name="words" value="true">
-                    </div>
-                </div>
-            </form>
-
-            <div class="preview-section">
-                <div class="form-group">
-                    <label class="label">Preview</label>
-                    <div class="input-container">
-                        <div class="preview-image">
-                            <img src="src/media/preview.png" alt="Battle Tracker Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="label">Launch</label>
-                    <div class="input-container">
-                        <button type="submit" form="gameForm" class="btn btn-primary" style="width: 100%;">
-                            Launch Battle Tracker
+<canvas height="1056" id="battleTrackerCanvas" style="width: 160px; height: 207px; border-radius: 4px; background: white; display: none;" width="816"></canvas>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label class="label">Engage</label>
+<div class="input-container">
+<button class="btn btn-primary" id="printBtn" onclick="printBattleTracker()" style="width: 100%; margin-bottom: 1rem;" type="button">
+                            Print Battle Tracker
                         </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="floating-buttons">
-        <div class="floating-btn-container">
-            <a href="rules.html" class="floating-btn">
+<button class="btn btn-primary" id="downloadBtn" onclick="downloadBattleTracker()" style="width: 100%;" type="button">
+                            Download Battle Tracker
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="floating-buttons">
+<div class="floating-btn-container">
+<a class="floating-btn" href="rules.html">
                 📖
             </a>
-            <div class="floating-label">Rules</div>
-        </div>
-        <div class="floating-btn-container">
-            <button class="floating-btn" onclick="showFutureDeployments()">
+<div class="floating-label">Rules</div>
+</div>
+<div class="floating-btn-container">
+<button class="floating-btn" onclick="showFutureDeployments()">
                 🔮
             </button>
-            <div class="floating-label">Future</div>
-        </div>
-    </div>
-
-    <div class="footer-image">
-        <img src="src/media/word_fleet_banner_1600x400.png" alt="Word Fleet Naval Battle Scene">
-    </div>
-
-    <!-- Future Deployments Modal -->
-    <div class="modal-overlay" id="futureModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2 class="modal-title">🚀 Future Deployments</h2>
-                <p class="modal-subtitle">Command Center Intelligence Report</p>
-            </div>
-            
-            <div class="modal-body">
-                
-                <div class="deployment-grid">
-                    <div class="deployment-card">
-                        <span class="deployment-icon">🎮</span>
-                        <h3 class="deployment-title">Simulator Mode</h3>
-                        <p class="deployment-description">Train your fleet in virtual combat scenarios with AI-powered battle simulations and tactical analysis.</p>
-                    </div>
-                    
-                    <div class="deployment-card">
-                        <span class="deployment-icon">🏆</span>
-                        <h3 class="deployment-title">Tournament Mode</h3>
-                        <p class="deployment-description">Command your fleet in organized competitions with leaderboards, brackets, and championship glory.</p>
-                    </div>
-                    
-                    <div class="deployment-card">
-                        <span class="deployment-icon">📱</span>
-                        <h3 class="deployment-title">Mobile App Combat</h3>
-                        <p class="deployment-description">Deploy your wordships on-the-go with native mobile applications for iOS and Android devices.</p>
-                    </div>
-                    
-                    <div class="deployment-card">
-                        <span class="deployment-icon">💬</span>
-                        <h3 class="deployment-title">SMS Battle System</h3>
-                        <p class="deployment-description">Engage in naval warfare through text messages - no internet required for remote battle coordination.</p>
-                    </div>
-                    
-                    <div class="deployment-card">
-                        <span class="deployment-icon">🤖</span>
-                        <h3 class="deployment-title">AI Admiral Challenges</h3>
-                        <p class="deployment-description">Face off against artificial intelligence commanders with adaptive strategies and varying difficulty levels.</p>
-                    </div>
-                    
-                    <div class="deployment-card">
-                        <span class="deployment-icon">🌐</span>
-                        <h3 class="deployment-title">Online Multiplayer</h3>
-                        <p class="deployment-description">Connect with admirals worldwide for real-time naval battles and strategic fleet management.</p>
-                    </div>
-                    
-                    <div class="deployment-card">
-                        <span class="deployment-icon">⚔️</span>
-                        <h3 class="deployment-title">Ranked Battles</h3>
-                        <p class="deployment-description">Climb the naval hierarchy through competitive ranked matches with seasonal rewards and titles.</p>
-                    </div>
-                    
-                    <div class="deployment-card">
-                        <span class="deployment-icon">🎯</span>
-                        <h3 class="deployment-title">Campaign Mode</h3>
-                        <p class="deployment-description">Lead your fleet through epic story-driven campaigns across dangerous waters and enemy territories.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-footer">
-                <button class="modal-close-btn" onclick="closeFutureDeployments()">
-                    ⚓ RETREAT
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
+<div class="floating-label">Future</div>
+</div>
+</div>
+<div class="footer-image">
+<img alt="Word Fleet Naval Battle Scene" src="src/media/word_fleet_banner_1600x400.png"/>
+</div>
+<script>
         const fleetNames = {
             adjectives: [
                 "Storm", "Thunder", "Lightning", "Tempest", "Royal", "Imperial", 
                 "Shadow", "Phantom", "Crimson", "Golden", "Iron", "Steel", 
-                "Swift", "Rapid", "Legendary", "Mythical", "Arctic", "Solar"
+                "Swift", "Rapid", "Legendary", "Mythical", "Arctic", "Solar",
+                "Azure", "Blazing", "Crystal", "Diamond", "Emerald", "Fierce",
+                "Glorious", "Heroic", "Invincible", "Jade", "Knight", "Lunar",
+                "Majestic", "Noble", "Onyx", "Platinum", "Quantum", "Radiant",
+                "Sapphire", "Titanium", "Ultimate", "Valiant", "Winter", "Xenon",
+                "Zealous", "Frost", "Venom", "Raven", "Wolf", "Eagle", "Tiger",
+                "Dragon", "Phoenix", "Cobra", "Hawk", "Lion", "Shark", "Bear"
             ],
             nouns: [
                 "Fleet", "Armada", "Squadron", "Flotilla", "Battlegroup", 
                 "Division", "Raiders", "Corsairs", "Guardians", "Titans", 
-                "Eagles", "Wolves", "Storm", "Thunder", "Voyagers"
+                "Eagles", "Wolves", "Storm", "Thunder", "Voyagers", "Warriors",
+                "Defenders", "Crusaders", "Destroyers", "Hunters", "Sentinels",
+                "Champions", "Vanguards", "Templars", "Knights", "Legion",
+                "Brotherhood", "Alliance", "Coalition", "Federation", "Empire",
+                "Republic", "Dynasty", "Order", "Guild", "Society", "Circle",
+                "Force", "Unit", "Company", "Regiment", "Brigade", "Corps",
+                "Navy", "Marines", "Rangers", "Commandos", "Elite", "Guard"
             ]
         };
 
@@ -1122,26 +1007,108 @@
                 return false;
             }
             
-            submitBtn.innerHTML = '🚀 Deploying Fleet...';
+            submitBtn.innerHTML = 'Deploying Fleet...';
             submitBtn.style.opacity = '0.7';
             
             return true;
         }
 
         function showFutureDeployments() {
+            // Create modal if it doesn't exist
+            if (!document.getElementById('futureModal')) {
+                createModal();
+            }
+            
             const modal = document.getElementById('futureModal');
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
         }
 
         function closeFutureDeployments() {
             const modal = document.getElementById('futureModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
         }
 
-        // Close modal when clicking outside
-        document.addEventListener('DOMContentLoaded', function() {
+        function createModal() {
+            const modalHTML = `
+                <div class="modal-overlay" id="futureModal" style="display: none;">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h2 class="modal-title">🔮 Future Deployments</h2>
+                            <p class="modal-subtitle">Command Center Intelligence Report</p>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <div class="deployment-grid">
+                                <div class="deployment-card">
+                                    <span class="deployment-icon">🎮</span>
+                                    <h3 class="deployment-title">Simulator Mode</h3>
+                                    <p class="deployment-description">Train your fleet in virtual combat scenarios with AI-powered battle simulations and tactical analysis.</p>
+                                </div>
+                                
+                                <div class="deployment-card">
+                                    <span class="deployment-icon">🏆</span>
+                                    <h3 class="deployment-title">Tournament Mode</h3>
+                                    <p class="deployment-description">Command your fleet in organized competitions with leaderboards, brackets, and championship glory.</p>
+                                </div>
+                                
+                                <div class="deployment-card">
+                                    <span class="deployment-icon">📱</span>
+                                    <h3 class="deployment-title">Mobile App Combat</h3>
+                                    <p class="deployment-description">Deploy your wordships on-the-go with native mobile applications for iOS and Android devices.</p>
+                                </div>
+                                
+                                <div class="deployment-card">
+                                    <span class="deployment-icon">💬</span>
+                                    <h3 class="deployment-title">SMS Battle System</h3>
+                                    <p class="deployment-description">Engage in naval warfare through text messages - no internet required for remote battle coordination.</p>
+                                </div>
+                                
+                                <div class="deployment-card">
+                                    <span class="deployment-icon">🤖</span>
+                                    <h3 class="deployment-title">AI Admiral Challenges</h3>
+                                    <p class="deployment-description">Face off against artificial intelligence commanders with adaptive strategies and varying difficulty levels.</p>
+                                </div>
+                                
+                                <div class="deployment-card">
+                                    <span class="deployment-icon">🌐</span>
+                                    <h3 class="deployment-title">Online Multiplayer</h3>
+                                    <p class="deployment-description">Connect with admirals worldwide for real-time naval battles and strategic fleet management.</p>
+                                </div>
+                                
+                                <div class="deployment-card">
+                                    <span class="deployment-icon">⚔️</span>
+                                    <h3 class="deployment-title">Ranked Battles</h3>
+                                    <p class="deployment-description">Climb the naval hierarchy through competitive ranked matches with seasonal rewards and titles.</p>
+                                </div>
+                                
+                                <div class="deployment-card">
+                                    <span class="deployment-icon">🎯</span>
+                                    <h3 class="deployment-title">Campaign Mode</h3>
+                                    <p class="deployment-description">Lead your fleet through epic story-driven campaigns across dangerous waters and enemy territories.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button class="modal-close-btn" onclick="closeFutureDeployments()">
+                                ⚓ RETREAT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            
+            // Add event listeners for the new modal
             const modal = document.getElementById('futureModal');
             if (modal) {
                 modal.addEventListener('click', function(e) {
@@ -1150,18 +1117,208 @@
                     }
                 });
             }
-        });
+        }
 
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeFutureDeployments();
+        // Battle Tracker Functions
+        function getRandomWord(length) {
+            const words = {
+                5: ['ARMOR', 'BLOCK', 'COVER', 'DODGE', 'EVADE', 'FORCE', 'GUARD', 'HAVEN', 'KETCH', 'LANCE'],
+                4: ['ABLE', 'BEAR', 'CALL', 'DARK', 'SHIP', 'MAKE', 'NAVY', 'WAVE', 'UNIT', 'IRON'],
+                3: ['ACE', 'SUB', 'GUN', 'WAR', 'NET', 'KEY', 'ARK', 'ICE', 'JET', 'TOP'],
+                2: ['AT', 'BE', 'DO', 'GO', 'PT', 'MY', 'NO', 'OF', 'ON', 'UP']
+            };
+            const wordList = words[length] || ['WORD'];
+            return wordList[Math.floor(Math.random() * wordList.length)];
+        }
+
+        function getWordsFromForm() {
+            const mode = document.getElementById('wordsMode').value;
+            
+            if (mode === 'false') {
+                return {
+                    word5: document.querySelector('input[name="word5"]').value.toUpperCase() || getRandomWord(5),
+                    word4: document.querySelector('input[name="word4"]').value.toUpperCase() || getRandomWord(4),
+                    word3a: document.querySelector('input[name="word3a"]').value.toUpperCase() || getRandomWord(3),
+                    word3b: document.querySelector('input[name="word3b"]').value.toUpperCase() || getRandomWord(3),
+                    word2: document.querySelector('input[name="word2"]').value.toUpperCase() || getRandomWord(2)
+                };
+            } else {
+                return {
+                    word5: getRandomWord(5),
+                    word4: getRandomWord(4),
+                    word3a: getRandomWord(3),
+                    word3b: getRandomWord(3),
+                    word2: getRandomWord(2)
+                };
             }
-        });
+        }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        function generateBattleTracker() {
+            try {
+                const canvas = document.getElementById('battleTrackerCanvas');
+                const previewContainer = document.getElementById('previewContainer');
+                if (!canvas || !previewContainer) return;
+                
+                const ctx = canvas.getContext('2d');
+                if (!ctx) return;
+                
+                // Clear canvas with white background
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Get form data
+                const fleetName = document.getElementById('fleetName').value.trim() || 'YOUR FLEET';
+                const words = getWordsFromForm();
+                
+                // Simple text rendering
+                ctx.fillStyle = '#000';
+                ctx.font = 'bold 24px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('BATTLE TRACKER', canvas.width / 2, 50);
+                
+                ctx.font = 'bold 18px Arial';
+                ctx.fillText(fleetName.toUpperCase(), canvas.width / 2, 80);
+                
+                ctx.font = '14px Arial';
+                ctx.fillText('Word Fleet • Pen & Paper Mode', canvas.width / 2, 110);
+                
+                // Draw simple grid representation
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(50, 150, 300, 300);
+                ctx.strokeRect(450, 150, 300, 300);
+                
+                ctx.fillStyle = '#333';
+                ctx.font = 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('ATTACK GRID', 200, 140);
+                ctx.fillText('DEFENSE GRID', 600, 140);
+                
+                // Show words
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'left';
+                let yPos = 500;
+                ctx.fillText(`5-Letter: ${words.word5}`, 50, yPos);
+                ctx.fillText(`4-Letter: ${words.word4}`, 200, yPos);
+                ctx.fillText(`3-Letter: ${words.word3a}`, 350, yPos);
+                ctx.fillText(`3-Letter: ${words.word3b}`, 500, yPos);
+                ctx.fillText(`2-Letter: ${words.word2}`, 650, yPos);
+                
+                // Show canvas, hide placeholder
+                canvas.style.display = 'block';
+                previewContainer.style.display = 'none';
+                
+            } catch (error) {
+                console.error('Error generating battle tracker:', error);
+            }
+        }
+
+        function printBattleTracker() {
+            // First generate the battle tracker if not already generated
+            if (document.getElementById('battleTrackerCanvas').style.display === 'none') {
+                generateBattleTracker();
+            }
+            
+            // Then launch the print dialog
+            setTimeout(() => {
+                const canvas = document.getElementById('battleTrackerCanvas');
+                if (!canvas) return;
+                
+                // Create a new window for printing
+                const printWindow = window.open('', '_blank', 'width=850,height=1100');
+                const dataURL = canvas.toDataURL('image/png');
+                
+                printWindow.document.write(`
+                    <html>
+                    <head>
+                        <title>Battle Tracker - Print</title>
+                        <style>
+                            @media print {
+                                @page {
+                                    size: 8.5in 11in;
+                                    margin: 0.25in;
+                                }
+                                body {
+                                    margin: 0;
+                                    padding: 0;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    min-height: 100vh;
+                                }
+                                img {
+                                    max-width: 100%;
+                                    max-height: 100%;
+                                    width: 8in;
+                                    height: auto;
+                                }
+                            }
+                            body {
+                                margin: 0;
+                                padding: 20px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                min-height: 100vh;
+                                background: #f0f0f0;
+                            }
+                            img {
+                                max-width: 90%;
+                                max-height: 90vh;
+                                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+                                border-radius: 4px;
+                                background: white;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <img src="${dataURL}" alt="Battle Tracker" onload="window.print(); window.close();">
+                    </body>
+                    </html>
+                `);
+                
+                printWindow.document.close();
+            }, 500);
+        }
+
+        function downloadBattleTracker() {
+            // First generate the battle tracker if not already generated
+            if (document.getElementById('battleTrackerCanvas').style.display === 'none') {
+                generateBattleTracker();
+            }
+            
+            // Then download it
+            setTimeout(() => {
+                const canvas = document.getElementById('battleTrackerCanvas');
+                if (!canvas) return;
+                
+                // Get fleet name and create filename
+                const fleetName = document.getElementById('fleetName').value.trim() || 'Your-Fleet';
+                const sanitizedFleetName = fleetName.replace(/\s+/g, '-'); // Convert spaces to hyphens
+                const filename = `Word-Fleet-${sanitizedFleetName}-Battle-Tracker.png`;
+                
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }, 500);
+        }
+
+        // Event listeners setup
+        function setupEventListeners() {
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeFutureDeployments();
+                }
+            });
+        }
+
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
             generateFleetName();
             setMode('auto');
+            setupEventListeners();
         });
     </script>
 </body>

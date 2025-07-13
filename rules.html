@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WORD FLEET - Operations Manual</title>
@@ -25,7 +23,7 @@
             font-family: 'Courier Prime', monospace;
             line-height: 1.6;
             color: var(--ink-black);
-            background: none;
+            background: none !important;
             font-size: 12pt;
             padding: 0;
             margin: 0;
@@ -66,7 +64,7 @@
             max-width: 8.5in;
             margin: 0 auto;
             padding: 1in;
-            background: white;
+            background: white !important;
             min-height: 100vh;
             position: relative;
         }
@@ -312,26 +310,20 @@
             transform: translateY(-2px);
         }
 
-        /* Coffee stains throughout document */
+        /* Remove all background effects and stains */
         .coffee-stain,
         .coffee-stain-small,
-        .content-stain {
+        .content-stain,
+        .coffee-mug-stain-front {
             display: none !important;
         }
-        .coffee-mug-stain-front {
-            position: absolute;
-            top: 80px;
-            left: 60px;
-            width: 180px;
-            height: 180px;
-            pointer-events: none;
-            z-index: 10;
-            background: none;
-        }
-        .coffee-mug-stain-front svg {
-            width: 100%;
-            height: 100%;
-            display: block;
+        .manual-content {
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 1in;
+            background: white !important;
+            min-height: 100vh;
+            position: relative;
         }
 
         @media (max-width: 768px) {
@@ -356,40 +348,20 @@
 </head>
 <body>
     <!-- Navigation -->
-    <button onclick="window.print()" class="print-nav no-print">📄 PRINT</button>
+    <!-- Print button removed -->
 
     <!-- Manual Content -->
     <div class="manual-content">
-        <div class="coffee-mug-stain-front" aria-hidden="true">
-            <svg viewBox="0 0 180 180">
-                <ellipse cx="90" cy="90" rx="75" ry="75" fill="none" stroke="#8b4513" stroke-width="8" opacity="0.32"/>
-                <ellipse cx="90" cy="90" rx="65" ry="65" fill="none" stroke="#8b4513" stroke-width="3" opacity="0.18"/>
-                <ellipse cx="90" cy="90" rx="55" ry="55" fill="none" stroke="#8b4513" stroke-width="2" opacity="0.12"/>
-                <ellipse cx="120" cy="60" rx="10" ry="6" fill="#8b4513" opacity="0.08"/>
-                <ellipse cx="60" cy="120" rx="8" ry="5" fill="#8b4513" opacity="0.10"/>
-                <ellipse cx="110" cy="130" rx="6" ry="3" fill="#8b4513" opacity="0.07"/>
-            </svg>
-        </div>
-
         <header class="manual-header">
-            <div class="cover-classification">UNCLASSIFIED</div>
             <h1 class="manual-title">WORD FLEET</h1>
-            <h2 class="manual-subtitle">Operations Manual</h2>
-            <div class="manual-info">Naval Word Combat Strategy</div>
+            <div style="font-size: 11pt; font-family: 'Courier Prime', monospace; margin-bottom: 10px; white-space: nowrap;">
+                Pen &amp; Paper Mode • by Kevin Kolb • <a href="https://the-game-bureau.github.io/WordFleet" style="color: inherit; text-decoration: underline;">the-game-bureau.github.io/WordFleet</a>
+            </div>
+            <h2 class="manual-subtitle">Rules of Engagement</h2>
             <div class="cover-details">
                 <div><strong>PERSONNEL:</strong> 2 Operators</div>
                 <div><strong>MINIMUM AGE:</strong> 10</div>
-                <div><strong>MISSION DURATION:</strong> 15-30 minutes</div>
-            </div>
-            <div class="cover-footer">
-                <div><strong>THE GAME BUREAU</strong></div>
-                <div>thegamebureau.com/wrdflt</div>
-                <div>REVISION 1.0 - 2025</div>
-            </div>
-        </header>
-
-        <section class="manual-section">
-            <h2 class="section-header">Combat Overview</h2>
+                <div><strong>MISSION DURATION:</strong> 15-30 minutes</div></div></header><section class="manual-section">
             
             <div class="example-box">
                 Word Fleet combines the strategy of Battleship® with the linguistic challenge of Wordle®.
@@ -537,5 +509,5 @@
             }, 1000);
         }
     </script>
-</body>
-</html>
+
+</body></html>
