@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Fleet - Rules of Engagement</title>
+  <style>
+    :root {
+      --main-bg: #fdfdfd;
+      --accent-bg: #f0f4f8;
+      --text-color: #111;
+      --muted-color: #666;
+      --border-color: #ddd;
+      --primary: #6aaa64;
+      --secondary: #3498db;
+      --card-radius: 6px;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--main-bg);
+      color: var(--text-color);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      line-height: 1.7;
+    }
+    h1, h2, h3, h4 {
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .wordle-tile {
+      width: 50px;
+      height: 50px;
+      background-color: #6aaa64;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+    .word-space {
+      width: 10px;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--muted-color);
+      margin-bottom: 60px;
+    }
+    a {
+      color: var(--text-color);
+      text-decoration: underline;
+    }
+    section {
+      margin-bottom: 60px;
+    }
+    ul {
+      list-style: disc;
+      margin-left: 20px;
+    }
+    ol {
+      margin-left: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: var(--accent-bg);
+      text-transform: uppercase;
+    }
+    .note, .example-box, .key-rules, .strategy-tips, .victory-condition, .advanced-tactic, .fire-defender-info-new {
+      background-color: var(--accent-bg);
+      padding: 20px;
+      border-left: 4px solid var(--primary);
+      border-radius: var(--card-radius);
+      margin-top: 20px;
+    }
+    .fire-section {
+      background-color: #fff;
+      border: 1px solid var(--border-color);
+      padding: 30px;
+      border-radius: var(--card-radius);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .fire-step-new {
+      background-color: var(--accent-bg);
+      padding: 20px;
+      border-radius: var(--card-radius);
+      margin-top: 20px;
+    }
+    .fire-response-new {
+      padding: 10px;
+      border-radius: 4px;
+      background: #fff;
+      border: 2px solid var(--border-color);
+      margin-top: 10px;
+    }
+    .fire-response-label-new {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .fire-callout-new {
+      background-color: #e0f0e9;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 0 4px;
+      font-weight: bold;
+    }
+    .flip-emoji {
+      display: inline-block;
+      transform: scaleX(-1);
+    }
+    .intro-text {
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+    .mission-specs-container {
+      background-color: var(--accent-bg);
+      padding: 20px;
+      border-radius: var(--card-radius);
+      margin: 20px auto;
+    }
+    .mission-specs {
+      display: flex;
+      justify-content: space-around;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .spec-item {
+      text-align: center;
+    }
+    .spec-label {
+      font-size: 0.9rem;
+      color: var(--muted-color);
+      margin-bottom: 4px;
+    }
+    .spec-value {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+  </header>
+  <main>
+
+    <section>
+      <h3><span class="flip-emoji">📡</span> Hailing the Enemy 📡</h3>
+      <p>A Mini-Game to Determine First Strike</p>
+      <p>Each Captain has 5 secret Launch Codes (000–999). Use them to bluff your way to firing first!</p>
+      <ol>
+        <li><strong>Opening Hail:</strong> One Captain calls out any 3-digit code.</li>
+        <li><strong>Response:</strong> The opponent must choose: Concede, Challenge, or Counter.</li>
+        <li><strong>Continue:</strong> Players alternate until someone concedes or is challenged.</li>
+      </ol>
+      <div class="example-box">
+        <h4>Example</h4>
+        <p>Captain A: "850" → Captain B: "900" → Captain A: "Challenge!" → B reveals no 900 → A fires first.</p>
+      </div>
+      <div class="key-rules">
+        <h4>Key Rules</h4>
+        <ul>
+          <li>Same codes are allowed for both players</li>
+          <li>Equal codes are valid counters</li>
+          <li>Players alternate turns</li>
+        </ul>
+      </div>
+    </section>
+    <section class="fire-section">
+      <h3>Engage the Enemy</h3>
+      <div class="fire-step-new">
+        <h4>Initial Strike</h4>
+        <p>Select a coordinate and announce it: <span class="fire-callout-new">"E-7"</span></p>
+        <div class="fire-response-new">
+          <div class="fire-response-label-new">MISS</div>
+          <div>No ship at coordinate. Turn ends.</div>
+        </div>
+        <div class="fire-response-new">
+          <div class="fire-response-label-new">HIT</div>
+          <div>Ship confirmed! Proceed to Letter Strike.</div>
+        </div>
+      </div>
+      <div class="fire-step-new">
+        <h4>Letter Strike</h4>
+        <p>Guess a letter at the coordinate: <span class="fire-callout-new">"S"</span></p>
+        <div class="fire-response-new">
+          <div class="fire-response-label-new">BULLSEYE</div>
+          <div>Correct letter. Turn ends.</div>
+        </div>
+        <div class="fire-response-new">
+          <div class="fire-response-label-new">TALLY</div>
+          <div>Wrong letter. Total count revealed. Turn ends.</div>
+        </div>
+      </div>
+      <div class="fire-defender-info-new">
+        <strong>Defender:</strong> Track hits and update your manifest accordingly.
+      </div>
+    </section>
+    <section>
+      <h3>Victory</h3>
+      <p>Destroy all five enemy Word-Ships to win the game.</p>
+    </section>
+    <section>
+      <h3>Advanced Protocols</h3>
+      <div class="victory-condition">
+        <h4>Sinking Enemy Vessels</h4>
+        <p>Reveal all letters to sink a ship. Announce: "You sank my [WORD]!"</p>
+      </div>
+      <div class="advanced-tactic">
+        <h4>Vessel Destruction Protocol</h4>
+        <p>Instead of firing, guess the entire word.</p>
+        <ul>
+          <li>Correct: Vessel destroyed instantly</li>
+          <li>Incorrect: Turn ends and word is off-limits forever</li>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <h3>Suggest Your Own Protocol</h3>
+      <p>Have a new tactic? Email us at <a href="mailto:missioncontrol@thegamebureau.com">missioncontrol@thegamebureau.com</a></p>
+    </section>
+  </main>
+</body>l
+</html>

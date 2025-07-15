@@ -1,128 +1,137 @@
-# Word Fleet | Pen & Paper Mode
-**Players:** 2 | **Ages:** 10+ | **Game Time:** 15-30 minutes
+# WORD FLEET
 
-## Rules of Engagement
-Word Fleet combines the strategy of Battleship® with the word-building challenge of Wordle®.
+**Pen & Paper Mode • by Kevin Kolb**  
+[the-game-bureau.github.io/WordFleet](https://the-game-bureau.github.io/WordFleet)
 
-## All Hands On Deck!
+## RULES OF ENGAGEMENT
 
-### Your Arsenal
-- 2 Battle Tracker sheets from thegamebureau.com/wrdflt
+### Introduction
+
+*Word Fleet* combines the strategy of _Battleship®_ with the linguistic challenge of _Wordle®_.
+
+### Mission Specs
+
+| Personnel | Minimum Age | Mission Duration |
+|-----------|-------------|------------------|
+| 2 Captains | 10 | 15–30 minutes |
+
+---
+
+### Requisition
+
+- 2 Battle Tracker sheets from [the-game-bureau.github.io/WordFleet](https://the-game-bureau.github.io/WordFleet)
 - 2 pens or pencils
-- 2 highlighters (optional) for enhanced tracking
-
-### Deploy Your Fleet
-Choose auto-generated or player-chosen Word Ships. Both captains must choose the same type. Place 5 Word Ships on your Battle Tracker **Defense Grid** (bottom left).
-
-| Ship Name | Length | Example Word |
-|------|--------|---------|
-| KETCH | 5 letters | PIANO |
-| SHIP | 4 letters | JUMP |
-| SUB | 3 letters | BED |
-| ARK | 3 letters | RUN |
-| PT | 2 letters | IF |
-
-*Note: Ship names are just fun naval-themed labels—they don't affect gameplay and simply correspond to word lengths!*
-
-- Place left to right horizontally or top to bottom vertically only, no diagonals
-- Ships may touch edges but cannot overlap
-- All words must be in the agreed upon language
-- No proper nouns, abbreviations, hyphenated words, or suffixes
-
-
-Fill out your **Defense Manifest**
-
-
-
-
-
-
-
-
-
+- 2 highlighters (optional)
 
 ---
 
-## 📡 Hailing the Enemy
+### Fleet Deployment
 
-Use launch codes and cunning to negotiate who fires the opening round!
+Each captain deploys five Word-Ships on their Defense Grid. Use either auto-generated or custom words; both players must use the same method.
 
-### Opening Gambit Process
+| Word-Ship Class | Length     | Example Name |
+|-----------------|------------|--------------|
+| KETCH           | 5 letters  | PIANO        |
+| SHIP            | 4 letters  | JUMP         |
+| SUB             | 3 letters  | BED          |
+| ARK             | 3 letters  | RUN          |
+| PT              | 2 letters  | IF           |
 
-1. **Opening Gambit** — One captain (the Initiator) calls out a real or fake launch code
+> **Note:** Word-Ship class names are for reference only and do not affect gameplay.
 
-2. **Response** — The other captain (the Defender) has three choices:
-   - **Concede** — The Initiator goes first
-   - **Challenge** — If it was a real code, the Initiator goes first. If not, the Defender goes first
-   - **Counter** — The Defender calls out a higher launch code (real or fake) and becomes the new Initiator
+- Place Word-Ships left-to-right (horizontal) or top-to-bottom (vertical) only
+- No diagonals, backwards, or upward placements
+- Ships may touch but not overlap
+- Use the same language for all ships
+- No proper nouns, abbreviations, or suffixes
 
-3. **Resolution** — The process repeats until someone concedes or challenges
-
-*Launch codes are the five 3-digit numbers printed on your Battle Tracker*
+**Defense Manifest**: Record letter totals from all ships to help track what's been revealed.
 
 ---
 
+### 📡 Hailing the Enemy 📡  
+*A Mini-Game to Determine First Strike*
 
+Each Captain has 5 secret Launch Codes (000–999). Use them to bluff your way to firing first!
 
+#### How It Works
 
+1. **Opening Hail** – One Captain calls out any 3-digit code.
+2. **Response** – The opponent must choose:
+   - **Concede** – Caller fires first.
+   - **Challenge** – Caller reveals codes:
+     - Code is valid → Caller fires first.
+     - Code is fake → Challenger fires first.
+   - **Counter** – Call a higher or equal code and become the new caller.
+3. **Continue** – Players alternate turns until one concedes or is caught bluffing.
 
+#### Example
 
+> Captain A: “850” → Captain B: “900” → Captain A: “Challenge!”  
+> Captain B reveals no 900 → Captain A fires first.
 
-###Give the Command, Captain!
+#### Key Rules
 
-On your turn, call out a grid coordinate to fire.
+- Both players can have the same code
+- Equal codes are valid counters
+- Players must alternate — no countering your own counter
 
-| Example: "F9!"
+---
 
-Your opposing captain replies to your attack.
+### 🎯 Engage the Enemy  
+*Unleash Your Word Power!*
 
---------
+#### Step 1: Initial Strike
 
-"**Miss!**" There is no Word Ship at that coordinate.
-CAPTAIN'S LOG: Place a dot at the center of the coordinate on the Attack Grid.
-FURTHER ACTION: Your turn is over. No further action.
+Choose a coordinate and call it out:
+> “Fire on coordinate Echo-Seven!” or “E-7!”
 
-"**Hit.**" There is a Word Ship at that coordinate.
-CAPTAIN'S LOG: With a pen or a highlighter, trace the coordinate's border on the Attack Grid.
-FURTHER ACTION: Your turn is **NOT** over! Call a letter.
+Responses:
 
-| Example: "S!"
+- **MISS** – No ship. Mark it with a dot. Turn ends.
+- **HIT** – Ship confirmed. Proceed to Letter Strike.
 
-"**Bullseye.**" The letter called is at the coordinate called!
-CAPTAIN'S LOG: Write the letter in the coordinate on the Attack Grid.
-FURTHER ACTION: Your turn is over. No further action.
+#### Step 2: Letter Strike
 
-"**0 - ?.**" How many times your letter appears in their fleet.
-CAPTAIN'S LOG: Write the number on your Attack Manifest in the appropriate letter box.
-FURTHER ACTION: Your turn is over. No further action.
+Guess the letter at the coordinate:
+> “S”
 
-guess the word when?
-cross out word?
-scratch paper for filling out words? soduku doesn't
+Responses:
 
-## We're Under Attack! ##
+- **BULLSEYE** – Correct letter at that position. Write it in. Turn ends.
+- **TALLY** – Wrong letter. Defender announces how many total times that letter appears in their fleet. Turn ends.
 
-Mark your defense grid with dots for misses and border highlighting for hits
+#### Defender's Duty
 
-### Defense Manifest (bottom right)
-- Count each letter in your full fleet
-- Record totals after placing your ships
-- Used to answer Letter Sweeps quickly and accurately
+Track incoming fire and update your Defense Manifest with every revealed letter.
 
-## 🏆 Victory
+---
 
-Be the first to sink all five of your opponent's word ships by correctly identifying every letter in each ship.
+### 🎖 Victory
 
-## Alternate Rules of Engagement
+Destroy all five enemy Word-Ships to win the game.
 
-### Themed Fleets
-Choose a shared category for all ships:
-- Animals (ZEBRA, FROG, COW, BAT, OX)
-- Foods (PASTA, MILK, PIE, TEA, EGG)
-- Nature (CLOUD, TREE, SUN, SKY, ICE)
+---
 
-### Handicap Variant
-One player creates harder custom words while the other uses auto-generated words.
+### ⚡ Advanced Protocols
 
-### More
-Do you have an alternate rule? Send it to missioncontrol@thegamebureau.com
+#### Sinking Enemy Vessels
+
+When all letters of a Word-Ship are revealed:
+
+> “You sank my [WORD]!”
+
+#### Vessel Destruction Protocol
+
+Instead of firing normally, you may guess the full word.
+
+- ✅ Correct: Instantly destroy the ship.
+- ❌ Incorrect: Turn ends. You may not guess that word again.
+
+---
+
+### 💡 Suggest a New Protocol
+
+Have a new tactic or gameplay variant?
+
+📬 Email us: [missioncontrol@thegamebureau.com](mailto:missioncontrol@thegamebureau.com)
