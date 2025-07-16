@@ -467,6 +467,68 @@
         font-size: 2rem;
     }
 }
+
+@media print {
+    body {
+        background: white;
+        padding: 30px 20px;
+        max-width: 760px;
+        margin: 0 auto;
+    }
+    
+    .section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        background: white !important;
+        margin-bottom: 30px;
+        border: 1px solid #ccc !important;
+        padding: 20px !important;
+    }
+    
+    /* Add extra space before sections that might start a new page */
+    .section:not(:first-child) {
+        margin-top: 15px;
+    }
+    
+    h1 {
+        page-break-after: avoid;
+        break-after: avoid;
+        margin-bottom: 30px;
+    }
+    
+    h2, h3 {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+    
+    .hailing-enemy-flow-step, 
+    .combat-flow-step, 
+    .victory-flow-step {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+    
+    table {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+    
+    .wordle-tile {
+        box-shadow: none;
+        animation: none;
+    }
+    
+    /* Ensure good spacing for readability */
+    p {
+        orphans: 2;
+        widows: 2;
+    }
+    
+    /* Force page break before certain sections if needed */
+    .section:nth-child(6) { /* Hailing section */
+        page-break-before: auto;
+    }
+}
   </style>
 </head>
 <body>
@@ -694,8 +756,8 @@
     <p>For variety, try deploying fleets around specific themes:</p>
     <ul>
         <li><strong>Biological:</strong> ZEBRA, FROG, COW, BAT, OX</li>
-        <li><strong>Nutritional:</strong> PASTA, MILK, PIE, TEA, RY</li>
-        <li><strong>Environmental:</strong> CLOUD, TREE, SUN, SKY, SO</li>
+        <li><strong>Directional:</strong> NORTH, LEFT, TOP, WAY, UP</li>
+        <li><strong>Personal:</strong> UNCLE, AUNT, DAD, MOM, ME</li>
     </ul>
   </div>
     <div class="section">
