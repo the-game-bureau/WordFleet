@@ -51,6 +51,17 @@
       font-size: 1.5rem;
       font-weight: bold;
       border-radius: 4px;
+      border: 2px solid #2d3748;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      font-family: 'Arial Black', sans-serif;
+      text-transform: uppercase;
+      animation: float 4s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.1s);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
     }
     .word-space {
       width: 50px;
@@ -79,9 +90,9 @@
     }
 
     table {
-      width: 100%;
+      width: auto;
       border-collapse: collapse;
-      margin-bottom: 40px;
+      margin: 0 auto 40px auto;
     }
 
     thead th {
@@ -108,34 +119,6 @@
       display: inline-block;
       transform: scaleX(-1);
     }
-<!--Mini-Game css -->
-.hailing-enemy-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 2rem;
-}
-
-.hailing-enemy-title {
-    font-size: 2.5rem;
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
-    color: #6aaa64;
-}
-
-.hailing-enemy-title .flip-emoji {
-    display: inline-block;
-    transform: scaleX(-1);
-}
-
-.hailing-enemy-subtitle {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #666666;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
 
 .hailing-enemy-section {
     margin-bottom: 30px;
@@ -270,31 +253,6 @@
 }
 
 /* Combat CSS - reusing same structure */
-.combat-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 1.5rem;
-}
-
-.combat-title {
-    font-size: 2rem;
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
-    color: #d73027;
-    text-align: center;
-    padding-left: 0;
-}
-
-.combat-subtitle {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #666666;
-    font-style: italic;
-    margin: 0;
-}
-
 .combat-section {
     margin-bottom: 30px;
 }
@@ -317,7 +275,7 @@
     position: absolute;
     top: -0.75rem;
     left: 1.5rem;
-    background: #d73027;
+    background: #6aaa64;
     color: #ffffff;
     width: 1.5rem;
     height: 1.5rem;
@@ -344,8 +302,8 @@
 }
 
 .combat-quote {
-    background: rgba(215, 48, 39, 0.05);
-    border-left: 3px solid #d73027;
+    background: rgba(106, 170, 100, 0.05);
+    border-left: 3px solid #6aaa64;
     padding: 0.75rem 1rem;
     margin: 0.75rem 0;
     font-style: italic;
@@ -364,7 +322,7 @@
     padding: 0.2rem 0.4rem;
     border-radius: 2px;
     font-family: 'Courier New', monospace;
-    color: #d73027;
+    color: #6aaa64;
     font-weight: 500;
 }
 
@@ -383,51 +341,26 @@
 }
 
 .combat-response-option strong {
-    color: #d73027;
+    color: #6aaa64;
     font-size: 1rem;
     display: block;
     margin-bottom: 0.3rem;
 }
 
 .combat-defender-info {
-    background: rgba(215, 48, 39, 0.05);
-    border: 1px solid rgba(215, 48, 39, 0.2);
+    background: rgba(106, 170, 100, 0.05);
+    border: 1px solid rgba(106, 170, 100, 0.2);
     border-radius: 2px;
     padding: 1.5rem;
     margin-top: 1rem;
 }
 
 .combat-defender-info strong {
-    color: #d73027;
+    color: #6aaa64;
     font-weight: 500;
 }
 
 /* Victory CSS - matching combat structure */
-.victory-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 1.5rem;
-}
-
-.victory-title {
-    font-size: 2rem;
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
-    color: #FFD700;
-    text-align: center;
-    padding-left: 0;
-}
-
-.victory-subtitle {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #666666;
-    font-style: italic;
-    margin: 0;
-}
-
 .victory-section {
     margin-bottom: 30px;
 }
@@ -450,8 +383,8 @@
     position: absolute;
     top: -0.75rem;
     left: 1.5rem;
-    background: #FFD700;
-    color: #000000;
+    background: #6aaa64;
+    color: #ffffff;
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
@@ -477,8 +410,8 @@
 }
 
 .victory-quote {
-    background: rgba(255, 215, 0, 0.05);
-    border-left: 3px solid #FFD700;
+    background: rgba(106, 170, 100, 0.05);
+    border-left: 3px solid #6aaa64;
     padding: 0.75rem 1rem;
     margin: 0.75rem 0;
     font-style: italic;
@@ -490,7 +423,7 @@
     padding: 0.2rem 0.4rem;
     border-radius: 2px;
     font-family: 'Courier New', monospace;
-    color: #FFD700;
+    color: #6aaa64;
     font-weight: 500;
 }
 
@@ -509,7 +442,7 @@
 }
 
 .victory-response-option strong {
-    color: #FFD700;
+    color: #6aaa64;
     font-size: 1rem;
     display: block;
     margin-bottom: 0.3rem;
@@ -534,237 +467,26 @@
         font-size: 2rem;
     }
 }
-
-/* PRINT STYLES - Only active when printing */
-@media print {
-    * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-    
-    @page {
-        margin: 0.5in;
-        size: letter;
-    }
-    
-    body {
-        background: white !important;
-        color: black !important;
-        padding: 0 !important;
-        font-size: 10pt !important;
-        line-height: 1.3 !important;
-        max-width: none !important;
-    }
-    
-    h1 {
-        font-size: 18pt !important;
-        margin-bottom: 20px !important;
-        page-break-after: avoid;
-    }
-    
-    h2 {
-        font-size: 12pt !important;
-        margin-top: 15px !important;
-        margin-bottom: 8px !important;
-        page-break-after: avoid;
-        border-bottom: 1px solid black;
-        padding-bottom: 2px;
-    }
-    
-    h3 {
-        font-size: 11pt !important;
-        margin-bottom: 10px !important;
-    }
-    
-    h4 {
-        font-size: 10pt !important;
-        margin-bottom: 15px !important;
-    }
-    
-    .section {
-        border: 1px solid black !important;
-        background: white !important;
-        margin-bottom: 15px !important;
-        padding: 10px !important;
-        page-break-inside: avoid;
-    }
-    
-    .wordle-tile {
-        background-color: black !important;
-        color: white !important;
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 12pt !important;
-        margin: 1px !important;
-    }
-    
-    .word-space {
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 12pt !important;
-        margin: 1px !important;
-    }
-    
-    table {
-        font-size: 9pt !important;
-        margin-bottom: 15px !important;
-    }
-    
-    thead th {
-        background: #f0f0f0 !important;
-        border: 1px solid black !important;
-        padding: 6px !important;
-        font-size: 8pt !important;
-    }
-    
-    tbody td {
-        border: 1px solid black !important;
-        padding: 6px !important;
-        font-size: 9pt !important;
-    }
-    
-    .hailing-enemy-header,
-    .combat-header,
-    .victory-header {
-        margin-bottom: 15px !important;
-        padding-bottom: 10px !important;
-        border-bottom: 1px solid black !important;
-    }
-    
-    .hailing-enemy-title,
-    .combat-title,
-    .victory-title {
-        font-size: 14pt !important;
-        margin-bottom: 5px !important;
-    }
-    
-    .hailing-enemy-subtitle,
-    .combat-subtitle,
-    .victory-subtitle {
-        font-size: 9pt !important;
-    }
-    
-    .hailing-enemy-flow-step,
-    .combat-flow-step,
-    .victory-flow-step {
-        background: white !important;
-        border: 1px solid black !important;
-        margin-bottom: 10px !important;
-        padding: 8px !important;
-        page-break-inside: avoid;
-    }
-    
-    .hailing-enemy-step-number,
-    .combat-step-number,
-    .victory-step-number {
-        background: black !important;
-        color: white !important;
-        position: static !important;
-        display: inline-block !important;
-        margin-right: 8px !important;
-        width: 15px !important;
-        height: 15px !important;
-        font-size: 8pt !important;
-    }
-    
-    .hailing-enemy-step-title,
-    .combat-step-title,
-    .victory-step-title {
-        font-size: 10pt !important;
-        display: inline !important;
-        margin-bottom: 5px !important;
-    }
-    
-    .hailing-enemy-step-description,
-    .combat-step-description,
-    .victory-step-description {
-        font-size: 9pt !important;
-        margin-top: 5px !important;
-    }
-    
-    .hailing-enemy-response-option,
-    .combat-response-option,
-    .victory-response-option {
-        background: white !important;
-        border: 1px solid #ccc !important;
-        margin-bottom: 5px !important;
-        padding: 5px !important;
-        font-size: 9pt !important;
-    }
-    
-    .hailing-enemy-response-option strong,
-    .combat-response-option strong,
-    .victory-response-option strong {
-        font-size: 9pt !important;
-        display: inline !important;
-        margin-bottom: 0 !important;
-    }
-    
-    .hailing-enemy-setup-container,
-    .hailing-enemy-example-box,
-    .victory-setup-container {
-        background: #f8f8f8 !important;
-        border: 1px solid black !important;
-        padding: 8px !important;
-        margin: 8px 0 !important;
-    }
-    
-    .combat-quote,
-    .victory-quote {
-        background: #f8f8f8 !important;
-        border-left: 2px solid black !important;
-        padding: 5px 8px !important;
-        margin: 5px 0 !important;
-        font-style: italic;
-    }
-    
-    .hailing-enemy-code,
-    .combat-callout,
-    .victory-callout {
-        background: #e0e0e0 !important;
-        color: black !important;
-        font-weight: bold;
-    }
-    
-    .hailing-enemy-example-flow {
-        font-size: 8pt !important;
-    }
-    
-    /* Force page breaks where needed */
-    .page-break {
-        page-break-before: always !important;
-    }
-    
-    /* Prevent awkward breaks */
-    .no-break {
-        page-break-inside: avoid !important;
-    }
-    
-    /* Hide web-specific elements */
-    a[href]:after {
-        content: none !important;
-    }
-}
   </style>
 </head>
 <body>
 <h1>
-      <span class="wordle-tile">R</span><span class="wordle-tile">U</span><span class="wordle-tile">L</span><span class="wordle-tile">E</span><span class="wordle-tile">S</span><span class="word-space"> </span><span class="wordle-tile">O</span><span class="wordle-tile">F</span><br>
-      <span class="wordle-tile">E</span><span class="wordle-tile">N</span><span class="wordle-tile">G</span><span class="wordle-tile">A</span><span class="wordle-tile">G</span><span class="wordle-tile">E</span><span class="wordle-tile">M</span><span class="wordle-tile">E</span><span class="wordle-tile">N</span><span class="wordle-tile">T</span>
+      <span class="wordle-tile" style="--i: 0">R</span><span class="wordle-tile" style="--i: 1">U</span><span class="wordle-tile" style="--i: 2">L</span><span class="wordle-tile" style="--i: 3">E</span><span class="wordle-tile" style="--i: 4">S</span><span class="word-space"> </span><span class="wordle-tile" style="--i: 5">O</span><span class="wordle-tile" style="--i: 6">F</span><br>
+      <span class="wordle-tile" style="--i: 7">E</span><span class="wordle-tile" style="--i: 8">N</span><span class="wordle-tile" style="--i: 9">G</span><span class="wordle-tile" style="--i: 10">A</span><span class="wordle-tile" style="--i: 11">G</span><span class="wordle-tile" style="--i: 12">E</span><span class="wordle-tile" style="--i: 13">M</span><span class="wordle-tile" style="--i: 14">E</span><span class="wordle-tile" style="--i: 15">N</span><span class="wordle-tile" style="--i: 16">T</span>
     </h1>
     <h3>WORD FLEET • Pen & Paper Mode • by Kevin Kolb</h3>
   <h4><a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></h4>
-    <div class="section no-break">
+    <div class="section">
     <h2>Your Mission 🎯</h2>
     <p>Your mission is to locate and destroy enemy word-ships hidden across the attack grid. Use logic, deduction, and word knowledge to outmaneuver your opponent in this fusion of naval warfare and word puzzles.</p>
   </div>
-  <div class="section no-break">
+  <div class="section">
     <h2>Mission Specs 🗺️</h2>
-    <p>Personnel: 2 Captains</p>
-    <p>Minimum Age: 10
+    <p>Personnel: 2 captains</p>
+    <p>Minimum Age: 10</p>
     <p>Mission Duration: 15-30 Minutes</p>
   </div>
-  <div class="section no-break">
+  <div class="section">
     <h2>Requisition 📊</h2>
     <p>2 Battle Tracker sheets from <a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></p>
     <p>2 Pens or Pencils</p>
@@ -772,11 +494,11 @@
   </div>
   <div class="section">
     <h2>Fleet Deployment ⚓</h2>
-    <p>Each captain deploys five Word-Ships on their Defense Grid. Use either auto-generated or custom words; both players must use the same method.</p>
+    <p>Each captain deploys five word-ships on their Defense Grid. Use either auto-generated or custom words; both players must use the same method.</p>
   <table>
     <thead>
       <tr>
-        <th>Word-Ship Classification</th>
+        <th>word-ship Classification</th>
         <th>Length</th>
         <th>Example</th>
       </tr>
@@ -790,18 +512,18 @@
     </tbody>
   </table>
         <ul>
-        <li>Word-Ship classifications are for reference only and do not affect gameplay.</li>
-        <li>Place Word-Ships horizontally (left-to-right) or vertically (top-to-bottom)</li>
+        <li>word-ship classifications are for reference only and do not affect gameplay</li>
+        <li>Place word-ships horizontally (left-to-right) or vertically (top-to-bottom)</li>
         <li>No diagonals, backwards, or upward placements</li>
         <li>Ships may touch but not overlap</li>
         <li>No proper nouns, abbreviations, or suffixes</li>
       </ul>
   </div>
-    <div class="section">
-      <div class="hailing-enemy-header">
+  
+  <!-- Transition to Hailing Phase -->
+  <div class="section">
     <h2>HAILING THE ENEMY 📡</h2>
-    <p>A mini-game to decide who strikes first</p>
-</div>
+    <p>Before the battle begins, both captains must determine who strikes first through a mini-game of strategy and deception.</p>
 
 <div class="hailing-enemy-section">
     <div class="hailing-enemy-setup-container">
@@ -868,23 +590,24 @@
     </div>
 </div>
   </div>
-<div class="section page-break">
-    <div class="combat-header">
-        <h2>Engage the Enemy ⚔️</h2>
-        <p>Cry havoc and let slip the dogs of war! (Too much?)</p>
-    </div>
+
+  <!-- Transition to Combat Phase -->
+<div class="section">
+    <h2>Engage the Enemy ⚔️</h2>
+    <p>With first strike determined, the battle begins! The attacking captain now has two strategic options each turn.</p>
 
     <div class="combat-section">
         <div class="hailing-enemy-setup-container">
-            <p class="hailing-enemy-description">On your turn you can:
-
-1) Standard Attack -Announce a coordinate to locate and identify hidden word-ships
-2) Demand Surrender</p>
+            <p class="hailing-enemy-description">On your turn, choose one of two tactical options:</p>
+            <ul style="margin: 1rem 0; padding-left: 2rem; line-height: 1.6;">
+                <li><strong>Standard Attack</strong> – Initial Strike on a coordinate, with potential Alpha Strike follow-up if you hit a word-ship</li>
+                <li><strong>Demand Surrender</strong> – Attempt total victory by revealing the enemy's entire fleet</li>
+            </ul>
         </div>
     </div>
 
     <div class="combat-section">
-        <h3 style="text-align: left; font-size: 1.25rem; letter-spacing: -0.5px; margin-bottom: 10px; padding-left: 0px; color: #d73027;">Standard Attack</h3>
+        <h3 style="text-align: left; font-size: 1.25rem; letter-spacing: -0.5px; margin-bottom: 10px; padding-left: 0px; color: #6aaa64;">Standard Attack</h3>
         <div class="combat-game-flow">
             <div class="combat-flow-step">
                 <div class="combat-step-number">1</div>
@@ -901,17 +624,17 @@
                     </div>
                     <div class="combat-response-option">
                         <strong>HIT</strong>
-                        Ship confirmed. Proceed to Letter Strike.
+                        Ship confirmed. Proceed to Alpha Strike. (You may attack this same coordinate again later to attempt different letters.)
                     </div>
                 </div>
             </div>
             
             <div class="combat-flow-step">
                 <div class="combat-step-number">2</div>
-                <div class="combat-step-title">Letter Strike</div>
+                <div class="combat-step-title">Alpha Strike</div>
                 <div class="combat-step-description">Guess the letter at the coordinate:</div>
                 <div class="combat-quote">
-                    <span class="combat-callout">"S"</span>
+                    "Alpha Strike Sierra!" or <span class="combat-callout">"S"</span>
                 </div>
                 <div class="combat-responses-label">Responses:</div>
                 <div class="combat-response-options">
@@ -920,7 +643,7 @@
                         Correct letter at that position. Write it in. Turn ends.
                     </div>
                     <div class="combat-response-option">
-                        <strong>TALLY [LETTER] {COUNT}</strong>
+                        <strong>TALLY [LETTER] [COUNT]</strong>
                         Wrong letter. Defender announces how many total times that letter appears in their fleet. Turn ends.
                     </div>
                 </div>
@@ -929,47 +652,59 @@
     </div>
 
 
-<h3 style="text-align: left; font-size: 1.25rem; letter-spacing: -0.5px; margin-bottom: 10px; padding-left: 0px; color: #FFD700;">Demand Surrender</h3>
+<h3 style="text-align: left; font-size: 1.25rem; letter-spacing: -0.5px; margin-bottom: 10px; padding-left: 0px; color: #6aaa64;">Demand Surrender</h3>
         <div class="victory-game-flow">
             <div class="victory-flow-step">
                 <div class="victory-step-number">1</div>
-                <div class="victory-step-title">Bold Declaration</div>
-                <div class="victory-step-description">At the beginning of any turn (instead of taking that turn), demand the enemy's surrender by stating every word-ship and its exact location:</div>
+                <div class="victory-step-title">Decisive Strike</div>
+                <div class="victory-step-description">At the beginning of any turn (instead of taking that turn), demand the enemy's surrender by stating every word-ship and its exact location. The defender waits until all word-ships are announced before responding:</div>
                 <div class="victory-quote">
                     "I demand your surrender! Your fleet consists of: PIANO at Charlie-3 through Charlie-7, JUMP at Alpha-1 through Alpha-4, BED at Echo-8 through Echo-10, RUN at Bravo-5 through Delta-5, and IF at Foxtrot-2 through Foxtrot-3!"
                 </div>
-
-                If every word and location is correct, you achieve total victory
-If anything is wrong (word, spelling, or coordinates), you immediately surrender and lose the game
+                <div class="combat-responses-label">Responses:</div>
+                <div class="victory-response-options">
+                    <div class="victory-response-option">
+                        <strong>YOU HAVE WON</strong>
+                        Every word and location is correct. You achieve total victory.
+                    </div>
+                    <div class="victory-response-option">
+                        <strong>I SURRENDER</strong>
+                        Anything is wrong (word, spelling, or coordinates). You immediately surrender and lose the game.
+                    </div>
+                </div>
             </div>
-
-
-  </div>
-    <div class="section no-break">
-    <h2>Defense Operations 🛡️</h2>
-    <p>
-        When you're being attacked:
-    </p>
-    <p>Mark dots for enemy misses on Defense Grid</p>
-    <p>Highlight borders for confirmed hits on Defense Grid</p>
-    <p>Trace over each letter that has been discovered via bullseye on Defense Grid</p>
-  </div>
+        </div>
 </div>
+
+  <!-- Transition to Defense -->
+    <div class="section">
+    <h2>Defense Operations 🛡️</h2>
+    <p>While your opponent attacks, you must carefully track their progress and respond accurately to maintain the battle's integrity.</p>
+    <p>When you're being attacked:</p>
+    <ul>
+        <li>Mark dots for enemy misses on Defense Grid</li>
+        <li>Highlight borders for confirmed hits on Defense Grid</li>
+        <li>Trace over each letter that has been discovered via bullseye on Defense Grid</li>
+    </ul>
+    <p><strong>Important:</strong> When all coordinates of a word-ship are hit, announce which word-ship has been revealed. No such information needs to be given when a word is spelled out through BULLSEYE responses.</p>
+  </div>
 
     <div class="section">
     <h2>Themed Battles 🦓</h2>
-    <p>Biological: ZEBRA, FROG, COW, BAT, OX</p>
-    <p>Nutritional: PASTA, MILK, PIE, TEA, EGG</p>
-    <p>Environmental: CLOUD, TREE, SUN, SKY, ICE</p>
+    <p>For variety, try deploying fleets around specific themes:</p>
+    <ul>
+        <li><strong>Biological:</strong> ZEBRA, FROG, COW, BAT, OX</li>
+        <li><strong>Nutritional:</strong> PASTA, MILK, PIE, TEA, RY</li>
+        <li><strong>Environmental:</strong> CLOUD, TREE, SUN, SKY, SO</li>
+    </ul>
   </div>
     <div class="section">
-    <h2>Asymmetric Warfare Protocol</h2>
-    <p>One operator deploys custom-selected high-difficulty words while opponent uses auto-generated standard designations.</p>
+    <h2>Difficulty Adjustment Protocol</h2>
+    <p>For uneven battles, one captain uses <strong>Manual Selection</strong> to deploy custom-chosen high-difficulty words while the opponent uses <strong>Auto-Generated</strong> word-ships.</p>
   </div>
     <div class="section">
     <h2>Join The Fight</h2>
-    <p>Have you developed a new way to play?</p>
-    <p>Send it to: <a href="mailto:missioncontrol@thegamebureau.com">missioncontrol@thegamebureau.com</a></p>
+    <p>Have you developed a new way to play? Send it to: <a href="mailto:missioncontrol@thegamebureau.com">missioncontrol@thegamebureau.com</a></p>
   </div>
     <h3>WORD FLEET • Pen & Paper Mode • by Kevin Kolb</h3>
   <h4><a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></h4>
