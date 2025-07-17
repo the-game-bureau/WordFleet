@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+  <div class="section">
+    <div class="section-banner">
+      <div class="section-number">01</div>
+    </div>
+    <h2>Your Mission</h2>
+    <p>Locate and destroy enemy word-ships hidden across the attack grid. Use logic, deduction, and word knowledge to outmaneuver your opponent in this fusion of naval warfare and word puzzles.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-banner">
+      <div class="section-number">02</div>
+    </div>
+    <h2>Mission Specs</h2>
+    <p><strong>Personnel:</strong> 2 captains</p>
+    <p><strong>Minimum Age:</strong> 10</p>
+    <p><strong>Mission Duration:</strong> 15-30 Minutes</p>
+  </div>
+
+  <div class="section">
+    <div class="section-banner">
+      <div class="section-number">03</div>
+    </div>
+    <h2>Requisition</h2>
+    <ul>
+      <li>2 Battle Tracker sheets from <a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></li>
+      <li>2 Pens or Pencils</li>
+      <li>2 Highlighters (optional)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-banner">
+      <div class="section-number">04</div>
+    </div>
+    <h2>Fleet Deployment</h2>
+    <p>Deploy five word-ships on your Defense Grid. Use either auto-generated or custom words; both players must use the same method.</p>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>word-ship Classification</th>
+          <th>Length</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>KETCH</td><td>5 letters</td><td>PIANO</td></tr>
+        <tr><td>SHIP</td><td>4 letters</td><td>JUMP</td></tr>
+        <tr><td>SUB</td><td>3 letters</td><td>BED</td></tr>
+        <tr><td>ARK</td><td>3 letters</td><td>RUN</td></tr>
+        <tr><td>PT</td><td>2 letters</td><td>IF</td></tr>
+      </tbody>
+    </table>
+
+    <ul>
+      <li>word-ship classifications are for reference only and do not affect gameplay</li>
+      <li>Place word-ships horizontally (left-to-right) or vertically (top-to-bottom)</li>
+      <li>No diagonals, backwards, or upward placements</li>
+      <li>Ships may touch but not overlap</li>
+      <li>No proper nouns, abbreviations, or suffixes</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-banner">
+      <div class="section-number">05</div>
+    </div>
+    <h2>Hailing the Enemy</h2>
+    <p>Determine who strikes first through a mini-game of strategy and deception.</p>
+
+    <div class="hailing-enemy-section">
+      <div class="hailing-enemy-setup-container">
+        <p class="hailing-enemy-description">
+          Both captains have <span class="hailing-enemy-highlight">5 launch codes</span> (000–999) stamped on their battle tracker. 
+          Use codes, strategy and deception to try and secure the first strike!
+        </p>
+      </div>
+    </div>
+
+    <div class="hailing-enemy-section">
+      <div class="hailing-enemy-game-flow">
+        <div class="hailing-enemy-flow-step">
+          <div class="hailing-enemy-step-number">1</div>
+          <div class="hailing-enemy-step-title">Opening Hail</div>
+          <div class="hailing-enemy-step-description">Call out a launch code, real or fake</div>
+        </div>
+        <div class="hailing-enemy-flow-step">
+          <div class="hailing-enemy-step-number">2</div>
+          <div class="hailing-enemy-step-title">Response</div>
+          <div class="hailing-enemy-step-description">Respond with one of 3 choices:</div>
+          <div class="hailing-enemy-response-options">
+            <div class="hailing-enemy-response-option">
+              <strong>Concede</strong> – Give up
+              <div class="hailing-enemy-sub-options">
+                → Original captain strikes first
+              </div>
+            </div>
+            <div class="hailing-enemy-response-option">
+              <strong>Challenge</strong> – Demand proof
+              <div class="hailing-enemy-sub-options">
+                → Code is valid: original captain strikes first<br>
+                → Code is fake: challenging captain strikes first
+              </div>
+            </div>
+            <div class="hailing-enemy-response-option">
+              <strong>Counter</strong> – Call an equal or higher code
+              <div class="hailing-enemy-sub-options">
+                → Now the original captain must respond to this new code
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hailing-enemy-flow-step">
+          <div class="hailing-enemy-step-number">3</div>
+          <div class="hailing-enemy-step-title">Continue</div>
+          <div class="hailing-enemy-step-description">Continue until someone gives up or is caught lying</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hailing-enemy-section">
+      <div class="hailing-enemy-setup-container">
+        <div class="hailing-enemy-example-title">Sample skirmish</div>
+        <div class="hailing-enemy-example-flow">
+          Original captain: <span class="hailing-enemy-code">"850"</span> 
+          <span class="hailing-enemy-arrow">→</span> 
+          Other captain: <span class="hailing-enemy-code">"900"</span> 
+          <span class="hailing-enemy-arrow">→</span> 
+          Original captain: <span class="hailing-enemy-code">"Challenge!"</span>
+          <br><br>
+          <span class="hailing-enemy-highlight">Result:</span> Other captain reveals no 900 launch code → Original captain strikes first
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-banner">
+      <div class="section-number">06</div>
+    </div>
+    <h2>Engage the Enemy</h2>
+    <p>With first strike determined, battle begins! Choose one of two tactical options each turn.</p>
+
+    <div class="combat-section">
+      <div class="hailing-enemy-setup-container">
+        <p class="hailing-enemy-description">On your turn, choose one of two tactical options:</p>
+        <ul style="margin: 1rem 0; padding-left: 2rem; line-height: 1.6;">
+          <li><strong>Standard Attack</strong> – Initial Strike on a coordinate, with potential Alpha Strike follow-up if you hit a word-ship</li>
+          <li><strong>Demand Surrender</strong> – Attempt total victory by revealing the enemy's entire fleet</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="combat-section">
+      <h3 style="text-align: left; font-size: 1.25rem; letter-spacing: -0.5px; margin-bottom: 10px; padding-left: 0px; color: #6aaa64;">Standard Attack</h3>
+      <div class="combat-game-flow">
+        <div class="combat-flow-step">
+          <div class="combat-step-number">1</div>
+          <div class="combat-step-title">Initial Strike</div>
+          <div class="combat-step-description">Choose a coordinate and call it out:</div>
+          <div class="combat-quote">
+            "Fire on coordinate Echo-Seven!" or <span class="combat-callout">"E-7!"</span>
+          </div>
+          <div class="combat-responses-label">Responses:</div>
+          <div class="combat-response-options">
+            <div class="combat-response-option">
+              <strong>MISS</strong>
+              No ship. Mark with a dot. End turn.
+              <div class="combat-quote">
+                "Miss!"
+              </div>              
+            </div>
+            <div class="combat-response-option">
+              <strong>HIT</strong>
+              Ship confirmed. Highlight the coordinate's borders. Proceed to Alpha Strike.
+              <div class="combat-quote">
+                "Hit."
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="combat-flow-step">
+          <div class="combat-step-number">2</div>
+          <div class="combat-step-title">Alpha Strike</div>
+          <div class="combat-step-description">Guess the letter at the coordinate:</div>
+          <div class="combat-quote">
+            "Alpha Strike Sierra!" or <span class="combat-callout">"S."</span>
+          </div>
+          <div class="combat-responses-label">Responses:</div>
+          <div class="combat-response-options">
+            <div class="combat-response-option">
+              <strong>BULLSEYE</strong>
+              Correct letter at that position. Write it in. End turn.
+              <div class="combat-quote">
+                "Bullseye."
+              </div>
+            </div>
+            <div class="combat-response-option">
+              <strong>LETTER TALLY</strong>
+              Wrong letter. Announce how many total times that letter appears in your fleet. End turn.
+              Attack this same coordinate again later to try different letters.
+              <div class="combat-quote">
+                "S tally 3."
+              </div>          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="combat-section">
+      <h3 style="text-align: left; font-size: 1.25rem; letter-spacing: -0.5px; margin-bottom: 10px; padding-left: 0px; color: #6aaa64;">Demand Surrender</h3>
+      <div class="victory-game-flow">
+        <div class="victory-flow-step">
+          <div class="victory-step-number">1</div>
+          <div class="victory-step-title">Decisive Strike</div>
+          <div class="victory-step-description">At the beginning of any turn (instead of taking that turn), demand surrender by stating every word-ship and its exact location. Wait until all word-ships are announced before responding:</div>
+          <div class="victory-quote">
+            "I demand your surrender! Your fleet consists of: PIANO at Charlie-3 through Charlie-7, JUMP at Alpha-1 through Alpha-4, BED at Echo-8 through Echo-10, RUN at Bravo-5 through Delta-5, and IF at Foxtrot-2 through Foxtrot-3!"
+          </div>
+          <div class="combat-responses-label">Responses:</div>
+          <div class="victory-response-options">
+            <div class="victory-response-option">
+              <strong>YOU HAVE WON</strong>
+              Every word and location is correct. Achieve total victory.
+              <div class="victory-quote">
+                "You have won."
+              </div>
+            </div>
+            <div class="victory-response-option">
+              <strong>VICTORY IS MINE! YOU LOSE! GOOD DAY SIR!</strong>
+              Anything is wrong (word, spelling, or coordinates). Immediately surrender and lose the game.
+              <div class="victory-quote">
+                "Victory is mine! You lose! Good day sir!"
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-banner">
+      <div class="section-number">07</div>
+    </div>
+    <h2>Defense Operations</h2>
+    <p>Track your opponent's attacks and respond accurately.</p>
+    <p>When being attacked:</p>
+    <ul>
+      <li>Mark dots for enemy misses on Defense Grid</li>
+      <li>Highlight borders for confirmed hits on Defense Grid</li>
+      <li>Trace over each letter discovered via bullseye on Defense Grid</li>
+    </ul>
+    <p><strong>Important:</strong> When all coordinates of a word-ship are hit, announce which word-ship has been revealed. Do NOT announce the word itself.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-banner">
+      <div class="section-number">08</div>
+    </div>
+    <h2>Themed Battles</h2>
+    <p>For variety, deploy fleets around specific themes:</p>
+    <ul>
+      <li><strong>Biological:</strong> ZEBRA, FROG, COW, BAT, OX</li>
+      <li><strong>Directional:</strong> NORTH, LEFT, TOP, WAY, UP</li>
+      <li><strong>Additional themes:</strong> Musical, Celestial, Culinary, Oceanic, Metallic, Geometric, Temporal, Athletic, Botanical, Atmospheric</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-banner">
+      <div class="section-number">09</div>
+    </div>
+    <h2>Difficulty Adjustment Protocol</h2>
+    <p>For uneven battles, use <strong>Manual Selection</strong> to deploy custom-chosen high-difficulty words while your opponent uses <strong>Auto-Generated</strong> word-ships.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-banner">
+      <div class="section-number">10</div>
+    </div>
+    <h2>Join The Fight</h2>
+    <p>Have you developed a new way to play? Send it to: <a href="mailto:missioncontrol@thegamebureau.com">missioncontrol@thegamebureau.com</a></p>
+  </div>
+
+  <h3>WORD FLEET • Pen & Paper Mode • by Kevin Kolb</h3>
+  <h4><a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></h4>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Word Fleet - Pen & Paper Mode</title>
+  <link rel="preload" href="src/media/wfbg.png" as="image">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: 'Courier New', Courier, monospace;
+      color: #ffffff;
+      background: url('src/media/wfbg.png') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    body {
+      padding: 40px 20px;
+    }
+
+    .page-header {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      width: 800px;
+      margin: 0 auto 40px;
+      border-radius: 4px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.3em;
+      letter-spacing: -0.5px;
+    }
+
+    .page-header .subtitle {
+      font-size: 1rem;
+      color: #cccccc;
+      margin-bottom: 1.5em;
+    }
+
+    .website-link {
+      font-size: 0.9rem;
+      color: #6aaa64;
+      margin-bottom: 1.5em;
+      text-transform: lowercase;
+    }
+
+    .website-link a {
+      color: #6aaa64;
+      text-decoration: none;
+      border-bottom: 1px dotted #6aaa64;
+    }
+
+    .website-link a:hover {
+      background-color: rgba(106, 170, 100, 0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      color: #ffffff;
+      text-decoration: none;
+      border: 1px solid #ffffff;
+      padding: 8px 16px;
+      border-radius: 2px;
+      transition: background 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links a:hover {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .nav-links a.selected {
+      background: #6aaa64;
+      color: #ffffff;
+      border: 1px solid #6aaa64;
+      cursor: default;
+    }
+
+    .nav-links a.selected:hover {
+      background: #6aaa64;
+      color: #ffffff;
+    }
+
+    .content-container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      width: 800px;
+      margin: 0 auto 30px;
+      border-radius: 4px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+
+    .content-container h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1em;
+      color: #ffffff;
+      border-bottom: 1px solid #444444;
+      padding-bottom: 0.5em;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      color: #ffffff;
+      font-size: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: #6aaa64;
+      box-shadow: 0 0 0 2px rgba(106, 170, 100, 0.2);
+    }
+
+    .input::placeholder {
+      color: #cccccc;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-button {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      background: #6aaa64;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .input-button:hover {
+      background: #5a9954;
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .toggle-buttons {
+      display: flex;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 4px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .toggle-btn {
+      flex: 1;
+      padding: 10px 16px;
+      background: transparent;
+      border: none;
+      border-radius: 2px;
+      color: #cccccc;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .toggle-btn.active {
+      background: #6aaa64;
+      color: white;
+    }
+
+    .toggle-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    .manual-words {
+      display: none;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .manual-words.show {
+      display: block;
+    }
+
+    .word-group {
+      margin-bottom: 15px;
+    }
+
+    .word-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #cccccc;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .word-input {
+      width: 100%;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      color: #ffffff;
+      font-family: 'Courier New', Courier, monospace;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    .word-input:focus {
+      outline: none;
+      border-color: #6aaa64;
+      box-shadow: 0 0 0 2px rgba(106, 170, 100, 0.2);
+    }
+
+    .preview-section {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .preview-container {
+      width: 160px;
+      height: 207px;
+      border-radius: 4px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 14px;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+      margin: 0 auto 20px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 5px;
+    }
+
+    .btn-primary {
+      background: #6aaa64;
+      color: white;
+      border: 2px solid #6aaa64;
+    }
+
+    .btn-primary:hover {
+      background: #5a9954;
+      transform: translateY(-2px);
+    }
+
+    .btn-block {
+      width: calc(100% - 10px);
+    }
+
+    .canvas-hidden {
+      display: none;
+    }
+
+    .back-to-fleet {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .back-to-fleet a {
+      display: inline-block;
+      font-size: 1rem;
+      color: #ffffff;
+      text-decoration: none;
+      border: 2px solid #ffffff;
+      padding: 12px 24px;
+      border-radius: 2px;
+      transition: all 0.2s ease;
+      background: rgba(0, 0, 0, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .back-to-fleet a:hover {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    @media print {
+      .nav-links {
+        display: none !important;
+      }
+      
+      .page-header .nav-links {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .page-header {
+        width: calc(100% - 40px);
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+
+      .content-container {
+        width: calc(100% - 40px);
+        padding: 25px 20px;
+        margin-bottom: 20px;
+      }
+
+      .page-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .content-container h2 {
+        font-size: 1.4rem;
+      }
+
+      .nav-links {
+        gap: 10px;
+      }
+
+      .nav-links a {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+
+      .toggle-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>Word Fleet</h1>
+    <div class="subtitle">by Kevin Kolb</div>
+    
+    <div class="nav-links">
+      <a href="#" class="selected">Home Port</a>
+      <a href="rules.html">Rules of Engagement</a>
+      <a href="future.html">Future Deployments</a>
+      <a href="#" onclick="window.print()">Print</a>
+    </div>
+  </div>
+
+  <!-- Form Content -->
+  <div class="content-container">
+    <h2>Fleet Configuration</h2>
+    
+    <div class="form-group">
+      <label class="label" for="fleetName">Fleet Name</label>
+      <div class="input-group">
+        <input class="input" id="fleetName" maxlength="30" name="fleet" placeholder="Enter your fleet name..." required type="text"/>
+        <button class="input-button" onclick="generateFleetName()" title="Generate random fleet name" type="button">🎲</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="label">Word-Ships Configuration</label>
+      <div class="toggle-buttons">
+        <button class="toggle-btn active" id="autoBtn" onclick="setMode('auto')" type="button">Auto Generate</button>
+        <button class="toggle-btn" id="manualBtn" onclick="setMode('manual')" type="button">Manual Selection</button>
+      </div>
+      
+      <div class="manual-words" id="manualWords">
+        <div class="word-group">
+          <label class="word-label">KETCH • 5-Letter Wordship</label>
+          <input class="word-input" maxlength="5" name="word5" placeholder="Enter 5 letters..." type="text"/>
+        </div>
+        <div class="word-group">
+          <label class="word-label">SHIP • 4-Letter Wordship</label>
+          <input class="word-input" maxlength="4" name="word4" placeholder="Enter 4 letters..." type="text"/>
+        </div>
+        <div class="word-group">
+          <label class="word-label">SUB • 3-Letter Wordship</label>
+          <input class="word-input" maxlength="3" name="word3a" placeholder="Enter 3 letters..." type="text"/>
+        </div>
+        <div class="word-group">
+          <label class="word-label">ARK • 3-Letter Wordship</label>
+          <input class="word-input" maxlength="3" name="word3b" placeholder="Enter 3 letters..." type="text"/>
+        </div>
+        <div class="word-group">
+          <label class="word-label">PT • 2-Letter Wordship</label>
+          <input class="word-input" maxlength="2" name="word2" placeholder="Enter 2 letters..." type="text"/>
+        </div>
+      </div>
+      <input id="wordsMode" name="words" type="hidden" value="true"/>
+    </div>
+
+    <div class="preview-section">
+      <div class="form-group">
+        <label class="label">Battle Tracker Preview</label>
+        <div id="previewContainer" class="preview-container">
+          Battle tracker preview will appear here
+        </div>
+        <canvas height="1056" id="battleTrackerCanvas" class="canvas-hidden" width="816"></canvas>
+      </div>
+      
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" id="printBtn" onclick="printBattleTracker()" type="button">
+          Print Battle Tracker
+        </button>
+        <button class="btn btn-primary btn-block" id="downloadBtn" onclick="downloadBattleTracker()" type="button">
+          Download Battle Tracker
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-to-fleet">
+    <a href="index.html">Return to Fleet Command</a>
+  </div>
+
+  <script>
+    const fleetNames = {
+      adjectives: [
+        "Storm", "Thunder", "Lightning", "Tempest", "Royal", "Imperial", 
+        "Shadow", "Phantom", "Crimson", "Golden", "Iron", "Steel", 
+        "Swift", "Rapid", "Legendary", "Mythical", "Arctic", "Solar",
+        "Azure", "Blazing", "Crystal", "Diamond", "Emerald", "Fierce",
+        "Glorious", "Heroic", "Invincible", "Jade", "Knight", "Lunar",
+        "Majestic", "Noble", "Onyx", "Platinum", "Quantum", "Radiant",
+        "Sapphire", "Titanium", "Ultimate", "Valiant", "Winter", "Xenon",
+        "Zealous", "Frost", "Venom", "Raven", "Wolf", "Eagle", "Tiger",
+        "Dragon", "Phoenix", "Cobra", "Hawk", "Lion", "Shark", "Bear"
+      ],
+      nouns: [
+        "Fleet", "Armada", "Squadron", "Flotilla", "Battlegroup", 
+        "Division", "Raiders", "Corsairs", "Guardians", "Titans", 
+        "Eagles", "Wolves", "Storm", "Thunder", "Voyagers", "Warriors",
+        "Defenders", "Crusaders", "Destroyers", "Hunters", "Sentinels",
+        "Champions", "Vanguards", "Templars", "Knights", "Legion",
+        "Brotherhood", "Alliance", "Coalition", "Federation", "Empire",
+        "Republic", "Dynasty", "Order", "Guild", "Society", "Circle",
+        "Force", "Unit", "Company", "Regiment", "Brigade", "Corps",
+        "Navy", "Marines", "Rangers", "Commandos", "Elite", "Guard"
+      ]
+    };
+
+    let currentMode = 'auto';
+
+    function generateFleetName() {
+      const adj = fleetNames.adjectives[Math.floor(Math.random() * fleetNames.adjectives.length)];
+      const noun = fleetNames.nouns[Math.floor(Math.random() * fleetNames.nouns.length)];
+      const input = document.getElementById('fleetName');
+      const button = document.querySelector('.input-button');
+      
+      button.style.transform = 'translateY(-50%) rotate(180deg) scale(1.2)';
+      
+      setTimeout(() => {
+        input.value = `${adj} ${noun}`;
+        button.style.transform = 'translateY(-50%)';
+      }, 200);
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      const manualBtn = document.getElementById('manualBtn');
+      const autoBtn = document.getElementById('autoBtn');
+      const manualWords = document.getElementById('manualWords');
+      const wordsMode = document.getElementById('wordsMode');
+      
+      if (mode === 'manual') {
+        manualBtn.classList.add('active');
+        autoBtn.classList.remove('active');
+        manualWords.classList.add('show');
+        wordsMode.value = 'false';
+      } else {
+        autoBtn.classList.add('active');
+        manualBtn.classList.remove('active');
+        manualWords.classList.remove('show');
+        wordsMode.value = 'true';
+      }
+    }
+
+    function getRandomWord(length) {
+      const words = {
+        5: ['ARMOR', 'BLOCK', 'COVER', 'DODGE', 'EVADE', 'FORCE', 'GUARD', 'HAVEN', 'KETCH', 'LANCE'],
+        4: ['ABLE', 'BEAR', 'CALL', 'DARK', 'SHIP', 'MAKE', 'NAVY', 'WAVE', 'UNIT', 'IRON'],
+        3: ['ACE', 'SUB', 'GUN', 'WAR', 'NET', 'KEY', 'ARK', 'ICE', 'JET', 'TOP'],
+        2: ['AT', 'BE', 'DO', 'GO', 'PT', 'MY', 'NO', 'OF', 'ON', 'UP']
+      };
+      const wordList = words[length] || ['WORD'];
+      return wordList[Math.floor(Math.random() * wordList.length)];
+    }
+
+    function getWordsFromForm() {
+      const mode = document.getElementById('wordsMode').value;
+      
+      if (mode === 'false') {
+        return {
+          word5: document.querySelector('input[name="word5"]').value.toUpperCase() || getRandomWord(5),
+          word4: document.querySelector('input[name="word4"]').value.toUpperCase() || getRandomWord(4),
+          word3a: document.querySelector('input[name="word3a"]').value.toUpperCase() || getRandomWord(3),
+          word3b: document.querySelector('input[name="word3b"]').value.toUpperCase() || getRandomWord(3),
+          word2: document.querySelector('input[name="word2"]').value.toUpperCase() || getRandomWord(2)
+        };
+      } else {
+        return {
+          word5: getRandomWord(5),
+          word4: getRandomWord(4),
+          word3a: getRandomWord(3),
+          word3b: getRandomWord(3),
+          word2: getRandomWord(2)
+        };
+      }
+    }
+
+    function generateBattleTracker() {
+      try {
+        const canvas = document.getElementById('battleTrackerCanvas');
+        const previewContainer = document.getElementById('previewContainer');
+        if (!canvas || !previewContainer) return;
+        
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        
+        // Clear canvas with white background
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Get form data
+        const fleetName = document.getElementById('fleetName').value.trim() || 'YOUR FLEET';
+        const words = getWordsFromForm();
+        
+        // Simple text rendering
+        ctx.fillStyle = '#000';
+        ctx.font = 'bold 24px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('BATTLE TRACKER', canvas.width / 2, 50);
+        
+        ctx.font = 'bold 18px Arial';
+        ctx.fillText(fleetName.toUpperCase(), canvas.width / 2, 80);
+        
+        ctx.font = '14px Arial';
+        ctx.fillText('Word Fleet • Pen & Paper Mode', canvas.width / 2, 110);
+        
+        // Draw simple grid representation
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(50, 150, 300, 300);
+        ctx.strokeRect(450, 150, 300, 300);
+        
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('ATTACK GRID', 200, 140);
+        ctx.fillText('DEFENSE GRID', 600, 140);
+        
+        // Show words
+        ctx.font = '12px Arial';
+        ctx.textAlign = 'left';
+        let yPos = 500;
+        ctx.fillText(`5-Letter: ${words.word5}`, 50, yPos);
+        ctx.fillText(`4-Letter: ${words.word4}`, 200, yPos);
+        ctx.fillText(`3-Letter: ${words.word3a}`, 350, yPos);
+        ctx.fillText(`3-Letter: ${words.word3b}`, 500, yPos);
+        ctx.fillText(`2-Letter: ${words.word2}`, 650, yPos);
+        
+        // Show canvas, hide placeholder
+        canvas.style.display = 'block';
+        canvas.className = '';
+        previewContainer.style.display = 'none';
+        
+      } catch (error) {
+        console.error('Error generating battle tracker:', error);
+      }
+    }
+
+    function printBattleTracker() {
+      if (document.getElementById('battleTrackerCanvas').style.display === 'none') {
+        generateBattleTracker();
+      }
+      
+      setTimeout(() => {
+        const canvas = document.getElementById('battleTrackerCanvas');
+        if (!canvas) return;
+        
+        const printWindow = window.open('', '_blank', 'width=850,height=1100');
+        const dataURL = canvas.toDataURL('image/png');
+        
+        printWindow.document.write(`
+          <html>
+          <head>
+            <title>Battle Tracker - Print</title>
+            <style>
+              @media print {
+                @page { size: 8.5in 11in; margin: 0.25in; }
+                body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+                img { max-width: 100%; max-height: 100%; width: 8in; height: auto; }
+              }
+              body { margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0f0f0; }
+              img { max-width: 90%; max-height: 90vh; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1); border-radius: 4px; background: white; }
+            </style>
+          </head>
+          <body>
+            <img src="${dataURL}" alt="Battle Tracker" onload="window.print(); window.close();">
+          </body>
+          </html>
+        `);
+        
+        printWindow.document.close();
+      }, 500);
+    }
+
+    function downloadBattleTracker() {
+      if (document.getElementById('battleTrackerCanvas').className === 'canvas-hidden') {
+        generateBattleTracker();
+      }
+      
+      setTimeout(() => {
+        const canvas = document.getElementById('battleTrackerCanvas');
+        if (!canvas) return;
+        
+        const fleetName = document.getElementById('fleetName').value.trim() || 'Your-Fleet';
+        const sanitizedFleetName = fleetName.replace(/\s+/g, '-');
+        const filename = `Word-Fleet-${sanitizedFleetName}-Battle-Tracker.png`;
+        
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }, 500);
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      generateFleetName();
+      setMode('auto');
+    });
+  </script>
+</body>
+</html>
