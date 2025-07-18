@@ -1,4 +1,796 @@
-<!DOCTYPE html>
+</style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" onclick="scrollToTop()">Word Fleet</a>
+      <div class="nav-links">
+        <a href="#penandpaper" onclick="scrollToSection('penandpaper')">Pen & Paper Mode</a>
+        <a href="#rules" onclick="scrollToSection('rules')">Rules of Engagement</a>
+        <a href="#future" onclick="scrollToSection('future')">Future Deployments</a>
+        <a href="#debrief" onclick="scrollToSection('debrief')">Debrief</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Word Fleet</h1>
+      <p class="hero-subtitle">Where strategy meets vocabulary</p>
+      <p class="hero-description">
+        Command your fleet of wordships in tactical battles that blend the strategy of naval warfare 
+        with the creativity of word games. Deploy letters like ammunition, spell victory with precision, 
+        and sink your opponents through superior vocabulary.
+      </p>
+    </div>
+    <div class="scroll-indicator">
+      <div style="font-size: 24px;">⚓</div>
+      <div style="font-size: 12px; margin-top: 5px;">SCROLL TO EXPLORE</div>
+    </div>
+  </section>
+<!-- Pen & Paper Section -->
+  <section id="penandpaper" class="section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Pen & Paper Mode</h2>
+        <p class="section-subtitle">
+          So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!
+        </p>
+      </div>
+      
+      <form id="battleTrackerForm" action="tracker.html" method="GET" onsubmit="return handleBattleTrackerSubmit(event)">
+        <div class="welcome-features">
+          <div class="feature-card">
+            <span class="feature-icon">01</span>
+            <h3 class="feature-title">Name Your Fleet</h3>
+            <p class="feature-description">
+              Choose a commanding name for your naval fleet. Will you lead the Storm Raiders into battle, 
+              or command the Iron Guardians to victory? A strong fleet name strikes fear into enemy hearts.
+            </p>
+            <div class="fleet-form-container">
+              <div class="fleet-form">
+                <div class="fleet-input-group">
+                  <input 
+                    type="text" 
+                    id="fleetNameInput" 
+                    name="fleet"
+                    class="fleet-input" 
+                    placeholder="Enter your fleet name..."
+                    maxlength="30"
+                    required
+                  >
+                  <button type="button" class="fleet-input-button" onclick="generateFleetName()" title="Generate random fleet name">
+                    🎲
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="feature-card">
+            <span class="feature-icon">02</span>
+            <h3 class="feature-title">Configure Your Word-Ships</h3>
+            <p class="feature-description">
+              Choose between auto-generated wordships or manually select your own words. Each ship type serves a tactical purpose - from the mighty 5-letter KETCH to the nimble 2-letter PT boat.
+            </p>
+            <div class="fleet-form-container">
+              <div class="fleet-form">
+                <div class="toggle-container">
+                  <div class="toggle-buttons">
+                    <button type="button" class="toggle-btn active" id="autoBtn" onclick="setMode('auto')">
+                      Auto-Generated
+                    </button>
+                    <button type="button" class="toggle-btn" id="manualBtn" onclick="setMode('manual')">
+                      Manual Selection
+                    </button>
+                  </div>
+                  
+                  <div class="manual-words" id="manualWords">
+                    <div class="word-group">
+                      <label class="word-label">KETCH • 5-Letter Wordship</label>
+                      <input type="text" class="word-input" maxlength="5" placeholder="Enter 5 letters..." name="word5">
+                    </div>
+                    <div class="word-group">
+                      <label class="word-label">SHIP • 4-Letter Wordship</label>
+                      <input type="text" class="word-input" maxlength="4" placeholder="Enter 4 letters..." name="word4">
+                    </div>
+                    <div class="word-group">
+                      <label class="word-label">SUB • 3-Letter Wordship</label>
+                      <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3a">
+                    </div>
+                    <div class="word-group">
+                      <label class="word-label">ARK • 3-Letter Wordship</label>
+                      <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3b">
+                    </div>
+                    <div class="word-group">
+                      <label class="word-label">PT • 2-Letter Wordship</label>
+                      <input type="text" class="word-input" maxlength="2" placeholder="Enter 2 letters..." name="word2">
+                    </div>
+                  </div>
+                  
+                  <input type="hidden" id="wordsMode" name="words" value="true">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="feature-card">
+            <span class="feature-icon">03</span>
+            <h3 class="feature-title">Get Your Battle Tracker</h3>
+            <p class="feature-description">
+              Download or print your Battle Trackers and let slip the dogs of war!
+            </p>
+            <div class="fleet-form-container">
+              <div class="fleet-form">
+                <button type="submit" class="fleet-submit-btn" style="margin-bottom: 10px;">
+                  Download
+                </button>
+                <button type="button" class="fleet-submit-btn" onclick="printBattleTracker()">
+                  Print
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Rules of Engagement Section -->
+  <section id="rules" class="section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Rules of Engagement</h2>
+        <p class="section-subtitle">Locate and destroy enemy word-ships hidden across the attack grid. Use logic, deduction, and word knowledge to outmaneuver your opponent in this fusion of naval warfare and word puzzles.</p>
+      </div>
+      
+      <div class="rules-grid">
+        <div class="rule-category">
+          <h3>Mission Specs</h3>
+Personnel: 2 captains<br>
+Minimum Age: 10<br>
+Mission Duration: 15-30 Minutes
+        </div>
+        
+        <div class="rule-category">
+        <h3>Requisition</h3>
+    <ul>
+      <li>2 Battle Tracker sheets from <a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></li>
+      <li>2 Pens or Pencils</li>
+      <li>2 Highlighters (optional)</li>
+    </ul>
+
+        </div>
+        
+        <div class="rule-category">
+          <h3>Fleet Deployment</h3>
+    <p>Deploy five word-ships on your Defense Grid. Use either auto-generated or custom words; both players must use the same method.</p>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>word-ship Classification</th>
+          <th>Length</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>KETCH</td><td>5 letters</td><td>PIANO</td></tr>
+        <tr><td>SHIP</td><td>4 letters</td><td>JUMP</td></tr>
+        <tr><td>SUB</td><td>3 letters</td><td>BED</td></tr>
+        <tr><td>ARK</td><td>3 letters</td><td>RUN</td></tr>
+        <tr><td>PT</td><td>2 letters</td><td>IF</td></tr>
+      </tbody>
+    </table>
+
+    <ul>
+      <li>word-ship classifications are for reference only and do not affect gameplay</li>
+      <li>Place word-ships horizontally (left-to-right) or vertically (top-to-bottom)</li>
+      <li>No diagonals, backwards, or upward placements</li>
+      <li>Ships may touch but not overlap</li>
+      <li>No proper nouns, abbreviations, or suffixes</li>
+    </ul>
+  </div>
+        
+        <div class="rule-category">
+          <h3>Hailing the Enemy</h3>
+    <p>Determine who strikes first through a mini-game of strategy and deception.</p>
+
+    <div class="hailing-enemy-section">
+      <div class="hailing-enemy-setup-container">
+        <p class="hailing-enemy-description">
+          Both captains have <span class="hailing-enemy-highlight">5 launch codes</span> (000–999) stamped on their battle tracker. 
+          Use codes, strategy and deception to try and secure the first strike!
+        </p>
+      </div>
+    </div>
+
+    <div class="hailing-enemy-section">
+      <div class="hailing-enemy-game-flow">
+        <div class="hailing-enemy-flow-step">
+          <div class="hailing-enemy-step-number">1</div>
+          <div class="hailing-enemy-step-title">Opening Hail</div>
+          <div class="hailing-enemy-step-description">Call out a launch code, real or fake</div>
+        </div>
+        <div class="hailing-enemy-flow-step">
+          <div class="hailing-enemy-step-number">2</div>
+          <div class="hailing-enemy-step-title">Response</div>
+          <div class="hailing-enemy-step-description">Respond with one of 3 choices:</div>
+          <div class="hailing-enemy-response-options">
+            <div class="hailing-enemy-response-option">
+              <strong>Concede</strong> – Give up
+              <div class="hailing-enemy-sub-options">
+                → Original captain strikes first
+              </div>
+            </div>
+            <div class="hailing-enemy-response-option">
+              <strong>Challenge</strong> – Demand proof
+              <div class="hailing-enemy-sub-options">
+                → Code is valid: original captain strikes first<br>
+                → Code is fake: challenging captain strikes first
+              </div>
+            </div>
+            <div class="hailing-enemy-response-option">
+              <strong>Counter</strong> – Call an equal or higher code
+              <div class="hailing-enemy-sub-options">
+                → Now the original captain must respond to this new code
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hailing-enemy-flow-step">
+          <div class="hailing-enemy-step-number">3</div>
+          <div class="hailing-enemy-step-title">Continue</div>
+          <div class="hailing-enemy-step-description">Continue until someone gives up or is caught lying</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hailing-enemy-section">
+      <div class="hailing-enemy-setup-container">
+        <div class="hailing-enemy-example-title">Sample skirmish</div>
+        <div class="hailing-enemy-example-flow">
+          Original captain: <span class="hailing-enemy-code">"850"</span> 
+          <span class="hailing-enemy-arrow">→</span> 
+          Other captain: <span class="hailing-enemy-code">"900"</span> 
+          <span class="hailing-enemy-arrow">→</span> 
+          Original captain: <span class="hailing-enemy-code">"Challenge!"</span>
+          <br><br>
+          <span class="hailing-enemy-highlight">Result:</span> Other captain reveals no 900 launch code → Original captain strikes first
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Start Engage the Enemy -->
+
+<!-- Engage the Enemy - Core Combat Mechanics -->
+        <div class="rule-category">
+          <h3>Engage the Enemy</h3>
+          <p>With first strike determined, battle begins! Choose one of two tactical options each turn.</p>
+
+          <!-- Combat Options Overview -->
+          <div class="combat-section combat-overview">
+            <div class="combat-overview-container">
+              <p class="combat-overview-description">On your turn, choose one of two tactical options:</p>
+              <ul class="combat-options-list">
+                <li><strong>Standard Attack</strong> – Initial Strike on a coordinate, with potential Alpha Strike follow-up if you hit a word-ship</li>
+                <li><strong>Demand Surrender</strong> – Attempt total victory by revealing the enemy's entire fleet</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Standard Attack Mechanics -->
+          <div class="combat-section combat-standard-attack">
+            <h4 class="combat-subsection-title">Standard Attack</h4>
+            <div class="combat-game-flow">
+              
+              <!-- Step 1: Initial Strike -->
+              <div class="combat-flow-step">
+                <div class="combat-step-number">1</div>
+                <div class="combat-step-content">
+                  <div class="combat-step-title">Initial Strike</div>
+                  <div class="combat-step-description">Choose a coordinate and call it out:</div>
+                  <div class="combat-quote">
+                    "Fire on coordinate Echo-Seven!" or <span class="combat-callout">"E-7!"</span>
+                  </div>
+                  
+                  <div class="combat-responses-section">
+                    <div class="combat-responses-label">Responses:</div>
+                    <div class="combat-response-options">
+                      <div class="combat-response-option combat-response-miss">
+                        <div class="combat-response-header">
+                          <strong>MISS</strong>
+                        </div>
+                        <div class="combat-response-description">
+                          No ship. Mark with a dot. End turn.
+                        </div>
+                        <div class="combat-quote">
+                          "Miss!"
+                        </div>
+                      </div>
+                      
+                      <div class="combat-response-option combat-response-hit">
+                        <div class="combat-response-header">
+                          <strong>HIT</strong>
+                        </div>
+                        <div class="combat-response-description">
+                          Ship confirmed. Highlight the coordinate's borders. Proceed to Alpha Strike.
+                        </div>
+                        <div class="combat-quote">
+                          "Hit."
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Step 2: Alpha Strike -->
+              <div class="combat-flow-step">
+                <div class="combat-step-number">2</div>
+                <div class="combat-step-content">
+                  <div class="combat-step-title">Alpha Strike</div>
+                  <div class="combat-step-description">Guess the letter at the coordinate:</div>
+                  <div class="combat-quote">
+                    "Alpha Strike Sierra!" or <span class="combat-callout">"S."</span>
+                  </div>
+                  
+                  <div class="combat-responses-section">
+                    <div class="combat-responses-label">Responses:</div>
+                    <div class="combat-response-options">
+                      <div class="combat-response-option combat-response-bullseye">
+                        <div class="combat-response-header">
+                          <strong>BULLSEYE</strong>
+                        </div>
+                        <div class="combat-response-description">
+                          Correct letter at that position. Write it in. End turn.
+                        </div>
+                        <div class="combat-quote">
+                          "Bullseye."
+                        </div>
+                      </div>
+                      
+                      <div class="combat-response-option combat-response-tally">
+                        <div class="combat-response-header">
+                          <strong>LETTER TALLY</strong>
+                        </div>
+                        <div class="combat-response-description">
+                          Wrong letter. Announce how many total times that letter appears in your fleet. End turn.
+                          Attack this same coordinate again later to try different letters.
+                        </div>
+                        <div class="combat-quote">
+                          "S tally 3."
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          <!-- Demand Surrender Mechanics -->
+          <div class="combat-section combat-demand-surrender">
+            <h4 class="combat-subsection-title">Demand Surrender</h4>
+            <div class="victory-game-flow">
+              
+              <!-- Decisive Strike Process -->
+              <div class="victory-flow-step">
+                <div class="victory-step-number">1</div>
+                <div class="victory-step-content">
+                  <div class="victory-step-title">Decisive Strike</div>
+                  <div class="victory-step-description">
+                    At the beginning of any turn (instead of taking that turn), demand surrender by stating every word-ship and its exact location. Wait until all word-ships are announced before responding:
+                  </div>
+                  <div class="victory-quote victory-quote-example">
+                    "I demand your surrender! Your fleet consists of: PIANO at Charlie-3 through Charlie-7, JUMP at Alpha-1 through Alpha-4, BED at Echo-8 through Echo-10, RUN at Bravo-5 through Delta-5, and IF at Foxtrot-2 through Foxtrot-3!"
+                  </div>
+                  
+                  <div class="victory-responses-section">
+                    <div class="victory-responses-label">Responses:</div>
+                    <div class="victory-response-options">
+                      <div class="victory-response-option victory-response-win">
+                        <div class="victory-response-header">
+                          <strong>YOU HAVE WON</strong>
+                        </div>
+                        <div class="victory-response-description">
+                          Every word and location is correct. Achieve total victory.
+                        </div>
+                        <div class="victory-quote">
+                          "You have won."
+                        </div>
+                      </div>
+                      
+                      <div class="victory-response-option victory-response-lose">
+                        <div class="victory-response-header">
+                          <strong>VICTORY IS MINE! YOU LOSE! GOOD DAY SIR!</strong>
+                        </div>
+                        <div class="victory-response-description">
+                          Anything is wrong (word, spelling, or coordinates). Immediately surrender and lose the game.
+                        </div>
+                        <div class="victory-quote">
+                          "Victory is mine! You lose! Good day sir!"
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
+
+<!-- End of Engage the Enemy-->
+                <div class="rule-category">
+          <h3>Defense Operations</h3>
+<p>Track your opponent's attacks and respond accurately.</p>
+    <p>When being attacked:</p>
+    <ul>
+      <li>Mark dots for enemy misses on Defense Grid</li>
+      <li>Highlight borders for confirmed hits on Defense Grid</li>
+      <li>Trace over each letter discovered via bullseye on Defense Grid</li>
+    </ul>
+    <p><strong>Important:</strong> When all coordinates of a word-ship are hit, announce which word-ship has been revealed. Do NOT announce the word itself.</p>
+  </div>
+
+
+    </div>
+  </section>
+
+  <!-- Debrief Section -->
+  <section id="debrief" class="section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Debrief</h2>
+        <p class="section-subtitle">
+          Mission complete, captain. Review tactical options and advanced strategies for your next deployment.
+        </p>
+      </div>
+      
+      <div class="rules-grid">
+        <div class="rule-category">
+          <h3>Themed Battles</h3>
+          <p>For variety, deploy fleets around specific themes:</p>
+          <ul>
+            <li><strong>Biological:</strong> ZEBRA, FROG, COW, BAT, OX</li>
+            <li><strong>Directional:</strong> NORTH, LEFT, TOP, WAY, UP</li>
+            <li><strong>Additional themes:</strong> Musical, Celestial, Culinary, Oceanic, Metallic, Geometric, Temporal, Athletic, Botanical, Atmospheric</li>
+          </ul>
+        </div>
+
+        <div class="rule-category">
+          <h3>Difficulty Adjustment Protocol</h3>
+          <p>For uneven battles, use Manual Selection to deploy custom-chosen high-difficulty words while your opponent uses Auto-Generated word-ships.</p>
+        </div>
+
+        <div class="rule-category">
+          <h3>Join The Fight</h3>
+          <p>Have you developed a new way to play? Send it to: missioncontrol@thegamebureau.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Future Deployments Section -->
+  <section id="future" class="section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Future Deployments</h2>
+        <p class="section-subtitle">
+          Word Fleet continues to evolve. Explore upcoming features and expansions 
+          that will revolutionize word strategy mashup games.
+        </p>
+      </div>
+      
+      <div class="roadmap-timeline">
+        <div class="roadmap-item">
+          <div class="roadmap-date">Phase Alpha</div>
+          <h3 class="roadmap-title">Simulator Mode</h3>
+          <p class="roadmap-description">Train your fleet in virtual combat scenarios with AI-powered battle simulations and tactical analysis.
+          </p>
+        </div>
+        
+        <div class="roadmap-item">
+          <div class="roadmap-date">Phase Bravo</div>
+          <h3 class="roadmap-title">Tournament Mode</h3>
+          <p class="roadmap-description">Command your fleet in organized competitions with leaderboards, brackets, and championship glory.
+          </p>
+        </div>
+        
+        <div class="roadmap-item">
+          <div class="roadmap-date">Phase Charlie</div>
+          <h3 class="roadmap-title">Mobile App Combat</h3>
+          <p class="roadmap-description">Deploy your wordships on-the-go with native mobile applications for iOS and Android devices.
+          </p>
+        </div>
+        
+        <div class="roadmap-item">
+          <div class="roadmap-date">Phase Delta</div>
+          <h3 class="roadmap-title">SMS Battle System</h3>
+          <p class="roadmap-description">Engage in naval warfare through text messages - no internet required for remote battle coordination.
+          </p>
+        </div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-date">Phase Echo</div>
+          <h3 class="roadmap-title">AI Captain Challenges</h3>
+          <p class="roadmap-description">Face off against artificial intelligence commanders with adaptive strategies and varying difficulty levels.
+          </p>
+        </div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-date">Phase Foxtrot</div>
+          <h3 class="roadmap-title">Online Multiplayer</h3>
+          <p class="roadmap-description">Connect with captains worldwide for real-time naval battles and strategic fleet management.
+          </p>
+        </div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-date">Phase Golf</div>
+          <h3 class="roadmap-title">Ranked Battles</h3>
+          <p class="roadmap-description">Climb the naval hierarchy through competitive ranked matches with seasonal rewards and titles.
+          </p>
+        </div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-date">Phase Hotel</div>
+          <h3 class="roadmap-title">Campaign Mode</h3>
+          <p class="roadmap-description">Lead your fleet through epic story-driven campaigns across dangerous waters and enemy territories.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ===== FLEET NAME GENERATION AND FORM HANDLING =====
+    const fleetNames = {
+      adjectives: [
+        'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged', 'Black', 'Stormy', 'Treacherous', 'Cursed', 'Ghostly', 'Iron-Bound', 'Sea-Worn',
+        'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
+        'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
+        'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
+        'Battle-Ready', 'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
+        'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached', 'Iron-Fisted', 'Cannon-Heavy',
+        'Gun-Blazing', 'Torpedo-Laden', 'Skull & Crossbones', 'Merciless', 'Fearsome',
+        'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed', 'Eye-Patched',
+        'Beard-Braided', 'Compass-Spinning', 'Ghost Ship', 'Kraken\'s', 'Siren\'s', 'Leviathan\'s',
+        'Poseidon\'s', 'Neptune\'s', 'Triton\'s', 'Abyssal', 'Deep-Sea', 'Oceanic', 'Maritime',
+        'Nautical', 'Seafaring', 'Davy Jones\'', 'Phantom', 'Half-Sunk', 'Listing',
+        'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
+      ],
+      nouns: [
+        'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force', 'Krewe',
+        'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
+        'Cohort', 'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit',
+        'Force', 'Command', 'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard',
+        'Reserve', 'Guard', 'Watch', 'Blockade', 'Tide', 'Current', 'Wake', 'Waves',
+        'Storm', 'Tempest', 'Gale', 'Maelstrom', 'Admiralty', 'Authority', 'Order',
+        'Legion', 'Brotherhood', 'Alliance', 'Coalition', 'Depth', 'Trench', 'Reef',
+        'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
+        'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition', 'Dispatch', 'Voyage', 'Odyssey', 'Quest', 'Adventure'
+      ]
+    };
+
+    let currentMode = 'auto';
+
+    function generateFleetName() {
+      const adj = fleetNames.adjectives[Math.floor(Math.random() * fleetNames.adjectives.length)];
+      const noun = fleetNames.nouns[Math.floor(Math.random() * fleetNames.nouns.length)];
+      const input = document.getElementById('fleetNameInput');
+      const button = document.querySelector('.fleet-input-button');
+      
+      if (input && button) {
+        button.style.transform = 'translateY(-50%) rotate(180deg) scale(1.2)';
+        
+        setTimeout(() => {
+          input.value = `${adj} ${noun}`;
+          button.style.transform = 'translateY(-50%)';
+        }, 200);
+      }
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      const manualBtn = document.getElementById('manualBtn');
+      const autoBtn = document.getElementById('autoBtn');
+      const manualWords = document.getElementById('manualWords');
+      const wordsMode = document.getElementById('wordsMode');
+      const wordInputs = document.querySelectorAll('.word-input');
+      
+      if (mode === 'manual') {
+        manualBtn.classList.add('active');
+        autoBtn.classList.remove('active');
+        manualWords.classList.add('show');
+        wordsMode.value = 'manual';
+        
+        // Make all word inputs required when manual mode is selected
+        wordInputs.forEach(input => {
+          input.required = true;
+        });
+      } else {
+        autoBtn.classList.add('active');
+        manualBtn.classList.remove('active');
+        manualWords.classList.remove('show');
+        wordsMode.value = 'auto';
+        
+        // Remove required attribute when auto mode is selected
+        wordInputs.forEach(input => {
+          input.required = false;
+        });
+      }
+    }
+
+    function handleBattleTrackerSubmit(event) {
+      event.preventDefault();
+      const fleetInput = document.getElementById('fleetNameInput');
+      const submitBtn = event.target.querySelector('button[type="submit"]');
+      
+      // Check fleet name
+      if (!fleetInput.value.trim()) {
+        fleetInput.focus();
+        fleetInput.style.borderColor = '#ef4444';
+        setTimeout(() => fleetInput.style.borderColor = '', 2000);
+        return false;
+      }
+      
+      // Check manual word inputs if manual mode is selected
+      if (currentMode === 'manual') {
+        const wordInputs = document.querySelectorAll('.word-input');
+        let hasEmptyFields = false;
+        
+        wordInputs.forEach(input => {
+          if (!input.value.trim()) {
+            input.style.borderColor = '#ef4444';
+            hasEmptyFields = true;
+            setTimeout(() => input.style.borderColor = '', 2000);
+          }
+        });
+        
+        if (hasEmptyFields) {
+          // Focus on the first empty field
+          const firstEmpty = Array.from(wordInputs).find(input => !input.value.trim());
+          if (firstEmpty) firstEmpty.focus();
+          return false;
+        }
+      }
+      
+      submitBtn.innerHTML = '🚀 Deploying Fleet...';
+      submitBtn.style.opacity = '0.7';
+      
+      // Let the form submit naturally to tracker.html with all the data
+      setTimeout(() => {
+        event.target.submit();
+      }, 1000);
+      
+      return false;
+    }
+
+    // Legacy function for compatibility
+    function handleFleetSubmit(event) {
+      return handleBattleTrackerSubmit(event);
+    }
+
+    function initializeFleetName() {
+      const input = document.getElementById('fleetNameInput');
+      if (!input) return;
+      
+      // Check URL for fleet parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const fleetFromUrl = urlParams.get('fleet');
+      
+      if (fleetFromUrl) {
+        input.value = decodeURIComponent(fleetFromUrl);
+      } else {
+        // Generate random fleet name as default
+        generateFleetName();
+      }
+    }
+
+    // Battle tracker functions (placeholders for actual implementation)
+    function generateBattleTracker() {
+      alert('Battle Tracker Generator would open here - this would integrate with your existing form functionality!');
+    }
+
+    function downloadBattleTracker() {
+      // Get fleet name and word configuration
+      const fleetName = document.getElementById('fleetNameInput')?.value || 'My Fleet';
+      const mode = currentMode;
+      
+      // Placeholder for actual download functionality
+      alert(`Downloading Battle Tracker for "${fleetName}" with ${mode} word configuration...`);
+      
+      // In a real implementation, this would:
+      // 1. Generate the battle tracker PDF with fleet name and words
+      // 2. Trigger a download of the file
+      // 3. Include the configured wordships if in manual mode
+    }
+
+    function printBattleTracker() {
+      // Get fleet name and word configuration
+      const fleetName = document.getElementById('fleetNameInput')?.value || 'My Fleet';
+      const mode = currentMode;
+      
+      // Placeholder for actual print functionality
+      alert(`Opening print dialog for "${fleetName}" battle tracker with ${mode} word configuration...`);
+      
+      // In a real implementation, this would:
+      // 1. Generate the battle tracker content
+      // 2. Open a new window with the printable version
+      // 3. Trigger the browser's print dialog
+      // window.print() or similar functionality
+    }
+    // ===== END FLEET NAME GENERATION AND FORM HANDLING =====
+
+    // ===== NAVIGATION AND UI INTERACTIONS =====
+    // Navigation scroll behavior
+    window.addEventListener('scroll', function() {
+      const nav = document.querySelector('.nav-bar');
+      if (window.scrollY > 100) {
+        nav.style.background = 'rgba(0, 0, 0, 0.95)';
+      } else {
+        nav.style.background = 'rgba(0, 0, 0, 0.9)';
+      }
+    });
+
+    // Smooth scrolling function
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+
+    // Scroll to top function
+    function scrollToTop() {
+      window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth' 
+      });
+    }
+
+    // Add smooth reveal animations on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Initialize everything when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      const animatedElements = document.querySelectorAll('.feature-card, .rule-category, .roadmap-item');
+      
+      animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+      });
+      
+      // Initialize fleet name and toggle mode
+      initializeFleetName();
+      setMode('auto');
+    });
+    // ===== END NAVIGATION AND UI INTERACTIONS =====
+  </script>
+</body>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -200,7 +992,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 40px;
-      margin-top: 60px;
+      margin-top: 80px;
     }
 
     .feature-card {
@@ -339,20 +1131,29 @@
       text-decoration: none;
     }
 
-    /* Future Deployments Section */
+    /* Future Deployments Section - Updated to use grid layout like Rules */
     .roadmap-timeline {
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      max-width: none;
+      margin: 0;
     }
 
     .roadmap-item {
       background: rgba(0, 0, 0, 0.7);
       border-radius: 12px;
       padding: 30px;
-      margin-bottom: 30px;
+      margin-bottom: 0;
       border-left: 4px solid #6aaa64;
       backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .roadmap-item:hover {
+      transform: translateY(-10px);
+      border-color: #6aaa64;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     }
 
     .roadmap-date {
@@ -406,6 +1207,7 @@
       .cta-btn { width: 280px; text-align: center; }
       .welcome-features { grid-template-columns: 1fr; }
       .rules-grid { grid-template-columns: 1fr; }
+      .roadmap-timeline { grid-template-columns: 1fr; }
     }
 
     /* Fleet Form Styles */
@@ -942,874 +1744,3 @@
     font-size: 0.9rem;
   }
 }
-  </style>
-</head>
-<body>
-  <!-- Navigation -->
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="#" class="nav-logo" onclick="scrollToTop()">Word Fleet</a>
-      <div class="nav-links">
-        <a href="#penandpaper" onclick="scrollToSection('penandpaper')">Pen & Paper Mode</a>
-        <a href="#rules" onclick="scrollToSection('rules')">Rules of Engagement</a>
-        <a href="#future" onclick="scrollToSection('future')">Future Deployments</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title">Word Fleet</h1>
-      <p class="hero-subtitle">Where strategy meets vocabulary</p>
-      <p class="hero-description">
-        Command your fleet of wordships in tactical battles that blend the strategy of naval warfare 
-        with the creativity of word games. Deploy letters like ammunition, spell victory with precision, 
-        and sink your opponents through superior vocabulary.
-      </p>
-      <div class="cta-buttons">
-        <button class="cta-btn cta-btn-primary" onclick="scrollToSection('penandpaper')">
-          Pen & Paper Mode
-        </button>
-        <button class="cta-btn cta-btn-primary" onclick="scrollToSection('rules')">
-          Rules of Engagement
-        </button>
-                <button class="cta-btn cta-btn-primary" onclick="scrollToSection('future')">
-          Future Deployments
-        </button>
-      </div>
-    </div>
-    <div class="scroll-indicator">
-      <div style="font-size: 24px;">⚓</div>
-      <div style="font-size: 12px; margin-top: 5px;">SCROLL TO EXPLORE</div>
-    </div>
-  </section>
-<!-- Pen & Paper Section -->
-  <section id="penandpaper" class="section">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">Pen & Paper Mode</h2>
-        <p class="section-subtitle">
-          So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!
-        </p>
-      </div>
-      
-      <form id="battleTrackerForm" action="tracker.html" method="GET" onsubmit="return handleBattleTrackerSubmit(event)">
-        <div class="welcome-features">
-          <div class="feature-card">
-            <span class="feature-icon">01</span>
-            <h3 class="feature-title">Name Your Fleet</h3>
-            <p class="feature-description">
-              Choose a commanding name for your naval fleet. Will you lead the Storm Raiders into battle, 
-              or command the Iron Guardians to victory? A strong fleet name strikes fear into enemy hearts.
-            </p>
-            <div class="fleet-form-container">
-              <div class="fleet-form">
-                <div class="fleet-input-group">
-                  <input 
-                    type="text" 
-                    id="fleetNameInput" 
-                    name="fleet"
-                    class="fleet-input" 
-                    placeholder="Enter your fleet name..."
-                    maxlength="30"
-                    required
-                  >
-                  <button type="button" class="fleet-input-button" onclick="generateFleetName()" title="Generate random fleet name">
-                    🎲
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="feature-card">
-            <span class="feature-icon">02</span>
-            <h3 class="feature-title">Configure Your Word-Ships</h3>
-            <p class="feature-description">
-              Choose between auto-generated wordships or manually select your own words. Each ship type serves a tactical purpose - from the mighty 5-letter KETCH to the nimble 2-letter PT boat.
-            </p>
-            <div class="fleet-form-container">
-              <div class="fleet-form">
-                <div class="toggle-container">
-                  <div class="toggle-buttons">
-                    <button type="button" class="toggle-btn active" id="autoBtn" onclick="setMode('auto')">
-                      Auto-Generated
-                    </button>
-                    <button type="button" class="toggle-btn" id="manualBtn" onclick="setMode('manual')">
-                      Manual Selection
-                    </button>
-                  </div>
-                  
-                  <div class="manual-words" id="manualWords">
-                    <div class="word-group">
-                      <label class="word-label">KETCH • 5-Letter Wordship</label>
-                      <input type="text" class="word-input" maxlength="5" placeholder="Enter 5 letters..." name="word5">
-                    </div>
-                    <div class="word-group">
-                      <label class="word-label">SHIP • 4-Letter Wordship</label>
-                      <input type="text" class="word-input" maxlength="4" placeholder="Enter 4 letters..." name="word4">
-                    </div>
-                    <div class="word-group">
-                      <label class="word-label">SUB • 3-Letter Wordship</label>
-                      <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3a">
-                    </div>
-                    <div class="word-group">
-                      <label class="word-label">ARK • 3-Letter Wordship</label>
-                      <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3b">
-                    </div>
-                    <div class="word-group">
-                      <label class="word-label">PT • 2-Letter Wordship</label>
-                      <input type="text" class="word-input" maxlength="2" placeholder="Enter 2 letters..." name="word2">
-                    </div>
-                  </div>
-                  
-                  <input type="hidden" id="wordsMode" name="words" value="true">
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="feature-card">
-            <span class="feature-icon">03</span>
-            <h3 class="feature-title">Get Your Battle Tracker</h3>
-            <p class="feature-description">
-              Download or print your Battle Trackers and let slip the dogs of war!
-            </p>
-            <div class="fleet-form-container">
-              <div class="fleet-form">
-                <button type="submit" class="fleet-submit-btn" style="margin-bottom: 10px;">
-                  Download
-                </button>
-                <button type="button" class="fleet-submit-btn" onclick="printBattleTracker()">
-                  Print
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- Rules of Engagement Section -->
-  <section id="rules" class="section">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">Rules of Engagement</h2>
-        <p class="section-subtitle">Locate and destroy enemy word-ships hidden across the attack grid. Use logic, deduction, and word knowledge to outmaneuver your opponent in this fusion of naval warfare and word puzzles.</p>
-      </div>
-      
-      <div class="rules-grid">
-        <div class="rule-category">
-          <h3>Mission Specs</h3>
-Personnel: 2 captains<br>
-Minimum Age: 10<br>
-Mission Duration: 15-30 Minutes
-        </div>
-        
-        <div class="rule-category">
-        <h3>Requisition</h3>
-    <ul>
-      <li>2 Battle Tracker sheets from <a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></li>
-      <li>2 Pens or Pencils</li>
-      <li>2 Highlighters (optional)</li>
-    </ul>
-
-        </div>
-        
-        <div class="rule-category">
-          <h3>Fleet Deployment</h3>
-    <p>Deploy five word-ships on your Defense Grid. Use either auto-generated or custom words; both players must use the same method.</p>
-    
-    <table>
-      <thead>
-        <tr>
-          <th>word-ship Classification</th>
-          <th>Length</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>KETCH</td><td>5 letters</td><td>PIANO</td></tr>
-        <tr><td>SHIP</td><td>4 letters</td><td>JUMP</td></tr>
-        <tr><td>SUB</td><td>3 letters</td><td>BED</td></tr>
-        <tr><td>ARK</td><td>3 letters</td><td>RUN</td></tr>
-        <tr><td>PT</td><td>2 letters</td><td>IF</td></tr>
-      </tbody>
-    </table>
-
-    <ul>
-      <li>word-ship classifications are for reference only and do not affect gameplay</li>
-      <li>Place word-ships horizontally (left-to-right) or vertically (top-to-bottom)</li>
-      <li>No diagonals, backwards, or upward placements</li>
-      <li>Ships may touch but not overlap</li>
-      <li>No proper nouns, abbreviations, or suffixes</li>
-    </ul>
-  </div>
-        
-        <div class="rule-category">
-          <h3>Hailing the Enemy</h3>
-    <p>Determine who strikes first through a mini-game of strategy and deception.</p>
-
-    <div class="hailing-enemy-section">
-      <div class="hailing-enemy-setup-container">
-        <p class="hailing-enemy-description">
-          Both captains have <span class="hailing-enemy-highlight">5 launch codes</span> (000–999) stamped on their battle tracker. 
-          Use codes, strategy and deception to try and secure the first strike!
-        </p>
-      </div>
-    </div>
-
-    <div class="hailing-enemy-section">
-      <div class="hailing-enemy-game-flow">
-        <div class="hailing-enemy-flow-step">
-          <div class="hailing-enemy-step-number">1</div>
-          <div class="hailing-enemy-step-title">Opening Hail</div>
-          <div class="hailing-enemy-step-description">Call out a launch code, real or fake</div>
-        </div>
-        <div class="hailing-enemy-flow-step">
-          <div class="hailing-enemy-step-number">2</div>
-          <div class="hailing-enemy-step-title">Response</div>
-          <div class="hailing-enemy-step-description">Respond with one of 3 choices:</div>
-          <div class="hailing-enemy-response-options">
-            <div class="hailing-enemy-response-option">
-              <strong>Concede</strong> – Give up
-              <div class="hailing-enemy-sub-options">
-                → Original captain strikes first
-              </div>
-            </div>
-            <div class="hailing-enemy-response-option">
-              <strong>Challenge</strong> – Demand proof
-              <div class="hailing-enemy-sub-options">
-                → Code is valid: original captain strikes first<br>
-                → Code is fake: challenging captain strikes first
-              </div>
-            </div>
-            <div class="hailing-enemy-response-option">
-              <strong>Counter</strong> – Call an equal or higher code
-              <div class="hailing-enemy-sub-options">
-                → Now the original captain must respond to this new code
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="hailing-enemy-flow-step">
-          <div class="hailing-enemy-step-number">3</div>
-          <div class="hailing-enemy-step-title">Continue</div>
-          <div class="hailing-enemy-step-description">Continue until someone gives up or is caught lying</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hailing-enemy-section">
-      <div class="hailing-enemy-setup-container">
-        <div class="hailing-enemy-example-title">Sample skirmish</div>
-        <div class="hailing-enemy-example-flow">
-          Original captain: <span class="hailing-enemy-code">"850"</span> 
-          <span class="hailing-enemy-arrow">→</span> 
-          Other captain: <span class="hailing-enemy-code">"900"</span> 
-          <span class="hailing-enemy-arrow">→</span> 
-          Original captain: <span class="hailing-enemy-code">"Challenge!"</span>
-          <br><br>
-          <span class="hailing-enemy-highlight">Result:</span> Other captain reveals no 900 launch code → Original captain strikes first
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- Start Engage the Enemy -->
-
-<!-- Engage the Enemy - Core Combat Mechanics -->
-        <div class="rule-category">
-          <h3>Engage the Enemy</h3>
-          <p>With first strike determined, battle begins! Choose one of two tactical options each turn.</p>
-
-          <!-- Combat Options Overview -->
-          <div class="combat-section combat-overview">
-            <div class="combat-overview-container">
-              <p class="combat-overview-description">On your turn, choose one of two tactical options:</p>
-              <ul class="combat-options-list">
-                <li><strong>Standard Attack</strong> – Initial Strike on a coordinate, with potential Alpha Strike follow-up if you hit a word-ship</li>
-                <li><strong>Demand Surrender</strong> – Attempt total victory by revealing the enemy's entire fleet</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Standard Attack Mechanics -->
-          <div class="combat-section combat-standard-attack">
-            <h4 class="combat-subsection-title">Standard Attack</h4>
-            <div class="combat-game-flow">
-              
-              <!-- Step 1: Initial Strike -->
-              <div class="combat-flow-step">
-                <div class="combat-step-number">1</div>
-                <div class="combat-step-content">
-                  <div class="combat-step-title">Initial Strike</div>
-                  <div class="combat-step-description">Choose a coordinate and call it out:</div>
-                  <div class="combat-quote">
-                    "Fire on coordinate Echo-Seven!" or <span class="combat-callout">"E-7!"</span>
-                  </div>
-                  
-                  <div class="combat-responses-section">
-                    <div class="combat-responses-label">Responses:</div>
-                    <div class="combat-response-options">
-                      <div class="combat-response-option combat-response-miss">
-                        <div class="combat-response-header">
-                          <strong>MISS</strong>
-                        </div>
-                        <div class="combat-response-description">
-                          No ship. Mark with a dot. End turn.
-                        </div>
-                        <div class="combat-quote">
-                          "Miss!"
-                        </div>
-                      </div>
-                      
-                      <div class="combat-response-option combat-response-hit">
-                        <div class="combat-response-header">
-                          <strong>HIT</strong>
-                        </div>
-                        <div class="combat-response-description">
-                          Ship confirmed. Highlight the coordinate's borders. Proceed to Alpha Strike.
-                        </div>
-                        <div class="combat-quote">
-                          "Hit."
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Step 2: Alpha Strike -->
-              <div class="combat-flow-step">
-                <div class="combat-step-number">2</div>
-                <div class="combat-step-content">
-                  <div class="combat-step-title">Alpha Strike</div>
-                  <div class="combat-step-description">Guess the letter at the coordinate:</div>
-                  <div class="combat-quote">
-                    "Alpha Strike Sierra!" or <span class="combat-callout">"S."</span>
-                  </div>
-                  
-                  <div class="combat-responses-section">
-                    <div class="combat-responses-label">Responses:</div>
-                    <div class="combat-response-options">
-                      <div class="combat-response-option combat-response-bullseye">
-                        <div class="combat-response-header">
-                          <strong>BULLSEYE</strong>
-                        </div>
-                        <div class="combat-response-description">
-                          Correct letter at that position. Write it in. End turn.
-                        </div>
-                        <div class="combat-quote">
-                          "Bullseye."
-                        </div>
-                      </div>
-                      
-                      <div class="combat-response-option combat-response-tally">
-                        <div class="combat-response-header">
-                          <strong>LETTER TALLY</strong>
-                        </div>
-                        <div class="combat-response-description">
-                          Wrong letter. Announce how many total times that letter appears in your fleet. End turn.
-                          Attack this same coordinate again later to try different letters.
-                        </div>
-                        <div class="combat-quote">
-                          "S tally 3."
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-
-          <!-- Demand Surrender Mechanics -->
-          <div class="combat-section combat-demand-surrender">
-            <h4 class="combat-subsection-title">Demand Surrender</h4>
-            <div class="victory-game-flow">
-              
-              <!-- Decisive Strike Process -->
-              <div class="victory-flow-step">
-                <div class="victory-step-number">1</div>
-                <div class="victory-step-content">
-                  <div class="victory-step-title">Decisive Strike</div>
-                  <div class="victory-step-description">
-                    At the beginning of any turn (instead of taking that turn), demand surrender by stating every word-ship and its exact location. Wait until all word-ships are announced before responding:
-                  </div>
-                  <div class="victory-quote victory-quote-example">
-                    "I demand your surrender! Your fleet consists of: PIANO at Charlie-3 through Charlie-7, JUMP at Alpha-1 through Alpha-4, BED at Echo-8 through Echo-10, RUN at Bravo-5 through Delta-5, and IF at Foxtrot-2 through Foxtrot-3!"
-                  </div>
-                  
-                  <div class="victory-responses-section">
-                    <div class="victory-responses-label">Responses:</div>
-                    <div class="victory-response-options">
-                      <div class="victory-response-option victory-response-win">
-                        <div class="victory-response-header">
-                          <strong>YOU HAVE WON</strong>
-                        </div>
-                        <div class="victory-response-description">
-                          Every word and location is correct. Achieve total victory.
-                        </div>
-                        <div class="victory-quote">
-                          "You have won."
-                        </div>
-                      </div>
-                      
-                      <div class="victory-response-option victory-response-lose">
-                        <div class="victory-response-header">
-                          <strong>VICTORY IS MINE! YOU LOSE! GOOD DAY SIR!</strong>
-                        </div>
-                        <div class="victory-response-description">
-                          Anything is wrong (word, spelling, or coordinates). Immediately surrender and lose the game.
-                        </div>
-                        <div class="victory-quote">
-                          "Victory is mine! You lose! Good day sir!"
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-          
-        </div>
-
-<!-- End of Engage the Enemy-->
-                <div class="rule-category">
-          <h3>Defense Operations</h3>
-<p>Track your opponent's attacks and respond accurately.</p>
-    <p>When being attacked:</p>
-    <ul>
-      <li>Mark dots for enemy misses on Defense Grid</li>
-      <li>Highlight borders for confirmed hits on Defense Grid</li>
-      <li>Trace over each letter discovered via bullseye on Defense Grid</li>
-    </ul>
-    <p><strong>Important:</strong> When all coordinates of a word-ship are hit, announce which word-ship has been revealed. Do NOT announce the word itself.</p>
-  </div>
-
-                <div class="rule-category">
-          <h3>Themed Battles</h3>
-    <p>For variety, deploy fleets around specific themes:</p>
-    <ul>
-      <li><strong>Biological:</strong> ZEBRA, FROG, COW, BAT, OX</li>
-      <li><strong>Directional:</strong> NORTH, LEFT, TOP, WAY, UP</li>
-      <li><strong>Additional themes:</strong> Musical, Celestial, Culinary, Oceanic, Metallic, Geometric, Temporal, Athletic, Botanical, Atmospheric</li>
-    </ul>
-  </div>
-
-
-                <div class="rule-category">
-          <h3>Difficulty Adjustment Protocol</h3>
-          <p>For uneven battles, use Manual Selection to deploy custom-chosen high-difficulty words while your opponent uses Auto-Generated word-ships.</p>
-        </div>
-
-                <div class="rule-category">
-          <h3>Join The Fight</h3>
-          Have you developed a new way to play? Send it to: missioncontrol@thegamebureau.com
-      </div>
-    </div>
-  </section>
-
-  <!-- Future Deployments Section -->
-  <section id="future" class="section">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">Future Deployments</h2>
-        <p class="section-subtitle">
-          Word Fleet continues to evolve. Explore upcoming features and expansions 
-          that will revolutionize word strategy mashup games.
-        </p>
-      </div>
-      
-      <div class="roadmap-timeline">
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Alpha</div>
-          <h3 class="roadmap-title">Simulator Mode</h3>
-          <p class="roadmap-description">Train your fleet in virtual combat scenarios with AI-powered battle simulations and tactical analysis.
-          </p>
-        </div>
-        
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Bravo</div>
-          <h3 class="roadmap-title">Tournament Mode</h3>
-          <p class="roadmap-description">Command your fleet in organized competitions with leaderboards, brackets, and championship glory.
-          </p>
-        </div>
-        
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Charlie</div>
-          <h3 class="roadmap-title">Mobile App Combat</h3>
-          <p class="roadmap-description">Deploy your wordships on-the-go with native mobile applications for iOS and Android devices.
-          </p>
-        </div>
-        
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Delta</div>
-          <h3 class="roadmap-title">SMS Battle System</h3>
-          <p class="roadmap-description">Engage in naval warfare through text messages - no internet required for remote battle coordination.
-          </p>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Echo</div>
-          <h3 class="roadmap-title">AI Captain Challenges</h3>
-          <p class="roadmap-description">Face off against artificial intelligence commanders with adaptive strategies and varying difficulty levels.
-          </p>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Foxtrot</div>
-          <h3 class="roadmap-title">Online Multiplayer</h3>
-          <p class="roadmap-description">Connect with captains worldwide for real-time naval battles and strategic fleet management.
-          </p>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Golf</div>
-          <h3 class="roadmap-title">Ranked Battles</h3>
-          <p class="roadmap-description">Climb the naval hierarchy through competitive ranked matches with seasonal rewards and titles.
-          </p>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Hotel</div>
-          <h3 class="roadmap-title">Campaign Mode</h3>
-          <p class="roadmap-description">Lead your fleet through epic story-driven campaigns across dangerous waters and enemy territories.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- New Pen & Paper Section -->
-  <section id="welcome" class="section">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">NEW Pen & Paper Mode</h2>
-        <p class="section-subtitle">
-          words words words.
-        </p>
-      </div>
-      
-      <div class="welcome-features">
-        <div class="feature-card">
-          <span class="feature-icon">🚢</span>
-          <h3 class="feature-title">Fleet Configuration</h3>
-          <p class="feature-description">
-            fleet name and word-ships configuration goes her
-          </p>
-        </div>
-        
-        <div class="feature-card">
-          <span class="feature-icon">⚔️</span>
-          <h3 class="feature-title">Tactical Combat</h3>
-          <p class="feature-description">
-            Engage in turn-based battles where vocabulary meets strategy. Target enemy positions, 
-            manage your ammunition, and coordinate fleet movements for maximum devastation.
-          </p>
-        </div>
-        
-        <div class="feature-card">
-          <span class="feature-icon">🎯</span>
-          <h3 class="feature-title">Battle Tracker</h3>
-          <p class="feature-description">
-            Preview and Download and Print buttons
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Old Pen & Paper Mode Section -->
-  <section id="oldpenandpaper" class="section">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">OLD Pen & Paper Mode</h2>
-        <p class="section-subtitle">
-          Classic tactical gameplay that requires only paper, pen, and strategic thinking. 
-          Perfect for classrooms, coffee shops, or anywhere adventure calls.
-        </p>
-      </div>
-      
-      <div class="game-modes">
-        <div class="mode-content">
-          <h3>Analog Excellence</h3>
-          <p>
-            Experience the pure essence of Word Fleet without screens or digital distractions. 
-            This mode captures the tactical depth of naval combat through simple paper grids 
-            and time-tested gameplay mechanics.
-          </p>
-          
-          <ul class="mode-features">
-            <li>Printable battle trackers</li>
-            <li>Customizable fleet configurations</li>
-            <li>Turn-based strategic combat</li>
-            <li>Portable gameplay anywhere</li>
-            <li>Educational vocabulary building</li>
-          </ul>
-          
-          <button class="cta-btn cta-btn-primary" onclick="generateBattleTracker()">
-            Generate Battle Tracker
-          </button>
-        </div>
-        
-        <div class="mode-preview">
-          <h4 style="color: #6aaa64; margin-bottom: 20px;">Battle Grid Preview</h4>
-          <div class="preview-grid">
-            <div style="color: #cccccc;">
-              10x10 Combat Grid<br>
-              <small>Attack & Defense Zones</small>
-            </div>
-          </div>
-          <p style="color: #cccccc; font-size: 0.9rem; margin-top: 20px;">
-            Deploy your wordships strategically across the grid. 
-            Each vessel occupies spaces equal to its letter count.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // Fleet name generation and form handling
-    const fleetNames = {
-      adjectives: [
-        'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged',
-        'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
-        'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
-        'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
-        'Battle-Ready', 'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
-        'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached', 'Iron-Fisted', 'Cannon-Heavy',
-        'Gun-Blazing', 'Torpedo-Laden', 'Skull & Crossbones', 'Merciless', 'Fearsome',
-        'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed', 'Eye-Patched',
-        'Beard-Braided', 'Compass-Spinning', 'Ghost Ship', 'Kraken\'s', 'Siren\'s',
-        'Poseidon\'s', 'Davy Jones\'', 'Cursed', 'Phantom', 'Half-Sunk', 'Listing',
-        'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
-      ],
-      nouns: [
-        'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force',
-        'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
-        'Cohort', 'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit',
-        'Force', 'Command', 'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard',
-        'Reserve', 'Guard', 'Watch', 'Blockade', 'Tide', 'Current', 'Wake', 'Waves',
-        'Storm', 'Tempest', 'Gale', 'Maelstrom', 'Admiralty', 'Authority', 'Order',
-        'Legion', 'Brotherhood', 'Alliance', 'Coalition', 'Depth', 'Trench', 'Reef',
-        'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
-        'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition'
-      ]
-    };
-
-    let currentMode = 'auto';
-
-    function generateFleetName() {
-      const adj = fleetNames.adjectives[Math.floor(Math.random() * fleetNames.adjectives.length)];
-      const noun = fleetNames.nouns[Math.floor(Math.random() * fleetNames.nouns.length)];
-      const input = document.getElementById('fleetNameInput');
-      const button = document.querySelector('.fleet-input-button');
-      
-      if (input && button) {
-        button.style.transform = 'translateY(-50%) rotate(180deg) scale(1.2)';
-        
-        setTimeout(() => {
-          input.value = `${adj} ${noun}`;
-          button.style.transform = 'translateY(-50%)';
-        }, 200);
-      }
-    }
-
-    function setMode(mode) {
-      currentMode = mode;
-      const manualBtn = document.getElementById('manualBtn');
-      const autoBtn = document.getElementById('autoBtn');
-      const manualWords = document.getElementById('manualWords');
-      const wordsMode = document.getElementById('wordsMode');
-      const wordInputs = document.querySelectorAll('.word-input');
-      
-      if (mode === 'manual') {
-        manualBtn.classList.add('active');
-        autoBtn.classList.remove('active');
-        manualWords.classList.add('show');
-        wordsMode.value = 'manual';
-        
-        // Make all word inputs required when manual mode is selected
-        wordInputs.forEach(input => {
-          input.required = true;
-        });
-      } else {
-        autoBtn.classList.add('active');
-        manualBtn.classList.remove('active');
-        manualWords.classList.remove('show');
-        wordsMode.value = 'auto';
-        
-        // Remove required attribute when auto mode is selected
-        wordInputs.forEach(input => {
-          input.required = false;
-        });
-      }
-    }
-
-    function handleBattleTrackerSubmit(event) {
-      event.preventDefault();
-      const fleetInput = document.getElementById('fleetNameInput');
-      const submitBtn = event.target.querySelector('button[type="submit"]');
-      
-      // Check fleet name
-      if (!fleetInput.value.trim()) {
-        fleetInput.focus();
-        fleetInput.style.borderColor = '#ef4444';
-        setTimeout(() => fleetInput.style.borderColor = '', 2000);
-        return false;
-      }
-      
-      // Check manual word inputs if manual mode is selected
-      if (currentMode === 'manual') {
-        const wordInputs = document.querySelectorAll('.word-input');
-        let hasEmptyFields = false;
-        
-        wordInputs.forEach(input => {
-          if (!input.value.trim()) {
-            input.style.borderColor = '#ef4444';
-            hasEmptyFields = true;
-            setTimeout(() => input.style.borderColor = '', 2000);
-          }
-        });
-        
-        if (hasEmptyFields) {
-          // Focus on the first empty field
-          const firstEmpty = Array.from(wordInputs).find(input => !input.value.trim());
-          if (firstEmpty) firstEmpty.focus();
-          return false;
-        }
-      }
-      
-      submitBtn.innerHTML = '🚀 Deploying Fleet...';
-      submitBtn.style.opacity = '0.7';
-      
-      // Let the form submit naturally to tracker.html with all the data
-      setTimeout(() => {
-        event.target.submit();
-      }, 1000);
-      
-      return false;
-    }
-
-    function handleFleetSubmit(event) {
-      // This function is no longer used but kept for compatibility
-      return handleBattleTrackerSubmit(event);
-    }
-
-    function initializeFleetName() {
-      const input = document.getElementById('fleetNameInput');
-      if (!input) return;
-      
-      // Check URL for fleet parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const fleetFromUrl = urlParams.get('fleet');
-      
-      if (fleetFromUrl) {
-        input.value = decodeURIComponent(fleetFromUrl);
-      } else {
-        // Generate random fleet name as default
-        generateFleetName();
-      }
-    }
-
-    // Navigation scroll behavior
-    window.addEventListener('scroll', function() {
-      const nav = document.querySelector('.nav-bar');
-      if (window.scrollY > 100) {
-        nav.style.background = 'rgba(0, 0, 0, 0.95)';
-      } else {
-        nav.style.background = 'rgba(0, 0, 0, 0.9)';
-      }
-    });
-
-    // Smooth scrolling function
-    function scrollToSection(sectionId) {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    }
-
-    // Scroll to top function
-    function scrollToTop() {
-      window.scrollTo({ 
-        top: 0, 
-        behavior: 'smooth' 
-      });
-    }
-
-    // Battle tracker generation (placeholder)
-    function generateBattleTracker() {
-      alert('Battle Tracker Generator would open here - this would integrate with your existing form functionality!');
-    }
-
-    function downloadBattleTracker() {
-      // Get fleet name and word configuration
-      const fleetName = document.getElementById('fleetNameInput')?.value || 'My Fleet';
-      const mode = currentMode;
-      
-      // Placeholder for actual download functionality
-      alert(`Downloading Battle Tracker for "${fleetName}" with ${mode} word configuration...`);
-      
-      // In a real implementation, this would:
-      // 1. Generate the battle tracker PDF with fleet name and words
-      // 2. Trigger a download of the file
-      // 3. Include the configured wordships if in manual mode
-    }
-
-    function printBattleTracker() {
-      // Get fleet name and word configuration
-      const fleetName = document.getElementById('fleetNameInput')?.value || 'My Fleet';
-      const mode = currentMode;
-      
-      // Placeholder for actual print functionality
-      alert(`Opening print dialog for "${fleetName}" battle tracker with ${mode} word configuration...`);
-      
-      // In a real implementation, this would:
-      // 1. Generate the battle tracker content
-      // 2. Open a new window with the printable version
-      // 3. Trigger the browser's print dialog
-      // window.print() or similar functionality
-    }
-
-    // Add smooth reveal animations on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    // Observe all feature cards and rule categories
-    document.addEventListener('DOMContentLoaded', function() {
-      const animatedElements = document.querySelectorAll('.feature-card, .rule-category, .roadmap-item');
-      
-      animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-      });
-      
-      // Initialize fleet name and toggle mode
-      initializeFleetName();
-      setMode('auto');
-    });
-  </script>
-</body>
-</html>
