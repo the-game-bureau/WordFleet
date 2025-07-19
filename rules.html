@@ -238,6 +238,25 @@
       color: #555555;
     }
 
+    /* Theme Grid */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .theme-item {
+      background: #f8f9fa;
+      border: 1px solid #e5e5e5;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
     /* Code/Example Styling */
     .example-text {
       background: #f8f9fa;
@@ -252,6 +271,18 @@
 
     .example-text strong {
       color: #000000;
+    }
+
+    .theme-example {
+      background: #f8f9fa;
+      border: 1px solid #e5e5e5;
+      padding: 12px;
+      margin: 12px 0;
+      font-family: 'Inter', monospace;
+      font-size: 16px;
+      text-align: center;
+      letter-spacing: 0.1em;
+      font-weight: 500;
     }
 
     /* Quote Styling */
@@ -297,11 +328,27 @@
       color: #000000;
       text-decoration: none;
       border-bottom: 1px solid #000000;
+      font-family: 'Inter', monospace;
     }
 
     .contact-email:hover {
       background: #000000;
       color: #ffffff;
+    }
+
+    /* Subsection styling */
+    .subsection {
+      margin: 24px 0;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.02);
+      border-left: 3px solid #333333;
+    }
+
+    .subsection-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #000000;
     }
 
     /* Mobile Navigation */
@@ -351,6 +398,10 @@
       .classification-table td {
         padding: 8px;
       }
+
+      .theme-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      }
     }
 
     @media (min-width: 769px) {
@@ -368,6 +419,14 @@
         margin-top: 0;
       }
     }
+    .nav-link.active {
+  background: #000000;
+  color: #ffffff;
+}
+
+.nav-link.active:hover {
+  background: #333333;
+}
   </style>
 </head>
 <body>
@@ -376,7 +435,6 @@
       <a href="index.html" class="nav-brand">Word Fleet</a>
       <ul class="nav-links">
         <li><a href="index.html" class="nav-link">Retreat</a></li>
-
         <li><a href="#" onclick="window.print(); return false;" class="nav-link">Print</a></li>
       </ul>
     </div>
@@ -585,6 +643,80 @@
     <section class="contact-section">
       <h2 class="contact-title">Ready for Battle?</h2>
       <p class="contact-text">Download your Battle Trackers and begin your naval campaign. May your word-ships sail true and your tactical decisions lead to victory on the high seas.</p>
+    </section>
+
+    <!-- DEBRIEF SECTION STARTS HERE -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">📑 Debrief</h2>
+      </div>
+      <p class="section-description">Mission complete, captain. Review tactical options and advanced strategies for your next deployment.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Themed Battles</h2>
+      </div>
+      <p class="section-description">Deploy your fleet around specific themes for strategic variety and educational gameplay.</p>
+      
+      <div class="subsection">
+        <h3 class="subsection-title">🧬 Biological Theme</h3>
+        <div class="theme-example">ZEBRA • FROG • COW • BAT • OX</div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">🧭 Directional Theme</h3>
+        <div class="theme-example">NORTH • LEFT • TOP • WAY • UP</div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">🎯 More Theme Ideas</h3>
+        <div class="theme-grid">
+          <div class="theme-item">Musical</div>
+          <div class="theme-item">Celestial</div>
+          <div class="theme-item">Culinary</div>
+          <div class="theme-item">Oceanic</div>
+          <div class="theme-item">Metallic</div>
+          <div class="theme-item">Geometric</div>
+          <div class="theme-item">Temporal</div>
+          <div class="theme-item">Athletic</div>
+          <div class="theme-item">Botanical</div>
+          <div class="theme-item">Atmospheric</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Difficulty Adjustment Protocol</h2>
+      </div>
+      <p class="section-description">Balance skill levels between captains using strategic word selection methods.</p>
+      
+      <div class="subsection">
+        <h3 class="subsection-title">⚖️ Balancing Strategy</h3>
+        <p class="section-description">Experienced captains can use auto-generated words while new captains can make up (legal) words for balanced gameplay</p>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <h2 class="contact-title">🤝 Join The Fight</h2>
+      <p class="contact-text">Contribute to the tactical evolution of Word Fleet naval/word combat.</p>
+      
+      <div class="subsection">
+        <h3 class="subsection-title">Mission Control</h3>
+        <p class="section-description">Have you discovered new tactical approaches? Developed innovative rule variations? Created custom battle scenarios?</p>
+        
+        <p class="contact-text">Share your strategic innovations with Command Operations:</p>
+        
+        <div class="example-text">
+          <strong>📧 Communications Channel</strong><br>
+          <a href="mailto:missioncontrol@thegamebureau.com" class="contact-email">missioncontrol@thegamebureau.com</a>
+        </div>
+        
+        <div class="quote">
+          "Praise the Lord and pass the ammunition!" — Lieutenant Howell Maurice Forgy, USN
+        </div>
+      </div>
     </section>
   </main>
 </body>
