@@ -422,6 +422,7 @@
       <ul class="nav-links">
         <li><a href="index.html" class="nav-link">Home Port</a></li>
         <li><a href="#" class="nav-link active">Pen & Paper Mode</a></li>
+        <li><a href="rules.html" class="nav-link">Rules of Engagement</a></li>
         <li><a href="future.html" class="nav-link">Future Deployments</a></li>
         <li><a href="#" onclick="window.print(); return false;" class="nav-link">Print</a></li>
       </ul>
@@ -429,8 +430,8 @@
   </nav>
 
   <main class="main">
-    <h1 class="page-title">Pen & Paper Mode</h1>
-    <p class="page-subtitle">📝 Offline Naval Combat</p>
+    <h1 class="page-title">Word Fleet</h1>
+    <p class="page-subtitle">📝 Pen & Paper Mode</p>
     
     <p class="intro-text">So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!</p>
 
@@ -613,10 +614,21 @@
       }
     }
 
+    function resetSubmitButton() {
+      const submitBtn = document.querySelector('.fleet-submit-btn');
+      if (submitBtn) {
+        submitBtn.innerHTML = 'Generate Battle Tracker';
+        submitBtn.style.opacity = '1';
+        submitBtn.disabled = false;
+      }
+    }
+
     function handleBattleTrackerSubmit(event) {
       event.preventDefault();
       const fleetInput = document.getElementById('fleetNameInput');
       const submitBtn = event.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      const originalOpacity = submitBtn.style.opacity;
       
       // Check fleet name
       if (!fleetInput.value.trim()) {
@@ -647,12 +659,33 @@
         }
       }
       
-      submitBtn.innerHTML = '🚀 Deploying Fleet...';
+      // Update button state
+      submitBtn.innerHTML = '⚙️ Generating...';
       submitBtn.style.opacity = '0.7';
+      submitBtn.disabled = true;
       
-      // Let the form submit naturally to tracker.html with all the data
+      // Set timeout to reset button after delay, in case navigation fails
+      const resetTimeout = setTimeout(() => {
+        resetSubmitButton();
+      }, 3000);
+      
+      // Handle successful navigation or errors
+      const handlePageLeave = () => {
+        clearTimeout(resetTimeout);
+      };
+      
+      // Listen for page unload to clear timeout
+      window.addEventListener('beforeunload', handlePageLeave, { once: true });
+      
+      // Submit the form after a brief delay
       setTimeout(() => {
-        event.target.submit();
+        try {
+          event.target.submit();
+        } catch (error) {
+          console.warn('Form submission failed:', error);
+          resetSubmitButton();
+          clearTimeout(resetTimeout);
+        }
       }, 1000);
       
       return false;
@@ -679,6 +712,13 @@
       // Initialize fleet name and toggle mode
       initializeFleetName();
       setMode('auto');
+    });
+
+    // Reset button if user navigates back to this page
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) {
+        resetSubmitButton();
+      }
     });
   </script>
 </body>

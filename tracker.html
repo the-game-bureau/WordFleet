@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>    <meta charset="UTF-8">
+<head>    
+    <meta charset="UTF-8">
     <title>WORD FLEET • Pen & Paper Mode • Battle Tracker</title>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/src/media/wf.ico">
@@ -37,39 +38,176 @@
             overflow: hidden;
         }
 
-        /* Print Styles */
+        /* Swiss-style floating toolbar */
+        .swiss-toolbar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.08),
+                0 1px 3px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .swiss-toolbar:hover {
+            box-shadow: 
+                0 8px 30px rgba(0, 0, 0, 0.12),
+                0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .swiss-btn {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
+            line-height: 1;
+        }
+
+        .swiss-btn:hover {
+            background: #f8f9fa;
+            border-color: #d0d0d0;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .swiss-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .swiss-btn.primary {
+            background: #ffffff;
+            border-color: #e0e0e0;
+            color: #333;
+        }
+
+        .swiss-btn.primary:hover {
+            background: #f8f9fa;
+            border-color: #d0d0d0;
+        }
+
+        .swiss-btn.danger {
+            background: #e0e0e0;
+            border-color: #d0d0d0;
+            color: #333;
+        }
+
+        .swiss-btn.danger:hover {
+            background: #d0d0d0;
+            border-color: #c0c0c0;
+        }
+
+        .swiss-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .swiss-btn:disabled:hover {
+            background: #ffffff;
+            border-color: #e0e0e0;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .swiss-btn.primary:disabled:hover {
+            background: #ffffff;
+            border-color: #e0e0e0;
+        }
+
+        /* Mobile responsive toolbar */
+        @media screen and (max-width: 768px) {
+            .swiss-toolbar {
+                position: fixed;
+                bottom: 20px;
+                top: auto;
+                left: 20px;
+                right: 20px;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 12px;
+                border-radius: 16px;
+            }
+
+            .swiss-btn {
+                flex: 1;
+                min-width: 0;
+                padding: 12px 8px;
+                font-size: 12px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .swiss-toolbar {
+                bottom: 15px;
+                left: 15px;
+                right: 15px;
+                padding: 10px;
+                gap: 6px;
+            }
+
+            .swiss-btn {
+                padding: 10px 6px;
+                font-size: 11px;
+                min-height: 32px;
+            }
+        }
+
+        /* Enhanced Print Styles */
         @media print {
             html, body {
-                margin: 0;
-                padding: 0;
-                width: 8.5in;
-                background: white;
-                min-height: auto;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                background: white !important;
+                min-height: auto !important;
+                font-size: 12pt !important;
             }
 
             .page {
-                box-shadow: none;
-                border-radius: 0;
-                margin: 0;
-                page-break-inside: avoid;
-                break-inside: avoid;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+                padding: 0.25in !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
                 width: 100% !important;
-                max-width: 8.5in !important;
-            }
-            * {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            html, body {
-                margin: 0;
-                padding: 0;
-                width: 100% !important;
+                max-width: 100% !important;
                 height: auto !important;
-                background: #fff !important;
-                min-height: auto;
-                color: #000 !important;
+                position: static !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.2in !important;
             }
-            .middle-header, .offense, .defense {
+            
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .offense, .defense {
                 position: static !important;
                 width: 100% !important;
                 height: auto !important;
@@ -79,54 +217,131 @@
                 color: #000 !important;
                 box-shadow: none !important;
                 margin: 0 !important;
-                padding: 0 !important;
+                padding: 0.1in 0 !important;
+                display: flex !important;
+                justify-content: space-around !important;
+                align-items: flex-start !important;
+                gap: 0.2in !important;
+                flex-wrap: nowrap !important;
             }
+            
             .middle-header {
+                position: static !important;
+                width: 100% !important;
+                height: auto !important;
+                left: auto !important;
+                top: auto !important;
+                background: #fff !important;
+                color: #000 !important;
+                box-shadow: none !important;
+                margin: 0.1in 0 !important;
+                padding: 0.15in !important;
                 border: 2px solid #333 !important;
                 border-radius: 8px !important;
-                background: #fff !important;
+                order: 0 !important;
             }
+            
             .middle-header::before,
             .middle-header::after {
                 background: none !important;
                 border: none !important;
                 content: none !important;
             }
+            
             .header-content, .header-line-2, .system-info {
                 color: #000 !important;
                 background: #fff !important;
                 text-shadow: none !important;
             }
-            .defense-grid, .offense-grid {
-                width: 100% !important;
-                height: auto !important;
+            
+            .offense-grid, .defense-grid {
+                width: 3.5in !important;
+                height: 3.5in !important;
                 background: #fff !important;
                 box-shadow: none !important;
+                font-size: 10pt !important;
             }
-            .defense-cell, .offense-cell {
+            
+            .offense-cell, .defense-cell {
                 background: #fff !important;
                 color: #000 !important;
-                border-color: #000 !important;
+                border: 1px solid #000 !important;
+                font-size: 10pt !important;
             }
-            .defense-manifest-item, .offense-manifest-item {
+            
+            .offense-manifest-container, .defense-manifest-container {
+                width: 2in !important;
+                height: 3.5in !important;
+            }
+            
+            .offense-manifest-item, .defense-manifest-item {
                 background: #fff !important;
                 color: #000 !important;
-                border-color: #000 !important;
+                border: 1px solid #000 !important;
+                width: 0.3in !important;
+                height: 0.3in !important;
             }
-            .defense-manifest-item[data-vowel="true"]::before,
-            .offense-manifest-item[data-vowel="true"]::before {
+            
+            .offense-manifest-item[data-vowel="true"]::before,
+            .defense-manifest-item[data-vowel="true"]::before {
                 background: #eee !important;
             }
-            .toolbar, .print-dialog-overlay, .print-dialog {
+            
+            .offense-manifest-letter, .defense-manifest-letter {
+                font-size: 8pt !important;
+            }
+            
+            .defense-manifest-count {
+                font-size: 8pt !important;
+            }
+            
+            .launch-codes-stamp {
+                position: absolute !important;
+                left: 4.2in !important;
+                top: 3.2in !important;
+                width: 0.8in !important;
+                height: 0.8in !important;
+                transform: rotate(-8deg) !important;
+                z-index: 10 !important;
+            }
+            
+            .stamp-text {
+                font-size: 7pt !important;
+            }
+            
+            .stamp-label {
+                font-size: 5pt !important;
+            }
+            
+            .stamp-codes {
+                font-size: 8pt !important;
+            }
+            
+            .offense-grid-label, .defense-grid-label {
+                font-size: 10pt !important;
+            }
+            
+            .bubble-number {
+                width: 16px !important;
+                height: 16px !important;
+                font-size: 8pt !important;
+            }
+            
+            .word-ship {
+                font-size: 9pt !important;
+            }
+            
+            .swiss-toolbar, .print-dialog-overlay, .print-dialog, .error-message {
                 display: none !important;
             }
+            
             @page {
                 size: A4 portrait;
-                margin: 0.25in;
+                margin: 0.5in;
             }
         }
 
-        /* Offense Section */
+        /* Screen Styles */
         .offense {
             width: 8.5in;
             height: 5in;
@@ -212,7 +427,7 @@
             margin: 0 4px;
         }
 
-        /* Rubber Stamp Styles */
+        /* Launch Codes Stamp */
         .launch-codes-stamp {
             position: absolute;
             left: 5.1in;
@@ -245,17 +460,6 @@
             bottom: 8px;
             border: 1px dotted #1a1a1a;
             border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .stamp-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: transparent;
             pointer-events: none;
         }
 
@@ -307,7 +511,6 @@
             border: 2px solid #333;
             border-radius: 8px;
             box-sizing: border-box;
-            position: relative;
             overflow: hidden;
         }
 
@@ -352,16 +555,6 @@
             gap: 6px;
         }
 
-        .system-status {
-            font-family: 'Courier New', 'Andale Mono', 'Lucida Console', 'Liberation Mono', monospace;
-            font-size: 9px;
-            color: #333;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0;
-            font-weight: bold;
-        }
-
         .header-line-2 {
             font-family: 'Courier New', 'Andale Mono', 'Lucida Console', 'Liberation Mono', monospace;
             font-size: 22px;
@@ -382,19 +575,11 @@
             font-family: 'Courier New', 'Andale Mono', 'Lucida Console', 'Liberation Mono', monospace;
             font-size: 12pt;
             color: #666;
-            text-transform: uppercase;
+            text-transform: none;
             letter-spacing: 1px;
             margin: 0;
             font-weight: bold;
         }        
-
-        .word-box {
-            display: block;
-        }
-
-        .word-box.hidden {
-            display: none;
-        }
 
         /* Defense Section */
         .defense {
@@ -469,220 +654,6 @@
             box-shadow: none;
         }
 
-        /* Floating Toolbar - MOBILE RESPONSIVE */
-        .toolbar {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            display: flex;
-            gap: 8px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .toolbar:hover {
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .toolbar-btn {
-            color: #000000;
-            text-decoration: none;
-            padding: 10px 18px;
-            background: #f5f5f5;
-            border: 1px solid #cccccc;
-            border-radius: 50px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 600;
-            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            font-family: inherit;
-            white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-        }
-
-        .toolbar-btn:hover,
-        .toolbar-btn:focus {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            outline: none;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-        }
-
-        /* Mobile Responsive Styles for Toolbar */
-        @media screen and (max-width: 768px) {
-            .toolbar {
-                position: fixed;
-                bottom: 20px;
-                top: auto;
-                left: 50%;
-                right: auto;
-                transform: translateX(-50%);
-                flex-direction: column;
-                width: auto;
-                min-width: 200px;
-                max-width: 90vw;
-                padding: 16px;
-                gap: 12px;
-            }
-
-            .toolbar-btn {
-                width: 100%;
-                padding: 14px 20px;
-                font-size: 0.9rem;
-                border-radius: 12px;
-                white-space: normal;
-                text-align: center;
-                min-height: 48px;
-            }
-
-            .toolbar-btn:hover,
-            .toolbar-btn:focus {
-                transform: none;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            .toolbar {
-                bottom: 15px;
-                left: 15px;
-                right: 15px;
-                transform: none;
-                width: auto;
-                max-width: none;
-                padding: 12px;
-                gap: 10px;
-            }
-
-            .toolbar-btn {
-                padding: 12px 16px;
-                font-size: 0.8rem;
-                min-height: 44px;
-                border-radius: 10px;
-            }
-        }
-
-        /* Very small screens */
-        @media screen and (max-width: 360px) {
-            .toolbar {
-                bottom: 10px;
-                left: 10px;
-                right: 10px;
-                padding: 10px;
-                gap: 8px;
-            }
-
-            .toolbar-btn {
-                padding: 10px 14px;
-                font-size: 0.75rem;
-                min-height: 40px;
-                letter-spacing: 0.3px;
-            }
-        }
-
-        .dialog-btn {
-            color: #000000;
-            text-decoration: none;
-            padding: 10px 18px;
-            background: #f5f5f5;
-            border: 1px solid #cccccc;
-            border-radius: 50px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 600;
-            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            font-family: inherit;
-            white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-            min-width: 140px;
-        }
-
-        .dialog-btn:hover {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            outline: none;
-        }
-
-        .dialog-btn.primary {
-            background: #f5f5f5;
-            color: #000000;
-            border: 1px solid #cccccc;
-        }
-
-        .dialog-btn.primary:hover {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
-        }
-
-        .dialog-btn.secondary {
-            background: #f5f5f5;
-            color: #000000;
-            border: 1px solid #cccccc;
-        }
-
-        .dialog-btn.secondary:hover {
-            background: #e5e5e5;
-            border-color: #999999;
-            color: #000000;
-        }
-
-        .dialog-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 24px;
-            flex-wrap: wrap;
-            padding: 0 12px;
-        }
-
-        /* Mobile responsive styles for dialog buttons */
-        @media screen and (max-width: 480px) {
-            .dialog-buttons {
-                flex-direction: column;
-                gap: 10px;
-                padding: 0;
-            }
-
-            .dialog-btn {
-                min-width: auto;
-                width: 100%;
-                padding: 12px 16px;
-                font-size: 0.85rem;
-                border-radius: 10px;
-            }
-
-            .dialog-btn:hover {
-                transform: none;
-            }
-        }
-
         .offense-letter-manifest {
             display: flex;
             flex-direction: column;
@@ -723,7 +694,6 @@
             gap: 0.04in;
         }
 
-        /* Updated split tile styles for offense manifest */
         .offense-manifest-item {
             width: 0.42in;
             height: 0.42in;
@@ -798,7 +768,6 @@
             gap: 0.04in;
         }
 
-        /* Updated split tile styles for defense manifest */
         .defense-manifest-item {
             width: 0.42in;
             height: 0.42in;
@@ -846,123 +815,6 @@
             transform: translate(50%, 50%);
         }
 
-        /* Print Dialog */
-        .print-dialog-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-
-        .print-dialog {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            position: relative;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .print-dialog:hover {
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .print-dialog h3 {
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
-            font-weight: 700;
-            color: #ffffff;
-            text-align: center;
-            margin: 0 0 20px 0;
-            padding-bottom: 12px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.4);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .print-instructions {
-            margin: 24px 0;
-            text-align: left;
-        }
-
-        .instruction-heading {
-            color: #ffffff;
-            font-weight: 600;
-            font-size: clamp(0.9rem, 3vw, 1rem);
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .instruction-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 20px 0;
-        }
-
-        .instruction-list li {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-            padding: 8px 0;
-            padding-left: 24px;
-            position: relative;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .instruction-list li::before {
-            content: "•";
-            position: absolute;
-            left: 8px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .confirmation-text {
-            color: #ffffff;
-            font-weight: 600;
-            font-size: clamp(0.9rem, 3vw, 1rem);
-            margin: 20px 0 0 0;
-            text-align: center;
-            letter-spacing: 0.5px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        /* Mobile responsive styles for print dialog */
-        @media screen and (max-width: 480px) {
-            .print-dialog {
-                padding: 24px 20px;
-                border-radius: 12px;
-                margin: 20px;
-                width: calc(100% - 40px);
-            }
-
-            .print-instructions {
-                margin: 20px 0;
-            }
-
-            .instruction-list li {
-                padding: 6px 0;
-                padding-left: 20px;
-            }
-
-            .instruction-list li::before {
-                left: 6px;
-            }
-        }
-
         /* Error message styles */
         .error-message {
             position: fixed;
@@ -996,10 +848,36 @@
             line-height: 1.6;
             margin-bottom: 20px;
         }
+
+        .dialog-btn {
+            color: #000000;
+            text-decoration: none;
+            padding: 10px 18px;
+            background: #f5f5f5;
+            border: 1px solid #cccccc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: inherit;
+            margin: 0 8px;
+        }
+
+        .dialog-btn:hover {
+            background: #e5e5e5;
+            border-color: #999999;
+        }
     </style>
 </head>
 <body>
-
+    <!-- Swiss-style Toolbar -->
+    <div class="swiss-toolbar">
+        <button class="swiss-btn primary" onclick="showPrintPreview()">PRINT</button>
+        <button class="swiss-btn" onclick="generatePDF()">PDF</button>
+        <button class="swiss-btn" onclick="generateImage()">IMAGE</button>
+        <a href="pandp.html" class="swiss-btn danger">RETREAT</a>
+    </div>
 
     <div class="page">
         <!-- Offense Section -->
@@ -1147,7 +1025,7 @@
         <div class="middle-header">
             <div class="header-content">
                 <div class="header-line-2" id="battleTracker">BATTLE TRACKER</div>
-                <div class="system-info">WORD FLEET • Pen & Paper Mode • by Kevin Kolb • thegamebureau.com</div>
+                <div class="system-info">WORD FLEET • https://the-game-bureau.github.io/wordfleet</div>
             </div>
         </div>
 
@@ -1313,37 +1191,15 @@
         </div>
     </div>
 
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         // Generate random 3-digit codes with leading zeros
         function generateLaunchCode() {
             return Math.floor(Math.random() * 1000).toString().padStart(3, '0');
         }
 
-        // Load words from XML file - NO FALLBACK
-        async function loadWordsFromXML() {
-            try {
-                console.log('Attempting to load XML from: src copy/dictionary/words.xml');
-                const response = await fetch('src copy/dictionary/words.xml');
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status} - Could not fetch src copy/dictionary/words.xml`);
-                }
-                
-                const xmlText = await response.text();
-                console.log('XML loaded successfully');
-                
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-                
-                // Check for XML parsing errors
-                const parserError = xmlDoc.getElementsByTagName('parsererror')[0];
-                if (parserError) {
-                    throw new Error('XML parsing error: ' + parserError.textContent);
-                }
-                
-                // Extract manual words from URL parameters
+        // Extract manual words from URL parameters
         function getManualWordsFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             return {
@@ -1384,6 +1240,29 @@
             
             return errors;
         }
+
+        // Load words from XML file - NO FALLBACK
+        async function loadWordsFromXML() {
+            try {
+                console.log('Attempting to load XML from: src copy/dictionary/words.xml');
+                const response = await fetch('src copy/dictionary/words.xml');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - Could not fetch src copy/dictionary/words.xml`);
+                }
+                
+                const xmlText = await response.text();
+                console.log('XML loaded successfully');
+                
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+                
+                // Check for XML parsing errors
+                const parserError = xmlDoc.getElementsByTagName('parsererror')[0];
+                if (parserError) {
+                    throw new Error('XML parsing error: ' + parserError.textContent);
+                }
+                
                 const words = {
                     2: [],
                     3: [],
@@ -1452,9 +1331,9 @@
                 <div class="error-message">
                     <div class="error-title">${title}</div>
                     <div class="error-text">${message}</div>
-                    <div class="dialog-buttons">
-                        <button class="dialog-btn primary" onclick="location.reload()">Retry</button>
-                        <button class="dialog-btn secondary" onclick="window.location.href='index.html'">Return to Menu</button>
+                    <div style="margin-top: 20px;">
+                        <button class="dialog-btn" onclick="location.reload()">Retry</button>
+                        <button class="dialog-btn" onclick="window.location.href='index.html'">Return to Menu</button>
                     </div>
                 </div>
             `;
@@ -1594,27 +1473,231 @@
             }
         }        
 
-        function generateNewTracker() {
-            // This function is no longer needed since buttons are removed
-            // Keeping for potential future use
-            const currentParams = new URLSearchParams(window.location.search);
-            currentParams.append('highlight', 'form');
-            window.location.href = `index.html?${currentParams.toString()}`;
-        }
-
-        function showPrintDialog() {
-            // Print directly without dialog since buttons are removed
+        // Swiss toolbar button functions
+        function showPrintPreview() {
             window.print();
         }
 
-        function closePrintDialog() {
-            // No longer needed since print dialog is removed
-            return;
+        async function generatePDF() {
+            try {
+                // Show loading state
+                const pdfBtn = document.querySelector('button[onclick="generatePDF()"]');
+                const originalText = pdfBtn.textContent;
+                pdfBtn.textContent = 'GENERATING...';
+                pdfBtn.disabled = true;
+
+                // Hide the toolbar temporarily for clean capture
+                const toolbar = document.querySelector('.swiss-toolbar');
+                toolbar.style.display = 'none';
+
+                // Temporarily simplify the stamp for better PDF rendering
+                const stamp = document.querySelector('.launch-codes-stamp');
+                const originalStampHTML = stamp.innerHTML;
+                const stampCodes = document.getElementById('stampCodes').textContent;
+                
+                // Create a simpler version for PDF
+                stamp.innerHTML = `
+                    <div style="
+                        width: 100%; 
+                        height: 100%; 
+                        border: 3px solid #000; 
+                        border-radius: 50%; 
+                        display: flex; 
+                        flex-direction: column; 
+                        justify-content: center; 
+                        align-items: center; 
+                        background: white;
+                        font-family: 'Courier New', monospace;
+                        color: #000;
+                        text-align: center;
+                        line-height: 1;
+                    ">
+                        <div style="font-size: 8px; font-weight: bold; margin-bottom: 2px;">LAUNCH</div>
+                        <div style="font-size: 8px; font-weight: bold; margin-bottom: 2px;">CODES</div>
+                        <div style="font-size: 9px; font-weight: 900;">${stampCodes}</div>
+                    </div>
+                `;
+
+                // Get the page element
+                const pageElement = document.querySelector('.page');
+                
+                // Configure html2canvas for high quality
+                const canvas = await html2canvas(pageElement, {
+                    scale: 2, // Higher quality
+                    useCORS: true,
+                    allowTaint: false,
+                    backgroundColor: '#ffffff',
+                    width: pageElement.offsetWidth,
+                    height: pageElement.offsetHeight,
+                    scrollX: 0,
+                    scrollY: 0
+                });
+
+                // Restore original stamp
+                stamp.innerHTML = originalStampHTML;
+
+                // Show toolbar again
+                toolbar.style.display = 'flex';
+
+                // Create PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'in',
+                    format: [8.5, 11]
+                });
+
+                // Calculate dimensions to fit the page
+                const imgWidth = 8.5;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                // Add the image to PDF
+                const imgData = canvas.toDataURL('image/png');
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+
+                // Generate filename based on URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const fleetParam = urlParams.get('fleet');
+                const wordsParam = urlParams.get('words');
+                
+                let filename = 'word-fleet-battle-tracker';
+                if (fleetParam) {
+                    filename += `-${fleetParam.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+                }
+                if (wordsParam) {
+                    filename += `-${wordsParam}`;
+                }
+                filename += '.pdf';
+
+                // Save the PDF
+                pdf.save(filename);
+
+                // Restore button
+                pdfBtn.textContent = originalText;
+                pdfBtn.disabled = false;
+
+            } catch (error) {
+                console.error('PDF generation failed:', error);
+                alert('PDF generation failed. Please try the print option instead.');
+                
+                // Restore button and toolbar
+                const pdfBtn = document.querySelector('button[onclick="generatePDF()"]');
+                pdfBtn.textContent = 'PDF';
+                pdfBtn.disabled = false;
+                document.querySelector('.swiss-toolbar').style.display = 'flex';
+                
+                // Restore original stamp if needed
+                const stamp = document.querySelector('.launch-codes-stamp');
+                if (stamp && originalStampHTML) {
+                    stamp.innerHTML = originalStampHTML;
+                }
+            }
         }
 
-        function proceedToPrint() {
-            // No longer needed since print dialog is removed  
-            window.print();
+        async function generateImage() {
+            try {
+                // Show loading state
+                const imgBtn = document.querySelector('button[onclick="generateImage()"]');
+                const originalText = imgBtn.textContent;
+                imgBtn.textContent = 'GENERATING...';
+                imgBtn.disabled = true;
+
+                // Hide the toolbar temporarily for clean capture
+                const toolbar = document.querySelector('.swiss-toolbar');
+                toolbar.style.display = 'none';
+
+                // Temporarily simplify the stamp for better rendering
+                const stamp = document.querySelector('.launch-codes-stamp');
+                const originalStampHTML = stamp.innerHTML;
+                const stampCodes = document.getElementById('stampCodes').textContent;
+                
+                // Create a simpler version for image
+                stamp.innerHTML = `
+                    <div style="
+                        width: 100%; 
+                        height: 100%; 
+                        border: 3px solid #000; 
+                        border-radius: 50%; 
+                        display: flex; 
+                        flex-direction: column; 
+                        justify-content: center; 
+                        align-items: center; 
+                        background: white;
+                        font-family: 'Courier New', monospace;
+                        color: #000;
+                        text-align: center;
+                        line-height: 1;
+                    ">
+                        <div style="font-size: 8px; font-weight: bold; margin-bottom: 2px;">LAUNCH</div>
+                        <div style="font-size: 8px; font-weight: bold; margin-bottom: 2px;">CODES</div>
+                        <div style="font-size: 9px; font-weight: 900;">${stampCodes}</div>
+                    </div>
+                `;
+
+                // Get the page element
+                const pageElement = document.querySelector('.page');
+                
+                // Configure html2canvas for high quality PNG
+                const canvas = await html2canvas(pageElement, {
+                    scale: 3, // Even higher quality for PNG
+                    useCORS: true,
+                    allowTaint: false,
+                    backgroundColor: '#ffffff',
+                    width: pageElement.offsetWidth,
+                    height: pageElement.offsetHeight,
+                    scrollX: 0,
+                    scrollY: 0
+                });
+
+                // Restore original stamp
+                stamp.innerHTML = originalStampHTML;
+
+                // Show toolbar again
+                toolbar.style.display = 'flex';
+
+                // Generate filename based on URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const fleetParam = urlParams.get('fleet');
+                const wordsParam = urlParams.get('words');
+                
+                let filename = 'word-fleet-battle-tracker';
+                if (fleetParam) {
+                    filename += `-${fleetParam.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+                }
+                if (wordsParam) {
+                    filename += `-${wordsParam}`;
+                }
+                filename += '.png';
+
+                // Convert canvas to blob and download
+                canvas.toBlob((blob) => {
+                    const link = document.createElement('a');
+                    link.download = filename;
+                    link.href = URL.createObjectURL(blob);
+                    link.click();
+                    URL.revokeObjectURL(link.href);
+                }, 'image/png', 1.0);
+
+                // Restore button
+                imgBtn.textContent = originalText;
+                imgBtn.disabled = false;
+
+            } catch (error) {
+                console.error('Image generation failed:', error);
+                alert('Image generation failed. Please try the print or PDF option instead.');
+                
+                // Restore button and toolbar
+                const imgBtn = document.querySelector('button[onclick="generateImage()"]');
+                imgBtn.textContent = 'IMAGE';
+                imgBtn.disabled = false;
+                document.querySelector('.swiss-toolbar').style.display = 'flex';
+                
+                // Restore original stamp if needed
+                const stamp = document.querySelector('.launch-codes-stamp');
+                if (stamp && typeof originalStampHTML !== 'undefined') {
+                    stamp.innerHTML = originalStampHTML;
+                }
+            }
         }
 
         // Event listeners
