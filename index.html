@@ -1,879 +1,9 @@
-</style>
-</head>
-<body>
-  <!-- Navigation -->
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="#" class="nav-logo" onclick="scrollToTop()">Word Fleet</a>
-      <div class="nav-links">
-        <a href="#penandpaper" onclick="scrollToSection('penandpaper')">Pen & Paper Mode</a>
-        <a href="#rules" onclick="scrollToSection('rules')">Rules of Engagement</a>
-        <a href="#future" onclick="scrollToSection('future')">Future Deployments</a>
-        <a href="#debrief" onclick="scrollToSection('debrief')">Debrief</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title">Word Fleet</h1>
-      <p class="hero-subtitle">Where strategy meets vocabulary</p>
-      <p class="hero-description">
-        Command your fleet of wordships in tactical battles that blend the strategy of naval warfare 
-        with the creativity of word games. Deploy letters like ammunition, spell victory with precision, 
-        and sink your opponents through superior vocabulary.
-      </p>
-    </div>
-    <div class="scroll-indicator">
-      <div style="font-size: 24px;">⚓</div>
-      <div style="font-size: 12px; margin-top: 5px;">SCROLL TO EXPLORE</div>
-    </div>
-  </section>
-<!-- Pen & Paper Section -->
-  <section id="penandpaper" class="section">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">Pen & Paper Mode</h2>
-        <p class="section-subtitle">
-          So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!
-        </p>
-      </div>
-      
-      <form id="battleTrackerForm" action="tracker.html" method="GET" onsubmit="return handleBattleTrackerSubmit(event)">
-        <div class="welcome-features">
-          <div class="feature-card">
-            <span class="feature-icon">01</span>
-            <h3 class="feature-title">Name Your Fleet</h3>
-            <p class="feature-description">
-              Choose a commanding name for your naval fleet. Will you lead the Storm Raiders into battle, 
-              or command the Iron Guardians to victory? A strong fleet name strikes fear into enemy hearts.
-            </p>
-            <div class="fleet-form-container">
-              <div class="fleet-form">
-                <div class="fleet-input-group">
-                  <input 
-                    type="text" 
-                    id="fleetNameInput" 
-                    name="fleet"
-                    class="fleet-input" 
-                    placeholder="Enter your fleet name..."
-                    maxlength="30"
-                    required
-                  >
-                  <button type="button" class="fleet-input-button" onclick="generateFleetName()" title="Generate random fleet name">
-                    🎲
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="feature-card">
-            <span class="feature-icon">02</span>
-            <h3 class="feature-title">Configure Your Word-Ships</h3>
-            <p class="feature-description">
-              Choose between auto-generated wordships or manually select your own words. Each ship type serves a tactical purpose - from the mighty 5-letter KETCH to the nimble 2-letter PT boat.
-            </p>
-            <div class="fleet-form-container">
-              <div class="fleet-form">
-                <div class="toggle-container">
-                  <div class="toggle-buttons">
-                    <button type="button" class="toggle-btn active" id="autoBtn" onclick="setMode('auto')">
-                      Auto-Generated
-                    </button>
-                    <button type="button" class="toggle-btn" id="manualBtn" onclick="setMode('manual')">
-                      Manual Selection
-                    </button>
-                  </div>
-                  
-                  <div class="manual-words" id="manualWords">
-                    <div class="word-group">
-                      <label class="word-label">KETCH • 5-Letter Wordship</label>
-                      <input type="text" class="word-input" maxlength="5" placeholder="Enter 5 letters..." name="word5">
-                    </div>
-                    <div class="word-group">
-                      <label class="word-label">SHIP • 4-Letter Wordship</label>
-                      <input type="text" class="word-input" maxlength="4" placeholder="Enter 4 letters..." name="word4">
-                    </div>
-                    <div class="word-group">
-                      <label class="word-label">SUB • 3-Letter Wordship</label>
-                      <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3a">
-                    </div>
-                    <div class="word-group">
-                      <label class="word-label">ARK • 3-Letter Wordship</label>
-                      <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3b">
-                    </div>
-                    <div class="word-group">
-                      <label class="word-label">PT • 2-Letter Wordship</label>
-                      <input type="text" class="word-input" maxlength="2" placeholder="Enter 2 letters..." name="word2">
-                    </div>
-                  </div>
-                  
-                  <input type="hidden" id="wordsMode" name="words" value="true">
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="feature-card">
-            <span class="feature-icon">03</span>
-            <h3 class="feature-title">Get Your Battle Tracker</h3>
-            <p class="feature-description">
-              Download or print your Battle Trackers and let slip the dogs of war!
-            </p>
-            <div class="fleet-form-container">
-              <div class="fleet-form">
-                <button type="submit" class="fleet-submit-btn" style="margin-bottom: 10px;">
-                  Download
-                </button>
-                <button type="button" class="fleet-submit-btn" onclick="printBattleTracker()">
-                  Print
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- Rules of Engagement Section -->
-  <section id="rules" class="section">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">Rules of Engagement</h2>
-        <p class="section-subtitle">Locate and destroy enemy word-ships hidden across the attack grid. Use logic, deduction, and word knowledge to outmaneuver your opponent in this fusion of naval warfare and word puzzles.</p>
-      </div>
-      
-      <div class="debrief-grid">
-        <div class="rule-category">
-          <h3>Mission Specs</h3>
-Personnel: 2 captains<br>
-Minimum Age: 10<br>
-Mission Duration: 15-30 Minutes
-        </div>
-        
-        <div class="rule-category">
-        <h3>Requisition</h3>
-    <ul>
-      <li>2 Battle Tracker sheets from <a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></li>
-      <li>2 Pens or Pencils</li>
-      <li>2 Highlighters (optional)</li>
-    </ul>
-
-        </div>
-        
-        <div class="rule-category">
-          <h3>Fleet Deployment</h3>
-    <p>Deploy five word-ships on your Defense Grid. Use either auto-generated or custom words; both players must use the same method.</p>
-    
-    <table>
-      <thead>
-        <tr>
-          <th>word-ship Classification</th>
-          <th>Length</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>KETCH</td><td>5 letters</td><td>PIANO</td></tr>
-        <tr><td>SHIP</td><td>4 letters</td><td>JUMP</td></tr>
-        <tr><td>SUB</td><td>3 letters</td><td>BED</td></tr>
-        <tr><td>ARK</td><td>3 letters</td><td>RUN</td></tr>
-        <tr><td>PT</td><td>2 letters</td><td>IF</td></tr>
-      </tbody>
-    </table>
-
-    <ul>
-      <li>word-ship classifications are for reference only and do not affect gameplay</li>
-      <li>Place word-ships horizontally (left-to-right) or vertically (top-to-bottom)</li>
-      <li>No diagonals, backwards, or upward placements</li>
-      <li>Ships may touch but not overlap</li>
-      <li>No proper nouns, abbreviations, or suffixes</li>
-    </ul>
-  </div>
-        
-        <div class="rule-category">
-          <h3>Hailing the Enemy</h3>
-    <p>Determine who strikes first through a mini-game of strategy and deception.</p>
-
-    <div class="hailing-enemy-section">
-      <div class="hailing-enemy-setup-container">
-        <p class="hailing-enemy-description">
-          Both captains have <span class="hailing-enemy-highlight">5 launch codes</span> (000–999) stamped on their battle tracker. 
-          Use codes, strategy and deception to try and secure the first strike!
-        </p>
-      </div>
-    </div>
-
-    <div class="hailing-enemy-section">
-      <div class="hailing-enemy-game-flow">
-        <div class="hailing-enemy-flow-step">
-          <div class="hailing-enemy-step-number">1</div>
-          <div class="hailing-enemy-step-title">Opening Hail</div>
-          <div class="hailing-enemy-step-description">Call out a launch code, real or fake</div>
-        </div>
-        <div class="hailing-enemy-flow-step">
-          <div class="hailing-enemy-step-number">2</div>
-          <div class="hailing-enemy-step-title">Response</div>
-          <div class="hailing-enemy-step-description">Respond with one of 3 choices:</div>
-          <div class="hailing-enemy-response-options">
-            <div class="hailing-enemy-response-option">
-              <strong>Concede</strong> – Give up
-              <div class="hailing-enemy-sub-options">
-                → Original captain strikes first
-              </div>
-            </div>
-            <div class="hailing-enemy-response-option">
-              <strong>Challenge</strong> – Demand proof
-              <div class="hailing-enemy-sub-options">
-                → Code is valid: original captain strikes first<br>
-                → Code is fake: challenging captain strikes first
-              </div>
-            </div>
-            <div class="hailing-enemy-response-option">
-              <strong>Counter</strong> – Call an equal or higher code
-              <div class="hailing-enemy-sub-options">
-                → Now the original captain must respond to this new code
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="hailing-enemy-flow-step">
-          <div class="hailing-enemy-step-number">3</div>
-          <div class="hailing-enemy-step-title">Continue</div>
-          <div class="hailing-enemy-step-description">Continue until someone gives up or is caught lying</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hailing-enemy-section">
-      <div class="hailing-enemy-setup-container">
-        <div class="hailing-enemy-example-title">Sample skirmish</div>
-        <div class="hailing-enemy-example-flow">
-          Original captain: <span class="hailing-enemy-code">"850"</span> 
-          <span class="hailing-enemy-arrow">→</span> 
-          Other captain: <span class="hailing-enemy-code">"900"</span> 
-          <span class="hailing-enemy-arrow">→</span> 
-          Original captain: <span class="hailing-enemy-code">"Challenge!"</span>
-          <br><br>
-          <span class="hailing-enemy-highlight">Result:</span> Other captain reveals no 900 launch code → Original captain strikes first
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- Start Engage the Enemy -->
-
-<!-- Engage the Enemy - Core Combat Mechanics -->
-        <div class="rule-category">
-          <h3>Engage the Enemy</h3>
-          <p>With first strike determined, battle begins! Choose one of two tactical options each turn.</p>
-
-          <!-- Combat Options Overview -->
-          <div class="combat-section combat-overview">
-            <div class="combat-overview-container">
-              <p class="combat-overview-description">On your turn, choose one of two tactical options:</p>
-              <ul class="combat-options-list">
-                <li><strong>Standard Attack</strong> – Initial Strike on a coordinate, with potential Alpha Strike follow-up if you hit a word-ship</li>
-                <li><strong>Demand Surrender</strong> – Attempt total victory by revealing the enemy's entire fleet</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Standard Attack Mechanics -->
-          <div class="combat-section combat-standard-attack">
-            <h4 class="combat-subsection-title">Standard Attack</h4>
-            <div class="combat-game-flow">
-              
-              <!-- Step 1: Initial Strike -->
-              <div class="combat-flow-step">
-                <div class="combat-step-number">1</div>
-                <div class="combat-step-content">
-                  <div class="combat-step-title">Initial Strike</div>
-                  <div class="combat-step-description">Choose a coordinate and call it out:</div>
-                  <div class="combat-quote">
-                    "Fire on coordinate Echo-Seven!" or <span class="combat-callout">"E-7!"</span>
-                  </div>
-                  
-                  <div class="combat-responses-section">
-                    <div class="combat-responses-label">Responses:</div>
-                    <div class="combat-response-options">
-                      <div class="combat-response-option combat-response-miss">
-                        <div class="combat-response-header">
-                          <strong>MISS</strong>
-                        </div>
-                        <div class="combat-response-description">
-                          No ship. Mark with a dot. End turn.
-                        </div>
-                        <div class="combat-quote">
-                          "Miss!"
-                        </div>
-                      </div>
-                      
-                      <div class="combat-response-option combat-response-hit">
-                        <div class="combat-response-header">
-                          <strong>HIT</strong>
-                        </div>
-                        <div class="combat-response-description">
-                          Ship confirmed. Highlight the coordinate's borders. Proceed to Alpha Strike.
-                        </div>
-                        <div class="combat-quote">
-                          "Hit."
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Step 2: Alpha Strike -->
-              <div class="combat-flow-step">
-                <div class="combat-step-number">2</div>
-                <div class="combat-step-content">
-                  <div class="combat-step-title">Alpha Strike</div>
-                  <div class="combat-step-description">Guess the letter at the coordinate:</div>
-                  <div class="combat-quote">
-                    "Alpha Strike Sierra!" or <span class="combat-callout">"S."</span>
-                  </div>
-                  
-                  <div class="combat-responses-section">
-                    <div class="combat-responses-label">Responses:</div>
-                    <div class="combat-response-options">
-                      <div class="combat-response-option combat-response-bullseye">
-                        <div class="combat-response-header">
-                          <strong>BULLSEYE</strong>
-                        </div>
-                        <div class="combat-response-description">
-                          Correct letter at that position. Write it in. End turn.
-                        </div>
-                        <div class="combat-quote">
-                          "Bullseye."
-                        </div>
-                      </div>
-                      
-                      <div class="combat-response-option combat-response-tally">
-                        <div class="combat-response-header">
-                          <strong>LETTER TALLY</strong>
-                        </div>
-                        <div class="combat-response-description">
-                          Wrong letter. Announce how many total times that letter appears in your fleet. End turn.
-                          Attack this same coordinate again later to try different letters.
-                        </div>
-                        <div class="combat-quote">
-                          "S tally 3."
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-
-          <!-- Demand Surrender Mechanics -->
-          <div class="combat-section combat-demand-surrender">
-            <h4 class="combat-subsection-title">Demand Surrender</h4>
-            <div class="victory-game-flow">
-              
-              <!-- Decisive Strike Process -->
-              <div class="victory-flow-step">
-                <div class="victory-step-number">1</div>
-                <div class="victory-step-content">
-                  <div class="victory-step-title">Decisive Strike</div>
-                  <div class="victory-step-description">
-                    At the beginning of any turn (instead of taking that turn), demand surrender by stating every word-ship and its exact location. Wait until all word-ships are announced before responding:
-                  </div>
-                  <div class="victory-quote victory-quote-example">
-                    "I demand your surrender! Your fleet consists of: PIANO at Charlie-3 through Charlie-7, JUMP at Alpha-1 through Alpha-4, BED at Echo-8 through Echo-10, RUN at Bravo-5 through Delta-5, and IF at Foxtrot-2 through Foxtrot-3!"
-                  </div>
-                  
-                  <div class="victory-responses-section">
-                    <div class="victory-responses-label">Responses:</div>
-                    <div class="victory-response-options">
-                      <div class="victory-response-option victory-response-win">
-                        <div class="victory-response-header">
-                          <strong>YOU HAVE WON</strong>
-                        </div>
-                        <div class="victory-response-description">
-                          Every word and location is correct. Achieve total victory.
-                        </div>
-                        <div class="victory-quote">
-                          "You have won."
-                        </div>
-                      </div>
-                      
-                      <div class="victory-response-option victory-response-lose">
-                        <div class="victory-response-header">
-                          <strong>VICTORY IS MINE! YOU LOSE! GOOD DAY SIR!</strong>
-                        </div>
-                        <div class="victory-response-description">
-                          Anything is wrong (word, spelling, or coordinates). Immediately surrender and lose the game.
-                        </div>
-                        <div class="victory-quote">
-                          "Victory is mine! You lose! Good day sir!"
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-          
-        </div>
-
-<!-- End of Engage the Enemy-->
-                <div class="rule-category">
-          <h3>Defense Operations</h3>
-<p>Track your opponent's attacks and respond accurately.</p>
-    <p>When being attacked:</p>
-    <ul>
-      <li>Mark dots for enemy misses on Defense Grid</li>
-      <li>Highlight borders for confirmed hits on Defense Grid</li>
-      <li>Trace over each letter discovered via bullseye on Defense Grid</li>
-    </ul>
-    <p><strong>Important:</strong> When all coordinates of a word-ship are hit, announce which word-ship has been revealed. Do NOT announce the word itself.</p>
-  </div>
-
-
-    </div>
-  </section>
-
-  <!-- Debrief Section -->
-  <section id="debrief" class="section">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">Debrief</h2>
-        <p class="section-subtitle">
-          Mission complete, captain. Review tactical options and advanced strategies for your next deployment.
-        </p>
-      </div>
-      
-      <div class="rules-grid">
-        <div class="rule-category">
-          <h3>Themed Battles</h3>
-          <p>Deploy your fleet around specific themes for strategic variety and educational gameplay.</p>
-          
-          <div style="margin: 25px 0;">
-            <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #6aaa64;">
-              <h4 style="color: #6aaa64; font-size: 1.2rem; margin: 0 0 15px 0;">🧬 Biological Theme</h4>
-              <div style="background: rgba(106, 170, 100, 0.1); padding: 15px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 1.1rem; color: #ffffff; text-align: center;">
-                ZEBRA • FROG • COW • BAT • OX
-              </div>
-            </div>
-            
-            <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #6aaa64;">
-              <h4 style="color: #6aaa64; font-size: 1.2rem; margin: 0 0 15px 0;">🧭 Directional Theme</h4>
-              <div style="background: rgba(106, 170, 100, 0.1); padding: 15px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 1.1rem; color: #ffffff; text-align: center;">
-                NORTH • LEFT • TOP • WAY • UP
-              </div>
-            </div>
-            
-            <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; border-left: 4px solid #6aaa64;">
-              <h4 style="color: #6aaa64; font-size: 1.2rem; margin: 0 0 15px 0;">🎯 More Theme Ideas</h4>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; color: #cccccc;">
-                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Musical</div>
-                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Celestial</div>
-                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Culinary</div>
-                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Oceanic</div>
-                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Metallic</div>
-                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Geometric</div>
-                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Temporal</div>
-                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Athletic</div>
-                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Botanical</div>
-                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Atmospheric</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="rule-category">
-          <h3>Difficulty Adjustment Protocol</h3>
-          <p>Balance skill levels between captains using strategic word selection methods.</p>
-          
-          <div style="margin: 25px 0;">
-            <div style="background: rgba(0,0,0,0.4); padding: 25px; border-radius: 8px; border-left: 4px solid #f59e0b;">
-              <h4 style="color: #f59e0b; font-size: 1.2rem; margin: 0 0 20px 0;">⚖️ Balancing Strategy</h4>
-              
-              <div style="background: rgba(106, 170, 100, 0.1); padding: 20px; border-radius: 6px; margin-bottom: 15px;">
-                <div style="color: #6aaa64; font-weight: bold; margin-bottom: 8px;">🎖️ Experienced Captain:</div>
-                <div style="color: #ffffff;">Use Manual Selection with challenging, obscure words</div>
-              </div>
-              
-              <div style="background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 6px;">
-                <div style="color: #3b82f6; font-weight: bold; margin-bottom: 8px;">🔰 New Captain:</div>
-                <div style="color: #ffffff;">Use Auto-Generated words for fair gameplay</div>
-              </div>
-              
-              <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
-                <div style="color: #cccccc; font-style: italic; text-align: center;">
-                  "A true captain adapts their strategy to ensure victory through skill, not advantage."
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="rule-category">
-          <h3>Join The Fight</h3>
-          <p>Contribute to the tactical evolution of Word Fleet naval combat.</p>
-          
-          <div style="margin: 25px 0;">
-            <div style="background: rgba(0,0,0,0.4); padding: 25px; border-radius: 8px; border-left: 4px solid #ef4444;">
-              <h4 style="color: #ef4444; font-size: 1.2rem; margin: 0 0 20px 0;">📡 Mission Control</h4>
-              
-              <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 6px; margin-bottom: 20px;">
-                <div style="color: #ffffff; margin-bottom: 15px;">
-                  Have you discovered new tactical approaches? Developed innovative rule variations? 
-                  Created custom battle scenarios?
-                </div>
-                <div style="color: #cccccc;">
-                  Share your strategic innovations with Command Operations:
-                </div>
-              </div>
-              
-              <div style="background: linear-gradient(135deg, rgba(106, 170, 100, 0.2), rgba(106, 170, 100, 0.1)); padding: 20px; border-radius: 8px; border: 1px solid rgba(106, 170, 100, 0.3); text-align: center;">
-                <div style="color: #6aaa64; font-weight: bold; margin-bottom: 8px;">📧 Communications Channel</div>
-                <div style="color: #ffffff; font-family: 'Courier New', monospace; font-size: 1.1rem;">
-                  missioncontrol@thegamebureau.com
-                </div>
-              </div>
-              
-              <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
-                <div style="color: #cccccc; font-style: italic; text-align: center;">
-                  "Innovation is the admiral's greatest weapon." — Fleet Strategic Manual
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Future Deployments Section -->
-  <section id="future" class="section">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">Future Deployments</h2>
-        <p class="section-subtitle">
-          Word Fleet continues to evolve. Explore upcoming features and expansions 
-          that will revolutionize word strategy mashup games.
-        </p>
-      </div>
-      
-      <div class="roadmap-timeline">
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Alpha</div>
-          <h3 class="roadmap-title">Simulator Mode</h3>
-          <p class="roadmap-description">Train your fleet in virtual combat scenarios with AI-powered battle simulations and tactical analysis.
-          </p>
-        </div>
-        
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Bravo</div>
-          <h3 class="roadmap-title">Tournament Mode</h3>
-          <p class="roadmap-description">Command your fleet in organized competitions with leaderboards, brackets, and championship glory.
-          </p>
-        </div>
-        
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Charlie</div>
-          <h3 class="roadmap-title">Mobile App Combat</h3>
-          <p class="roadmap-description">Deploy your wordships on-the-go with native mobile applications for iOS and Android devices.
-          </p>
-        </div>
-        
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Delta</div>
-          <h3 class="roadmap-title">SMS Battle System</h3>
-          <p class="roadmap-description">Engage in naval warfare through text messages - no internet required for remote battle coordination.
-          </p>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Echo</div>
-          <h3 class="roadmap-title">AI Captain Challenges</h3>
-          <p class="roadmap-description">Face off against artificial intelligence commanders with adaptive strategies and varying difficulty levels.
-          </p>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Foxtrot</div>
-          <h3 class="roadmap-title">Online Multiplayer</h3>
-          <p class="roadmap-description">Connect with captains worldwide for real-time naval battles and strategic fleet management.
-          </p>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Golf</div>
-          <h3 class="roadmap-title">Ranked Battles</h3>
-          <p class="roadmap-description">Climb the naval hierarchy through competitive ranked matches with seasonal rewards and titles.
-          </p>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-date">Phase Hotel</div>
-          <h3 class="roadmap-title">Campaign Mode</h3>
-          <p class="roadmap-description">Lead your fleet through epic story-driven campaigns across dangerous waters and enemy territories.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // ===== FLEET NAME GENERATION AND FORM HANDLING =====
-    const fleetNames = {
-      adjectives: [
-        'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged', 'Black', 'Stormy', 'Treacherous', 'Cursed', 'Ghostly', 'Iron-Bound', 'Sea-Worn',
-        'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
-        'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
-        'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
-        'Battle-Ready', 'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
-        'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached', 'Iron-Fisted', 'Cannon-Heavy',
-        'Gun-Blazing', 'Torpedo-Laden', 'Skull & Crossbones', 'Merciless', 'Fearsome',
-        'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed', 'Eye-Patched',
-        'Beard-Braided', 'Compass-Spinning', 'Ghost Ship', 'Kraken\'s', 'Siren\'s', 'Leviathan\'s',
-        'Poseidon\'s', 'Neptune\'s', 'Triton\'s', 'Abyssal', 'Deep-Sea', 'Oceanic', 'Maritime',
-        'Nautical', 'Seafaring', 'Davy Jones\'', 'Phantom', 'Half-Sunk', 'Listing',
-        'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
-      ],
-      nouns: [
-        'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force', 'Krewe',
-        'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
-        'Cohort', 'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit',
-        'Force', 'Command', 'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard',
-        'Reserve', 'Guard', 'Watch', 'Blockade', 'Tide', 'Current', 'Wake', 'Waves',
-        'Storm', 'Tempest', 'Gale', 'Maelstrom', 'Admiralty', 'Authority', 'Order',
-        'Legion', 'Brotherhood', 'Alliance', 'Coalition', 'Depth', 'Trench', 'Reef',
-        'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
-        'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition', 'Dispatch', 'Voyage', 'Odyssey', 'Quest', 'Adventure'
-      ]
-    };
-
-    let currentMode = 'auto';
-
-    function generateFleetName() {
-      const adj = fleetNames.adjectives[Math.floor(Math.random() * fleetNames.adjectives.length)];
-      const noun = fleetNames.nouns[Math.floor(Math.random() * fleetNames.nouns.length)];
-      const input = document.getElementById('fleetNameInput');
-      const button = document.querySelector('.fleet-input-button');
-      
-      if (input && button) {
-        button.style.transform = 'translateY(-50%) rotate(180deg) scale(1.2)';
-        
-        setTimeout(() => {
-          input.value = `${adj} ${noun}`;
-          button.style.transform = 'translateY(-50%)';
-        }, 200);
-      }
-    }
-
-    function setMode(mode) {
-      currentMode = mode;
-      const manualBtn = document.getElementById('manualBtn');
-      const autoBtn = document.getElementById('autoBtn');
-      const manualWords = document.getElementById('manualWords');
-      const wordsMode = document.getElementById('wordsMode');
-      const wordInputs = document.querySelectorAll('.word-input');
-      
-      if (mode === 'manual') {
-        manualBtn.classList.add('active');
-        autoBtn.classList.remove('active');
-        manualWords.classList.add('show');
-        wordsMode.value = 'manual';
-        
-        // Make all word inputs required when manual mode is selected
-        wordInputs.forEach(input => {
-          input.required = true;
-        });
-      } else {
-        autoBtn.classList.add('active');
-        manualBtn.classList.remove('active');
-        manualWords.classList.remove('show');
-        wordsMode.value = 'auto';
-        
-        // Remove required attribute when auto mode is selected
-        wordInputs.forEach(input => {
-          input.required = false;
-        });
-      }
-    }
-
-    function handleBattleTrackerSubmit(event) {
-      event.preventDefault();
-      const fleetInput = document.getElementById('fleetNameInput');
-      const submitBtn = event.target.querySelector('button[type="submit"]');
-      
-      // Check fleet name
-      if (!fleetInput.value.trim()) {
-        fleetInput.focus();
-        fleetInput.style.borderColor = '#ef4444';
-        setTimeout(() => fleetInput.style.borderColor = '', 2000);
-        return false;
-      }
-      
-      // Check manual word inputs if manual mode is selected
-      if (currentMode === 'manual') {
-        const wordInputs = document.querySelectorAll('.word-input');
-        let hasEmptyFields = false;
-        
-        wordInputs.forEach(input => {
-          if (!input.value.trim()) {
-            input.style.borderColor = '#ef4444';
-            hasEmptyFields = true;
-            setTimeout(() => input.style.borderColor = '', 2000);
-          }
-        });
-        
-        if (hasEmptyFields) {
-          // Focus on the first empty field
-          const firstEmpty = Array.from(wordInputs).find(input => !input.value.trim());
-          if (firstEmpty) firstEmpty.focus();
-          return false;
-        }
-      }
-      
-      submitBtn.innerHTML = '🚀 Deploying Fleet...';
-      submitBtn.style.opacity = '0.7';
-      
-      // Let the form submit naturally to tracker.html with all the data
-      setTimeout(() => {
-        event.target.submit();
-      }, 1000);
-      
-      return false;
-    }
-
-    // Legacy function for compatibility
-    function handleFleetSubmit(event) {
-      return handleBattleTrackerSubmit(event);
-    }
-
-    function initializeFleetName() {
-      const input = document.getElementById('fleetNameInput');
-      if (!input) return;
-      
-      // Check URL for fleet parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const fleetFromUrl = urlParams.get('fleet');
-      
-      if (fleetFromUrl) {
-        input.value = decodeURIComponent(fleetFromUrl);
-      } else {
-        // Generate random fleet name as default
-        generateFleetName();
-      }
-    }
-
-    // Battle tracker functions (placeholders for actual implementation)
-    function generateBattleTracker() {
-      alert('Battle Tracker Generator would open here - this would integrate with your existing form functionality!');
-    }
-
-    function downloadBattleTracker() {
-      // Get fleet name and word configuration
-      const fleetName = document.getElementById('fleetNameInput')?.value || 'My Fleet';
-      const mode = currentMode;
-      
-      // Placeholder for actual download functionality
-      alert(`Downloading Battle Tracker for "${fleetName}" with ${mode} word configuration...`);
-      
-      // In a real implementation, this would:
-      // 1. Generate the battle tracker PDF with fleet name and words
-      // 2. Trigger a download of the file
-      // 3. Include the configured wordships if in manual mode
-    }
-
-    function printBattleTracker() {
-      // Get fleet name and word configuration
-      const fleetName = document.getElementById('fleetNameInput')?.value || 'My Fleet';
-      const mode = currentMode;
-      
-      // Placeholder for actual print functionality
-      alert(`Opening print dialog for "${fleetName}" battle tracker with ${mode} word configuration...`);
-      
-      // In a real implementation, this would:
-      // 1. Generate the battle tracker content
-      // 2. Open a new window with the printable version
-      // 3. Trigger the browser's print dialog
-      // window.print() or similar functionality
-    }
-    // ===== END FLEET NAME GENERATION AND FORM HANDLING =====
-
-    // ===== NAVIGATION AND UI INTERACTIONS =====
-    // Navigation scroll behavior
-    window.addEventListener('scroll', function() {
-      const nav = document.querySelector('.nav-bar');
-      if (window.scrollY > 100) {
-        nav.style.background = 'rgba(0, 0, 0, 0.95)';
-      } else {
-        nav.style.background = 'rgba(0, 0, 0, 0.9)';
-      }
-    });
-
-    // Smooth scrolling function
-    function scrollToSection(sectionId) {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    }
-
-    // Scroll to top function
-    function scrollToTop() {
-      window.scrollTo({ 
-        top: 0, 
-        behavior: 'smooth' 
-      });
-    }
-
-    // Add smooth reveal animations on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    // Initialize everything when DOM is ready
-    document.addEventListener('DOMContentLoaded', function() {
-      const animatedElements = document.querySelectorAll('.feature-card, .rule-category, .roadmap-item');
-      
-      animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-      });
-      
-      // Initialize fleet name and toggle mode
-      initializeFleetName();
-      setMode('auto');
-    });
-    // ===== END NAVIGATION AND UI INTERACTIONS =====
-  </script>
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Word Fleet - Naval Word Combat</title>
+  <title>Word Fleet</title>
   
   <!-- Favicon and App Icons -->
   <link rel="icon" type="image/x-icon" href="src/media/wf.ico">
@@ -951,12 +81,11 @@ Mission Duration: 15-30 Minutes
       font-size: 4.5rem;
       font-weight: bold;
       margin-bottom: 0.5em;
-      letter-spacing: -2px;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-      background: linear-gradient(45deg, #ffffff, #6aaa64);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      letter-spacing: 4px;
+      text-shadow: 3px 3px 0px rgba(255,255,255,0.8), 0px 0px 20px rgba(106, 170, 100, 0.8);
+      color: #000000;
+      font-family: 'Courier New', Courier, monospace;
+      text-transform: uppercase;
     }
 
     .hero-subtitle {
@@ -1106,125 +235,208 @@ Mission Duration: 15-30 Minutes
       line-height: 1.6;
     }
 
-    /* Pen & Paper Section */
-    .game-modes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .mode-content h3 {
-      font-size: 2.2rem;
-      margin-bottom: 25px;
-      color: #6aaa64;
-    }
-
-    .mode-content p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #cccccc;
+    /* Print Button Styles */
+    .print-rules-btn {
+      background: linear-gradient(135deg, #6aaa64, #5a9954);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-family: 'Courier New', Courier, monospace;
       margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .mode-features {
-      list-style: none;
-      padding: 0;
-      margin: 30px 0;
+    .print-rules-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(106, 170, 100, 0.4);
     }
 
-    .mode-features li {
-      padding: 10px 0;
-      padding-left: 30px;
-      position: relative;
-      color: #ffffff;
+    .print-rules-btn:last-child {
+      margin-top: 20px;
+      margin-bottom: 0;
     }
 
-    .mode-features li:before {
-      content: "⚓";
-      position: absolute;
-      left: 0;
-      color: #6aaa64;
+    /* Print-only styles */
+    @media print {
+      .print-rules-btn {
+        display: none !important;
+      }
+      
+      .nav-bar {
+        display: none !important;
+      }
+      
+      .hero-section {
+        display: none !important;
+      }
+      
+      .section:not(#rules) {
+        display: none !important;
+      }
+      
+      .rule-category {
+        background: white !important;
+        color: black !important;
+        border: 2px solid #6aaa64 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+      }
+      
+      .rule-category h3 {
+        color: #6aaa64 !important;
+        page-break-after: avoid;
+      }
+      
+      .rule-category p,
+      .rule-category li,
+      .rule-category td {
+        color: black !important;
+      }
+      
+      .rule-category table th {
+        background: #6aaa64 !important;
+        color: white !important;
+      }
+      
+      .section-title {
+        color: #6aaa64 !important;
+      }
+      
+      .section-subtitle {
+        color: #333333 !important;
+      }
     }
-
-    .mode-preview {
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 12px;
-      padding: 40px;
-      text-align: center;
-      border: 2px solid rgba(106, 170, 100, 0.3);
-    }
-
-    .preview-grid {
-      width: 200px;
-      height: 200px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid #6aaa64;
-      margin: 20px auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      border-radius: 8px;
-    }
-
-    /* Rules Section */
     .rules-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-template-columns: 1fr;
       gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .rule-category {
-      background: rgba(0, 0, 0, 0.7);
-      border-left: 4px solid #6aaa64;
-      padding: 30px;
-      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.8);
+      border-left: 6px solid #6aaa64;
+      padding: 50px;
+      border-radius: 12px;
+      line-height: 2;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
     .rule-category h3 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
+      font-size: 2.2rem;
+      margin-bottom: 30px;
       color: #6aaa64;
+      border-bottom: 3px solid #6aaa64;
+      padding-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .rule-category p {
+      color: #ffffff;
+      font-size: 1.25rem;
+      line-height: 2;
+      margin-bottom: 25px;
+      font-weight: 500;
     }
 
     .rule-category ol {
-      color: #cccccc;
-      line-height: 1.8;
-      padding-left: 20px;
+      color: #ffffff;
+      font-size: 1.2rem;
+      line-height: 2;
+      padding-left: 30px;
+      margin-bottom: 25px;
     }
 
     .rule-category li {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+      color: #ffffff;
+      font-weight: 500;
     }
 
     .rule-category ul {
-      color: #cccccc;
-      line-height: 1.8;
-      padding-left: 20px;
+      color: #ffffff;
+      font-size: 1.2rem;
+      line-height: 2;
+      padding-left: 30px;
+      margin-bottom: 25px;
+    }
+
+    .rule-category strong {
+      color: #6aaa64;
+      font-weight: bold;
+      background: rgba(106, 170, 100, 0.2);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    .rule-category table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .rule-category table th {
+      background: #6aaa64;
+      color: #000000;
+      padding: 20px;
+      text-align: left;
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    .rule-category table td {
+      padding: 18px 20px;
+      border-bottom: 2px solid rgba(106, 170, 100, 0.2);
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .rule-category table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .rule-category table tr:nth-child(even) {
+      background: rgba(106, 170, 100, 0.1);
     }
 
     .rule-category a {
       color: #6aaa64;
       text-decoration: none;
+      font-weight: bold;
+      background: rgba(106, 170, 100, 0.2);
+      padding: 2px 6px;
+      border-radius: 3px;
     }
 
-    /* Future Deployments Section - Updated to use grid layout like Rules */
+    .rule-category a:hover {
+      color: #000000;
+      background: #6aaa64;
+      text-decoration: none;
+    }
+
+    /* Future Deployments Section */
     .roadmap-timeline {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 40px;
       max-width: none;
       margin: 0;
-    }
-
-    /* Debrief Section - Force vertical stacking */
-    .debrief-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 40px;
-      max-width: 800px;
-      margin: 0 auto;
     }
 
     .roadmap-item {
@@ -1262,6 +474,15 @@ Mission Duration: 15-30 Minutes
       line-height: 1.6;
     }
 
+    /* Debrief Section */
+    .debrief-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
     /* Scroll indicator */
     .scroll-indicator {
       position: absolute;
@@ -1282,7 +503,6 @@ Mission Duration: 15-30 Minutes
     @media (max-width: 1200px) {
       .hero-title { font-size: 3.5rem; }
       .section-title { font-size: 2.8rem; }
-      .game-modes { grid-template-columns: 1fr; gap: 40px; }
     }
 
     @media (max-width: 768px) {
@@ -1507,327 +727,800 @@ Mission Duration: 15-30 Minutes
       letter-spacing: 0.5px;
       transition: none;
     }
-    /* ===== ENGAGE THE ENEMY SECTION STYLES ===== */
-/* Dedicated CSS for combat mechanics and surrender procedures */
+        .nav-links a.active {
+      color: #6aaa64;
+      font-weight: bold;
+    }
 
-/* Combat Overview Styling */
-.combat-overview {
-  background: rgba(106, 170, 100, 0.1);
-  border-left: 4px solid #6aaa64;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-}
 
-.combat-overview-container {
-  padding: 1.5rem;
-}
+    /* Combat Mechanics CSS */
+    .combat-overview {
+      background: rgba(106, 170, 100, 0.1);
+      border-left: 4px solid #6aaa64;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
 
-.combat-overview-description {
-  margin-bottom: 1rem;
-  font-weight: 600;
-  color: #ffffff;
-}
+    .combat-overview-container {
+      padding: 1.5rem;
+    }
 
-.combat-options-list {
-  margin: 1rem 0;
-  padding-left: 2rem;
-  line-height: 1.6;
-  color: #cccccc;
-}
+    .combat-overview-description {
+      margin-bottom: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
 
-.combat-options-list li {
-  margin-bottom: 0.75rem;
-}
+    .combat-options-list {
+      margin: 1rem 0;
+      padding-left: 2rem;
+      line-height: 1.6;
+      color: #cccccc;
+    }
 
-/* Combat Section Layout */
-.combat-section {
-  margin: 2rem 0;
-  border-radius: 8px;
-}
+    .combat-options-list li {
+      margin-bottom: 0.75rem;
+    }
 
-.combat-standard-attack {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 1.5rem;
-}
+    .combat-section {
+      margin: 2rem 0;
+      border-radius: 8px;
+    }
 
-.combat-demand-surrender {
-  background: rgba(106, 170, 100, 0.05);
-  border: 1px solid rgba(106, 170, 100, 0.2);
-  padding: 1.5rem;
-}
+    .combat-standard-attack {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+    }
 
-/* Subsection Titles */
-.combat-subsection-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: -0.5px;
-  margin-bottom: 1.5rem;
-  color: #6aaa64;
-  text-align: left;
-  border-bottom: 2px solid rgba(106, 170, 100, 0.3);
-  padding-bottom: 0.5rem;
-}
+    .combat-demand-surrender {
+      background: rgba(106, 170, 100, 0.05);
+      border: 1px solid rgba(106, 170, 100, 0.2);
+      padding: 1.5rem;
+    }
 
-/* Combat Flow Steps */
-.combat-game-flow {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
+    .combat-subsection-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 1.5rem;
+      color: #6aaa64;
+      text-align: left;
+      border-bottom: 2px solid rgba(106, 170, 100, 0.3);
+      padding-bottom: 0.5rem;
+    }
 
-.combat-flow-step {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-}
+    .combat-game-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
 
-.combat-step-number {
-  flex-shrink: 0;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: linear-gradient(135deg, #6aaa64, #5a9954);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 8px rgba(106, 170, 100, 0.3);
-}
+    .combat-flow-step {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
 
-.combat-step-content {
-  flex: 1;
-}
+    .combat-step-number {
+      flex-shrink: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: linear-gradient(135deg, #6aaa64, #5a9954);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 8px rgba(106, 170, 100, 0.3);
+    }
 
-.combat-step-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 0.5rem;
-}
+    .combat-step-content {
+      flex: 1;
+    }
 
-.combat-step-description {
-  color: #cccccc;
-  margin-bottom: 1rem;
-  line-height: 1.6;
-}
+    .combat-step-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
 
-/* Combat Quotes and Callouts */
-.combat-quote {
-  background: rgba(0, 0, 0, 0.4);
-  border-left: 3px solid #6aaa64;
-  padding: 0.75rem 1rem;
-  margin: 1rem 0;
-  font-style: italic;
-  color: #ffffff;
-  border-radius: 0 6px 6px 0;
-}
+    .combat-step-description {
+      color: #cccccc;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
 
-.combat-callout {
-  background: rgba(106, 170, 100, 0.2);
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  font-weight: bold;
-  font-style: normal;
-}
+    .combat-quote {
+      background: rgba(0, 0, 0, 0.4);
+      border-left: 3px solid #6aaa64;
+      padding: 0.75rem 1rem;
+      margin: 1rem 0;
+      font-style: italic;
+      color: #ffffff;
+      border-radius: 0 6px 6px 0;
+    }
 
-/* Response Sections */
-.combat-responses-section {
-  margin-top: 1.5rem;
-}
+    .combat-callout {
+      background: rgba(106, 170, 100, 0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: bold;
+      font-style: normal;
+    }
 
-.combat-responses-label {
-  font-weight: 600;
-  color: #6aaa64;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.9rem;
-}
+    .combat-responses-section {
+      margin-top: 1.5rem;
+    }
 
-.combat-response-options {
-  display: grid;
-  gap: 1rem;
-}
+    .combat-responses-label {
+      font-weight: 600;
+      color: #6aaa64;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.9rem;
+    }
 
-.combat-response-option {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  padding: 1rem;
-  transition: all 0.3s ease;
-}
+    .combat-response-options {
+      display: grid;
+      gap: 1rem;
+    }
 
-.combat-response-option:hover {
-  border-color: rgba(106, 170, 100, 0.4);
-  background: rgba(0, 0, 0, 0.4);
-}
+    .combat-response-option {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 1rem;
+      transition: all 0.3s ease;
+    }
 
-.combat-response-header {
-  color: #ffffff;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
+    .combat-response-option:hover {
+      border-color: rgba(106, 170, 100, 0.4);
+      background: rgba(0, 0, 0, 0.4);
+    }
 
-.combat-response-description {
-  color: #cccccc;
-  margin-bottom: 0.75rem;
-  line-height: 1.5;
-}
+    .combat-response-header {
+      color: #ffffff;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
 
-/* Specific Response Type Styling */
-.combat-response-miss {
-  border-left: 3px solid #ef4444;
-}
+    .combat-response-description {
+      color: #cccccc;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
 
-.combat-response-hit {
-  border-left: 3px solid #f59e0b;
-}
+    .combat-response-miss {
+      border-left: 3px solid #ef4444;
+    }
 
-.combat-response-bullseye {
-  border-left: 3px solid #10b981;
-}
+    .combat-response-hit {
+      border-left: 3px solid #f59e0b;
+    }
 
-.combat-response-tally {
-  border-left: 3px solid #3b82f6;
-}
+    .combat-response-bullseye {
+      border-left: 3px solid #10b981;
+    }
 
-/* Victory Flow Steps (Demand Surrender) */
-.victory-game-flow {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
+    .combat-response-tally {
+      border-left: 3px solid #3b82f6;
+    }
 
-.victory-flow-step {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-}
+    .victory-game-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
 
-.victory-step-number {
-  flex-shrink: 0;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.1rem;
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-}
+    .victory-flow-step {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
 
-.victory-step-content {
-  flex: 1;
-}
+    .victory-step-number {
+      flex-shrink: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+    }
 
-.victory-step-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 0.5rem;
-}
+    .victory-step-content {
+      flex: 1;
+    }
 
-.victory-step-description {
-  color: #cccccc;
-  margin-bottom: 1rem;
-  line-height: 1.6;
-}
+    .victory-step-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
 
-.victory-quote {
-  background: rgba(239, 68, 68, 0.1);
-  border-left: 3px solid #ef4444;
-  padding: 0.75rem 1rem;
-  margin: 1rem 0;
-  font-style: italic;
-  color: #ffffff;
-  border-radius: 0 6px 6px 0;
-}
+    .victory-step-description {
+      color: #cccccc;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
 
-.victory-quote-example {
-  background: rgba(0, 0, 0, 0.4);
-  border-left: 3px solid #f59e0b;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
+    .victory-quote {
+      background: rgba(239, 68, 68, 0.1);
+      border-left: 3px solid #ef4444;
+      padding: 0.75rem 1rem;
+      margin: 1rem 0;
+      font-style: italic;
+      color: #ffffff;
+      border-radius: 0 6px 6px 0;
+    }
 
-/* Victory Response Sections */
-.victory-responses-section {
-  margin-top: 1.5rem;
-}
+    .victory-quote-example {
+      background: rgba(0, 0, 0, 0.4);
+      border-left: 3px solid #f59e0b;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
 
-.victory-responses-label {
-  font-weight: 600;
-  color: #ef4444;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.9rem;
-}
+    .victory-responses-section {
+      margin-top: 1.5rem;
+    }
 
-.victory-response-options {
-  display: grid;
-  gap: 1rem;
-}
+    .victory-responses-label {
+      font-weight: 600;
+      color: #ef4444;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.9rem;
+    }
 
-.victory-response-option {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  padding: 1rem;
-  transition: all 0.3s ease;
-}
+    .victory-response-options {
+      display: grid;
+      gap: 1rem;
+    }
 
-.victory-response-option:hover {
-  border-color: rgba(239, 68, 68, 0.4);
-  background: rgba(0, 0, 0, 0.4);
-}
+    .victory-response-option {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 1rem;
+      transition: all 0.3s ease;
+    }
 
-.victory-response-header {
-  color: #ffffff;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
+    .victory-response-option:hover {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: rgba(0, 0, 0, 0.4);
+    }
 
-.victory-response-description {
-  color: #cccccc;
-  margin-bottom: 0.75rem;
-  line-height: 1.5;
-}
+    .victory-response-header {
+      color: #ffffff;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
 
-/* Victory Response Type Styling */
-.victory-response-win {
-  border-left: 3px solid #10b981;
-}
+    .victory-response-description {
+      color: #cccccc;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
 
-.victory-response-lose {
-  border-left: 3px solid #ef4444;
-}
+    .victory-response-win {
+      border-left: 3px solid #10b981;
+    }
 
-/* Responsive Design for Combat Section */
-@media (max-width: 768px) {
-  .combat-flow-step,
-  .victory-flow-step {
-    flex-direction: column;
-    gap: 1rem;
-  }
+    .victory-response-lose {
+      border-left: 3px solid #ef4444;
+    }
 
-  .combat-step-number,
-  .victory-step-number {
-    align-self: flex-start;
-  }
+    @media (max-width: 768px) {
+      .combat-flow-step,
+      .victory-flow-step {
+        flex-direction: column;
+        gap: 1rem;
+      }
 
-  .combat-subsection-title {
-    font-size: 1.1rem;
-  }
+      .combat-step-number,
+      .victory-step-number {
+        align-self: flex-start;
+      }
 
-  .combat-quote,
-  .victory-quote {
-    font-size: 0.9rem;
-  }
-}
+      .combat-subsection-title {
+        font-size: 1.1rem;
+      }
+
+      .combat-quote,
+      .victory-quote {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" onclick="scrollToTop()">Word Fleet by Kevin Kolb</a>
+      <div class="nav-links">
+                <a href="#" class="active">Home Base</a>
+        <a href="#penandpaper" onclick="scrollToSection('penandpaper')">Pen & Paper Mode</a>
+        <a href="rules.html">Rules of Engagement</a>
+        <a href="future.html">Future Deployments</a>
+        <a href="print.html">Print</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Word Fleet</h1>
+      <p class="hero-subtitle">by Kevin Kolb</p>
+      <p class="hero-description">
+        Command your fleet of wordships in tactical battles that blend the strategy of naval warfare 
+        with the creativity of word games. Deploy letters like ammunition, spell victory with precision, 
+        and sink your opponents through superior vocabulary.
+      </p>
+    </div>
+    <div class="scroll-indicator">
+      <div style="font-size: 24px;">⚓</div>
+      <div style="font-size: 12px; margin-top: 5px;">SCROLL TO EXPLORE</div>
+    </div>
+  </section>
+
+  <!-- Pen & Paper Section -->
+  <section id="penandpaper" class="section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Pen & Paper Mode</h2>
+        <p class="section-subtitle">
+          So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!
+        </p>
+      </div>
+      
+      <form id="battleTrackerForm" action="tracker.html" method="GET" onsubmit="return handleBattleTrackerSubmit(event)">
+        <div class="welcome-features">
+          <div class="feature-card">
+            <span class="feature-icon">01</span>
+            <h3 class="feature-title">Name Your Fleet</h3>
+            <p class="feature-description">
+              Choose a commanding name for your naval fleet. Will you lead the Storm Raiders into battle, 
+              or command the Iron Guardians to victory? A strong fleet name strikes fear into enemy hearts.
+            </p>
+            <div class="fleet-form-container">
+              <div class="fleet-form">
+                <div class="fleet-input-group">
+                  <input 
+                    type="text" 
+                    id="fleetNameInput" 
+                    name="fleet"
+                    class="fleet-input" 
+                    placeholder="Enter your fleet name..."
+                    maxlength="30"
+                    required
+                  >
+                  <button type="button" class="fleet-input-button" onclick="generateFleetName()" title="Generate random fleet name">
+                    🎲
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="feature-card">
+            <span class="feature-icon">02</span>
+            <h3 class="feature-title">Configure Your Word-Ships</h3>
+            <p class="feature-description">
+              Choose between auto-generated wordships or manually select your own words. Each ship type serves a tactical purpose - from the mighty 5-letter KETCH to the nimble 2-letter PT boat.
+            </p>
+            <div class="fleet-form-container">
+              <div class="fleet-form">
+                <div class="toggle-container">
+                  <div class="toggle-buttons">
+                    <button type="button" class="toggle-btn active" id="autoBtn" onclick="setMode('auto')">
+                      Auto-Generated
+                    </button>
+                    <button type="button" class="toggle-btn" id="manualBtn" onclick="setMode('manual')">
+                      Manual Selection
+                    </button>
+                  </div>
+                  
+                  <div class="manual-words" id="manualWords">
+                    <div class="word-group">
+                      <label class="word-label">KETCH • 5-Letter Wordship</label>
+                      <input type="text" class="word-input" maxlength="5" placeholder="Enter 5 letters..." name="word5">
+                    </div>
+                    <div class="word-group">
+                      <label class="word-label">SHIP • 4-Letter Wordship</label>
+                      <input type="text" class="word-input" maxlength="4" placeholder="Enter 4 letters..." name="word4">
+                    </div>
+                    <div class="word-group">
+                      <label class="word-label">SUB • 3-Letter Wordship</label>
+                      <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3a">
+                    </div>
+                    <div class="word-group">
+                      <label class="word-label">ARK • 3-Letter Wordship</label>
+                      <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3b">
+                    </div>
+                    <div class="word-group">
+                      <label class="word-label">PT • 2-Letter Wordship</label>
+                      <input type="text" class="word-input" maxlength="2" placeholder="Enter 2 letters..." name="word2">
+                    </div>
+                  </div>
+                  
+                  <input type="hidden" id="wordsMode" name="words" value="true">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="feature-card">
+            <span class="feature-icon">03</span>
+            <h3 class="feature-title">Get Your Battle Tracker</h3>
+            <p class="feature-description">
+              Download or print your Battle Trackers and let slip the dogs of war!
+            </p>
+            <div class="fleet-form-container">
+              <div class="fleet-form">
+                <button type="submit" class="fleet-submit-btn">
+                  Generate
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Debrief Section -->
+  <section id="debrief" class="section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Debrief</h2>
+        <p class="section-subtitle">
+          Mission complete, captain. Review tactical options and advanced strategies for your next deployment.
+        </p>
+      </div>
+      
+      <div class="debrief-grid">
+        <div class="rule-category">
+          <h3>Themed Battles</h3>
+          <p>Deploy your fleet around specific themes for strategic variety and educational gameplay.</p>
+          
+          <div style="margin: 25px 0;">
+            <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #6aaa64;">
+              <h4 style="color: #6aaa64; font-size: 1.2rem; margin: 0 0 15px 0;">🧬 Biological Theme</h4>
+              <div style="background: rgba(106, 170, 100, 0.1); padding: 15px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 1.1rem; color: #ffffff; text-align: center;">
+                ZEBRA • FROG • COW • BAT • OX
+              </div>
+            </div>
+            
+            <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #6aaa64;">
+              <h4 style="color: #6aaa64; font-size: 1.2rem; margin: 0 0 15px 0;">🧭 Directional Theme</h4>
+              <div style="background: rgba(106, 170, 100, 0.1); padding: 15px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 1.1rem; color: #ffffff; text-align: center;">
+                NORTH • LEFT • TOP • WAY • UP
+              </div>
+            </div>
+            
+            <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; border-left: 4px solid #6aaa64;">
+              <h4 style="color: #6aaa64; font-size: 1.2rem; margin: 0 0 15px 0;">🎯 More Theme Ideas</h4>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; color: #cccccc;">
+                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Musical</div>
+                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Celestial</div>
+                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Culinary</div>
+                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Oceanic</div>
+                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Metallic</div>
+                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Geometric</div>
+                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Temporal</div>
+                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Athletic</div>
+                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Botanical</div>
+                <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; text-align: center; font-size: 0.9rem;">Atmospheric</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rule-category">
+          <h3>Difficulty Adjustment Protocol</h3>
+          <p>Balance skill levels between captains using strategic word selection methods.</p>
+          
+          <div style="margin: 25px 0;">
+            <div style="background: rgba(0,0,0,0.4); padding: 25px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+              <h4 style="color: #f59e0b; font-size: 1.2rem; margin: 0 0 20px 0;">⚖️ Balancing Strategy</h4>
+              
+              <div style="background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 6px;">
+                <div style="color: #3b82f6; font-weight: bold; margin-bottom: 8px;">🔰 New Captain:</div>
+                <div style="color: #ffffff;">Use Auto-Generated words for fair gameplay</div>
+              </div>
+              
+              <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <div style="color: #cccccc; font-style: italic; text-align: center;">
+                  "A true captain adapts their strategy to ensure victory through skill, not advantage."
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rule-category">
+          <h3>Join The Fight</h3>
+          <p>Contribute to the tactical evolution of Word Fleet naval combat.</p>
+          
+          <div style="margin: 25px 0;">
+            <div style="background: rgba(0,0,0,0.4); padding: 25px; border-radius: 8px; border-left: 4px solid #ef4444;">
+              <h4 style="color: #ef4444; font-size: 1.2rem; margin: 0 0 20px 0;">📡 Mission Control</h4>
+              
+              <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 6px; margin-bottom: 20px;">
+                <div style="color: #ffffff; margin-bottom: 15px;">
+                  Have you discovered new tactical approaches? Developed innovative rule variations? 
+                  Created custom battle scenarios?
+                </div>
+                <div style="color: #cccccc;">
+                  Share your strategic innovations with Command Operations:
+                </div>
+              </div>
+              
+              <div style="background: linear-gradient(135deg, rgba(106, 170, 100, 0.2), rgba(106, 170, 100, 0.1)); padding: 20px; border-radius: 8px; border: 1px solid rgba(106, 170, 100, 0.3); text-align: center;">
+                <div style="color: #6aaa64; font-weight: bold; margin-bottom: 8px;">📧 Communications Channel</div>
+                <div style="color: #ffffff; font-family: 'Courier New', monospace; font-size: 1.1rem;">
+                  missioncontrol@thegamebureau.com
+                </div>
+              </div>
+              
+              <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <div style="color: #cccccc; font-style: italic; text-align: center;">
+                  "Innovation is the admiral's greatest weapon." — Fleet Strategic Manual
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ===== FLEET NAME GENERATION AND FORM HANDLING =====
+    const fleetNames = {
+      adjectives: [
+        'Salty', 'Barnacle-Crusted', 'Rum-Soaked', 'Royal', 'Crabby', 'Peg-Legged', 'Black', 'Stormy', 'Treacherous', 'Cursed', 'Ghostly', 'Iron-Bound', 'Sea-Worn',
+        'Soggy-Bottom', 'Windswept', 'Mullet-Class', 'Scurvy Dog', 'Leaky Hull',
+        'Ironclad', 'Dreadnought', 'Ghost Flag', 'Thunderhead', 'Bloodwake', 'Scurvy',
+        'Admiral\'s', 'Captain\'s', 'Commodore\'s', 'Flagship', 'Armored', 'Steel-Hulled',
+        'Battle-Ready', 'Storm-Battered', 'Salt-Crusted', 'Weather-Beaten', 'Tide-Worn',
+        'Rust-Stained', 'Barnacle-Encrusted', 'Sun-Bleached', 'Iron-Fisted', 'Cannon-Heavy',
+        'Gun-Blazing', 'Torpedo-Laden', 'Skull & Crossbones', 'Merciless', 'Fearsome',
+        'Parrot-Shouldered', 'Grog-Fueled', 'Tricorn-Wearing', 'Hook-Handed', 'Eye-Patched',
+        'Beard-Braided', 'Compass-Spinning', 'Ghost Ship', 'Kraken\'s', 'Siren\'s', 'Leviathan\'s',
+        'Poseidon\'s', 'Neptune\'s', 'Triton\'s', 'Abyssal', 'Deep-Sea', 'Oceanic', 'Maritime',
+        'Nautical', 'Seafaring', 'Davy Jones\'', 'Phantom', 'Half-Sunk', 'Listing',
+        'Creaking', 'Groaning', 'Patched-Up', 'Battle-Scarred'
+      ],
+      nouns: [
+        'Armada', 'Fleet', 'Flotilla', 'Squadron', 'Convoy', 'Navy', 'Task Force', 'Krewe',
+        'Armament', 'Battlegroup', 'Line', 'Expeditionary Force', 'Regatta', 'Squad',
+        'Cohort', 'Division', 'Wing', 'Company', 'Brigade', 'Battalion', 'Unit',
+        'Force', 'Command', 'Patrol', 'Strike Force', 'Reconnaissance', 'Vanguard',
+        'Reserve', 'Guard', 'Watch', 'Blockade', 'Tide', 'Current', 'Wake', 'Waves',
+        'Storm', 'Tempest', 'Gale', 'Maelstrom', 'Admiralty', 'Authority', 'Order',
+        'Legion', 'Brotherhood', 'Alliance', 'Coalition', 'Depth', 'Trench', 'Reef',
+        'Harbor', 'Bay', 'Strait', 'Channel', 'Passage', 'Assault', 'Siege',
+        'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition', 'Dispatch', 'Voyage', 'Odyssey', 'Quest', 'Adventure'
+      ]
+    };
+
+    let currentMode = 'auto';
+
+    function generateFleetName() {
+      const adj = fleetNames.adjectives[Math.floor(Math.random() * fleetNames.adjectives.length)];
+      const noun = fleetNames.nouns[Math.floor(Math.random() * fleetNames.nouns.length)];
+      const input = document.getElementById('fleetNameInput');
+      const button = document.querySelector('.fleet-input-button');
+      
+      if (input && button) {
+        button.style.transform = 'translateY(-50%) rotate(180deg) scale(1.2)';
+        
+        setTimeout(() => {
+          input.value = `${adj} ${noun}`;
+          button.style.transform = 'translateY(-50%)';
+        }, 200);
+      }
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      const manualBtn = document.getElementById('manualBtn');
+      const autoBtn = document.getElementById('autoBtn');
+      const manualWords = document.getElementById('manualWords');
+      const wordsMode = document.getElementById('wordsMode');
+      const wordInputs = document.querySelectorAll('.word-input');
+      
+      if (mode === 'manual') {
+        manualBtn.classList.add('active');
+        autoBtn.classList.remove('active');
+        manualWords.classList.add('show');
+        wordsMode.value = 'manual';
+        
+        // Make all word inputs required when manual mode is selected
+        wordInputs.forEach(input => {
+          input.required = true;
+        });
+      } else {
+        autoBtn.classList.add('active');
+        manualBtn.classList.remove('active');
+        manualWords.classList.remove('show');
+        wordsMode.value = 'auto';
+        
+        // Remove required attribute when auto mode is selected
+        wordInputs.forEach(input => {
+          input.required = false;
+        });
+      }
+    }
+
+    function handleBattleTrackerSubmit(event) {
+      event.preventDefault();
+      const fleetInput = document.getElementById('fleetNameInput');
+      const submitBtn = event.target.querySelector('button[type="submit"]');
+      
+      // Check fleet name
+      if (!fleetInput.value.trim()) {
+        fleetInput.focus();
+        fleetInput.style.borderColor = '#ef4444';
+        setTimeout(() => fleetInput.style.borderColor = '', 2000);
+        return false;
+      }
+      
+      // Check manual word inputs if manual mode is selected
+      if (currentMode === 'manual') {
+        const wordInputs = document.querySelectorAll('.word-input');
+        let hasEmptyFields = false;
+        
+        wordInputs.forEach(input => {
+          if (!input.value.trim()) {
+            input.style.borderColor = '#ef4444';
+            hasEmptyFields = true;
+            setTimeout(() => input.style.borderColor = '', 2000);
+          }
+        });
+        
+        if (hasEmptyFields) {
+          // Focus on the first empty field
+          const firstEmpty = Array.from(wordInputs).find(input => !input.value.trim());
+          if (firstEmpty) firstEmpty.focus();
+          return false;
+        }
+      }
+      
+      submitBtn.innerHTML = '🚀 Deploying Fleet...';
+      submitBtn.style.opacity = '0.7';
+      
+      // Let the form submit naturally to tracker.html with all the data
+      setTimeout(() => {
+        event.target.submit();
+      }, 1000);
+      
+      return false;
+    }
+
+    // Legacy function for compatibility
+    function handleFleetSubmit(event) {
+      return handleBattleTrackerSubmit(event);
+    }
+
+    function initializeFleetName() {
+      const input = document.getElementById('fleetNameInput');
+      if (!input) return;
+      
+      // Check URL for fleet parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const fleetFromUrl = urlParams.get('fleet');
+      
+      if (fleetFromUrl) {
+        input.value = decodeURIComponent(fleetFromUrl);
+      } else {
+        // Generate random fleet name as default
+        generateFleetName();
+      }
+    }
+
+    // Battle tracker functions (placeholders for actual implementation)
+    function generateBattleTracker() {
+      alert('Battle Tracker Generator would open here - this would integrate with your existing form functionality!');
+    }
+
+    function downloadBattleTracker() {
+      // Get fleet name and word configuration
+      const fleetName = document.getElementById('fleetNameInput')?.value || 'My Fleet';
+      const mode = currentMode;
+      
+      // Placeholder for actual download functionality
+      alert(`Downloading Battle Tracker for "${fleetName}" with ${mode} word configuration...`);
+      
+      // In a real implementation, this would:
+      // 1. Generate the battle tracker PDF with fleet name and words
+      // 2. Trigger a download of the file
+      // 3. Include the configured wordships if in manual mode
+    }
+
+    // Print rules function
+    function printRules() {
+      window.print();
+    }
+    // ===== END FLEET NAME GENERATION AND FORM HANDLING =====
+
+    // ===== NAVIGATION AND UI INTERACTIONS =====
+    // Navigation scroll behavior
+    window.addEventListener('scroll', function() {
+      const nav = document.querySelector('.nav-bar');
+      if (window.scrollY > 100) {
+        nav.style.background = 'rgba(0, 0, 0, 0.95)';
+      } else {
+        nav.style.background = 'rgba(0, 0, 0, 0.9)';
+      }
+    });
+
+    // Smooth scrolling function
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+
+    // Scroll to top function
+    function scrollToTop() {
+      window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth' 
+      });
+    }
+
+    // Add smooth reveal animations on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Initialize everything when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      const animatedElements = document.querySelectorAll('.feature-card, .rule-category, .roadmap-item');
+      
+      animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+      });
+      
+      // Initialize fleet name and toggle mode
+      initializeFleetName();
+      setMode('auto');
+    });
+    // ===== END NAVIGATION AND UI INTERACTIONS =====
+  </script>
+</body>
+</html>
