@@ -4,989 +4,1107 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Word Fleet Rules of Engagement</title>
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Preload the background image -->
+  <link rel="preload" href="src/media/wfbg.png" as="image">
   <style>
-    body {
-      background: #f9f7f1;
+    /* Base HTML/Body Background Setup */
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
       font-family: 'Courier Prime', monospace;
-      color: #1a1a1a;
-      padding: 40px 20px;
-      max-width: 760px;
-      margin: auto;
+      color: #ffffff;
+      background: url('src/media/wfbg.png') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Body Overlay with Gradient */
+    body {
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('src/media/wfbg.png') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+      font-family: 'Courier Prime', monospace;
+      color: #ffffff;
+      padding: 0;
+      margin: 0;
       line-height: 1.6;
+      padding-top: 80px; /* Account for fixed header */
     }
 
-    h1 {
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 40px;
-      font-size: 2.5rem;
-      font-weight: 700;
+    a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+    /* Swiss-inspired Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e5e5;
+      z-index: 1000;
+      padding: 0;
     }
 
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      text-align: left;
-      margin-bottom: 15px;
-      margin-top: 30px;
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+.brand-logo {
+  width: 40px; /* Increased width to match button height */
+  height: 40px; /* Match the nav button height (padding + line-height) */
+  background: #6aaa64;
+  border: 2px solid #565758;
+  border-radius: 0; /* Square like Wordle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px; /* Larger font for bigger tile */
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);
+  border-color: #3a3a3c;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Mobile adjustments to keep proportions */
+@media (max-width: 480px) {
+  .brand-logo {
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
+  }
+}
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .brand-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 18px;
       color: #1a1a1a;
+      line-height: 1;
+      text-decoration: none;
     }
 
-    h3 {
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-      font-size: 1.2rem;
-      font-weight: 700;
-    }
-
-    h4 {
-      text-align: center;
-      text-transform: lowercase;
-      letter-spacing: 2px;
-      margin-bottom: 40px;
-      font-size: 1rem;
+    .brand-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
       color: #666;
-    }
-
-    .wordle-tile {
-      width: 50px;
-      height: 50px;
-      background-color: #6aaa64;
-      color: white;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin: 2px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      border-radius: 4px;
-      border: 2px solid #2d3748;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      font-family: 'Arial Black', sans-serif;
+      line-height: 1;
       text-transform: uppercase;
-      animation: float 4s ease-in-out infinite;
-      animation-delay: calc(var(--i) * 0.1s);
+      letter-spacing: 0.5px;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
-    }
-
-    .word-space {
-      width: 50px;
-      height: 50px;
-      display: inline-flex;
+    .nav-menu {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      margin: 2px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      border-radius: 4px;
+      gap: 0;
     }
 
-    .section {
-      border: 1px solid #ccc;
-      padding: 30px;
-      margin-bottom: 30px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    .nav-links {
+      display: flex;
+      background: #f5f5f5;
+      border-radius: 6px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .nav-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: #1a1a1a;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .nav-link.active {
+      color: #1a1a1a;
+      background: #ffffff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #1a1a1a;
+      cursor: pointer;
+      padding: 8px;
+      margin: -8px;
+    }
+
+    /* Page Title Section with Hero Overlay */
+    .page-header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
       position: relative;
-      overflow: visible;
+      background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0));
+      border-radius: 8px;
+    }
+
+    .page-category {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .page-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.1;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+
+    .page-subtitle {
+      font-family: 'Courier Prime', monospace;
+      font-size: 16px;
+      color: #e0e0e0;
+      margin: 12px 0 0 0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Content Area */
+    .content-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 20px 40px 20px;
+    }
+
+    /* Section Alternating Overlays */
+    .section {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 30px;
+      margin-bottom: 20px;
+      background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6));
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .section:nth-child(even) {
+      background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6));
+    }
+
+    .section:nth-child(odd) {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8));
     }
 
     .section-banner {
       height: 2px;
-      background: #1a1a1a;
-      width: 60px;
-      margin: 0 0 30px 0;
+      background: #6aaa64;
+      width: 40px;
+      margin: 0 0 20px 0;
+    }
+
+    h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 0 0 16px 0;
+      line-height: 1.2;
+    }
+
+    /* Print Modal Styles */
+    .print-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      backdrop-filter: blur(4px);
+    }
+
+    .print-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .print-content {
+      background: white;
+      border-radius: 12px;
+      max-width: 900px;
+      max-height: 90vh;
+      width: 100%;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .print-header {
+      padding: 20px 30px;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex;
+      justify-content: between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .print-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin: 0;
+      flex: 1;
+    }
+
+    .print-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .print-btn {
+      background: #6aaa64;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .print-btn:hover {
+      background: #5a9954;
+      transform: translateY(-1px);
+    }
+
+    .close-btn {
+      background: #666;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      line-height: 1;
+    }
+
+    .close-btn:hover {
+      background: #444;
+    }
+
+    .print-body {
+      padding: 30px;
+      font-family: 'Courier Prime', monospace;
+      line-height: 1.6;
+      color: #1a1a1a;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding-top: 70px;
+      }
+
+      .header-content {
+        padding: 12px 16px;
+      }
+
+      .brand-title {
+        font-size: 16px;
+      }
+
+      .brand-subtitle {
+        font-size: 11px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 16px;
+        right: 16px;
+        background: white;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        padding: 16px;
+        flex-direction: column;
+        gap: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-link {
+        padding: 12px 16px;
+        text-align: center;
+        border-radius: 6px;
+        width: 100%;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .page-header {
+        padding: 24px 16px;
+      }
+
+      .page-title {
+        font-size: 32px;
+      }
+
+      .content-wrapper {
+        padding: 0 16px 24px 16px;
+      }
+
+      .section {
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+
+      .print-modal {
+        padding: 10px;
+      }
+
+      .print-content {
+        max-height: 95vh;
+        border-radius: 8px;
+      }
+
+      .print-header {
+        padding: 16px 20px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .print-actions {
+        justify-content: space-between;
+      }
+
+      .print-body {
+        padding: 20px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-content {
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+      }
+
+      .brand-logo {
+        width: 28px;
+        height: 28px;
+        font-size: 10px;
+      }
+
+      .page-title {
+        font-size: 28px;
+        letter-spacing: -0.5px;
+      }
+
+      .page-subtitle {
+        font-size: 14px;
+      }
+
+      .print-header {
+        padding: 12px 16px;
+      }
+
+      .print-body {
+        padding: 16px;
+        font-size: 13px;
+      }
+
+      .print-title {
+        font-size: 20px;
+      }
+
+      .print-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+    }
+
+    /* Print-specific styles */
+    @media print {
+      .print-header,
+      .print-actions {
+        display: none !important;
+      }
+
+      .print-content {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+      }
+
+      .print-body {
+        padding: 0 !important;
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+      }
+
+      body {
+        background: white !important;
+      }
+    }
+
+    /* Content formatting styles */
+    .specs-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .spec-item {
+      background: rgba(248, 249, 250, 0.1);
+      padding: 12px 16px;
+      border-radius: 6px;
+      border-left: 3px solid #6aaa64;
+    }
+
+    .spec-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      color: #ccc;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .spec-value {
+      font-family: 'Courier Prime', monospace;
+      font-size: 14px;
+      color: #ffffff;
+      font-weight: 700;
     }
 
     .table-title {
-      font-size: 1.8rem;
-      letter-spacing: -0.5px;
-      text-align: left;
-      margin-bottom: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
       border-left: 4px solid #6aaa64;
       padding-left: 12px;
+      color: #ffffff;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
+      margin: 16px 0;
+      font-family: 'Inter', sans-serif;
     }
 
     thead th {
       text-align: left;
       padding: 12px;
-      font-weight: 700;
-      border-bottom: 2px solid #1a1a1a;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      background: #f5f5f5;
+      font-weight: 600;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+      font-size: 14px;
+      color: #ccc;
     }
 
     tbody td {
       padding: 12px;
-      border-bottom: 1px solid #ccc;
-      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      color: #ffffff;
     }
 
-    tr:last-child td {
-      border-bottom: none;
+    .rules-list {
+      background: rgba(248, 249, 250, 0.1);
+      border-radius: 6px;
+      padding: 16px;
+      margin: 16px 0;
+      border-left: 3px solid #6aaa64;
     }
 
-    .hailing-enemy-section {
-      margin-bottom: 30px;
-    }
-
-    .hailing-enemy-setup-container {
-      background: rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      border-radius: 4px;
-      padding: 2rem;
-    }
-
-    .hailing-enemy-description {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #555555;
+    .rules-list ul {
       margin: 0;
+      padding-left: 20px;
     }
 
-    .hailing-enemy-game-flow {
-      display: grid;
-      gap: 1rem;
-      margin-bottom: 2rem;
+    .rules-list li {
+      margin: 8px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #ffffff;
     }
 
-    .hailing-enemy-flow-step {
-      background: rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 2px;
-      padding: 1.5rem;
+    .hailing-steps {
+      margin: 20px 0;
+    }
+
+    .step-container {
+      background: rgba(248, 249, 250, 0.1);
+      border-radius: 6px;
+      padding: 20px;
+      margin: 16px 0;
+      border-left: 3px solid #6aaa64;
       position: relative;
     }
 
-    .hailing-enemy-step-number {
+    .step-number {
       position: absolute;
-      top: -0.75rem;
-      left: 1.5rem;
+      top: -8px;
+      left: 16px;
       background: #6aaa64;
-      color: #ffffff;
-      width: 1.5rem;
-      height: 1.5rem;
+      color: white;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.75rem;
+      font-weight: 700;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .step-title {
+      font-family: 'Inter', sans-serif;
       font-weight: 600;
+      font-size: 16px;
+      color: #ffffff;
+      margin: 8px 0 12px 0;
     }
 
-    .hailing-enemy-step-title {
-      font-size: 1rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      color: #333333;
+    .response-grid {
+      display: grid;
+      gap: 12px;
+      margin: 16px 0;
     }
 
-    .hailing-enemy-step-description {
-      font-size: 0.9rem;
-      color: #666666;
-      line-height: 1.5;
+    .response-item {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      padding: 16px;
     }
 
-    .hailing-enemy-response-options {
-      margin-top: 1rem;
+    .response-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
     }
 
-    .hailing-enemy-response-option {
-      margin-bottom: 0.75rem;
-      padding: 1rem;
-      background: rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 3px;
-      color: #444444;
-      font-size: 0.9rem;
-    }
-
-    .hailing-enemy-response-option strong {
-      color: #6aaa64;
-      font-size: 1rem;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-
-    .hailing-enemy-sub-options {
-      margin-top: 0.5rem;
-      margin-left: 1rem;
-      font-size: 0.85rem;
-      color: #666666;
+    .response-desc {
+      font-size: 14px;
+      color: #e0e0e0;
       line-height: 1.4;
     }
 
-    .hailing-enemy-example-box {
-      background: rgba(68, 255, 68, 0.05);
-      border: 1px solid rgba(68, 255, 68, 0.2);
-      border-radius: 2px;
-      padding: 2rem;
-      margin-bottom: 2rem;
+    .example-box {
+      background: rgba(255, 243, 205, 0.2);
+      border: 1px solid #ffc107;
+      border-radius: 6px;
+      padding: 16px;
+      margin: 16px 0;
     }
 
-    .hailing-enemy-example-title {
-      font-size: 1rem;
-      font-weight: 500;
-      color: #228b22;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .hailing-enemy-example-flow {
-      font-family: 'Courier New', monospace;
-      font-size: 0.9rem;
-      line-height: 1.8;
-      color: #333333;
-    }
-
-    .hailing-enemy-code {
-      background: rgba(0, 0, 0, 0.1);
-      padding: 0.2rem 0.4rem;
-      border-radius: 2px;
-      font-family: 'Courier New', monospace;
-      color: #228b22;
-    }
-
-    .hailing-enemy-highlight {
-      color: #6aaa64;
-      font-weight: 500;
-    }
-
-    .hailing-enemy-arrow {
-      color: #888888;
-      margin: 0 0.5rem;
-    }
-
-    .combat-section {
-      margin-bottom: 30px;
-    }
-
-    .combat-game-flow {
-      display: grid;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .combat-flow-step {
-      background: rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 2px;
-      padding: 1.5rem;
-      position: relative;
-    }
-
-    .combat-step-number {
-      position: absolute;
-      top: -0.75rem;
-      left: 1.5rem;
-      background: #6aaa64;
-      color: #ffffff;
-      width: 1.5rem;
-      height: 1.5rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
+    .example-title {
+      font-family: 'Inter', sans-serif;
       font-weight: 600;
-    }
-
-    .combat-step-title {
-      font-size: 1rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      color: #333333;
-    }
-
-    .combat-step-description {
-      font-size: 0.9rem;
-      color: #666666;
-      line-height: 1.5;
-      margin-bottom: 0.75rem;
-    }
-
-    .combat-quote {
-      background: rgba(106, 170, 100, 0.05);
-      border-left: 3px solid #6aaa64;
-      padding: 0.75rem 1rem;
-      margin: 0.75rem 0;
-      font-style: italic;
-      color: #444444;
-    }
-
-    .combat-responses-label {
-      font-size: 0.9rem;
-      color: #666666;
-      margin: 1rem 0 0.5rem 0;
-      font-weight: 500;
-    }
-
-    .combat-callout {
-      background: rgba(0, 0, 0, 0.1);
-      padding: 0.2rem 0.4rem;
-      border-radius: 2px;
-      font-family: 'Courier New', monospace;
-      color: #6aaa64;
-      font-weight: 500;
-    }
-
-    .combat-response-options {
-      margin-top: 0.5rem;
-    }
-
-    .combat-response-option {
-      margin-bottom: 0.75rem;
-      padding: 1rem;
-      background: rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 3px;
-      color: #444444;
-      font-size: 0.9rem;
-    }
-
-    .combat-response-option strong {
-      color: #6aaa64;
-      font-size: 1rem;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-
-    .combat-defender-info {
-      background: rgba(106, 170, 100, 0.05);
-      border: 1px solid rgba(106, 170, 100, 0.2);
-      border-radius: 2px;
-      padding: 1.5rem;
-      margin-top: 1rem;
-    }
-
-    .combat-defender-info strong {
-      color: #6aaa64;
-      font-weight: 500;
-    }
-
-    .victory-section {
-      margin-bottom: 30px;
-    }
-
-    .victory-game-flow {
-      display: grid;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .victory-flow-step {
-      background: rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 2px;
-      padding: 1.5rem;
-      position: relative;
-    }
-
-    .victory-step-number {
-      position: absolute;
-      top: -0.75rem;
-      left: 1.5rem;
-      background: #6aaa64;
       color: #ffffff;
-      width: 1.5rem;
-      height: 1.5rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 600;
+      margin-bottom: 8px;
     }
 
-    .victory-step-title {
-      font-size: 1rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      color: #333333;
-    }
-
-    .victory-step-description {
-      font-size: 0.9rem;
-      color: #666666;
-      line-height: 1.5;
-      margin-bottom: 0.75rem;
-    }
-
-    .victory-quote {
-      background: rgba(106, 170, 100, 0.05);
-      border-left: 3px solid #6aaa64;
-      padding: 0.75rem 1rem;
-      margin: 0.75rem 0;
+    .quote {
       font-style: italic;
-      color: #444444;
-    }
-
-    .victory-callout {
-      background: rgba(0, 0, 0, 0.1);
-      padding: 0.2rem 0.4rem;
-      border-radius: 2px;
-      font-family: 'Courier New', monospace;
-      color: #6aaa64;
-      font-weight: 500;
-    }
-
-    .victory-response-options {
-      margin-top: 0.5rem;
-    }
-
-    .victory-response-option {
-      margin-bottom: 0.75rem;
-      padding: 1rem;
-      background: rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 3px;
-      color: #444444;
-      font-size: 0.9rem;
-    }
-
-    .victory-response-option strong {
-      color: #6aaa64;
-      font-size: 1rem;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-
-    .victory-setup-container {
-      background: rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: rgba(106, 170, 100, 0.2);
+      padding: 8px 12px;
       border-radius: 4px;
-      padding: 2rem;
+      margin: 8px 0;
+      border-left: 3px solid #6aaa64;
+      color: #ffffff;
     }
 
-    .victory-description {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #555555;
-      margin: 0;
+    .attack-section {
+      margin: 24px 0;
+    }
+
+    .attack-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 24px 0 16px 0;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .theme-item {
+      background: rgba(248, 249, 250, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .theme-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .theme-examples {
+      font-size: 12px;
+      color: #ccc;
+      font-style: italic;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(248, 249, 250, 0.1);
+    }
+
+    .footer-content {
+      font-family: 'Inter', sans-serif;
+      color: #ccc;
+      font-size: 12px;
+    }
+
+    .footer-title {
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .footer-link {
+      color: #6aaa64;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer-link:hover {
+      text-decoration: underline;
     }
 
     ul {
-      padding-left: 2rem;
-      margin: 1rem 0;
+      padding-left: 20px;
+      margin: 16px 0;
     }
 
     li {
-      margin: 0.5rem 0;
+      margin: 8px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #ffffff;
+    }
+
+    p {
+      margin: 16px 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #ffffff;
     }
 
     strong {
-      font-weight: 700;
+      font-weight: 600;
     }
-
-    a {
-      color: #6aaa64;
-      text-decoration: none;
-      border-bottom: 1px dotted #6aaa64;
-    }
-
-    a:hover {
-      background-color: rgba(106, 170, 100, 0.1);
-    }
-
-    @media (max-width: 600px) {
-      body {
-        padding: 20px 10px;
-      }
-
-      .section {
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      .wordle-tile {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-      }
-
-      table {
-        font-size: 0.85rem;
-      }
-
-      thead th,
-      tbody td {
-        padding: 8px;
-      }
-    }
-
-    @media print {
-      body {
-        background: white;
-        color: black;
-        padding: 30px 20px;
-        max-width: 760px;
-        margin: 0 auto;
-      }
-
-      .section {
-        page-break-inside: avoid;
-        break-inside: avoid;
-        background: white !important;
-        margin-bottom: 30px;
-        border: 1px solid #333 !important;
-        padding: 20px !important;
-        box-shadow: none !important;
-      }
-
-      .section:not(:first-child) {
-        margin-top: 15px;
-      }
-
-      h1 {
-        page-break-after: avoid;
-        break-after: avoid;
-        margin-bottom: 30px;
-      }
-
-      h2,
-      h3 {
-        page-break-after: avoid;
-        break-after: avoid;
-      }
-
-      .hailing-enemy-flow-step,
-      .combat-flow-step,
-      .victory-flow-step {
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-
-      table {
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-
-      .wordle-tile {
-        display: none;
-      }
-      
-      .word-space {
-        display: none;
-      }
-
-      .button-bar {
-        display: none;
-      }
-
-      p {
-        orphans: 2;
-        widows: 2;
-      }
-
-      h1 {
-        display: none;
-      }
-
-      body::before {
-        content: "Word Fleet – Rules of Engagement";
-        display: block;
-        text-align: center;
-        font-size: 1.5rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 2px solid #333;
-      }
-
-      .section:nth-child(6) {
-        page-break-before: auto;
-      }
-    }
-        /* Navigation */
-    .nav-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(10px);
-      padding: 15px 0;
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
-
-    .nav-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .nav-logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #6aaa64;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 30px;
-    }
-
-    .nav-links a {
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      transition: none;
-    }
-
-
   </style>
 </head>
 <body>
-<!-- Navigation -->
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="index.html" class="nav-logo" onclick="scrollToTop()">Word Fleet</a>
-      <div class="nav-links">
-        <a href="index.html">Home Base</a>
-        <a href="penandpaper.html">Pen & Paper Mode</a>
-        <a href="rules.html">Rules of Engagement</a>
-        <a href="future.html">Future Deployments</a>
-        <a href="print.html">Print</a>
-      </div>
-    </div>
-  </nav>
-
-  <h1>
-    <span class="wordle-tile" style="--i: 0">R</span><span class="wordle-tile" style="--i: 1">U</span><span class="wordle-tile" style="--i: 2">L</span><span class="wordle-tile" style="--i: 3">E</span><span class="wordle-tile" style="--i: 4">S</span><span class="word-space"> </span><span class="wordle-tile" style="--i: 5">O</span><span class="wordle-tile" style="--i: 6">F</span><br>
-    <span class="wordle-tile" style="--i: 7">E</span><span class="wordle-tile" style="--i: 8">N</span><span class="wordle-tile" style="--i: 9">G</span><span class="wordle-tile" style="--i: 10">A</span><span class="wordle-tile" style="--i: 11">G</span><span class="wordle-tile" style="--i: 12">E</span><span class="wordle-tile" style="--i: 13">M</span><span class="wordle-tile" style="--i: 14">E</span><span class="wordle-tile" style="--i: 15">N</span><span class="wordle-tile" style="--i: 16">T</span>
-  </h1>
-  <h3>WORD FLEET • Pen & Paper Mode • by Kevin Kolb</h3>
-  <h4><a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></h4>
-
-  <div class="section">
-    <div style="text-align: center;">
-      <button style="margin: 0 8px; padding: 10px 20px; background: #e0e0e0; color: #888; border: 1px solid #ccc; border-radius: 4px; font-family: 'Courier Prime', monospace; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; cursor: not-allowed; box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1);">Rules</button>
-      <button onclick="window.print()" style="margin: 0 8px; padding: 10px 20px; background: #f5f5f5; color: #1a1a1a; border: 1px solid #ccc; border-radius: 4px; font-family: 'Courier Prime', monospace; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer;">Print</button>
-      <button onclick="window.location.href='index.html'" style="margin: 0 8px; padding: 10px 20px; background: #f5f5f5; color: #1a1a1a; border: 1px solid #ccc; border-radius: 4px; font-family: 'Courier Prime', monospace; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer;">Retreat</button>
-      <button onclick="window.location.href='future.html'" style="margin: 0 8px; padding: 10px 20px; background: #f5f5f5; color: #1a1a1a; border: 1px solid #ccc; border-radius: 4px; font-family: 'Courier Prime', monospace; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer;">Future</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-banner">
-      <div class="section-number">01</div>
-    </div>
-    <h2>Your Mission</h2>
-    <p>Locate and destroy enemy word-ships hidden across the attack grid. Use logic, deduction, and word knowledge to outmaneuver your opponent in this fusion of naval warfare and word puzzles.</p>
-  </div>
-
-  <div class="section">
-    <div class="section-banner">
-      <div class="section-number">02</div>
-    </div>
-    <h2>Mission Specs</h2>
-    <p><strong>Personnel:</strong> 2 captains</p>
-    <p><strong>Minimum Age:</strong> 10</p>
-    <p><strong>Mission Duration:</strong> 15-30 Minutes</p>
-  </div>
-
-  <div class="section">
-    <div class="section-banner">
-      <div class="section-number">03</div>
-    </div>
-    <h2>Requisition</h2>
-    <ul>
-      <li>2 Battle Tracker sheets from <a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></li>
-      <li>2 Pens or Pencils</li>
-      <li>2 Highlighters (optional)</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <div class="section-banner">
-      <div class="section-number">04</div>
-    </div>
-    <h2>Fleet Deployment</h2>
-    <p>Deploy five word-ships on your Defense Grid. Use either auto-generated or custom words; both players must use the same method.</p>
-    
-    <table>
-      <thead>
-        <tr>
-          <th>word-ship Classification</th>
-          <th>Length</th>
-          <th>Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>KETCH</td><td>5 letters</td><td>PIANO</td></tr>
-        <tr><td>SHIP</td><td>4 letters</td><td>JUMP</td></tr>
-        <tr><td>SUB</td><td>3 letters</td><td>BED</td></tr>
-        <tr><td>ARK</td><td>3 letters</td><td>RUN</td></tr>
-        <tr><td>PT</td><td>2 letters</td><td>IF</td></tr>
-      </tbody>
-    </table>
-
-    <ul>
-      <li>word-ship classifications are for reference only and do not affect gameplay</li>
-      <li>Place word-ships horizontally (left-to-right) or vertically (top-to-bottom)</li>
-      <li>No diagonals, backwards, or upward placements</li>
-      <li>Ships may touch but not overlap</li>
-      <li>No proper nouns, abbreviations, or suffixes</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <div class="section-banner">
-      <div class="section-number">05</div>
-    </div>
-    <h2>Hailing the Enemy</h2>
-    <p>Determine who strikes first through a mini-game of strategy and deception.</p>
-
-    <div class="hailing-enemy-section">
-      <div class="hailing-enemy-setup-container">
-        <p class="hailing-enemy-description">
-          Both captains have <span class="hailing-enemy-highlight">5 launch codes</span> (000–999) stamped on their battle tracker. 
-          Use codes, strategy and deception to try and secure the first strike!
-        </p>
-      </div>
-    </div>
-
-    <div class="hailing-enemy-section">
-      <div class="hailing-enemy-game-flow">
-        <div class="hailing-enemy-flow-step">
-          <div class="hailing-enemy-step-number">1</div>
-          <div class="hailing-enemy-step-title">Opening Hail</div>
-          <div class="hailing-enemy-step-description">Call out a launch code, real or fake</div>
-        </div>
-        <div class="hailing-enemy-flow-step">
-          <div class="hailing-enemy-step-number">2</div>
-          <div class="hailing-enemy-step-title">Response</div>
-          <div class="hailing-enemy-step-description">Respond with one of 3 choices:</div>
-          <div class="hailing-enemy-response-options">
-            <div class="hailing-enemy-response-option">
-              <strong>Concede</strong> – Give up
-              <div class="hailing-enemy-sub-options">
-                → Original captain strikes first
-              </div>
-            </div>
-            <div class="hailing-enemy-response-option">
-              <strong>Challenge</strong> – Demand proof
-              <div class="hailing-enemy-sub-options">
-                → Code is valid: original captain strikes first<br>
-                → Code is fake: challenging captain strikes first
-              </div>
-            </div>
-            <div class="hailing-enemy-response-option">
-              <strong>Counter</strong> – Call an equal or higher code
-              <div class="hailing-enemy-sub-options">
-                → Now the original captain must respond to this new code
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="hailing-enemy-flow-step">
-          <div class="hailing-enemy-step-number">3</div>
-          <div class="hailing-enemy-step-title">Continue</div>
-          <div class="hailing-enemy-step-description">Continue until someone gives up or is caught lying</div>
+  <!-- Swiss-inspired Fixed Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-brand">
+        <a href="index.html" class="brand-logo">WF</a>
+        <div class="brand-text">
+          <a href="index.html" class="brand-title">Word Fleet</a>
+          <span class="brand-subtitle">by Kevin Kolb</span>
         </div>
       </div>
-    </div>
-
-    <div class="hailing-enemy-section">
-      <div class="hailing-enemy-setup-container">
-        <div class="hailing-enemy-example-title">Sample skirmish</div>
-        <div class="hailing-enemy-example-flow">
-          Original captain: <span class="hailing-enemy-code">"850"</span> 
-          <span class="hailing-enemy-arrow">→</span> 
-          Other captain: <span class="hailing-enemy-code">"900"</span> 
-          <span class="hailing-enemy-arrow">→</span> 
-          Original captain: <span class="hailing-enemy-code">"Challenge!"</span>
-          <br><br>
-          <span class="hailing-enemy-highlight">Result:</span> Other captain reveals no 900 launch code → Original captain strikes first
+      
+      <nav class="nav-menu">
+        <div class="nav-links" id="navLinks">
+          <a href="index.html" class="nav-link">Home Base</a>
+          <a href="pandp.html" class="nav-link">Pen & Paper</a>
+          <a href="rules.html" class="nav-link active">Rules</a>
+          <a href="future.html" class="nav-link">Future</a>
+          <button class="nav-link" id="printBtn">📄 Print</button>
         </div>
+        <button class="menu-toggle" id="menuToggle">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Print Modal -->
+  <div class="print-modal" id="printModal">
+    <div class="print-content">
+      <div class="print-header">
+        <h2 class="print-title">Word Fleet - Rules of Engagement</h2>
+        <div class="print-actions">
+          <button class="print-btn" id="printPreviewBtn">
+            <span>🖨️</span>
+            Print Rules
+          </button>
+          <button class="close-btn" id="closeModal">×</button>
+        </div>
+      </div>
+      <div class="print-body" id="printableContent">
+        <!-- Print content will be inserted here -->
       </div>
     </div>
   </div>
 
-  <div class="section">
-    <div class="section-banner">
-      <div class="section-number">06</div>
-    </div>
-    <h2>Engage the Enemy</h2>
-    <p>With first strike determined, battle begins! Choose one of two tactical options each turn.</p>
+  <!-- Clean Page Header -->
+  <div class="page-header">
+    <div class="page-category">Pen & Paper Mode</div>
+    <h1 class="page-title">Rules of Engagement</h1>
+    <p class="page-subtitle">Locate and destroy enemy word-ships hidden across the attack grid. Use logic, deduction, and word knowledge to outmaneuver your opponent.</p>
+  </div>
 
-    <div class="combat-section">
-      <div class="hailing-enemy-setup-container">
-        <p class="hailing-enemy-description">On your turn, choose one of two tactical options:</p>
-        <ul style="margin: 1rem 0; padding-left: 2rem; line-height: 1.6;">
-          <li><strong>Standard Attack</strong> – Initial Strike on a coordinate, with potential Alpha Strike follow-up if you hit a word-ship</li>
-          <li><strong>Demand Surrender</strong> – Attempt total victory by revealing the enemy's entire fleet</li>
+  <!-- Content starts here -->
+  <div class="content-wrapper">
+    <div class="section">
+      <div class="section-banner"></div>
+      <h2>Your Mission</h2>
+      <p>Locate and destroy enemy word-ships hidden across the attack grid. Use logic, deduction, and word knowledge to outmaneuver your opponent in this fusion of naval warfare and word puzzles.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-banner"></div>
+      <h2>Mission Specs</h2>
+      <div class="specs-container">
+        <div class="spec-item">
+          <div class="spec-label">Personnel</div>
+          <div class="spec-value">2 captains</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Minimum Age</div>
+          <div class="spec-value">10 years</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Mission Duration</div>
+          <div class="spec-value">15-30 Minutes</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-banner"></div>
+      <h2>Requisition</h2>
+      <ul>
+        <li>2 Battle Tracker sheets from <a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></li>
+        <li>2 Pens or Pencils</li>
+        <li>2 Highlighters (optional)</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-banner"></div>
+      <h2>Fleet Deployment</h2>
+      <p>Deploy five word-ships on your Defense Grid. Use either auto-generated or custom words; both players must use the same method.</p>
+      
+      <div class="table-title">Word-ship Classifications</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Classification</th>
+            <th>Length</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>KETCH</td><td>5 letters</td><td>PIANO</td></tr>
+          <tr><td>SHIP</td><td>4 letters</td><td>JUMP</td></tr>
+          <tr><td>SUB</td><td>3 letters</td><td>BED</td></tr>
+          <tr><td>ARK</td><td>3 letters</td><td>RUN</td></tr>
+          <tr><td>PT</td><td>2 letters</td><td>IF</td></tr>
+        </tbody>
+      </table>
+
+      <div class="rules-list">
+        <strong>Deployment Rules:</strong>
+        <ul>
+          <li>Word-ship classifications are for reference only and do not affect gameplay</li>
+          <li>Place word-ships horizontally (left-to-right) or vertically (top-to-bottom)</li>
+          <li>No diagonals, backwards, or upward placements</li>
+          <li>Ships may touch but not overlap</li>
+          <li>No proper nouns, abbreviations, or suffixes</li>
         </ul>
       </div>
     </div>
 
-    <div class="combat-section">
-      <h3 style="text-align: left; font-size: 1.25rem; letter-spacing: -0.5px; margin-bottom: 10px; padding-left: 0px; color: #6aaa64;">Standard Attack</h3>
-      <div class="combat-game-flow">
-        <div class="combat-flow-step">
-          <div class="combat-step-number">1</div>
-          <div class="combat-step-title">Initial Strike</div>
-          <div class="combat-step-description">Choose a coordinate and call it out:</div>
-          <div class="combat-quote">
-            "Fire on coordinate Echo-Seven!" or <span class="combat-callout">"E-7!"</span>
-          </div>
-          <div class="combat-responses-label">Responses:</div>
-          <div class="combat-response-options">
-            <div class="combat-response-option">
-              <strong>MISS</strong>
-              No ship. Mark with a dot. End turn.
-              <div class="combat-quote">
-                "Miss!"
-              </div>              
+    <div class="section">
+      <div class="section-banner"></div>
+      <h2>Hailing the Enemy</h2>
+      <p>Determine who strikes first through a mini-game of strategy and deception.</p>
+
+      <div class="example-box">
+        <p>Both captains have <strong>5 launch codes</strong> (000–999) stamped on their battle tracker. Use codes, strategy and deception to try and secure the first strike!</p>
+      </div>
+
+      <div class="hailing-steps">
+        <div class="step-container">
+          <div class="step-number">1</div>
+          <div class="step-title">Opening Hail</div>
+          <p>Call out a launch code, real or fake</p>
+        </div>
+
+        <div class="step-container">
+          <div class="step-number">2</div>
+          <div class="step-title">Response</div>
+          <p>Respond with one of 3 choices:</p>
+          <div class="response-grid">
+            <div class="response-item">
+              <div class="response-name">Concede</div>
+              <div class="response-desc">Give up → Original captain strikes first</div>
             </div>
-            <div class="combat-response-option">
-              <strong>HIT</strong>
-              Ship confirmed. Highlight the coordinate's borders. Proceed to Alpha Strike.
-              <div class="combat-quote">
-                "Hit."
-              </div>
+            <div class="response-item">
+              <div class="response-name">Challenge</div>
+              <div class="response-desc">Demand proof → Code is valid: original captain strikes first | Code is fake: challenging captain strikes first</div>
+            </div>
+            <div class="response-item">
+              <div class="response-name">Counter</div>
+              <div class="response-desc">Call an equal or higher code → Now the original captain must respond to this new code</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-container">
+          <div class="step-number">3</div>
+          <div class="step-title">Continue</div>
+          <p>Continue until someone gives up or is caught lying</p>
+        </div>
+      </div>
+
+      <div class="example-box">
+        <div class="example-title">Sample Skirmish</div>
+        <p>Original captain: <strong>"850"</strong> → Other captain: <strong>"900"</strong> → Original captain: <strong>"Challenge!"</strong></p>
+        <p><strong>Result:</strong> Other captain reveals no 900 launch code → Original captain strikes first</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-banner"></div>
+      <h2>Engage the Enemy</h2>
+      <p>With first strike determined, battle begins! Choose one of two tactical options each turn.</p>
+
+      <div class="example-box">
+        <strong>On your turn, choose one of two tactical options:</strong>
+        <ul>
+          <li><strong>Standard Attack</strong> – Initial Strike on a coordinate, with potential Alpha Strike follow-up if you hit a word-ship</li>
+          <li><strong>Demand Surrender</strong> – Attempt total victory by revealing the enemy's entire fleet</li>
+        </ul>
+      </div>
+
+      <div class="attack-section">
+        <div class="attack-title">Standard Attack</div>
+        
+        <div class="step-container">
+          <div class="step-number">1</div>
+          <div class="step-title">Initial Strike</div>
+          <p>Choose a coordinate and call it out:</p>
+          <div class="quote">"Fire on coordinate Echo-Seven!" or "E-7!"</div>
+          <div class="response-grid">
+            <div class="response-item">
+              <div class="response-name">MISS</div>
+              <div class="response-desc">No ship. Mark with a dot. End turn.</div>
+              <div class="quote">"Miss!"</div>
+            </div>
+            <div class="response-item">
+              <div class="response-name">HIT</div>
+              <div class="response-desc">Ship confirmed. Highlight the coordinate's borders. Proceed to Alpha Strike.</div>
+              <div class="quote">"Hit."</div>
             </div>
           </div>
         </div>
         
-        <div class="combat-flow-step">
-          <div class="combat-step-number">2</div>
-          <div class="combat-step-title">Alpha Strike</div>
-          <div class="combat-step-description">Guess the letter at the coordinate:</div>
-          <div class="combat-quote">
-            "Alpha Strike Sierra!" or <span class="combat-callout">"S."</span>
-          </div>
-          <div class="combat-responses-label">Responses:</div>
-          <div class="combat-response-options">
-            <div class="combat-response-option">
-              <strong>BULLSEYE</strong>
-              Correct letter at that position. Write it in. End turn.
-              <div class="combat-quote">
-                "Bullseye."
-              </div>
+        <div class="step-container">
+          <div class="step-number">2</div>
+          <div class="step-title">Alpha Strike</div>
+          <p>Guess the letter at the coordinate:</p>
+          <div class="quote">"Alpha Strike Sierra!" or "S."</div>
+          <div class="response-grid">
+            <div class="response-item">
+              <div class="response-name">BULLSEYE</div>
+              <div class="response-desc">Correct letter at that position. Write it in. End turn.</div>
+              <div class="quote">"Bullseye."</div>
             </div>
-            <div class="combat-response-option">
-              <strong>LETTER TALLY</strong>
-              Wrong letter. Announce how many total times that letter appears in your fleet. End turn.
-              Attack this same coordinate again later to try different letters.
-              <div class="combat-quote">
-                "S tally 3."
-              </div>          
+            <div class="response-item">
+              <div class="response-name">LETTER TALLY</div>
+              <div class="response-desc">Wrong letter. Announce how many total times that letter appears in your fleet. End turn. Attack this same coordinate again later to try different letters.</div>
+              <div class="quote">"S tally 3."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="attack-section">
+        <div class="attack-title">Demand Surrender</div>
+        
+        <div class="step-container">
+          <div class="step-number">1</div>
+          <div class="step-title">Decisive Strike</div>
+          <p>At the beginning of any turn (instead of taking that turn), demand surrender by stating every word-ship and its exact location. Wait until all word-ships are announced before responding:</p>
+          <div class="quote">"I demand your surrender! Your fleet consists of: PIANO at Charlie-3 through Charlie-7, JUMP at Alpha-1 through Alpha-4, BED at Echo-8 through Echo-10, RUN at Bravo-5 through Delta-5, and IF at Foxtrot-2 through Foxtrot-3!"</div>
+          <div class="response-grid">
+            <div class="response-item">
+              <div class="response-name">YOU HAVE WON</div>
+              <div class="response-desc">Every word and location is correct. Achieve total victory.</div>
+              <div class="quote">"You have won."</div>
+            </div>
+            <div class="response-item">
+              <div class="response-name">VICTORY IS MINE! YOU LOSE! GOOD DAY SIR!</div>
+              <div class="response-desc">Anything is wrong (word, spelling, or coordinates). Immediately surrender and lose the game.</div>
+              <div class="quote">"Victory is mine! You lose! Good day sir!"</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="combat-section">
-      <h3 style="text-align: left; font-size: 1.25rem; letter-spacing: -0.5px; margin-bottom: 10px; padding-left: 0px; color: #6aaa64;">Demand Surrender</h3>
-      <div class="victory-game-flow">
-        <div class="victory-flow-step">
-          <div class="victory-step-number">1</div>
-          <div class="victory-step-title">Decisive Strike</div>
-          <div class="victory-step-description">At the beginning of any turn (instead of taking that turn), demand surrender by stating every word-ship and its exact location. Wait until all word-ships are announced before responding:</div>
-          <div class="victory-quote">
-            "I demand your surrender! Your fleet consists of: PIANO at Charlie-3 through Charlie-7, JUMP at Alpha-1 through Alpha-4, BED at Echo-8 through Echo-10, RUN at Bravo-5 through Delta-5, and IF at Foxtrot-2 through Foxtrot-3!"
-          </div>
-          <div class="combat-responses-label">Responses:</div>
-          <div class="victory-response-options">
-            <div class="victory-response-option">
-              <strong>YOU HAVE WON</strong>
-              Every word and location is correct. Achieve total victory.
-              <div class="victory-quote">
-                "You have won."
-              </div>
-            </div>
-            <div class="victory-response-option">
-              <strong>VICTORY IS MINE! YOU LOSE! GOOD DAY SIR!</strong>
-              Anything is wrong (word, spelling, or coordinates). Immediately surrender and lose the game.
-              <div class="victory-quote">
-                "Victory is mine! You lose! Good day sir!"
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="section">
+      <div class="section-banner"></div>
+      <h2>Defense Operations</h2>
+      <p>Track your opponent's attacks and respond accurately.</p>
+      <p><strong>When being attacked:</strong></p>
+      <ul>
+        <li>Mark dots for enemy misses on Defense Grid</li>
+        <li>Highlight borders for confirmed hits on Defense Grid</li>
+        <li>Trace over each letter discovered via bullseye on Defense Grid</li>
+      </ul>
+      <div class="rules-list">
+        <strong>Important:</strong> When all coordinates of a word-ship are hit, announce which word-ship has been revealed. Do NOT announce the word itself.
       </div>
     </div>
+
   </div>
 
-  <div class="section">
-    <div class="section-banner">
-      <div class="section-number">07</div>
-    </div>
-    <h2>Defense Operations</h2>
-    <p>Track your opponent's attacks and respond accurately.</p>
-    <p>When being attacked:</p>
-    <ul>
-      <li>Mark dots for enemy misses on Defense Grid</li>
-      <li>Highlight borders for confirmed hits on Defense Grid</li>
-      <li>Trace over each letter discovered via bullseye on Defense Grid</li>
-    </ul>
-    <p><strong>Important:</strong> When all coordinates of a word-ship are hit, announce which word-ship has been revealed. Do NOT announce the word itself.</p>
-  </div>
+  <script>
+    // Mobile menu toggle
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('open');
+    });
 
-  <div class="section">
-    <div class="section-banner">
-      <div class="section-number">08</div>
-    </div>
-    <h2>Themed Battles</h2>
-    <p>For variety, deploy fleets around specific themes:</p>
-    <ul>
-      <li><strong>Biological:</strong> ZEBRA, FROG, COW, BAT, OX</li>
-      <li><strong>Directional:</strong> NORTH, LEFT, TOP, WAY, UP</li>
-      <li><strong>Additional themes:</strong> Musical, Celestial, Culinary, Oceanic, Metallic, Geometric, Temporal, Athletic, Botanical, Atmospheric</li>
-    </ul>
-  </div>
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+      const navLinks = document.getElementById('navLinks');
+      const menuToggle = document.getElementById('menuToggle');
+      
+      if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+        navLinks.classList.remove('open');
+      }
+    });
 
-  <div class="section">
-    <div class="section-banner">
-      <div class="section-number">09</div>
-    </div>
-    <h2>Difficulty Adjustment Protocol</h2>
-    <p>For uneven battles, use <strong>Manual Selection</strong> to deploy custom-chosen high-difficulty words while your opponent uses <strong>Auto-Generated</strong> word-ships.</p>
-  </div>
+    // Print functionality
+    document.getElementById('printBtn').addEventListener('click', function() {
+      const modal = document.getElementById('printModal');
+      const printableContent = document.getElementById('printableContent');
+      
+      // Clone the main content for printing
+      const content = document.querySelector('.content-wrapper').cloneNode(true);
+      printableContent.innerHTML = '';
+      printableContent.appendChild(content);
+      
+      modal.classList.add('active');
+    });
 
-  <div class="section">
-    <div class="section-banner">
-      <div class="section-number">10</div>
-    </div>
-    <h2>Join The Fight</h2>
-    <p>Have you developed a new way to play? Send it to: <a href="mailto:missioncontrol@thegamebureau.com">missioncontrol@thegamebureau.com</a></p>
-  </div>
+    document.getElementById('closeModal').addEventListener('click', function() {
+      const modal = document.getElementById('printModal');
+      modal.classList.remove('active');
+    });
 
-  <h3>WORD FLEET • Pen & Paper Mode • by Kevin Kolb</h3>
-  <h4><a href="https://the-game-bureau.github.io/wordfleet">https://the-game-bureau.github.io/wordfleet</a></h4>
+    document.getElementById('printPreviewBtn').addEventListener('click', function() {
+      window.print();
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('printModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('active');
+      }
+    });
+  </script>
 </body>
 </html>

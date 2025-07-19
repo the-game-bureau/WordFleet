@@ -3,17 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Future Deployments</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Preload the background image -->
+  <title>Word Fleet 🔱 Future Deployments</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="src/media/wf.ico">
+  <link rel="shortcut icon" href="src/media/wf.ico">
+  
+  <!-- Apple Touch Icons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="src/media/apple-touch-icon-57x57-precomposed.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="src/media/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="src/media/apple-touch-icon-76x76-precomposed.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="src/media/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="src/media/apple-touch-icon-120x120-precomposed.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="src/media/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="src/media/apple-touch-icon-152x152-precomposed.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="src/media/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="src/media/apple-touch-icon-167x167-precomposed.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="src/media/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="src/media/apple-touch-icon-180x180-precomposed.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="src/media/apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" href="src/media/apple-touch-icon.png">
+  
+  <!-- Safari Pinned Tab -->
+  <link rel="mask-icon" href="src/media/safari-pinned-tab.svg" color="#6aaa64">
+  
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="src/media/site.webmanifest">
+  
+  <!-- Apple Web App Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Word Fleet">
+  
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#6aaa64">
+  <meta name="msapplication-TileColor" content="#6aaa64">
+  
+  <!-- Preload background image -->
   <link rel="preload" href="src/media/wfbg.png" as="image">
   <style>
-    /* Base HTML/Body Background Setup */
     html, body {
       margin: 0;
       padding: 0;
       min-height: 100%;
-      font-family: 'Courier Prime', monospace;
+      font-family: 'Courier New', Courier, monospace;
       color: #ffffff;
       background: url('src/media/wfbg.png') no-repeat center center fixed;
       background-size: cover;
@@ -21,505 +54,489 @@
       overflow-x: hidden;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    /* Body Overlay with Gradient */
     body {
       background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('src/media/wfbg.png') no-repeat center center fixed;
       background-size: cover;
       background-attachment: fixed;
-      font-family: 'Courier Prime', monospace;
-      color: #ffffff;
-      padding: 0;
-      margin: 0;
-      line-height: 1.6;
-      padding-top: 80px; /* Account for fixed header */
     }
 
-    a {
-  color: #ffffff;
-  text-decoration: underline;
-}
-
-    /* Swiss-inspired Header */
-    .header {
+    /* Navigation */
+    .nav-bar {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      background: #ffffff;
-      border-bottom: 1px solid #e5e5e5;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 15px 0;
       z-index: 1000;
-      padding: 0;
+      transition: all 0.3s ease;
     }
 
-    .header-content {
-      max-width: 1200px;
+    .nav-container {
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 16px 20px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .header-brand {
+      padding: 0 40px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 12px;
     }
 
-.brand-logo {
-  width: 40px; /* Increased width to match button height */
-  height: 40px; /* Match the nav button height (padding + line-height) */
-  background: #6aaa64;
-  border: 2px solid #565758;
-  border-radius: 0; /* Square like Wordle */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 700;
-  font-size: 14px; /* Larger font for bigger tile */
-  font-family: 'Inter', sans-serif;
-  letter-spacing: -0.5px;
-  text-decoration: none;
-  transition: all 0.15s ease;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-}
-
-.brand-logo:hover {
-  transform: scale(1.05);
-  border-color: #3a3a3c;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-}
-
-/* Mobile adjustments to keep proportions */
-@media (max-width: 480px) {
-  .brand-logo {
-    width: 36px;
-    height: 36px;
-    font-size: 12px;
-  }
-}
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .brand-title {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 18px;
-      color: #1a1a1a;
-      line-height: 1;
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #6aaa64;
       text-decoration: none;
-    }
-
-    .brand-subtitle {
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      font-size: 12px;
-      color: #666;
-      line-height: 1;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 0;
+      cursor: pointer;
     }
 
     .nav-links {
       display: flex;
-      background: #f5f5f5;
-      border-radius: 6px;
-      padding: 4px;
-      gap: 4px;
+      gap: 30px;
     }
 
-    .nav-link {
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      color: #666;
+    .nav-links a {
+      color: #ffffff;
       text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      transition: all 0.15s ease;
-      white-space: nowrap;
-      border: none;
-      background: none;
-      cursor: pointer;
-    }
-
-    .nav-link:hover {
-      color: #1a1a1a;
-      background: rgba(255, 255, 255, 0.8);
-    }
-
-    .nav-link.active {
-      color: #1a1a1a;
-      background: #ffffff;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Mobile Menu Toggle */
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 24px;
-      color: #1a1a1a;
-      cursor: pointer;
-      padding: 8px;
-      margin: -8px;
-    }
-
-    /* Page Title Section with Hero Overlay */
-    .page-header {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      text-align: center;
-      position: relative;
-      background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0));
-      border-radius: 8px;
-    }
-
-    .page-category {
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      color: #ffffff;
+      font-size: 0.9rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease;
     }
 
-    .page-title {
-      font-family: 'Inter', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      color: #ffffff;
-      line-height: 1.1;
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: -1px;
+    .nav-links a:hover {
+      color: #6aaa64;
     }
 
-    .page-subtitle {
-      font-family: 'Courier Prime', monospace;
-      font-size: 16px;
-      color: #e0e0e0;
-      margin: 12px 0 0 0;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+    .nav-links a.active {
+      color: #6aaa64;
+      font-weight: bold;
     }
 
-    /* Content Area */
-    .content-wrapper {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 20px 40px 20px;
-    }
-
-    /* Section Alternating Overlays */
-    .section {
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 30px;
-      margin-bottom: 20px;
-      background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6));
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    }
-
-    .section:nth-child(even) {
-      background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6));
-    }
-
-    .section:nth-child(odd) {
+    /* Main Content Section */
+    .content-section {
+      min-height: 100vh;
+      padding: 80px 0;
       background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8));
     }
 
-    .section-banner {
-      height: 2px;
-      background: #6aaa64;
-      width: 40px;
-      margin: 0 0 20px 0;
+    .section-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      width: 100%;
     }
 
-    h2 {
-      font-family: 'Inter', sans-serif;
-      font-size: 24px;
-      font-weight: 600;
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .section-title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+      letter-spacing: -1px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
       color: #ffffff;
-      margin: 0 0 16px 0;
-      line-height: 1.2;
     }
 
-    /* Print Modal Styles */
-    .print-modal {
-      display: none;
-      position: fixed;
+    .section-subtitle {
+      font-size: 1.3rem;
+      color: #cccccc;
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Roadmap Timeline */
+    .roadmap-timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      max-width: none;
+      margin: 0;
+    }
+
+    .roadmap-item {
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 0;
+      border-left: 4px solid #6aaa64;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .roadmap-item::before {
+      content: '';
+      position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 2000;
-      backdrop-filter: blur(4px);
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #6aaa64, #5a9954);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
-    .print-modal.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    .roadmap-item:hover {
+      transform: translateY(-10px);
+      border-color: #6aaa64;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.5);
     }
 
-    .print-content {
-      background: white;
-      border-radius: 12px;
-      max-width: 900px;
-      max-height: 90vh;
-      width: 100%;
-      overflow-y: auto;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    .roadmap-item:hover::before {
+      opacity: 1;
+    }
+
+    .roadmap-date {
+      font-size: 0.9rem;
+      color: #6aaa64;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .roadmap-title {
+      font-size: 1.8rem;
+      margin: 15px 0;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .roadmap-description {
+      color: #cccccc;
+      line-height: 1.7;
+      font-size: 1.1rem;
+    }
+
+    .roadmap-status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 15px;
+    }
+
+    .status-planning {
+      background: rgba(59, 130, 246, 0.2);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .status-development {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .status-testing {
+      background: rgba(168, 85, 247, 0.2);
+      color: #a855f7;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .status-future {
+      background: rgba(156, 163, 175, 0.2);
+      color: #9ca3af;
+      border: 1px solid rgba(156, 163, 175, 0.3);
+    }
+
+    /* Feature Highlights */
+    .feature-highlights {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .feature-list li {
+      color: #ffffff;
+      margin-bottom: 8px;
+      padding-left: 20px;
       position: relative;
     }
 
-    .print-header {
-      padding: 20px 30px;
-      border-bottom: 1px solid #e5e5e5;
-      display: flex;
-      justify-content: between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
+    .feature-list li::before {
+      content: "⚡";
+      position: absolute;
+      left: 0;
+      color: #6aaa64;
     }
 
-    .print-title {
-      font-family: 'Inter', sans-serif;
-      font-size: 24px;
-      font-weight: 600;
-      color: #1a1a1a;
-      margin: 0;
-      flex: 1;
+    /* CTA Section */
+    .cta-section {
+      background: rgba(106, 170, 100, 0.1);
+      border: 1px solid rgba(106, 170, 100, 0.2);
+      border-radius: 12px;
+      padding: 40px;
+      margin-top: 60px;
+      text-align: center;
     }
 
-    .print-actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
+    .cta-title {
+      font-size: 2rem;
+      color: #6aaa64;
+      margin-bottom: 15px;
+      font-weight: bold;
     }
 
-    .print-btn {
-      background: #6aaa64;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .print-btn:hover {
-      background: #5a9954;
-      transform: translateY(-1px);
-    }
-
-    .close-btn {
-      background: #666;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 4px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      line-height: 1;
-    }
-
-    .close-btn:hover {
-      background: #444;
-    }
-
-    .print-body {
-      padding: 30px;
-      font-family: 'Courier Prime', monospace;
+    .cta-description {
+      color: #ffffff;
+      font-size: 1.1rem;
       line-height: 1.6;
-      color: #1a1a1a;
+      margin-bottom: 25px;
     }
 
-    /* Mobile Responsive */
+    .cta-btn {
+      display: inline-block;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #6aaa64, #5a9954);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      margin: 0 10px;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(106, 170, 100, 0.4);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .section-title { font-size: 2.8rem; }
+    }
+
     @media (max-width: 768px) {
-      body {
-        padding-top: 70px;
-      }
-
-      .header-content {
-        padding: 12px 16px;
-      }
-
-      .brand-title {
-        font-size: 16px;
-      }
-
-      .brand-subtitle {
-        font-size: 11px;
-      }
-
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 16px;
-        right: 16px;
-        background: white;
-        border: 1px solid #e5e5e5;
-        border-radius: 8px;
-        padding: 16px;
-        flex-direction: column;
-        gap: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      }
-
-      .nav-links.open {
-        display: flex;
-      }
-
-      .nav-link {
-        padding: 12px 16px;
-        text-align: center;
-        border-radius: 6px;
-        width: 100%;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      .page-header {
-        padding: 24px 16px;
-      }
-
-      .page-title {
-        font-size: 32px;
-      }
-
-      .content-wrapper {
-        padding: 0 16px 24px 16px;
-      }
-
-      .section {
-        padding: 20px;
-        margin-bottom: 16px;
-      }
-
-      .print-modal {
-        padding: 10px;
-      }
-
-      .print-content {
-        max-height: 95vh;
-        border-radius: 8px;
-      }
-
-      .print-header {
-        padding: 16px 20px;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-      }
-
-      .print-actions {
-        justify-content: space-between;
-      }
-
-      .print-body {
-        padding: 20px;
-        font-size: 14px;
+      .nav-container { padding: 0 20px; }
+      .nav-links { gap: 15px; }
+      .nav-links a { font-size: 0.8rem; }
+      .section-container { padding: 0 20px; }
+      .section-title { font-size: 2.2rem; }
+      .roadmap-timeline { grid-template-columns: 1fr; }
+      .roadmap-title { font-size: 1.5rem; }
+      .cta-section { padding: 25px; }
+      .cta-btn { 
+        display: block; 
+        margin: 10px 0; 
+        text-align: center; 
       }
     }
 
-    @media (max-width: 480px) {
-      .header-content {
-        grid-template-columns: 1fr auto;
-        gap: 12px;
+    /* Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
       }
-
-      .brand-logo {
-        width: 28px;
-        height: 28px;
-        font-size: 10px;
-      }
-
-      .page-title {
-        font-size: 28px;
-        letter-spacing: -0.5px;
-      }
-
-      .page-subtitle {
-        font-size: 14px;
-      }
-
-      .print-header {
-        padding: 12px 16px;
-      }
-
-      .print-body {
-        padding: 16px;
-        font-size: 13px;
-      }
-
-      .print-title {
-        font-size: 20px;
-      }
-
-      .print-btn {
-        padding: 10px 16px;
-        font-size: 13px;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
+
+    .animate-on-scroll {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .animate-delay-1 { animation-delay: 0.1s; }
+    .animate-delay-2 { animation-delay: 0.2s; }
+    .animate-delay-3 { animation-delay: 0.3s; }
+    .animate-delay-4 { animation-delay: 0.4s; }
+    .animate-delay-5 { animation-delay: 0.5s; }
+    .animate-delay-6 { animation-delay: 0.6s; }
+    .animate-delay-7 { animation-delay: 0.7s; }
+    .animate-delay-8 { animation-delay: 0.8s; }
 
     /* Print-specific styles */
     @media print {
-      .print-header,
-      .print-actions {
-        display: none !important;
+      @page {
+        size: A4;
+        margin: 0.5cm;
       }
 
-      .print-content {
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        max-height: none !important;
-        overflow: visible !important;
+      html, body {
+        background: none !important;
+        color: #000000;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
       }
 
-      .print-body {
-        padding: 0 !important;
-        font-size: 12px !important;
-        line-height: 1.4 !important;
+      .nav-bar {
+        display: none;
       }
 
-      body {
-        background: white !important;
+      .content-section {
+        display: block;
+        padding: 0;
+        margin: 0;
+        background: none !important;
+      }
+
+      .section-container {
+        display: block;
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+      }
+
+      .section-header {
+        margin-bottom: 10px;
+      }
+
+      .section-title {
+        font-size: 16pt;
+        color: #000000;
+        margin: 0 0 5px 0;
+        font-weight: bold;
+      }
+
+      .section-subtitle {
+        font-size: 10pt;
+        color: #333333;
+        margin: 0 0 10px 0;
+        line-height: 1.2;
+      }
+
+      .roadmap-timeline {
+        display: block;
+        margin: 0;
+      }
+
+      .roadmap-item {
+        padding: 10px 0;
+        margin: 0 0 10px 0; /* Added spacing between items */
+        page-break-inside: avoid;
+        background: none !important;
+      }
+
+      .roadmap-date {
+        font-size: 8pt;
+        color: #6aaa64;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .roadmap-title {
+        font-size: 12pt;
+        color: #000000;
+        margin: 5px 0;
+        font-weight: bold;
+      }
+
+      .roadmap-description {
+        color: #333333;
+        font-size: 10pt;
+        line-height: 1.2;
+        margin-bottom: 5px;
+      }
+
+      .roadmap-status {
+        font-size: 8pt;
+        padding: 2px 6px;
+        margin-top: 5px;
+        display: inline-block;
+        border: 1px solid;
+        background: none !important;
+      }
+
+      .status-planning {
+        color: #1e3a8a;
+        border-color: #93c5fd;
+      }
+
+      .status-development {
+        color: #92400e;
+        border-color: #fcd34d;
+      }
+
+      .status-testing {
+        color: #6b21a8;
+        border-color: #d8b4fe;
+      }
+
+      .status-future {
+        color: #4b5563;
+        border-color: #d1d5db;
+      }
+
+      .feature-highlights {
+        margin-top: 5px;
+        padding-top: 5px;
+        border-top: 1px solid #000000;
+      }
+
+      .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .feature-list li {
+        color: #333333;
+        margin-bottom: 3px;
+        padding-left: 12px;
+        position: relative;
+        font-size: 10pt;
+      }
+
+      .feature-list li::before {
+        content: "⚡";
+        position: absolute;
+        left: 0;
+        color: #6aaa64;
+      }
+
+      .cta-section {
+        padding: 10px 0;
+        margin-top: 10px;
+        page-break-inside: avoid;
+        background: none !important;
+      }
+
+      .cta-title {
+        font-size: 12pt;
+        color: #6aaa64;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      .cta-description {
+        color: #333333;
+        font-size: 10pt;
+        line-height: 1.2;
+        margin-bottom: 5px;
+      }
+
+      .cta-btn {
+        font-size: 10pt;
+        color: #6aaa64;
+        text-decoration: underline;
+        background: none !important;
+        padding: 0;
+        margin: 0;
+        display: inline;
       }
     }
-
     /* Content formatting styles */
     .specs-container {
       display: grid;
@@ -529,7 +546,6 @@
     }
 
     .spec-item {
-      background: rgba(248, 249, 250, 0.1);
       padding: 12px 16px;
       border-radius: 6px;
       border-left: 3px solid #6aaa64;
@@ -586,7 +602,6 @@
     }
 
     .rules-list {
-      background: rgba(248, 249, 250, 0.1);
       border-radius: 6px;
       padding: 16px;
       margin: 16px 0;
@@ -610,7 +625,6 @@
     }
 
     .step-container {
-      background: rgba(248, 249, 250, 0.1);
       border-radius: 6px;
       padding: 20px;
       margin: 16px 0;
@@ -650,7 +664,6 @@
     }
 
     .response-item {
-      background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 6px;
       padding: 16px;
@@ -670,7 +683,6 @@
     }
 
     .example-box {
-      background: rgba(255, 243, 205, 0.2);
       border: 1px solid #ffc107;
       border-radius: 6px;
       padding: 16px;
@@ -686,7 +698,6 @@
 
     .quote {
       font-style: italic;
-      background: rgba(106, 170, 100, 0.2);
       padding: 8px 12px;
       border-radius: 4px;
       margin: 8px 0;
@@ -716,7 +727,6 @@
     }
 
     .theme-item {
-      background: rgba(248, 249, 250, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 6px;
       padding: 12px;
@@ -741,7 +751,6 @@
       padding: 20px;
       text-align: center;
       border-top: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(248, 249, 250, 0.1);
     }
 
     .footer-content {
@@ -789,62 +798,36 @@
     strong {
       font-weight: 600;
     }
-    
   </style>
 </head>
 <body>
-  <!-- Swiss-inspired Fixed Header -->
-  <header class="header">
-    <div class="header-content">
-      <div class="header-brand">
-        <a href="index.html" class="brand-logo">WF</a>
-        <div class="brand-text">
-          <a href="index.html" class="brand-title">Word Fleet</a>
-          <span class="brand-subtitle">by Kevin Kolb</span>
-        </div>
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Word Fleet by Kevin Kolb</a>
+      <div class="nav-links">
+        <a href="index.html">Home Base</a>
+        <a href="penandpaper.html">Pen & Paper Mode</a>
+        <a href="rules.html">Rules of Engagement</a>
+        <a href="#" class="active">Future Deployments</a>
+        <a href="javascript:window.print()">Print</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Section -->
+  <section class="content-section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Future Deployments</h2>
+        <p class="section-subtitle">
+          Each phase represents a major strategic advancement in Word Fleet capabilities. 
+          Deployment schedules are classified, but these features are currently in various 
+          stages of tactical preparation and field testing.
+        </p>
       </div>
       
-      <nav class="nav-menu">
-        <div class="nav-links" id="navLinks">
-          <a href="index.html" class="nav-link">Home Base</a>
-          <a href="pandp.html" class="nav-link">Pen & Paper</a>
-          <a href="rules.html" class="nav-link active">Rules</a>
-          <a href="future.html" class="nav-link">Future</a>
-          <button class="nav-link" id="printBtn">📄 Print</button>
-        </div>
-        <button class="menu-toggle" id="menuToggle">☰</button>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Print Modal -->
-  <div class="print-modal" id="printModal">
-    <div class="print-content">
-      <div class="print-header">
-        <h2 class="print-title">Word Fleet - Future Deployments</h2>
-        <div class="print-actions">
-          <button class="print-btn" id="printPreviewBtn">
-            <span>🖨️</span>
-            Print Rules
-          </button>
-          <button class="close-btn" id="closeModal">×</button>
-        </div>
-      </div>
-      <div class="print-body" id="printableContent">
-        <!-- Print content will be inserted here -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Clean Page Header -->
-  <div class="page-header">
-    <div class="page-category">Pen & Paper Mode</div>
-    <h1 class="page-title">Future Deployments</h1>
-    <p class="page-subtitle">Each phase represents a major strategic advancement in Word Fleet capabilities. Deployment schedules are classified, but these features are currently in various stages of tactical preparation and field testing.</p>
-  </div>
-
-  <!-- Content starts here -->
-<div class="roadmap-timeline">
+      <div class="roadmap-timeline">
         <div class="roadmap-item animate-on-scroll animate-delay-1">
           <div class="roadmap-date">Phase Alpha</div>
           <h3 class="roadmap-title">Simulator Mode</h3>
