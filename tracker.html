@@ -928,6 +928,89 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
+        // Dictionary cache
+        let dictionaryWords = {};
+
+        // Load words from dictionary XML
+        async function loadDictionary() {
+            try {
+                const response = await fetch('src/dictionary/words.xml');
+                const xmlText = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+                
+                // Parse words by length
+                const wordElements = xmlDoc.getElementsByTagName('word');
+                
+                for (let wordElement of wordElements) {
+                    const word = wordElement.textContent.trim().toUpperCase();
+                    const length = word.length;
+                    
+                    if (!dictionaryWords[length]) {
+                        dictionaryWords[length] = [];
+                    }
+                    dictionaryWords[length].push(word);
+                }
+                
+                console.log('Dictionary loaded:', Object.keys(dictionaryWords).map(k => `${k}: ${dictionaryWords[k].length} words`));
+                
+                // Generate words after dictionary is loaded
+                generateRandomWords();
+                
+            } catch (error) {
+                console.error('Failed to load dictionary:', error);
+                // Fallback to placeholder words
+                generateFallbackWords();
+            }
+        }
+
+        function generateRandomWords() {
+            if (!dictionaryWords[10] || !dictionaryWords[8] || !dictionaryWords[6] || !dictionaryWords[4]) {
+                console.log('Dictionary not ready, using fallback');
+                generateFallbackWords();
+                return;
+            }
+
+            // Generate words for each ship length from dictionary
+            const ship5 = dictionaryWords[10][Math.floor(Math.random() * dictionaryWords[10].length)];
+            const ship4 = dictionaryWords[8][Math.floor(Math.random() * dictionaryWords[8].length)];
+            const ship3a = dictionaryWords[6][Math.floor(Math.random() * dictionaryWords[6].length)];
+            const ship3b = dictionaryWords[6][Math.floor(Math.random() * dictionaryWords[6].length)];
+            const ship2 = dictionaryWords[4][Math.floor(Math.random() * dictionaryWords[4].length)];
+
+            // Update the ship elements
+            document.getElementById('ship5').textContent = ship5;
+            document.getElementById('ship4').textContent = ship4;
+            document.getElementById('ship3a').textContent = ship3a;
+            document.getElementById('ship3b').textContent = ship3b;
+            document.getElementById('ship2').textContent = ship2;
+        }
+
+        function generateFallbackWords() {
+            // Fallback words if dictionary fails to load
+            const fallback = {
+                10: ['BATTLESHIP', 'DESTROYER', 'SUBMARINE'],
+                8: ['AIRCRAFT', 'FLAGSHIP', 'STARSHIP'],
+                6: ['VESSEL', 'FALCON', 'PATROL'],
+                4: ['NAVY', 'HAWK', 'WOLF']
+            };
+
+            document.getElementById('ship5').textContent = fallback[10][Math.floor(Math.random() * fallback[10].length)];
+            document.getElementById('ship4').textContent = fallback[8][Math.floor(Math.random() * fallback[8].length)];
+            document.getElementById('ship3a').textContent = fallback[6][Math.floor(Math.random() * fallback[6].length)];
+            document.getElementById('ship3b').textContent = fallback[6][Math.floor(Math.random() * fallback[6].length)];
+            document.getElementById('ship2').textContent = fallback[4][Math.floor(Math.random() * fallback[4].length)];
+        }
+
+        // Generate random launch codes on page load
+        function generateRandomCodes() {
+            const codes = [];
+            for (let i = 0; i < 5; i++) {
+                codes.push(Math.floor(Math.random() * 1000).toString().padStart(3, '0'));
+            }
+            document.getElementById('stampCodes').textContent = codes.join(' ');
+        }
+
         async function generateImage() {
             try {
                 console.log('Starting image generation...');
@@ -1059,15 +1142,6 @@
             }
         }
 
-        // Generate random launch codes on page load
-        function generateRandomCodes() {
-            const codes = [];
-            for (let i = 0; i < 5; i++) {
-                codes.push(Math.floor(Math.random() * 1000).toString().padStart(3, '0'));
-            }
-            document.getElementById('stampCodes').textContent = codes.join(' ');
-        }
-
         async function downloadImage() {
             try {
                 console.log('Starting image download...');
@@ -1137,6 +1211,7 @@
                 }
             }
         }
+
         function updateBattleTrackerTitle() {
             const urlParams = new URLSearchParams(window.location.search);
             const fleetParam = urlParams.get('fleet');
@@ -1151,9 +1226,41 @@
             }
         }
 
+        function loadManualWords() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Check if manual mode is enabled
+            if (urlParams.get('words') !== 'manual') {
+                return false;
+            }
+
+            // Get words from URL parameters
+            const ship5 = urlParams.get('ship5') || urlParams.get('carrier');
+            const ship4 = urlParams.get('ship4') || urlParams.get('battleship');
+            const ship3a = urlParams.get('ship3a') || urlParams.get('cruiser1');
+            const ship3b = urlParams.get('ship3b') || urlParams.get('cruiser2');
+            const ship2 = urlParams.get('ship2') || urlParams.get('destroyer');
+
+            // Update ship elements if words are provided
+            if (ship5) document.getElementById('ship5').textContent = decodeURIComponent(ship5.replace(/\+/g, ' ')).toUpperCase();
+            if (ship4) document.getElementById('ship4').textContent = decodeURIComponent(ship4.replace(/\+/g, ' ')).toUpperCase();
+            if (ship3a) document.getElementById('ship3a').textContent = decodeURIComponent(ship3a.replace(/\+/g, ' ')).toUpperCase();
+            if (ship3b) document.getElementById('ship3b').textContent = decodeURIComponent(ship3b.replace(/\+/g, ' ')).toUpperCase();
+            if (ship2) document.getElementById('ship2').textContent = decodeURIComponent(ship2.replace(/\+/g, ' ')).toUpperCase();
+
+            return true; // Manual words were loaded
+        }
+
         // Initialize on page load
         window.addEventListener('load', function() {
             generateRandomCodes();
+            
+            // Check if manual words should be loaded from URL
+            if (!loadManualWords()) {
+                // If not manual mode, load dictionary and auto-generate
+                loadDictionary(); // This will call generateRandomWords() when complete
+            }
+            
             updateBattleTrackerTitle();
         });
 
