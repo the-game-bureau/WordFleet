@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Word Fleet - Future Deployments</title>
+  <title>Word Fleet - Hailing the Enemy</title>
   <link rel="icon" type="image/x-icon" href="src/media/wf.ico">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Favicon and App Icons -->
@@ -102,20 +102,10 @@
       font-weight: 500;
       transition: background-color 0.15s ease;
       border-left: 1px solid #e5e5e5;
-      position: relative;
     }
 
     .nav-link:hover {
       background: #f5f5f5;
-    }
-
-    .nav-link.active {
-      background: #000000;
-      color: #ffffff;
-    }
-
-    .nav-link.active:hover {
-      background: #333333;
     }
 
     /* Main Content */
@@ -148,8 +138,8 @@
       color: #333333;
     }
 
-    /* Phase Cards */
-    .phase {
+    /* Section Styling */
+    .section {
       margin-bottom: 48px;
       border: 1px solid #e5e5e5;
       padding: 32px;
@@ -157,47 +147,31 @@
       backdrop-filter: blur(1px);
     }
 
-    .phase-header {
+    .section-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
       margin-bottom: 16px;
     }
 
-    .phase-title {
+    .section-title {
       font-size: 20px;
       font-weight: 600;
       letter-spacing: -0.01em;
     }
 
-    .phase-status {
+    .section-badge {
       font-size: 12px;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       padding: 4px 8px;
       border: 1px solid #000000;
-      background: transparent;
-    }
-
-    .phase-status.planning {
-      border-color: #666666;
-      color: #666666;
-    }
-
-    .phase-status.development {
-      border-color: #000000;
-      color: #000000;
       background: #000000;
       color: #ffffff;
     }
 
-    .phase-status.future {
-      border-color: #cccccc;
-      color: #cccccc;
-    }
-
-    .phase-description {
+    .section-description {
       font-size: 16px;
       line-height: 1.6;
       margin-bottom: 24px;
@@ -237,6 +211,96 @@
       margin-bottom: 0;
     }
 
+    /* Table Styling */
+    .classification-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px 0;
+      font-size: 14px;
+    }
+
+    .classification-table th,
+    .classification-table td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #e5e5e5;
+    }
+
+    .classification-table th {
+      background: #f8f9fa;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .classification-table td {
+      color: #555555;
+    }
+
+    /* Theme Grid */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .theme-item {
+      background: #f8f9fa;
+      border: 1px solid #e5e5e5;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Code/Example Styling */
+    .example-text {
+      background: #f8f9fa;
+      border: 1px solid #e5e5e5;
+      padding: 16px;
+      margin: 16px 0;
+      font-family: 'Inter', monospace;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #333333;
+    }
+
+    .example-text strong {
+      color: #000000;
+    }
+
+    .theme-example {
+      background: #f8f9fa;
+      border: 1px solid #e5e5e5;
+      padding: 12px;
+      margin: 12px 0;
+      font-family: 'Inter', monospace;
+      font-size: 16px;
+      text-align: center;
+      letter-spacing: 0.1em;
+      font-weight: 500;
+    }
+
+    /* Quote Styling */
+    .quote {
+      border-left: 3px solid #000000;
+      padding-left: 16px;
+      margin: 16px 0;
+      font-style: italic;
+      color: #555555;
+    }
+
+    /* Response Styling */
+    .response {
+      margin-left: 16px;
+      color: #666666;
+      font-size: 14px;
+    }
+
     /* Contact Section */
     .contact-section {
       border-top: 1px solid #e5e5e5;
@@ -264,11 +328,27 @@
       color: #000000;
       text-decoration: none;
       border-bottom: 1px solid #000000;
+      font-family: 'Inter', monospace;
     }
 
     .contact-email:hover {
       background: #000000;
       color: #ffffff;
+    }
+
+    /* Subsection styling */
+    .subsection {
+      margin: 24px 0;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.02);
+      border-left: 3px solid #333333;
+    }
+
+    .subsection-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #000000;
     }
 
     /* Mobile Navigation */
@@ -295,12 +375,12 @@
         font-size: 28px;
       }
 
-      .phase {
+      .section {
         padding: 24px;
         margin-bottom: 32px;
       }
 
-      .phase-header {
+      .section-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
@@ -308,6 +388,19 @@
 
       .features-list li {
         padding-left: 12px;
+      }
+
+      .classification-table {
+        font-size: 12px;
+      }
+
+      .classification-table th,
+      .classification-table td {
+        padding: 8px;
+      }
+
+      .theme-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
       }
     }
 
@@ -326,6 +419,14 @@
         margin-top: 0;
       }
     }
+    .nav-link.active {
+  background: #000000;
+  color: #ffffff;
+}
+
+.nav-link.active:hover {
+  background: #333333;
+}
   </style>
 </head>
 <body>
@@ -336,143 +437,50 @@
         <li><a href="index.html" class="nav-link">Home Port</a></li>
         <li><a href="pandp.html" class="nav-link">Pen & Paper Mode</a></li>
         <li><a href="rules.html" class="nav-link">Rules of Engagement</a></li>
-        <li><a href="codes.html" class="nav-link">Launch Codes?</a></li>
-        <li><a href="#" class="nav-link active">Future Deployments</a></li>
+        <li><a href="codes.html" class="nav-link active">Launch Codes?</a></li>
+        <li><a href="future.html" class="nav-link">Future Deployments</a></li>
         <li><a href="#" onclick="window.print(); return false;" class="nav-link">Print</a></li>
       </ul>
     </div>
   </nav>
-
   <main class="main">
-    <h1 class="page-title">Future Deployments 🚀</h1>
+    <h1 class="page-title">Hailing the Enemy 📡</h1>
     <p class="page-subtitle">Word Fleet</p>
     
-    <p class="intro-text">Each phase represents a major strategic advancement in Word Fleet capabilities. Deployment schedules are classified, but these features are currently in various stages of tactical preparation and field testing.</p>
+    <p class="intro-text">Determine who strikes first through a mini-game of strategy and deception.</p>
+     <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Launch Codes Explained</h2>
+      </div>   
+      <p class="section-description">Both captains have <strong>5 launch codes</strong> (000–999) stamped on their battle tracker. Use codes, strategy and deception to try and secure the first strike!</p>
 
-    <section class="phase">
-      <div class="phase-header">
-        <h2 class="phase-title">Phase Alpha - Simulator Mode</h2>
-        <span class="phase-status planning">In Planning</span>
+      <h3 class="features-title">Steps</h3>
+      <div class="example-text">
+        <strong>1. Opening Hail</strong><br>
+        Call out a launch code, real or fake
       </div>
-      <p class="phase-description">Train your fleet in virtual combat scenarios with AI-powered battle simulations and tactical analysis. Perfect your strategy against computer opponents before facing human adversaries.</p>
-      <h3 class="features-title">Features</h3>
-      <ul class="features-list">
-        <li>AI opponents with adjustable difficulty</li>
-        <li>Battle replay and analysis tools</li>
-        <li>Training scenarios and challenges</li>
-        <li>Performance statistics tracking</li>
-      </ul>
-    </section>
 
-    <section class="phase">
-      <div class="phase-header">
-        <h2 class="phase-title">Phase Bravo - Tournament Mode</h2>
-        <span class="phase-status planning">In Planning</span>
+      <div class="example-text">
+        <strong>2. Response</strong><br>
+        Respond with one of 3 choices:
+        <ul style="margin-top: 8px; list-style: none;">
+          <li>— <strong>Concede:</strong> Give up → Original captain strikes first</li>
+          <li>— <strong>Challenge:</strong> Demand proof → Code is valid: original captain strikes first | Code is fake: challenging captain strikes first</li>
+          <li>— <strong>Counter:</strong> Call an equal or higher code → Now the original captain must respond to this new code</li>
+        </ul>
       </div>
-      <p class="phase-description">Command your fleet in organized competitions with leaderboards, brackets, and championship glory. Rise through the ranks to become Fleet Admiral.</p>
-      <h3 class="features-title">Features</h3>
-      <ul class="features-list">
-        <li>Seasonal tournaments and leagues</li>
-        <li>Global leaderboards and rankings</li>
-        <li>Achievement badges and titles</li>
-        <li>Spectator mode for major battles</li>
-      </ul>
-    </section>
 
-    <section class="phase">
-      <div class="phase-header">
-        <h2 class="phase-title">Phase Charlie - Mobile App Combat</h2>
-        <span class="phase-status development">In Development</span>
+      <div class="example-text">
+        <strong>3. Continue</strong><br>
+        Continue until someone gives up or is caught lying
       </div>
-      <p class="phase-description">Deploy your wordships on-the-go with native mobile applications for iOS and Android devices. Battle anywhere, anytime with touch-optimized controls.</p>
-      <h3 class="features-title">Features</h3>
-      <ul class="features-list">
-        <li>Native iOS and Android apps</li>
-        <li>Cross-platform battle compatibility</li>
-        <li>Push notifications for turns</li>
-        <li>Offline play capabilities</li>
-      </ul>
-    </section>
 
-    <section class="phase">
-      <div class="phase-header">
-        <h2 class="phase-title">Phase Delta - SMS Battle System</h2>
-        <span class="phase-status future">Future</span>
+      <h3 class="features-title">Sample Skirmish</h3>
+      <div class="quote">
+        Original captain: <strong>"850"</strong> → Other captain: <strong>"900"</strong> → Original captain: <strong>"Challenge!"</strong>
+        <br><br>
+        <strong>Result:</strong> Other captain reveals no 900 launch code → Original captain strikes first
       </div>
-      <p class="phase-description">Engage in naval warfare through text messages - no internet required for remote battle coordination. Perfect for commanding fleets in remote locations.</p>
-      <h3 class="features-title">Features</h3>
-      <ul class="features-list">
-        <li>Text-based battle commands</li>
-        <li>No internet connection required</li>
-        <li>Automated game state tracking</li>
-        <li>SMS-friendly battle notation</li>
-      </ul>
-    </section>
-
-    <section class="phase">
-      <div class="phase-header">
-        <h2 class="phase-title">Phase Echo - AI Captain Challenges</h2>
-        <span class="phase-status future">Future</span>
-      </div>
-      <p class="phase-description">Face off against artificial intelligence commanders with adaptive strategies and varying difficulty levels. Each AI captain has unique tactical preferences.</p>
-      <h3 class="features-title">Features</h3>
-      <ul class="features-list">
-        <li>Multiple AI personality types</li>
-        <li>Adaptive difficulty scaling</li>
-        <li>Unique captain backstories</li>
-        <li>Progressive challenge campaigns</li>
-      </ul>
-    </section>
-
-    <section class="phase">
-      <div class="phase-header">
-        <h2 class="phase-title">Phase Foxtrot - Online Multiplayer</h2>
-        <span class="phase-status future">Future</span>
-      </div>
-      <p class="phase-description">Connect with captains worldwide for real-time naval battles and strategic fleet management. Build alliances and wage tactical campaigns.</p>
-      <h3 class="features-title">Features</h3>
-      <ul class="features-list">
-        <li>Real-time multiplayer battles</li>
-        <li>Global matchmaking system</li>
-        <li>Friend lists and private matches</li>
-        <li>Cross-platform compatibility</li>
-      </ul>
-    </section>
-
-    <section class="phase">
-      <div class="phase-header">
-        <h2 class="phase-title">Phase Golf - Ranked Battles</h2>
-        <span class="phase-status future">Future</span>
-      </div>
-      <p class="phase-description">Climb the naval hierarchy through competitive ranked matches with seasonal rewards and titles. Prove your tactical superiority on the global stage.</p>
-      <h3 class="features-title">Features</h3>
-      <ul class="features-list">
-        <li>Skill-based matchmaking</li>
-        <li>Seasonal rank resets</li>
-        <li>Exclusive ranked rewards</li>
-        <li>Detailed match analytics</li>
-      </ul>
-    </section>
-
-    <section class="phase">
-      <div class="phase-header">
-        <h2 class="phase-title">Phase Hotel - Campaign Mode</h2>
-        <span class="phase-status future">Future</span>
-      </div>
-      <p class="phase-description">Lead your fleet through epic story-driven campaigns across dangerous waters and enemy territories. Uncover the mysteries of the Word Fleet universe.</p>
-      <h3 class="features-title">Features</h3>
-      <ul class="features-list">
-        <li>Story-driven single-player campaigns</li>
-        <li>Branching narrative choices</li>
-        <li>Special mission objectives</li>
-        <li>Unlockable fleet upgrades</li>
-      </ul>
-    </section>
-
-    <section class="contact-section">
-      <h2 class="contact-title">Enlist in the Fleet Development Program</h2>
-      <p class="contact-text">Want to influence the future of Word Fleet? Join our development community and help shape these upcoming features through beta testing, feedback, and strategic consultation.</p>
-      <p><strong>Contact:</strong> <a href="mailto:missioncontrol@thegamebureau.com" class="contact-email">missioncontrol@thegamebureau.com</a></p>
     </section>
   </main>
 </body>

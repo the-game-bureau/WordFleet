@@ -259,7 +259,7 @@
         /* Launch Codes Stamp - Simplified */
         .launch-codes-stamp {
             position: absolute;
-            left: 5.25in;
+            left: 5.2in;
             bottom: 0.3in;
             width: 1.1in;
             height: 1.1in;
@@ -771,15 +771,15 @@
                 <div class="defense-grid-label" id="defenseGridLabel">
                     <span class="defense-grid-title">DEFENSE GRID</span>
                     <div class="defense-grid-ships">
-                        <span class="word-ship" id="ship5">__________</span>
+                        <span class="word-ship" id="ship5">_____</span>
                         <span class="ship-bullet">•</span>
-                        <span class="word-ship" id="ship4">________</span>
+                        <span class="word-ship" id="ship4">____</span>
                         <span class="ship-bullet">•</span>
-                        <span class="word-ship" id="ship3a">______</span>
+                        <span class="word-ship" id="ship3a">___</span>
                         <span class="ship-bullet">•</span>
-                        <span class="word-ship" id="ship3b">______</span>
+                        <span class="word-ship" id="ship3b">___</span>
                         <span class="ship-bullet">•</span>
-                        <span class="word-ship" id="ship2">____</span>
+                        <span class="word-ship" id="ship2">__</span>
                     </div>
                 </div>
                 <div class="defense-grid">
@@ -933,50 +933,111 @@
 
         // Load words from dictionary XML
         async function loadDictionary() {
-            try {
-                const response = await fetch('src/dictionary/words.xml');
-                const xmlText = await response.text();
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-                
-                // Parse words by length
-                const wordElements = xmlDoc.getElementsByTagName('word');
-                
-                for (let wordElement of wordElements) {
-                    const word = wordElement.textContent.trim().toUpperCase();
-                    const length = word.length;
-                    
-                    if (!dictionaryWords[length]) {
-                        dictionaryWords[length] = [];
+            // Try multiple possible paths for the dictionary file
+            const possiblePaths = [
+                'src/dictionary/words.xml',
+                'dictionary/words.xml', 
+                'words.xml',
+                './words.xml',
+                './src/dictionary/words.xml'
+            ];
+
+            let lastError = null;
+            
+            for (const path of possiblePaths) {
+                try {
+                    console.log(`Trying to load dictionary from: ${path}`);
+                    const response = await fetch(path);
+                    if (!response.ok) {
+                        lastError = new Error(`HTTP ${response.status}: ${response.statusText} for path: ${path}`);
+                        continue;
                     }
-                    dictionaryWords[length].push(word);
+                    
+                    const xmlText = await response.text();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+                    
+                    // Check for XML parsing errors
+                    const parseError = xmlDoc.querySelector('parsererror');
+                    if (parseError) {
+                        throw new Error('XML parsing failed: ' + parseError.textContent);
+                    }
+                    
+                    // Parse words by length - handle the specific XML structure
+                    const wordLengthElements = xmlDoc.getElementsByTagName('WordLength');
+                    
+                    if (wordLengthElements.length === 0) {
+                        throw new Error('No <WordLength> elements found in XML');
+                    }
+                    
+                    for (let wordLengthElement of wordLengthElements) {
+                        const length = parseInt(wordLengthElement.getAttribute('length'));
+                        const wordElements = wordLengthElement.getElementsByTagName('Word');
+                        
+                        if (!dictionaryWords[length]) {
+                            dictionaryWords[length] = [];
+                        }
+                        
+                        for (let wordElement of wordElements) {
+                            const word = wordElement.textContent.trim().toUpperCase();
+                            dictionaryWords[length].push(word);
+                        }
+                    }
+                    
+                    console.log(`Dictionary loaded successfully from: ${path}`);
+                    console.log('Dictionary loaded:', Object.keys(dictionaryWords).map(k => `${k}: ${dictionaryWords[k].length} words`));
+                    
+                    // Check if we have the required word lengths
+                    const requiredLengths = [2, 3, 4, 5];
+                    const missingLengths = requiredLengths.filter(len => !dictionaryWords[len] || dictionaryWords[len].length === 0);
+                    
+                    if (missingLengths.length > 0) {
+                        console.error('Missing word lengths:', missingLengths);
+                        console.log('Available lengths:', Object.keys(dictionaryWords).sort((a,b) => a-b));
+                    }
+                    
+                    // Generate words after dictionary is loaded
+                    generateRandomWords();
+                    return; // Success! Exit the function
+                    
+                } catch (error) {
+                    console.log(`Failed to load from ${path}:`, error.message);
+                    lastError = error;
+                    continue;
                 }
-                
-                console.log('Dictionary loaded:', Object.keys(dictionaryWords).map(k => `${k}: ${dictionaryWords[k].length} words`));
-                
-                // Generate words after dictionary is loaded
-                generateRandomWords();
-                
-            } catch (error) {
-                console.error('Failed to load dictionary:', error);
-                // Fallback to placeholder words
-                generateFallbackWords();
             }
+            
+            // If we get here, all paths failed
+            console.error('Failed to load dictionary from any path:', lastError);
+            
+            // Show user-friendly error with instructions
+            const errorMessage = `Could not load word dictionary. Tried these paths:
+            
+${possiblePaths.map(p => `• ${p}`).join('\n')}
+
+Please ensure the words.xml file is placed in one of these locations relative to the HTML file.
+
+Last error: ${lastError?.message || 'Unknown error'}
+
+For manual mode, use: ?words=manual&ship5=HOUSE&ship4=WORD&ship3a=CAT&ship3b=DOG&ship2=AT`;
+            
+            alert(errorMessage);
         }
 
         function generateRandomWords() {
-            if (!dictionaryWords[10] || !dictionaryWords[8] || !dictionaryWords[6] || !dictionaryWords[4]) {
-                console.log('Dictionary not ready, using fallback');
-                generateFallbackWords();
-                return;
-            }
-
-            // Generate words for each ship length from dictionary
-            const ship5 = dictionaryWords[10][Math.floor(Math.random() * dictionaryWords[10].length)];
-            const ship4 = dictionaryWords[8][Math.floor(Math.random() * dictionaryWords[8].length)];
-            const ship3a = dictionaryWords[6][Math.floor(Math.random() * dictionaryWords[6].length)];
-            const ship3b = dictionaryWords[6][Math.floor(Math.random() * dictionaryWords[6].length)];
-            const ship2 = dictionaryWords[4][Math.floor(Math.random() * dictionaryWords[4].length)];
+            // Check what word lengths we actually have
+            const requiredLengths = [5, 4, 3, 2];
+            const availableLengths = Object.keys(dictionaryWords).map(k => parseInt(k)).sort((a,b) => a-b);
+            
+            console.log('Required lengths:', requiredLengths);
+            console.log('Available lengths:', availableLengths);
+            
+            // Try to generate words with available lengths, or use closest available
+            const ship5 = getWordOfLength(5) || '?????';
+            const ship4 = getWordOfLength(4) || '????';
+            const ship3a = getWordOfLength(3) || '???';
+            const ship3b = getWordOfLength(3) || '???';
+            const ship2 = getWordOfLength(2) || '??';
 
             // Update the ship elements
             document.getElementById('ship5').textContent = ship5;
@@ -984,22 +1045,32 @@
             document.getElementById('ship3a').textContent = ship3a;
             document.getElementById('ship3b').textContent = ship3b;
             document.getElementById('ship2').textContent = ship2;
+
+            // Update defense manifest with letter counts
+            updateDefenseManifest();
+        }
+
+        function getWordOfLength(length) {
+            if (dictionaryWords[length] && dictionaryWords[length].length > 0) {
+                return dictionaryWords[length][Math.floor(Math.random() * dictionaryWords[length].length)];
+            }
+            
+            // Try nearby lengths as fallback
+            const availableLengths = Object.keys(dictionaryWords).map(k => parseInt(k)).sort((a,b) => Math.abs(a-length) - Math.abs(b-length));
+            
+            for (let altLength of availableLengths) {
+                if (dictionaryWords[altLength] && dictionaryWords[altLength].length > 0) {
+                    console.warn(`Using ${altLength}-letter word instead of ${length}-letter word`);
+                    return dictionaryWords[altLength][Math.floor(Math.random() * dictionaryWords[altLength].length)];
+                }
+            }
+            
+            return null;
         }
 
         function generateFallbackWords() {
-            // Fallback words if dictionary fails to load
-            const fallback = {
-                10: ['BATTLESHIP', 'DESTROYER', 'SUBMARINE'],
-                8: ['AIRCRAFT', 'FLAGSHIP', 'STARSHIP'],
-                6: ['VESSEL', 'FALCON', 'PATROL'],
-                4: ['NAVY', 'HAWK', 'WOLF']
-            };
-
-            document.getElementById('ship5').textContent = fallback[10][Math.floor(Math.random() * fallback[10].length)];
-            document.getElementById('ship4').textContent = fallback[8][Math.floor(Math.random() * fallback[8].length)];
-            document.getElementById('ship3a').textContent = fallback[6][Math.floor(Math.random() * fallback[6].length)];
-            document.getElementById('ship3b').textContent = fallback[6][Math.floor(Math.random() * fallback[6].length)];
-            document.getElementById('ship2').textContent = fallback[4][Math.floor(Math.random() * fallback[4].length)];
+            // No fallback - always require XML dictionary
+            console.error('Dictionary required - no fallback words available');
         }
 
         // Generate random launch codes on page load
@@ -1248,17 +1319,77 @@
             if (ship3b) document.getElementById('ship3b').textContent = decodeURIComponent(ship3b.replace(/\+/g, ' ')).toUpperCase();
             if (ship2) document.getElementById('ship2').textContent = decodeURIComponent(ship2.replace(/\+/g, ' ')).toUpperCase();
 
+            // Completely clear defense manifest for manual mode - no numbers at all
+            clearDefenseManifest();
+
             return true; // Manual words were loaded
+        }
+
+        function clearDefenseManifest() {
+            // Clear all letter counts in defense manifest - make them completely empty
+            const defenseCountElements = document.querySelectorAll('.defense-manifest-count');
+            defenseCountElements.forEach(element => {
+                element.textContent = '';
+                element.style.display = 'none'; // Hide the count elements entirely
+            });
+        }
+
+        function updateDefenseManifest() {
+            // Get all ship words
+            const ships = [
+                document.getElementById('ship5').textContent,
+                document.getElementById('ship4').textContent,
+                document.getElementById('ship3a').textContent,
+                document.getElementById('ship3b').textContent,
+                document.getElementById('ship2').textContent
+            ];
+
+            // Count letters across all ships
+            const letterCounts = {};
+            
+            // Initialize all letters to 0
+            for (let i = 65; i <= 90; i++) {
+                letterCounts[String.fromCharCode(i)] = 0;
+            }
+
+            // Count letters in all ship words
+            ships.forEach(ship => {
+                if (ship && ship !== '__' && ship !== '___' && ship !== '____' && ship !== '_____') {
+                    for (let letter of ship) {
+                        if (letter >= 'A' && letter <= 'Z') {
+                            letterCounts[letter]++;
+                        }
+                    }
+                }
+            });
+
+            // Update the defense manifest display
+            const defenseCountElements = document.querySelectorAll('.defense-manifest-count');
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            
+            defenseCountElements.forEach((element, index) => {
+                element.style.display = 'block'; // Show the count elements
+                const letter = letters[index];
+                element.textContent = letterCounts[letter];
+            });
         }
 
         // Initialize on page load
         window.addEventListener('load', function() {
             generateRandomCodes();
             
-            // Check if manual words should be loaded from URL
-            if (!loadManualWords()) {
-                // If not manual mode, load dictionary and auto-generate
-                loadDictionary(); // This will call generateRandomWords() when complete
+            const urlParams = new URLSearchParams(window.location.search);
+            const wordsMode = urlParams.get('words');
+            
+            if (wordsMode === 'manual') {
+                // Manual mode: load words from URL, clear manifest
+                loadManualWords();
+            } else if (wordsMode === 'auto') {
+                // Auto mode: load dictionary and generate words with counts
+                loadDictionary(); // This will call generateRandomWords() and updateDefenseManifest() when complete
+            } else {
+                // Default mode: load dictionary and generate words with counts
+                loadDictionary();
             }
             
             updateBattleTrackerTitle();
