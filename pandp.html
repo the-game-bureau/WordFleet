@@ -104,7 +104,7 @@
             <h2 class="feature-title">Configure Your Word-Ships</h2>
           </div>
           <p class="feature-description">
-            Choose between auto-generated wordships or manually select your own words. Each ship type serves a tactical purpose - from the mighty 5-letter KETCH to the nimble 2-letter PT boat.
+            Choose between auto-generated word-ships or manually select your own words. Each ship type serves a tactical purpose - from the mighty 5-letter KETCH to the nimble 2-letter PT boat.
           </p>
           <div class="fleet-form-container">
             <div class="fleet-form">
@@ -123,23 +123,23 @@
                 
                 <div class="manual-words" id="manualWords">
                   <div class="word-group">
-                    <label class="word-label">KETCH • 5-Letter Wordship</label>
+                    <label class="word-label">KETCH • 5-Letter Word-ship</label>
                     <input type="text" class="word-input" maxlength="5" placeholder="Enter 5 letters..." name="word5" oninput="validateWordInput(this)" pattern="[A-Za-z]{5}">
                   </div>
                   <div class="word-group">
-                    <label class="word-label">SHIP • 4-Letter Wordship</label>
+                    <label class="word-label">SHIP • 4-Letter Word-ship</label>
                     <input type="text" class="word-input" maxlength="4" placeholder="Enter 4 letters..." name="word4" oninput="validateWordInput(this)" pattern="[A-Za-z]{4}">
                   </div>
                   <div class="word-group">
-                    <label class="word-label">SUB • 3-Letter Wordship</label>
+                    <label class="word-label">SUB • 3-Letter Word-ship</label>
                     <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3a" oninput="validateWordInput(this)" pattern="[A-Za-z]{3}">
                   </div>
                   <div class="word-group">
-                    <label class="word-label">ARK • 3-Letter Wordship</label>
+                    <label class="word-label">ARK • 3-Letter Word-ship</label>
                     <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3b" oninput="validateWordInput(this)" pattern="[A-Za-z]{3}">
                   </div>
                   <div class="word-group">
-                    <label class="word-label">PT • 2-Letter Wordship</label>
+                    <label class="word-label">PT • 2-Letter Word-ship</label>
                     <input type="text" class="word-input" maxlength="2" placeholder="Enter 2 letters..." name="word2" oninput="validateWordInput(this)" pattern="[A-Za-z]{2}">
                   </div>
                 </div>
@@ -197,9 +197,10 @@
         'Bombardment', 'Offensive', 'Campaign', 'Operation', 'Mission', 'Expedition', 'Dispatch', 'Voyage', 'Odyssey', 'Quest', 'Adventure'
       ]
     };
-
     let currentMode = 'auto';
-
+    function allLettersSame(word) {
+  return word.split('').every(char => char.toUpperCase() === word[0].toUpperCase());
+}
     function validateWordInput(input) {
       const value = input.value;
       const maxLength = parseInt(input.maxLength);
@@ -291,101 +292,92 @@
       }
     }
 
-    function handleBattleTrackerSubmit(event) {
-      event.preventDefault();
-      const fleetInput = document.getElementById('fleetNameInput');
-      const submitBtn = event.target.querySelector('button[type="submit"]');
-      const modeInput = document.getElementById('modeInput');
-      const form = event.target;
-      
-      // Check fleet name
-      if (!fleetInput.value.trim()) {
-        fleetInput.focus();
-        fleetInput.style.borderColor = '#ef4444';
-        setTimeout(() => fleetInput.style.borderColor = '', 2000);
-        return false;
+function handleBattleTrackerSubmit(event) {
+  event.preventDefault();
+  const fleetInput = document.getElementById('fleetNameInput');
+  const submitBtn = event.target.querySelector('button[type="submit"]');
+  const modeInput = document.getElementById('modeInput');
+  const form = event.target;
+
+  // Check fleet name
+  if (!fleetInput.value.trim()) {
+    fleetInput.focus();
+    fleetInput.style.borderColor = '#ef4444';
+    setTimeout(() => fleetInput.style.borderColor = '', 2000);
+    return false;
+  }
+
+  // Manual mode validation
+  if (currentMode === 'manual') {
+    const wordInputs = document.querySelectorAll('.word-input');
+    let hasErrors = false;
+    let firstErrorInput = null;
+
+    wordInputs.forEach(input => {
+      const value = input.value.trim();
+      const maxLength = parseInt(input.maxLength);
+      let hasError = false;
+
+      if (!value) {
+        hasError = true;
+      } else if (!/^[A-Za-z]+$/.test(value)) {
+        hasError = true;
+      } else if (value.length !== maxLength) {
+        hasError = true;
+      } else if (allLettersSame(value)) {
+        hasError = true;
       }
-      
-      // Check manual word inputs if manual mode is selected
-      if (currentMode === 'manual') {
-        const wordInputs = document.querySelectorAll('.word-input');
-        let hasErrors = false;
-        let firstErrorInput = null;
-        
-        wordInputs.forEach(input => {
-          const value = input.value.trim();
-          const maxLength = parseInt(input.maxLength);
-          let hasError = false;
-          
-          // Check if empty
-          if (!value) {
-            hasError = true;
-          }
-          // Check if contains only letters
-          else if (!/^[A-Za-z]+$/.test(value)) {
-            hasError = true;
-          }
-          // Check if correct length
-          else if (value.length !== maxLength) {
-            hasError = true;
-          }
-          
-          if (hasError) {
-            input.style.borderColor = '#ef4444';
-            hasErrors = true;
-            if (!firstErrorInput) {
-              firstErrorInput = input;
-            }
-            setTimeout(() => input.style.borderColor = '', 3000);
-          } else {
-            input.style.borderColor = '';
-          }
-        });
-        
-        if (hasErrors) {
-          if (firstErrorInput) firstErrorInput.focus();
-          return false;
-        }
+
+      if (hasError) {
+        input.style.borderColor = '#ef4444';
+        hasErrors = true;
+        if (!firstErrorInput) firstErrorInput = input;
+        setTimeout(() => input.style.borderColor = '', 3000);
+      } else {
+        input.style.borderColor = '';
       }
-      
-      // Update button state
-      submitBtn.innerHTML = '⚙️ Generating...';
-      submitBtn.style.opacity = '0.7';
-      submitBtn.disabled = true;
-      
-      // Build URL with parameters
-      const params = new URLSearchParams();
-      params.append('fleet', fleetInput.value.trim());
-      
-      // Add word parameters only if in manual mode and they have values
-      if (currentMode === 'manual') {
-        const wordInputs = document.querySelectorAll('.word-input');
-        wordInputs.forEach(input => {
-          const value = input.value.trim();
-          if (value && /^[A-Za-z]+$/.test(value)) {
-            params.append(input.name, value.toUpperCase());
-          }
-        });
-      }
-      
-      // Set timeout to reset button after delay
-      const resetTimeout = setTimeout(() => {
-        resetSubmitButton();
-      }, 3000);
-      
-      // Navigate to tracker page
-      setTimeout(() => {
-        try {
-          window.location.href = 'tracker.html?' + params.toString();
-        } catch (error) {
-          console.warn('Navigation failed:', error);
-          resetSubmitButton();
-          clearTimeout(resetTimeout);
-        }
-      }, 1000);
-      
+    });
+
+    if (hasErrors) {
+      if (firstErrorInput) firstErrorInput.focus();
       return false;
     }
+  }
+
+  // Update button state
+  submitBtn.innerHTML = '⚙️ Generating...';
+  submitBtn.style.opacity = '0.7';
+  submitBtn.disabled = true;
+
+  const params = new URLSearchParams();
+  params.append('fleet', fleetInput.value.trim());
+
+  if (currentMode === 'manual') {
+    const wordInputs = document.querySelectorAll('.word-input');
+    wordInputs.forEach(input => {
+      const value = input.value.trim();
+      if (value && /^[A-Za-z]+$/.test(value)) {
+        params.append(input.name, value.toUpperCase());
+      }
+    });
+  }
+
+  const resetTimeout = setTimeout(() => {
+    resetSubmitButton();
+  }, 3000);
+
+  setTimeout(() => {
+    try {
+      window.location.href = 'tracker.html?' + params.toString();
+    } catch (error) {
+      console.warn('Navigation failed:', error);
+      resetSubmitButton();
+      clearTimeout(resetTimeout);
+    }
+  }, 1000);
+
+  return false;
+}
 
     function initializeFleetName() {
       const input = document.getElementById('fleetNameInput');
