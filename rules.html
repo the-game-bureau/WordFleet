@@ -351,6 +351,242 @@
       color: #000000;
     }
 
+    /* Button Styling */
+    .codes-button {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      background: #000000;
+      border: 2px solid #000000;
+      padding: 12px 20px;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.15s ease;
+      margin: 16px 0;
+    }
+
+    .codes-button:hover {
+      background: #ffffff;
+      color: #000000;
+    }
+    /* Who Goes First Special Styling */
+.section.who-goes-first {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 2px solid #16a34a;
+  position: relative;
+  overflow: hidden;
+}
+
+.section.who-goes-first::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.section.who-goes-first * {
+  position: relative;
+  z-index: 1;
+}
+
+.section.who-goes-first .section-title {
+  color: #15803d;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.section.who-goes-first .section-description {
+  color: #166534;
+  font-weight: 500;
+}
+
+.section.who-goes-first .codes-button {
+  background: #16a34a;
+  border: 2px solid #16a34a;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 4px 0 #15803d;
+  transform: translateY(0);
+  transition: all 0.1s ease;
+}
+
+.section.who-goes-first .codes-button:hover {
+  background: #15803d;
+  border-color: #15803d;
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #14532d;
+}
+
+/* Fire Section Swiss Styling */
+.fire-section {
+  background: #fafafa;
+  border-left: 4px solid #dc2626;
+}
+
+.tactical-options {
+  background: #fee2e2;
+  border: 1px solid #dc2626;
+  padding: 20px;
+  margin: 0 0 32px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.attack-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 32px 0 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #dc2626;
+  border-bottom: 2px solid #dc2626;
+  padding-bottom: 8px;
+}
+
+.attack-step {
+  margin: 24px 0;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+}
+
+.step-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.step-description {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #333333;
+}
+
+.command-quote {
+  background: #f8f9fa;
+  border-left: 3px solid #dc2626;
+  padding: 16px;
+  margin: 16px 0;
+  font-family: 'Inter', monospace;
+  font-size: 14px;
+  font-style: italic;
+  color: #dc2626;
+}
+
+.surrender-quote {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.responses-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 20px 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.response-grid {
+  display: grid;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.response-item {
+  padding: 16px;
+  background: #f8f9fa;
+  border: 1px solid #e5e5e5;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.response-item.victory {
+  border-left: 4px solid #16a34a;
+  background: #f0fdf4;
+}
+
+.response-item.defeat {
+  border-left: 4px solid #dc2626;
+  background: #fef2f2;
+}
+
+.response-text {
+  margin-top: 8px;
+  font-family: 'Inter', monospace;
+  font-style: italic;
+  color: #666666;
+  font-size: 13px;
+}
+
+@media (min-width: 768px) {
+  .response-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+/* Join The Fleet Special Styling */
+.subsection.join-fleet {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border: 2px solid #f59e0b;
+  border-radius: 4px;
+  position: relative;
+  margin-top: 32px;
+}
+
+.subsection.join-fleet::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(45deg, #f59e0b, #d97706, #f59e0b);
+  border-radius: 4px;
+  z-index: -1;
+}
+
+.subsection.join-fleet .subsection-title {
+  color: #92400e;
+  font-weight: 700;
+}
+
+.subsection.join-fleet .section-description {
+  color: #78350f;
+}
+
+.subsection.join-fleet .example-text {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #f59e0b;
+}
+
+.subsection.join-fleet .contact-email {
+  color: #92400e;
+  border-bottom-color: #92400e;
+}
+
+.subsection.join-fleet .contact-email:hover {
+  background: #92400e;
+  color: #ffffff;
+}
+
+.subsection.join-fleet .quote {
+  border-left-color: #f59e0b;
+  color: #78350f;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 12px 16px;
+  margin: 16px 0;
+}
+
     /* Mobile Navigation */
     @media (max-width: 768px) {
       .nav {
@@ -437,7 +673,7 @@
         <li><a href="index.html" class="nav-link">Home Port</a></li>
         <li><a href="pandp.html" class="nav-link">Pen & Paper Mode</a></li>
         <li><a href="rules.html" class="nav-link active">Rules of Engagement</a></li>
-        <li><a href="codes.html" class="nav-link">Launch Codes?</a></li>
+        <li><a href="codes.html" class="nav-link">Who Goes First?</a></li>
         <li><a href="future.html" class="nav-link">Future Deployments</a></li>
         <li><a href="#" onclick="window.print(); return false;" class="nav-link">Print</a></li>
       </ul>
@@ -453,7 +689,6 @@
       <div class="section-header">
         <h2 class="section-title">Mission Specs</h2>
       </div>
-      <h3 class="features-title">Mission Requirements</h3>
       <ul class="features-list">
         <li><strong>Personnel:</strong> 2 captains</li>
         <li><strong>Minimum Age:</strong> 10 years</li>
@@ -465,7 +700,6 @@
       <div class="section-header">
         <h2 class="section-title">Requisition</h2>
       </div>
-      <h3 class="features-title">Required Equipment</h3>
       <ul class="features-list">
         <li>2 Battle Tracker sheets from <a href="https://the-game-bureau.github.io/wordfleet" class="contact-email">https://the-game-bureau.github.io/wordfleet</a></li>
         <li>2 Pens or Pencils</li>
@@ -527,193 +761,131 @@
       </ul>
     </section>
 
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">Hailing the Enemy</h2>
-      </div>
-      <p class="section-description">Determine who strikes first through a mini-game of strategy and deception.</p>
-      
-      <p class="section-description">Both captains have <strong>5 launch codes</strong> (000–999) stamped on their battle tracker. Use codes, strategy and deception to try and secure the first strike!</p>
+<section class="section who-goes-first">
+  <div class="section-header">
+    <h2 class="section-title">Who Goes First? 📡</h2>
+  </div>
+  <p class="section-description">... is a tactical mini-game that determines, well, you know, who goes first.</p>
+<p class="section-description">This is <strong>mandatory</strong> – no coin tossing allowed! 😉 It uses strategy and deception to secure first strike advantage.</p>
+  <a href="codes.html" class="codes-button">Play Who Goes First?</a>
+</section>
+<!-- FIRE SECTION STARTS HERE -->
+<section class="section fire-section">
+ <div class="section-header">
+   <h2 class="section-title">Fire!</h2>
+ </div>
+ <div class="tactical-options">
+   <strong>On your turn, choose one of two tactical options:</strong><br><br>
+   <strong>Standard Attack</strong> – Initial Strike on a coordinate, with potential Alpha Strike follow-up if you hit a word-ship<br>
+   <strong>Demand Surrender</strong> – Attempt total victory by revealing the enemy's entire fleet
+ </div>
 
-      <h3 class="features-title">Steps</h3>
-      <div class="example-text">
-        <strong>1. Opening Hail</strong><br>
-        Call out a launch code, real or fake
-      </div>
+ <h3 class="attack-title">Standard Attack</h3>
+ 
+ <div class="attack-step">
+   <h4 class="step-title">1. Initial Strike</h4>
+   <p class="step-description">Choose a coordinate and call it out:</p>
+   <div class="command-quote">"Fire on coordinate Echo-Seven!" or "E-7!"</div>
+   
+   <p class="responses-label"><strong>Responses:</strong></p>
+   <div class="response-grid">
+     <div class="response-item">
+       <strong>MISS:</strong> No ship. Mark with a dot. End turn.
+       <div class="response-text">"Miss!"</div>
+     </div>
+     <div class="response-item">
+       <strong>HIT:</strong> Ship confirmed. Highlight the coordinate's borders. Proceed to Alpha Strike.
+       <div class="response-text">"Hit."</div>
+     </div>
+   </div>
+ </div>
 
-      <div class="example-text">
-        <strong>2. Response</strong><br>
-        Respond with one of 3 choices:
-        <ul style="margin-top: 8px; list-style: none;">
-          <li>— <strong>Concede:</strong> Give up → Original captain strikes first</li>
-          <li>— <strong>Challenge:</strong> Demand proof → Code is valid: original captain strikes first | Code is fake: challenging captain strikes first</li>
-          <li>— <strong>Counter:</strong> Call an equal or higher code → Now the original captain must respond to this new code</li>
-        </ul>
-      </div>
+ <div class="attack-step">
+   <h4 class="step-title">2. Alpha Strike</h4>
+   <p class="step-description">Guess the letter at the coordinate:</p>
+   <div class="command-quote">"Alpha Strike Sierra!" or "S."</div>
+   
+   <p class="responses-label"><strong>Responses:</strong></p>
+   <div class="response-grid">
+     <div class="response-item">
+       <strong>BULLSEYE:</strong> Correct letter at that position. Write it in. End turn.
+       <div class="response-text">"Bullseye."</div>
+     </div>
+     <div class="response-item">
+       <strong>LETTER TALLY:</strong> Wrong letter. Announce how many total times that letter appears in your fleet. End turn. Attack this same coordinate again later to try different letters.
+       <div class="response-text">"S tally 3."</div>
+     </div>
+   </div>
+ </div>
 
-      <div class="example-text">
-        <strong>3. Continue</strong><br>
-        Continue until someone gives up or is caught lying
-      </div>
+ <h3 class="attack-title">Demand Surrender</h3>
+ 
+ <div class="attack-step">
+   <h4 class="step-title">Decisive Strike</h4>
+   <p class="step-description">At the beginning of any turn (instead of taking that turn), demand surrender by stating every word-ship and its exact location. Wait until all word-ships are announced before responding:</p>
+   
+   <div class="command-quote surrender-quote">"I demand your surrender! Your fleet consists of: PIANO at Charlie-3 through Charlie-7, JUMP at Alpha-1 through Alpha-4, BED at Echo-8 through Echo-10, RUN at Bravo-5 through Delta-5, and IF at Foxtrot-2 through Foxtrot-3!"</div>
+   
+   <p class="responses-label"><strong>Responses:</strong></p>
+   <div class="response-grid">
+     <div class="response-item victory">
+       <strong>YOU HAVE WON:</strong> Every word and location is correct. Achieve total victory.
+       <div class="response-text">"You have won."</div>
+     </div>
+     <div class="response-item defeat">
+       <strong>VICTORY IS MINE! YOU LOSE! GOOD DAY SIR!:</strong> Anything is wrong (word, spelling, or coordinates). Immediately surrender and lose the game.
+       <div class="response-text">"Victory is mine! You lose! Good day sir!"</div>
+     </div>
+   </div>
+ </div>
+</section>
+<!-- FIRE SECTION ENDS HERE -->
+<!-- DEBRIEF SECTION STARTS HERE -->
+<section class="section">
+ <div class="section-header">
+   <h2 class="section-title">📑 Debrief</h2>
+ </div>
+ <p class="section-description">Mission complete, captain. These advanced tactics and strategic options will enhance your naval campaigns and keep Word Fleet engaging across multiple deployments.</p>
+ 
+ <div class="subsection">
+   <h3 class="subsection-title">⚖️ Difficulty Adjustment Protocol</h3>
+   <p class="section-description">Balance skill levels between captains using strategic word selection methods. Experienced captains can use auto-generated words while new captains can make up (legal) words for balanced gameplay.</p>
+ </div>
 
-      <h3 class="features-title">Sample Skirmish</h3>
-      <div class="quote">
-        Original captain: <strong>"850"</strong> → Other captain: <strong>"900"</strong> → Original captain: <strong>"Challenge!"</strong>
-        <br><br>
-        <strong>Result:</strong> Other captain reveals no 900 launch code → Original captain strikes first
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">Engage the Enemy</h2>
-      </div>
-      <p class="section-description">With first strike determined, battle begins! Choose one of two tactical options each turn.</p>
-
-      <div class="example-text">
-        <strong>On your turn, choose one of two tactical options:</strong><br>
-        — <strong>Standard Attack</strong> – Initial Strike on a coordinate, with potential Alpha Strike follow-up if you hit a word-ship<br>
-        — <strong>Demand Surrender</strong> – Attempt total victory by revealing the enemy's entire fleet
-      </div>
-
-      <h3 class="features-title">Standard Attack</h3>
-      
-      <div class="example-text">
-        <strong>1. Initial Strike</strong><br>
-        Choose a coordinate and call it out:
-        <div class="quote">"Fire on coordinate Echo-Seven!" or "E-7!"</div>
-        
-        <strong>Responses:</strong><br>
-        — <strong>MISS:</strong> No ship. Mark with a dot. End turn.
-        <div class="response">"Miss!"</div>
-        — <strong>HIT:</strong> Ship confirmed. Highlight the coordinate's borders. Proceed to Alpha Strike.
-        <div class="response">"Hit."</div>
-      </div>
-
-      <div class="example-text">
-        <strong>2. Alpha Strike</strong><br>
-        Guess the letter at the coordinate:
-        <div class="quote">"Alpha Strike Sierra!" or "S."</div>
-        
-        <strong>Responses:</strong><br>
-        — <strong>BULLSEYE:</strong> Correct letter at that position. Write it in. End turn.
-        <div class="response">"Bullseye."</div>
-        — <strong>LETTER TALLY:</strong> Wrong letter. Announce how many total times that letter appears in your fleet. End turn. Attack this same coordinate again later to try different letters.
-        <div class="response">"S tally 3."</div>
-      </div>
-
-      <h3 class="features-title">Demand Surrender</h3>
-      
-      <div class="example-text">
-        <strong>1. Decisive Strike</strong><br>
-        At the beginning of any turn (instead of taking that turn), demand surrender by stating every word-ship and its exact location. Wait until all word-ships are announced before responding:
-        
-        <div class="quote">"I demand your surrender! Your fleet consists of: PIANO at Charlie-3 through Charlie-7, JUMP at Alpha-1 through Alpha-4, BED at Echo-8 through Echo-10, RUN at Bravo-5 through Delta-5, and IF at Foxtrot-2 through Foxtrot-3!"</div>
-        
-        <strong>Responses:</strong><br>
-        — <strong>YOU HAVE WON:</strong> Every word and location is correct. Achieve total victory.
-        <div class="response">"You have won."</div>
-        — <strong>VICTORY IS MINE! YOU LOSE! GOOD DAY SIR!:</strong> Anything is wrong (word, spelling, or coordinates). Immediately surrender and lose the game.
-        <div class="response">"Victory is mine! You lose! Good day sir!"</div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">Defense Operations</h2>
-      </div>
-      <p class="section-description">Track your opponent's attacks and respond accurately.</p>
-
-      <h3 class="features-title">When being attacked</h3>
-      <ul class="features-list">
-        <li>Mark dots for enemy misses on Defense Grid</li>
-        <li>Highlight borders for confirmed hits on Defense Grid</li>
-        <li>Trace over each letter discovered via bullseye on Defense Grid</li>
-      </ul>
-
-      <div class="example-text">
-        <strong>Important:</strong> When all coordinates of a word-ship are hit, announce which word-ship has been revealed. Do NOT announce the word itself.
-      </div>
-    </section>
-
-    <section class="contact-section">
-      <h2 class="contact-title">Ready for Battle?</h2>
-      <p class="contact-text">Download your Battle Trackers and begin your naval campaign. May your word-ships sail true and your tactical decisions lead to victory on the high seas.</p>
-    </section>
-
-    <!-- DEBRIEF SECTION STARTS HERE -->
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">📑 Debrief</h2>
-      </div>
-      <p class="section-description">Mission complete, captain. Review tactical options and advanced strategies for your next deployment.</p>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">Themed Battles</h2>
-      </div>
-      <p class="section-description">Deploy your fleet around specific themes for strategic variety and educational gameplay.</p>
-      
-      <div class="subsection">
-        <h3 class="subsection-title">🧬 Biological Theme</h3>
-        <div class="theme-example">ZEBRA • FROG • COW • BAT • OX</div>
-      </div>
-
-      <div class="subsection">
-        <h3 class="subsection-title">🧭 Directional Theme</h3>
-        <div class="theme-example">NORTH • LEFT • TOP • WAY • UP</div>
-      </div>
-
-      <div class="subsection">
-        <h3 class="subsection-title">🎯 More Theme Ideas</h3>
-        <div class="theme-grid">
-          <div class="theme-item">Musical</div>
-          <div class="theme-item">Celestial</div>
-          <div class="theme-item">Culinary</div>
-          <div class="theme-item">Oceanic</div>
-          <div class="theme-item">Metallic</div>
-          <div class="theme-item">Geometric</div>
-          <div class="theme-item">Temporal</div>
-          <div class="theme-item">Athletic</div>
-          <div class="theme-item">Botanical</div>
-          <div class="theme-item">Atmospheric</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">Difficulty Adjustment Protocol</h2>
-      </div>
-      <p class="section-description">Balance skill levels between captains using strategic word selection methods.</p>
-      
-      <div class="subsection">
-        <h3 class="subsection-title">⚖️ Balancing Strategy</h3>
-        <p class="section-description">Experienced captains can use auto-generated words while new captains can make up (legal) words for balanced gameplay</p>
-      </div>
-    </section>
-
-    <section class="contact-section">
-      <h2 class="contact-title">🤝 Join The Fight</h2>
-      <p class="contact-text">Contribute to the tactical evolution of Word Fleet naval/word combat.</p>
-      
-      <div class="subsection">
-        <h3 class="subsection-title">Mission Control</h3>
-        <p class="section-description">Have you discovered new tactical approaches? Developed innovative rule variations? Created custom battle scenarios?</p>
-        
-        <p class="contact-text">Share your strategic innovations with Command Operations:</p>
-        
-        <div class="example-text">
-          <strong>📧 Communications Channel</strong><br>
-          <a href="mailto:missioncontrol@thegamebureau.com" class="contact-email">missioncontrol@thegamebureau.com</a>
-        </div>
-        
-        <div class="quote">
-          "Praise the Lord and pass the ammunition!" — Lieutenant Howell Maurice Forgy, USN
-        </div>
-      </div>
-    </section>
+ <div class="subsection">
+   <h3 class="subsection-title">🎯 Themed Battles</h3>
+   <p class="section-description">Deploy your fleet around specific themes for strategic variety and educational gameplay. Both captains can use the same theme, disclose themes to each other or keep their theme a secret. </p>
+   
+   <div class="theme-example">🧬 Biological: ZEBRA • FROG • COW • BAT • OX</div>
+   <div class="theme-example">🧭 Directional: NORTH • LEFT • TOP • WAY • UP</div>
+   
+   <div class="theme-grid">
+     <div class="theme-item">Musical</div>
+     <div class="theme-item">Celestial</div>
+     <div class="theme-item">Culinary</div>
+     <div class="theme-item">Oceanic</div>
+     <div class="theme-item">Metallic</div>
+     <div class="theme-item">Geometric</div>
+     <div class="theme-item">Temporal</div>
+     <div class="theme-item">Athletic</div>
+     <div class="theme-item">Botanical</div>
+     <div class="theme-item">Atmospheric</div>
+   </div>
+ </div>
+<div class="subsection join-fleet">
+  <h3 class="subsection-title">🤝 Join The Fleet</h3>
+   <p class="section-description">Word Fleet evolves through the tactical innovations of its captains. Share your discoveries, custom scenarios, or rule variations to help expand the strategic possibilities for all naval commanders.</p>
+   <div class="example-text">
+     <strong>📧 Fleet Command</strong><br>
+     <a href="mailto:missioncontrol@thegamebureau.com" class="contact-email">missioncontrol@thegamebureau.com</a>
+   </div>
+ </div>
+ </div>
+    <div class="quote">
+     "Praise the Lord and pass the ammunition!" — Lieutenant Howell Maurice Forgy, USN
+   </div>
+</section>
+<!-- DEBRIEF SECTION ENDS HERE -->
   </main>
 </body>
 </html>

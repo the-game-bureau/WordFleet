@@ -264,48 +264,47 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
-    /* Toggle Container Styles */
-    .toggle-container {
-      background: rgba(0, 0, 0, 0.05);
-      border: 1px solid #e5e5e5;
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-top: 15px;
-    }
+/* Toggle Container Styles */
+.toggle-container {
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 15px;
+}
 
-    .toggle-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      background: #f5f5f5;
-      padding: 4px;
-      border-radius: 8px;
-      margin-bottom: 0;
-    }
+.toggle-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: #e8e8e8;
+  padding: 4px;
+  border-radius: 8px;
+  margin-bottom: 0;
+}
 
-    .toggle-btn {
-      padding: 0.75rem 1rem;
-      background: transparent;
-      border: none;
-      border-radius: 6px;
-      color: #666666;
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
+.toggle-btn {
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  border: none;
+  border-radius: 6px;
+  color: #333333;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
 
-    .toggle-btn.active {
-      background: #000000;
-      color: white;
-    }
+.toggle-btn.active {
+  background: #000000;
+  color: #ffffff;
+}
 
-    .toggle-btn:hover:not(.active) {
-      background: rgba(0, 0, 0, 0.05);
-      color: #333333;
-    }
-
+.toggle-btn:hover:not(.active) {
+  background: #f0f0f0;
+  color: #000000;
+}
     .manual-words {
       display: none;
       grid-template-columns: 1fr;
@@ -349,6 +348,11 @@
       outline: none;
       border-color: #000000;
       box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .word-input.error {
+      border-color: #ef4444 !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
     }
 
     /* Mobile Navigation */
@@ -423,7 +427,7 @@
         <li><a href="index.html" class="nav-link">Home Port</a></li>
         <li><a href="#" class="nav-link active">Pen & Paper Mode</a></li>
         <li><a href="rules.html" class="nav-link">Rules of Engagement</a></li>
-        <li><a href="codes.html" class="nav-link">Launch Codes?</a></li>
+        <li><a href="codes.html" class="nav-link">Who Goes First?</a></li>
         <li><a href="future.html" class="nav-link">Future Deployments</a></li>
 
         <li><a href="#" onclick="window.print(); return false;" class="nav-link">Print</a></li>
@@ -437,7 +441,7 @@
     
     <p class="intro-text">So, grandpa, you've finally convinced someone to play a game with you? Better check your printer's black ink because it's time to introduce these kids to some good old-fashioned, offline entertainment!</p>
 
-    <form id="battleTrackerForm" action="tracker.html" method="GET" onsubmit="return handleBattleTrackerSubmit(event)">
+    <form id="battleTrackerForm" method="GET" action="tracker.html" onsubmit="return handleBattleTrackerSubmit(event)">
       <div class="feature-grid">
         <section class="feature-card">
           <div class="feature-header">
@@ -488,30 +492,31 @@
                   </button>
                 </div>
                 
+                <!-- Hidden input to track mode -->
+                <input type="hidden" name="mode" id="modeInput" value="auto">
+                
                 <div class="manual-words" id="manualWords">
                   <div class="word-group">
                     <label class="word-label">KETCH • 5-Letter Wordship</label>
-                    <input type="text" class="word-input" maxlength="5" placeholder="Enter 5 letters..." name="word5">
+                    <input type="text" class="word-input" maxlength="5" placeholder="Enter 5 letters..." name="word5" oninput="validateWordInput(this)" pattern="[A-Za-z]{5}">
                   </div>
                   <div class="word-group">
                     <label class="word-label">SHIP • 4-Letter Wordship</label>
-                    <input type="text" class="word-input" maxlength="4" placeholder="Enter 4 letters..." name="word4">
+                    <input type="text" class="word-input" maxlength="4" placeholder="Enter 4 letters..." name="word4" oninput="validateWordInput(this)" pattern="[A-Za-z]{4}">
                   </div>
                   <div class="word-group">
                     <label class="word-label">SUB • 3-Letter Wordship</label>
-                    <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3a">
+                    <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3a" oninput="validateWordInput(this)" pattern="[A-Za-z]{3}">
                   </div>
                   <div class="word-group">
                     <label class="word-label">ARK • 3-Letter Wordship</label>
-                    <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3b">
+                    <input type="text" class="word-input" maxlength="3" placeholder="Enter 3 letters..." name="word3b" oninput="validateWordInput(this)" pattern="[A-Za-z]{3}">
                   </div>
                   <div class="word-group">
                     <label class="word-label">PT • 2-Letter Wordship</label>
-                    <input type="text" class="word-input" maxlength="2" placeholder="Enter 2 letters..." name="word2">
+                    <input type="text" class="word-input" maxlength="2" placeholder="Enter 2 letters..." name="word2" oninput="validateWordInput(this)" pattern="[A-Za-z]{2}">
                   </div>
                 </div>
-                
-                <input type="hidden" id="wordsMode" name="words" value="auto">
               </div>
             </div>
           </div>
@@ -569,6 +574,35 @@
 
     let currentMode = 'auto';
 
+    function validateWordInput(input) {
+      const value = input.value;
+      const maxLength = parseInt(input.maxLength);
+      
+      // Remove non-letter characters and convert to uppercase
+      const cleanValue = value.replace(/[^A-Za-z]/g, '').toUpperCase();
+      
+      // Update input with clean value
+      if (cleanValue !== input.value) {
+        input.value = cleanValue;
+      }
+      
+      // Visual validation feedback
+      const isValid = cleanValue.length === maxLength && /^[A-Za-z]+$/.test(cleanValue);
+      
+      if (input.value.length === 0) {
+        // Empty - neutral state
+        input.classList.remove('error');
+        input.style.borderColor = '';
+      } else if (isValid) {
+        // Valid - green border
+        input.classList.remove('error');
+        input.style.borderColor = '#10b981';
+      } else {
+        // Invalid - red border
+        input.classList.add('error');
+      }
+    }
+
     function generateFleetName() {
       const adj = fleetNames.adjectives[Math.floor(Math.random() * fleetNames.adjectives.length)];
       const noun = fleetNames.nouns[Math.floor(Math.random() * fleetNames.nouns.length)];
@@ -590,14 +624,18 @@
       const manualBtn = document.getElementById('manualBtn');
       const autoBtn = document.getElementById('autoBtn');
       const manualWords = document.getElementById('manualWords');
-      const wordsMode = document.getElementById('wordsMode');
+      const modeInput = document.getElementById('modeInput');
       const wordInputs = document.querySelectorAll('.word-input');
+      
+      // Update hidden input
+      if (modeInput) {
+        modeInput.value = mode;
+      }
       
       if (mode === 'manual') {
         manualBtn.classList.add('active');
         autoBtn.classList.remove('active');
         manualWords.classList.add('show');
-        wordsMode.value = 'manual';
         
         // Make all word inputs required when manual mode is selected
         wordInputs.forEach(input => {
@@ -607,11 +645,13 @@
         autoBtn.classList.add('active');
         manualBtn.classList.remove('active');
         manualWords.classList.remove('show');
-        wordsMode.value = 'auto';
         
         // Remove required attribute when auto mode is selected
         wordInputs.forEach(input => {
           input.required = false;
+          input.value = ''; // Clear manual inputs in auto mode
+          input.style.borderColor = '';
+          input.classList.remove('error');
         });
       }
     }
@@ -629,8 +669,8 @@
       event.preventDefault();
       const fleetInput = document.getElementById('fleetNameInput');
       const submitBtn = event.target.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerHTML;
-      const originalOpacity = submitBtn.style.opacity;
+      const modeInput = document.getElementById('modeInput');
+      const form = event.target;
       
       // Check fleet name
       if (!fleetInput.value.trim()) {
@@ -643,20 +683,41 @@
       // Check manual word inputs if manual mode is selected
       if (currentMode === 'manual') {
         const wordInputs = document.querySelectorAll('.word-input');
-        let hasEmptyFields = false;
+        let hasErrors = false;
+        let firstErrorInput = null;
         
         wordInputs.forEach(input => {
-          if (!input.value.trim()) {
+          const value = input.value.trim();
+          const maxLength = parseInt(input.maxLength);
+          let hasError = false;
+          
+          // Check if empty
+          if (!value) {
+            hasError = true;
+          }
+          // Check if contains only letters
+          else if (!/^[A-Za-z]+$/.test(value)) {
+            hasError = true;
+          }
+          // Check if correct length
+          else if (value.length !== maxLength) {
+            hasError = true;
+          }
+          
+          if (hasError) {
             input.style.borderColor = '#ef4444';
-            hasEmptyFields = true;
-            setTimeout(() => input.style.borderColor = '', 2000);
+            hasErrors = true;
+            if (!firstErrorInput) {
+              firstErrorInput = input;
+            }
+            setTimeout(() => input.style.borderColor = '', 3000);
+          } else {
+            input.style.borderColor = '';
           }
         });
         
-        if (hasEmptyFields) {
-          // Focus on the first empty field
-          const firstEmpty = Array.from(wordInputs).find(input => !input.value.trim());
-          if (firstEmpty) firstEmpty.focus();
+        if (hasErrors) {
+          if (firstErrorInput) firstErrorInput.focus();
           return false;
         }
       }
@@ -666,25 +727,32 @@
       submitBtn.style.opacity = '0.7';
       submitBtn.disabled = true;
       
-      // Set timeout to reset button after delay, in case navigation fails
+      // Build URL with parameters
+      const params = new URLSearchParams();
+      params.append('fleet', fleetInput.value.trim());
+      
+      // Add word parameters only if in manual mode and they have values
+      if (currentMode === 'manual') {
+        const wordInputs = document.querySelectorAll('.word-input');
+        wordInputs.forEach(input => {
+          const value = input.value.trim();
+          if (value && /^[A-Za-z]+$/.test(value)) {
+            params.append(input.name, value.toUpperCase());
+          }
+        });
+      }
+      
+      // Set timeout to reset button after delay
       const resetTimeout = setTimeout(() => {
         resetSubmitButton();
       }, 3000);
       
-      // Handle successful navigation or errors
-      const handlePageLeave = () => {
-        clearTimeout(resetTimeout);
-      };
-      
-      // Listen for page unload to clear timeout
-      window.addEventListener('beforeunload', handlePageLeave, { once: true });
-      
-      // Submit the form after a brief delay
+      // Navigate to tracker page
       setTimeout(() => {
         try {
-          event.target.submit();
+          window.location.href = 'tracker.html?' + params.toString();
         } catch (error) {
-          console.warn('Form submission failed:', error);
+          console.warn('Navigation failed:', error);
           resetSubmitButton();
           clearTimeout(resetTimeout);
         }
