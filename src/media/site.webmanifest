@@ -1,0 +1,16 @@
+{
+  "name": "Word Fleet",
+  "short_name": "WordFleet",
+  "description": "Naval word battle game",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "wf.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}
