@@ -173,6 +173,7 @@
         }
 
         // UNIFIED PRINT FUNCTION - Detects desktop vs mobile
+// Replace your existing handlePrint function with this enhanced version
 function handlePrint() {
     if (typeof domtoimage === 'undefined') {
         alert('Print functionality is loading. Please try again in a moment.');
@@ -189,14 +190,34 @@ function handlePrint() {
         printBtn.disabled = false;
     }
 
-    // 👇 Fix: Prevent weird mobile shadow on stamp by disabling ::before
+    // More comprehensive shadow removal for print mode
     const tempStyle = document.createElement('style');
     tempStyle.innerHTML = `
+        .print-mode .launch-codes-stamp,
+        .launch-codes-stamp {
+            box-shadow: none !important;
+            filter: none !important;
+            -webkit-filter: none !important;
+        }
+        .print-mode .launch-codes-stamp::before,
         .launch-codes-stamp::before {
             display: none !important;
+            box-shadow: none !important;
+            background: none !important;
+        }
+        .print-mode .stamp-text,
+        .stamp-text {
+            text-shadow: none !important;
+        }
+        .print-mode .stamp-codes,
+        .stamp-codes {
+            text-shadow: none !important;
         }
     `;
     document.head.appendChild(tempStyle);
+
+    // Add print-mode class to body for additional targeting
+    document.body.classList.add('print-mode');
 
     setTimeout(() => {
         const pageElement = document.querySelector('.page');
@@ -213,7 +234,10 @@ function handlePrint() {
                 height: pageElement.offsetHeight + 'px'
             }
         }).then(dataUrl => {
-            document.head.removeChild(tempStyle); // 👈 Clean up
+            // Clean up
+            document.head.removeChild(tempStyle);
+            document.body.classList.remove('print-mode');
+            
             const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             if (isMobile) {
                 showMobileOverlay(dataUrl);
@@ -223,14 +247,14 @@ function handlePrint() {
             resetButton();
         }).catch(error => {
             console.error('Print generation failed:', error);
-            document.head.removeChild(tempStyle); // 👈 Clean up on error too
+            // Clean up on error
+            document.head.removeChild(tempStyle);
+            document.body.classList.remove('print-mode');
             resetButton();
             alert('Print generation failed: ' + error.message + '. Please try again.');
         });
-    }, 100);
-}
-
-        function showMobileOverlay(dataUrl) {
+    }, 200); // Slightly longer delay to ensure styles apply
+}        function showMobileOverlay(dataUrl) {
             var overlay = document.createElement('div');
             overlay.className = 'mobile-overlay';
             
