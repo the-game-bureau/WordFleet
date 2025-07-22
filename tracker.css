@@ -758,3 +758,13 @@
 .print-mode .stamp {
   box-shadow: none !important;
 }
+
+
+/* Force background and remove all visual effects from .stamp */
+.stamp {
+  background: white !important;
+  border: 2px solid black !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
