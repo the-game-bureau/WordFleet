@@ -1,4 +1,4 @@
-        * {
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -224,8 +224,10 @@
                 background: linear-gradient(135deg, #d0d0d0 50%, white 50%) !important;
             }
             
-            .launch-codes-stamp {
-                background: transparent !important;
+            .launch-codes-box {
+                background: #fff !important;
+                color: #000 !important;
+                border: 3px solid #000 !important;
             }
             
             .swiss-toolbar {
@@ -319,97 +321,47 @@
             margin: 0 4px;
         }
 
-        /* Launch Codes Stamp */
-        .launch-codes-stamp {
+        /* Launch Codes Simple Box - REPLACED STAMP */
+        .launch-codes-box {
             position: absolute;
-            left: 5.2in;
+            left: 5.0in;
             bottom: 0.3in;
-            width: 1.1in;
-            height: 1.1in;
+            width: 1.3in;
+            height: 0.8in;
             transform: rotate(-8deg);
             z-index: 10;
-            border: 4px solid #000;
-            border-radius: 50%;
-            background: transparent;
+            background: white;
+            border: 3px solid #000;
+            border-radius: 6px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: 
-                inset 0 0 0 2px #000,
-                0 2px 4px rgba(0, 0, 0, 0.3),
-                0 0 0 1px rgba(0, 0, 0, 0.1);
         }
 
-        .launch-codes-stamp::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
-            border: 2px solid rgba(0, 0, 0, 0.2);
-            border-radius: 50%;
-            background: radial-gradient(
-                ellipse at 30% 30%,
-                rgba(0, 0, 0, 0.05) 0%,
-                rgba(0, 0, 0, 0.02) 40%,
-                transparent 70%
-            );
-        }
-
-        /* Mobile fixes for launch codes stamp */
-        @media (max-width: 768px) {
-            .launch-codes-stamp::before {
-                display: none !important;
-            }
-            
-            .launch-codes-stamp {
-                box-shadow: none !important;
-                border: 4px solid #000 !important;
-                background: transparent !important;
-            }
-            
-            .stamp-text {
-                text-shadow: none !important;
-            }
-            
-            .stamp-codes {
-                text-shadow: none !important;
-            }
-        }
-
-        .stamp-text {
+        .box-text {
             font-family: 'Courier New', monospace;
-            font-size: 11px;
+            font-size: 18px;
             font-weight: bold;
             color: #000;
             text-align: center;
-            line-height: 1.1;
-            position: relative;
-            z-index: 2;
-            text-shadow: 
-                0 0 1px rgba(0, 0, 0, 0.3),
-                0 1px 1px rgba(0, 0, 0, 0.1);
-        }
-
-        .stamp-label {
-            font-size: 9px;
-            margin-bottom: 4px;
+            line-height: 1.2;
             text-transform: uppercase;
-            font-weight: 800;
-            display: block;
-            letter-spacing: 0.5px;
         }
 
-        .stamp-codes {
-            font-size: 15px;
+        .box-label {
+            font-size: 12px;
+            margin-bottom: 3px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 1px;
+        }
+
+        .box-codes {
+            font-size: 11px;
             font-weight: 900;
-            display: block;
-            margin-top: 4px;
+            margin-top: 3px;
             letter-spacing: 0.5px;
-            text-shadow: 
-                0 0 2px rgba(0, 0, 0, 0.4),
-                0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         /* Middle Header */
@@ -719,99 +671,27 @@
             transform: translate(50%, 50%);
         }
 
+        /* Stronger mobile button styling */
+        .swiss-btn {
+            -webkit-appearance: none;
+            appearance: none;
+            box-shadow: none !important;
+            outline: none;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            font-size: 1.5rem;
+            width: 100%;
+            display: block;
+            text-align: center;
+            margin: 0.5rem 0;
+        }
 
-/* Remove shadow from .stamp during PNG generation */
-.print-mode .stamp {
-  box-shadow: none !important;
-}
-
-
-/* Stronger mobile button styling */
-.swiss-btn {
-  -webkit-appearance: none;
-  appearance: none;
-  box-shadow: none !important;
-  outline: none;
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  font-size: 1.5rem;
-  width: 100%;
-  display: block;
-  text-align: center;
-  margin: 0.5rem 0;
-}
-
-/* Ensure toolbar stacks on mobile */
-@media (max-width: 768px) {
-  .swiss-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-    padding: 1rem;
-  }
-}
-
-/* Absolute override for .stamp shadow */
-.stamp {
-  box-shadow: none !important;
-}
-.print-mode .stamp {
-  box-shadow: none !important;
-}
-
-
-/* Force background and remove all visual effects from .stamp */
-.stamp {
-  background: white !important;
-  border: 2px solid black !important;
-  box-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
-}
-/* Add this to your tracker.css file */
-
-/* Mobile-specific stamp styling */
-@media (max-width: 768px) {
-    .launch-codes-stamp {
-        box-shadow: none !important;
-        filter: none !important;
-        -webkit-filter: none !important;
-        background: white !important;
-        border: 3px solid #000 !important;
-    }
-    
-    .launch-codes-stamp::before {
-        display: none !important;
-    }
-    
-    .stamp-text {
-        text-shadow: none !important;
-    }
-    
-    .stamp-codes {
-        text-shadow: none !important;
-    }
-}
-
-/* Alternative: Force simple stamp on all touch devices */
-@media (pointer: coarse) {
-    .launch-codes-stamp {
-        box-shadow: none !important;
-        filter: none !important;
-        -webkit-filter: none !important;
-        background: white !important;
-        border: 3px solid #000 !important;
-    }
-    
-    .launch-codes-stamp::before {
-        display: none !important;
-    }
-    
-    .stamp-text {
-        text-shadow: none !important;
-    }
-    
-    .stamp-codes {
-        text-shadow: none !important;
-    }
-}
+        /* Ensure toolbar stacks on mobile */
+        @media (max-width: 768px) {
+            .swiss-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+                padding: 1rem;
+            }
+        }
