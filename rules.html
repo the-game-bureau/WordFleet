@@ -39,17 +39,31 @@
 </head>
 <body>
 <!-- START: NAVIGATION BAR -->
-<nav class="nav-container">
-  <div class="nav">
+<div class="nav-container">
+  <nav class="nav">
     <!-- Brand -->
     <a href="index.html" class="nav-brand">Word Fleet</a>
 
-    <!-- Hamburger Menu Button (visible on mobile) -->
-    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.body.classList.toggle('nav-open')">
-      <span class="hamburger"></span>
-    </button>
+    <!-- Desktop Navigation -->
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link">Home Port</a></li>
+      <li><a href="pandp.html" class="nav-link">Pen & Paper Mode</a></li>
+      <li><a href="rules.html" class="nav-link">Rules of Engagement</a></li>
+      <li><a href="codes.html" class="nav-link">Who Goes First?</a></li>
+      <li><a href="future.html" class="nav-link">Future Deployments</a></li>
+      <li><a href="#" onclick="window.print(); return false;" class="nav-link">Print</a></li>
+    </ul>
 
-<!-- START: NAV BAR -->
+    <!-- Mobile Hamburger Button -->
+    <button class="nav-toggle" id="navToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
     <ul class="nav-links">
       <li><a href="index.html" class="nav-link">Home Port</a></li>
       <li><a href="pandp.html" class="nav-link">Pen & Paper Mode</a></li>
@@ -59,9 +73,9 @@
       <li><a href="#" onclick="window.print(); return false;" class="nav-link">Print</a></li>
     </ul>
   </div>
-</nav>
-<!-- END: NAV BAR -->
-  <main class="main">
+</div>
+<!-- END: NAVIGATION BAR -->  
+ <main class="main">
     <h1 class="page-title">Rules of Engagement ⚓</h1>
     <p class="page-subtitle">Word Fleet</p>
     
