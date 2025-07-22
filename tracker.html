@@ -301,17 +301,49 @@
         /* Mobile fixes for launch codes stamp */
         @media (max-width: 768px) {
             .launch-codes-stamp::before {
-                display: none;
+                display: none !important;
             }
             
             .launch-codes-stamp {
-                box-shadow: inset 0 0 0 2px #000 !important;
+                box-shadow: none !important;
                 border: 4px solid #000 !important;
-                background: white !important;
+                background: transparent !important;
             }
             
             .stamp-text {
                 text-shadow: none !important;
+            }
+            
+            .stamp-codes {
+                text-shadow: none !important;
+            }
+        }
+
+        /* Mobile toolbar adjustments */
+        @media (max-width: 768px) {
+            .swiss-toolbar {
+                top: 10px;
+                right: 10px;
+                left: auto;
+                width: auto;
+            }
+            
+            .mobile-only {
+                display: block;
+            }
+            
+            .desktop-only {
+                display: none;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-only {
+                display: none;
+            }
+            
+            .desktop-only {
+                display: flex;
             }
         }
 
@@ -660,8 +692,13 @@
 <body>
     <!-- Swiss-style Toolbar -->
     <div class="swiss-toolbar">
-        <button class="swiss-btn primary" onclick="simplePrint()">PRINT</button>
-        <button class="swiss-btn" onclick="downloadImage()">DOWNLOAD</button>
+        <!-- Desktop buttons -->
+        <button class="swiss-btn primary desktop-only" onclick="simplePrint()">PRINT</button>
+        <button class="swiss-btn desktop-only" onclick="downloadImage()">DOWNLOAD</button>
+        
+        <!-- Mobile button -->
+        <button class="swiss-btn primary mobile-only" onclick="mobilePrint()">PRINT</button>
+        
         <a href="pandp.html" class="swiss-btn danger">RETREAT</a>
     </div>
 
@@ -1152,90 +1189,7 @@
             tryPath(0);
         }
 
-        // MOBILE-FRIENDLY PNG PRINT FUNCTION
-        function simplePrint() {
-            // Check if domtoimage is loaded
-            if (typeof domtoimage === 'undefined') {
-                alert('Print functionality is loading. Please try again in a moment.');
-                return;
-            }
-
-            var printBtn = document.querySelector('button[onclick="simplePrint()"]');
-            var originalText = printBtn.textContent;
-            printBtn.textContent = 'GENERATING...';
-            printBtn.disabled = true;
-
-            var toolbar = document.querySelector('.swiss-toolbar');
-            toolbar.style.display = 'none';
-
-            setTimeout(function() {
-                var pageElement = document.querySelector('.page');
-                
-                domtoimage.toPng(pageElement, {
-                    quality: 1.0,
-                    bgcolor: 'white',
-                    width: pageElement.offsetWidth * 2,
-                    height: pageElement.offsetHeight * 2,
-                    style: {
-                        transform: 'scale(2)',
-                        transformOrigin: 'top left',
-                        width: pageElement.offsetWidth + 'px',
-                        height: pageElement.offsetHeight + 'px'
-                    }
-                }).then(function(dataUrl) {
-                    toolbar.style.display = 'flex';
-                    
-                    // Mobile-friendly print approach
-                    var printWindow = window.open('', '_blank', 'width=800,height=600');
-                    if (printWindow) {
-                        // Desktop approach - popup worked
-                        var htmlContent = '<!DOCTYPE html><html><head><title>Word Fleet Battle Tracker - Print</title><style>* { margin: 0; padding: 0; box-sizing: border-box; } body { margin: 0; padding: 0; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; } img { max-width: 100vw; max-height: 100vh; width: auto; height: auto; object-fit: contain; } @media print { @page { size: letter; margin: 0.25in; } body { margin: 0; padding: 0; background: white; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; } img { width: 100% !important; height: auto !important; max-width: 100% !important; max-height: 100% !important; object-fit: contain !important; } }</style></head><body><img src="' + dataUrl + '" alt="Word Fleet Battle Tracker" onload="window.focus(); setTimeout(function() { window.print(); }, 1000);" /></body></html>';
-                        
-                        printWindow.document.write(htmlContent);
-                        printWindow.document.close();
-                        
-                        setTimeout(function() {
-                            URL.revokeObjectURL(dataUrl);
-                        }, 10000);
-                    } else {
-                        // Mobile fallback - popup was blocked
-                        // Create a temporary overlay with the image
-                        var overlay = document.createElement('div');
-                        overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;';
-                        
-                        var img = document.createElement('img');
-                        img.src = dataUrl;
-                        img.style.cssText = 'max-width: 100%; max-height: 80%; object-fit: contain;';
-                        
-                        var instructions = document.createElement('div');
-                        instructions.style.cssText = 'margin-top: 20px; text-align: center; font-family: Arial, sans-serif; font-size: 16px; color: #333;';
-                        instructions.innerHTML = '<p><strong>Mobile Print Instructions:</strong></p><p>1. Long press the image above</p><p>2. Select "Save to Photos" or "Download"</p><p>3. Print from your Photos app</p>';
-                        
-                        var closeBtn = document.createElement('button');
-                        closeBtn.textContent = 'Close';
-                        closeBtn.style.cssText = 'margin-top: 20px; padding: 10px 20px; background: #333; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;';
-                        closeBtn.onclick = function() {
-                            document.body.removeChild(overlay);
-                        };
-                        
-                        overlay.appendChild(img);
-                        overlay.appendChild(instructions);
-                        overlay.appendChild(closeBtn);
-                        document.body.appendChild(overlay);
-                    }
-
-                    printBtn.textContent = originalText;
-                    printBtn.disabled = false;
-                }).catch(function(error) {
-                    console.error('Print generation failed:', error);
-                    toolbar.style.display = 'flex';
-                    printBtn.textContent = originalText;
-                    printBtn.disabled = false;
-                    alert('Print generation failed. Please try again.');
-                });
-            }, 100);
-        }
-
+        // DESKTOP DOWNLOAD FUNCTION
         function downloadImage() {
             // Check if domtoimage is loaded
             if (typeof domtoimage === 'undefined') {
@@ -1286,50 +1240,11 @@
                     }
                     filename += '.png';
                     
-                    // Enhanced mobile download handling
-                    if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                        // Mobile: Show the image for saving
-                        var overlay = document.createElement('div');
-                        overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;';
-                        
-                        var img = document.createElement('img');
-                        img.src = dataUrl;
-                        img.style.cssText = 'max-width: 100%; max-height: 70%; object-fit: contain; border: 1px solid #ccc;';
-                        
-                        var instructions = document.createElement('div');
-                        instructions.style.cssText = 'margin-top: 20px; text-align: center; font-family: Arial, sans-serif; font-size: 16px; color: #333;';
-                        instructions.innerHTML = '<p><strong>To Save This Image:</strong></p><p>Long press the image above and select<br>"Save to Photos" or "Download Image"</p>';
-                        
-                        var buttonContainer = document.createElement('div');
-                        buttonContainer.style.cssText = 'margin-top: 20px; display: flex; gap: 10px;';
-                        
-                        var downloadLink = document.createElement('a');
-                        downloadLink.href = dataUrl;
-                        downloadLink.download = filename;
-                        downloadLink.style.cssText = 'padding: 10px 20px; background: #333; color: white; text-decoration: none; border-radius: 5px; font-size: 16px;';
-                        downloadLink.textContent = 'Try Download';
-                        
-                        var closeBtn = document.createElement('button');
-                        closeBtn.textContent = 'Close';
-                        closeBtn.style.cssText = 'padding: 10px 20px; background: #333; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;';
-                        closeBtn.onclick = function() {
-                            document.body.removeChild(overlay);
-                        };
-                        
-                        buttonContainer.appendChild(downloadLink);
-                        buttonContainer.appendChild(closeBtn);
-                        
-                        overlay.appendChild(img);
-                        overlay.appendChild(instructions);
-                        overlay.appendChild(buttonContainer);
-                        document.body.appendChild(overlay);
-                    } else {
-                        // Desktop: Direct download
-                        var link = document.createElement('a');
-                        link.download = filename;
-                        link.href = dataUrl;
-                        link.click();
-                    }
+                    // Desktop download
+                    var link = document.createElement('a');
+                    link.download = filename;
+                    link.href = dataUrl;
+                    link.click();
 
                     downloadBtn.textContent = originalText;
                     downloadBtn.disabled = false;
@@ -1339,6 +1254,134 @@
                     downloadBtn.textContent = originalText;
                     downloadBtn.disabled = false;
                     alert('Download generation failed. Please try again.');
+                });
+            }, 100);
+        }
+        function mobilePrint() {
+            // Check if domtoimage is loaded
+            if (typeof domtoimage === 'undefined') {
+                alert('Print functionality is loading. Please try again in a moment.');
+                return;
+            }
+
+            var printBtn = document.querySelector('button[onclick="mobilePrint()"]');
+            var originalText = printBtn.textContent;
+            printBtn.textContent = 'GENERATING...';
+            printBtn.disabled = true;
+
+            var toolbar = document.querySelector('.swiss-toolbar');
+            toolbar.style.display = 'none';
+
+            setTimeout(function() {
+                var pageElement = document.querySelector('.page');
+                
+                domtoimage.toPng(pageElement, {
+                    quality: 1.0,
+                    bgcolor: 'white',
+                    width: pageElement.offsetWidth * 2,
+                    height: pageElement.offsetHeight * 2,
+                    style: {
+                        transform: 'scale(2)',
+                        transformOrigin: 'top left',
+                        width: pageElement.offsetWidth + 'px',
+                        height: pageElement.offsetHeight + 'px'
+                    }
+                }).then(function(dataUrl) {
+                    toolbar.style.display = 'flex';
+                    
+                    // Show mobile-friendly save overlay
+                    var overlay = document.createElement('div');
+                    overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;';
+                    
+                    var container = document.createElement('div');
+                    container.style.cssText = 'background: white; border-radius: 12px; padding: 20px; max-width: 90%; max-height: 90%; display: flex; flex-direction: column; align-items: center; overflow-y: auto;';
+                    
+                    var title = document.createElement('h2');
+                    title.textContent = 'Save Your Battle Tracker';
+                    title.style.cssText = 'margin: 0 0 15px 0; font-family: Arial, sans-serif; color: #333; text-align: center;';
+                    
+                    var img = document.createElement('img');
+                    img.src = dataUrl;
+                    img.style.cssText = 'max-width: 100%; height: auto; border: 2px solid #ddd; border-radius: 8px; margin: 10px 0;';
+                    
+                    var instructions = document.createElement('div');
+                    instructions.style.cssText = 'text-align: center; font-family: Arial, sans-serif; font-size: 16px; color: #333; line-height: 1.5; margin: 15px 0;';
+                    instructions.innerHTML = '<p><strong>📱 To Save & Print:</strong></p><p>1. Long press the image above</p><p>2. Select "Save to Photos"</p><p>3. Open your Photos app</p><p>4. Find the image and tap the share button</p><p>5. Select "Print"</p>';
+                    
+                    var closeBtn = document.createElement('button');
+                    closeBtn.textContent = 'Close';
+                    closeBtn.style.cssText = 'margin-top: 20px; padding: 12px 24px; background: #333; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; min-width: 100px;';
+                    closeBtn.onclick = function() {
+                        document.body.removeChild(overlay);
+                    };
+                    
+                    container.appendChild(title);
+                    container.appendChild(img);
+                    container.appendChild(instructions);
+                    container.appendChild(closeBtn);
+                    overlay.appendChild(container);
+                    document.body.appendChild(overlay);
+
+                    printBtn.textContent = originalText;
+                    printBtn.disabled = false;
+                }).catch(function(error) {
+                    console.error('Print generation failed:', error);
+                    toolbar.style.display = 'flex';
+                    printBtn.textContent = originalText;
+                    printBtn.disabled = false;
+                    alert('Print generation failed. Please try again.');
+                });
+            }, 100);
+        }
+
+        // DESKTOP PRINT FUNCTION
+        function simplePrint() {
+            // Check if domtoimage is loaded
+            if (typeof domtoimage === 'undefined') {
+                alert('Print functionality is loading. Please try again in a moment.');
+                return;
+            }
+
+            var printBtn = document.querySelector('button[onclick="simplePrint()"]');
+            var originalText = printBtn.textContent;
+            printBtn.textContent = 'GENERATING...';
+            printBtn.disabled = true;
+
+            var toolbar = document.querySelector('.swiss-toolbar');
+            toolbar.style.display = 'none';
+
+            setTimeout(function() {
+                var pageElement = document.querySelector('.page');
+                
+                domtoimage.toPng(pageElement, {
+                    quality: 1.0,
+                    bgcolor: 'white',
+                    width: pageElement.offsetWidth * 2,
+                    height: pageElement.offsetHeight * 2,
+                    style: {
+                        transform: 'scale(2)',
+                        transformOrigin: 'top left',
+                        width: pageElement.offsetWidth + 'px',
+                        height: pageElement.offsetHeight + 'px'
+                    }
+                }).then(function(dataUrl) {
+                    toolbar.style.display = 'flex';
+                    
+                    // Desktop print - open in new window
+                    var printWindow = window.open('', '_blank', 'width=800,height=600');
+                    var htmlContent = '<!DOCTYPE html><html><head><title>Word Fleet Battle Tracker - Print</title><style>* { margin: 0; padding: 0; box-sizing: border-box; } body { margin: 0; padding: 0; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; } img { max-width: 100vw; max-height: 100vh; width: auto; height: auto; object-fit: contain; } @media print { @page { size: letter; margin: 0.25in; } body { margin: 0; padding: 0; background: white; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; } img { width: 100% !important; height: auto !important; max-width: 100% !important; max-height: 100% !important; object-fit: contain !important; } }</style></head><body><img src="' + dataUrl + '" alt="Word Fleet Battle Tracker" onload="window.focus(); setTimeout(function() { window.print(); }, 1000);" /></body></html>';
+                    
+                    printWindow.document.write(htmlContent);
+                    printWindow.document.close();
+
+                    printBtn.textContent = originalText;
+                    printBtn.disabled = false;
+                }).catch(function(error) {
+                    console.error('Print generation failed:', error);
+                    toolbar.style.display = 'flex';
+                    printBtn.textContent = originalText;
+                    printBtn.disabled = false;
+                    alert('Print generation failed. Please try again.');
                 });
             }, 100);
         }
