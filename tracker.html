@@ -232,9 +232,53 @@
                 background: linear-gradient(135deg, #d0d0d0 50%, white 50%) !important;
             }
             
-            .launch-codes-stamp {
-                background: transparent !important;
-            }
+.launch-codes-stamp {
+    position: absolute;
+    left: 5.2in;
+    bottom: 0.3in;
+    width: 1.1in;
+    height: 1.1in;
+    transform: rotate(-8deg);
+    z-index: 10;
+    border: 4px solid #000;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.launch-codes-stamp::before {
+    display: none !important;
+}
+
+.stamp-text {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    line-height: 1.1;
+    position: relative;
+    z-index: 2;
+}
+
+.stamp-label {
+    font-size: 9px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    font-weight: 800;
+    display: block;
+    letter-spacing: 0.5px;
+}
+
+.stamp-codes {
+    font-size: 15px;
+    font-weight: 900;
+    display: block;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+}
             
             .swiss-toolbar {
                 display: none !important;
