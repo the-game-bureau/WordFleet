@@ -768,3 +768,50 @@
   filter: none !important;
   -webkit-filter: none !important;
 }
+/* Add this to your tracker.css file */
+
+/* Mobile-specific stamp styling */
+@media (max-width: 768px) {
+    .launch-codes-stamp {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        background: white !important;
+        border: 3px solid #000 !important;
+    }
+    
+    .launch-codes-stamp::before {
+        display: none !important;
+    }
+    
+    .stamp-text {
+        text-shadow: none !important;
+    }
+    
+    .stamp-codes {
+        text-shadow: none !important;
+    }
+}
+
+/* Alternative: Force simple stamp on all touch devices */
+@media (pointer: coarse) {
+    .launch-codes-stamp {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        background: white !important;
+        border: 3px solid #000 !important;
+    }
+    
+    .launch-codes-stamp::before {
+        display: none !important;
+    }
+    
+    .stamp-text {
+        text-shadow: none !important;
+    }
+    
+    .stamp-codes {
+        text-shadow: none !important;
+    }
+}
