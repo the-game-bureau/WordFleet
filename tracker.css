@@ -1,0 +1,720 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        
+        body {
+            width: 8.5in;
+            margin: 1.5in auto;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            min-height: 100vh;
+        }
+
+        .page {
+            width: 8.5in;
+            height: 11in;
+            margin: 0 auto;
+            padding: 0;
+            background: white;
+            position: relative;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* Swiss-style floating toolbar */
+        .swiss-toolbar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            display: flex;
+            gap: 6px;
+        }
+
+        .swiss-btn {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
+        }
+
+        .swiss-btn:hover {
+            background: #f8f9fa;
+            border-color: #d0d0d0;
+        }
+
+        .swiss-btn.primary {
+            background: #ffffff;
+            border-color: #e0e0e0;
+            color: #333;
+        }
+
+        .swiss-btn.danger {
+            background: #e0e0e0;
+            border-color: #d0d0d0;
+            color: #333;
+        }
+
+        /* Mobile overlay styling */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .mobile-overlay-content {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .mobile-overlay-title {
+            margin: 0 0 15px 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .mobile-overlay-image {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .mobile-overlay-instructions {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+
+        .mobile-overlay-close {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            min-width: 100px;
+        }
+
+        /* Print Styles */
+        @media print {
+            html, body {
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                background: white !important;
+                font-size: 12pt !important;
+            }
+
+            .page {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+                padding: 0.25in !important;
+                width: 100% !important;
+                height: auto !important;
+                position: static !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.2in !important;
+            }
+            
+            .offense, .defense {
+                position: static !important;
+                width: 100% !important;
+                height: auto !important;
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: flex-start !important;
+                padding: 0.1in 0.2in !important;
+            }
+            
+            .middle-header {
+                position: static !important;
+                width: 100% !important;
+                height: auto !important;
+                background: #fff !important;
+                color: #000 !important;
+                margin: 0.1in 0 !important;
+                padding: 0.15in !important;
+                border: 2px solid #333 !important;
+                border-radius: 8px !important;
+            }
+            
+            .offense-grid, .defense-grid {
+                width: 3.5in !important;
+                height: 3.5in !important;
+                font-size: 10pt !important;
+            }
+            
+            .offense-cell, .defense-cell {
+                background: #fff !important;
+                color: #000 !important;
+                border: 1px solid #000 !important;
+                font-size: 10pt !important;
+            }
+            
+            .offense-manifest-container, .defense-manifest-container {
+                width: 2in !important;
+                height: 3.5in !important;
+            }
+            
+            .offense-manifest-item, .defense-manifest-item {
+                background: #fff !important;
+                color: #000 !important;
+                border: 1px solid #000 !important;
+                width: 0.3in !important;
+                height: 0.3in !important;
+            }
+            
+            .offense-manifest-item[data-vowel="true"]::before,
+            .defense-manifest-item[data-vowel="true"]::before {
+                background: linear-gradient(135deg, #d0d0d0 50%, white 50%) !important;
+            }
+            
+            .launch-codes-stamp {
+                background: transparent !important;
+            }
+            
+            .swiss-toolbar {
+                display: none !important;
+            }
+            
+            @page {
+                size: A4 portrait;
+                margin: 0.5in;
+            }
+        }
+
+        /* Screen Styles */
+        .offense {
+            width: 8.5in;
+            height: 5in;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0.25in 0.5in 0 0.5in;
+        }
+
+        .offense-grid-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.15in;
+        }
+
+        .offense-grid-label {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .offense-grid {
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            grid-template-rows: repeat(11, 1fr);
+            gap: 2px;
+            width: 4.5in;
+            height: 4.2in;
+            padding: 2px;
+            border: 1px solid #ddd;
+        }
+
+        .offense-cell {
+            background-color: white;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .offense-cell:first-child {
+            background-color: transparent !important;
+            border: none;
+        }
+
+        .bubble-number {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #333;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .word-ship {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+        }
+
+        .ship-bullet {
+            color: #333;
+            margin: 0 4px;
+        }
+
+        /* Launch Codes Stamp */
+        .launch-codes-stamp {
+            position: absolute;
+            left: 5.2in;
+            bottom: 0.3in;
+            width: 1.1in;
+            height: 1.1in;
+            transform: rotate(-8deg);
+            z-index: 10;
+            border: 4px solid #000;
+            border-radius: 50%;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                inset 0 0 0 2px #000,
+                0 2px 4px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .launch-codes-stamp::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            background: radial-gradient(
+                ellipse at 30% 30%,
+                rgba(0, 0, 0, 0.05) 0%,
+                rgba(0, 0, 0, 0.02) 40%,
+                transparent 70%
+            );
+        }
+
+        /* Mobile fixes for launch codes stamp */
+        @media (max-width: 768px) {
+            .launch-codes-stamp::before {
+                display: none !important;
+            }
+            
+            .launch-codes-stamp {
+                box-shadow: none !important;
+                border: 4px solid #000 !important;
+                background: transparent !important;
+            }
+            
+            .stamp-text {
+                text-shadow: none !important;
+            }
+            
+            .stamp-codes {
+                text-shadow: none !important;
+            }
+        }
+
+        .stamp-text {
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+            line-height: 1.1;
+            position: relative;
+            z-index: 2;
+            text-shadow: 
+                0 0 1px rgba(0, 0, 0, 0.3),
+                0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .stamp-label {
+            font-size: 9px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-weight: 800;
+            display: block;
+            letter-spacing: 0.5px;
+        }
+
+        .stamp-codes {
+            font-size: 15px;
+            font-weight: 900;
+            display: block;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+            text-shadow: 
+                0 0 2px rgba(0, 0, 0, 0.4),
+                0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Middle Header */
+        .middle-header {
+            width: 8in;
+            height: 1in;
+            position: absolute;
+            top: 5in;
+            left: 0.25in;
+            display: flex;            
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 8px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .middle-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.03) 2px,
+                rgba(0, 0, 0, 0.03) 4px
+            );
+            pointer-events: none;
+        }
+
+        .middle-header::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .header-line-2 {
+            font-family: 'Courier New', monospace;
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: 3px;
+            color: #000;
+            text-transform: uppercase;
+        }        
+
+        .system-info {
+            font-family: 'Courier New', monospace;
+            font-size: 12pt;
+            color: #666;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }        
+
+        /* Defense Section */
+        .defense {
+            width: 8.5in;
+            height: 5in;
+            position: absolute;
+            top: 6in;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0.25in 0.5in 0 0.5in;
+        }
+
+        .defense-grid-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.15in;
+        }
+
+        .defense-grid-label {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .defense-grid-title {
+            flex-shrink: 0;
+        }
+
+        .defense-grid-ships {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .defense-grid {
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            grid-template-rows: repeat(11, 1fr);
+            gap: 2px;
+            width: 4.5in;
+            height: 4.2in;
+            padding: 2px;
+            border: 1px solid #ddd;
+        }
+
+        .defense-cell {
+            background-color: white;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .defense-cell:first-child {
+            background-color: transparent !important;
+            border: none;
+        }
+
+        .offense-letter-manifest {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.15in;
+            margin-top: 0.03in;
+        }
+
+        .offense-manifest-title {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+        }
+
+        .offense-manifest-container {
+            display: flex;
+            justify-content: center;
+            width: 2.3in;
+            height: 4.2in;
+            padding: 0.1in;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        .offense-manifest-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.06in;
+            width: 100%;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .offense-manifest-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.04in;
+        }
+
+        .offense-manifest-item {
+            width: 0.42in;
+            height: 0.42in;
+            position: relative;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .offense-manifest-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1;
+        }
+
+        .offense-manifest-item[data-vowel="true"]::before {
+            background: linear-gradient(135deg, #d0d0d0 50%, white 50%);
+        }
+
+        .offense-manifest-letter {
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            z-index: 2;
+            line-height: 1;
+        }
+
+        .defense-letter-manifest {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.15in;
+        }
+
+        .defense-manifest-title {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+        }
+
+        .defense-manifest-container {
+            display: flex;
+            justify-content: center;
+            width: 2.3in;
+            height: 4.2in;
+            padding: 0.1in;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        .defense-manifest-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.06in;
+            width: 100%;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .defense-manifest-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.04in;
+        }
+
+        .defense-manifest-item {
+            width: 0.42in;
+            height: 0.42in;
+            position: relative;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .defense-manifest-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1;
+        }
+
+        .defense-manifest-item[data-vowel="true"]::before {
+            background: linear-gradient(135deg, #d0d0d0 50%, white 50%);
+        }
+
+        .defense-manifest-letter {
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            z-index: 2;
+            line-height: 1;
+        }
+
+        .defense-manifest-count {
+            position: absolute;
+            bottom: 20%;
+            right: 20%;
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+            z-index: 2;
+            line-height: 1;
+            transform: translate(50%, 50%);
+        }
