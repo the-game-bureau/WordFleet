@@ -724,3 +724,37 @@
 .print-mode .stamp {
   box-shadow: none !important;
 }
+
+
+/* Stronger mobile button styling */
+.swiss-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  box-shadow: none !important;
+  outline: none;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  font-size: 1.5rem;
+  width: 100%;
+  display: block;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+/* Ensure toolbar stacks on mobile */
+@media (max-width: 768px) {
+  .swiss-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+/* Absolute override for .stamp shadow */
+.stamp {
+  box-shadow: none !important;
+}
+.print-mode .stamp {
+  box-shadow: none !important;
+}
