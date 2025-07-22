@@ -1222,67 +1222,62 @@
         }
 
         // UNIFIED PRINT FUNCTION - Detects desktop vs mobile
-        function handlePrint() {
-            // Check if domtoimage is loaded
-            if (typeof domtoimage === 'undefined') {
-                alert('Print functionality is loading. Please try again in a moment.');
-                return;
-            }
+function handlePrint() {
+    if (typeof domtoimage === 'undefined') {
+        alert('Print functionality is loading. Please try again in a moment.');
+        return;
+    }
 
-            var printBtn = document.querySelector('button[onclick="handlePrint()"]');
-            var originalText = printBtn.textContent;
-            printBtn.textContent = 'PRINTING...';
-            printBtn.disabled = true;
+    const printBtn = document.querySelector('button[onclick="handlePrint()"]');
+    const originalText = printBtn.textContent;
+    printBtn.textContent = 'PRINTING...';
+    printBtn.disabled = true;
 
-            // Reset button state in case of any error
-            function resetButton() {
-                printBtn.textContent = originalText;
-                printBtn.disabled = false;
-            }
+    function resetButton() {
+        printBtn.textContent = originalText;
+        printBtn.disabled = false;
+    }
 
-            setTimeout(function() {
-                var pageElement = document.querySelector('.page');
-                
-                console.log('Starting image generation...');
-                
-                domtoimage.toPng(pageElement, {
-                    quality: 1.0,
-                    bgcolor: 'white',
-                    width: pageElement.offsetWidth * 2,
-                    height: pageElement.offsetHeight * 2,
-                    style: {
-                        transform: 'scale(2)',
-                        transformOrigin: 'top left',
-                        width: pageElement.offsetWidth + 'px',
-                        height: pageElement.offsetHeight + 'px'
-                    }
-                }).then(function(dataUrl) {
-                    console.log('Image generated successfully');
-                    
-                    // Detect if mobile
-                    var isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                    
-                    try {
-                        if (isMobile) {
-                            console.log('Showing mobile overlay');
-                            showMobileOverlay(dataUrl);
-                        } else {
-                            console.log('Opening desktop print');
-                            openDesktopPrint(dataUrl);
-                        }
-                    } catch (error) {
-                        console.error('Error showing print interface:', error);
-                        alert('Error displaying print interface: ' + error.message);
-                    }
-
-                    resetButton();
-                }).catch(function(error) {
-                    console.error('Print generation failed:', error);
-                    resetButton();
-                    alert('Print generation failed: ' + error.message + '. Please try again.');
-                });
-            }, 100);
+    // 👇 Fix: Prevent weird mobile shadow on stamp by disabling ::before
+    const tempStyle = document.createElement('style');
+    tempStyle.innerHTML = `
+        .launch-codes-stamp::before {
+            display: none !important;
         }
+    `;
+    document.head.appendChild(tempStyle);
+
+    setTimeout(() => {
+        const pageElement = document.querySelector('.page');
+
+        domtoimage.toPng(pageElement, {
+            quality: 1.0,
+            bgcolor: 'white',
+            width: pageElement.offsetWidth * 2,
+            height: pageElement.offsetHeight * 2,
+            style: {
+                transform: 'scale(2)',
+                transformOrigin: 'top left',
+                width: pageElement.offsetWidth + 'px',
+                height: pageElement.offsetHeight + 'px'
+            }
+        }).then(dataUrl => {
+            document.head.removeChild(tempStyle); // 👈 Clean up
+            const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                showMobileOverlay(dataUrl);
+            } else {
+                openDesktopPrint(dataUrl);
+            }
+            resetButton();
+        }).catch(error => {
+            console.error('Print generation failed:', error);
+            document.head.removeChild(tempStyle); // 👈 Clean up on error too
+            resetButton();
+            alert('Print generation failed: ' + error.message + '. Please try again.');
+        });
+    }, 100);
+}
 
         function showMobileOverlay(dataUrl) {
             var overlay = document.createElement('div');
