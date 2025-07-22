@@ -298,6 +298,17 @@
             );
         }
 
+        /* Mobile fixes for launch codes stamp */
+        @media (max-width: 768px) {
+            .launch-codes-stamp::before {
+                display: none;
+            }
+            
+            .launch-codes-stamp {
+                box-shadow: none !important;
+            }
+        }
+
         .stamp-text {
             font-family: 'Courier New', monospace;
             font-size: 11px;
@@ -1269,10 +1280,50 @@
                     }
                     filename += '.png';
                     
-                    var link = document.createElement('a');
-                    link.download = filename;
-                    link.href = dataUrl;
-                    link.click();
+                    // Enhanced mobile download handling
+                    if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                        // Mobile: Show the image for saving
+                        var overlay = document.createElement('div');
+                        overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;';
+                        
+                        var img = document.createElement('img');
+                        img.src = dataUrl;
+                        img.style.cssText = 'max-width: 100%; max-height: 70%; object-fit: contain; border: 1px solid #ccc;';
+                        
+                        var instructions = document.createElement('div');
+                        instructions.style.cssText = 'margin-top: 20px; text-align: center; font-family: Arial, sans-serif; font-size: 16px; color: #333;';
+                        instructions.innerHTML = '<p><strong>To Save This Image:</strong></p><p>Long press the image above and select<br>"Save to Photos" or "Download Image"</p>';
+                        
+                        var buttonContainer = document.createElement('div');
+                        buttonContainer.style.cssText = 'margin-top: 20px; display: flex; gap: 10px;';
+                        
+                        var downloadLink = document.createElement('a');
+                        downloadLink.href = dataUrl;
+                        downloadLink.download = filename;
+                        downloadLink.style.cssText = 'padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; font-size: 16px;';
+                        downloadLink.textContent = 'Try Download';
+                        
+                        var closeBtn = document.createElement('button');
+                        closeBtn.textContent = 'Close';
+                        closeBtn.style.cssText = 'padding: 10px 20px; background: #333; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;';
+                        closeBtn.onclick = function() {
+                            document.body.removeChild(overlay);
+                        };
+                        
+                        buttonContainer.appendChild(downloadLink);
+                        buttonContainer.appendChild(closeBtn);
+                        
+                        overlay.appendChild(img);
+                        overlay.appendChild(instructions);
+                        overlay.appendChild(buttonContainer);
+                        document.body.appendChild(overlay);
+                    } else {
+                        // Desktop: Direct download
+                        var link = document.createElement('a');
+                        link.download = filename;
+                        link.href = dataUrl;
+                        link.click();
+                    }
 
                     downloadBtn.textContent = originalText;
                     downloadBtn.disabled = false;
